@@ -1,32 +1,60 @@
 import type { FormEvent, ReactNode } from 'react'
 
 type LogItem = { label: string; status: 'Done' | 'Next' }
-type BuildLog = { day: number; date: string; title: string; summary: string; items?: LogItem[]; published?: boolean }
+type LogStat = { icon: string; label: string }
+type BuildLog = { day: number; date: string; title: string; summary: string; items?: LogItem[]; stats?: LogStat[]; published?: boolean; slug?: string; body?: string[]; bodyAfterStats?: string[] }
+
+const TOTAL_DAYS = 43
 
 const stedLogs: BuildLog[] = [
   {
-    day: 1,
+    day: 0,
     date: 'AUG 18, 2026',
     title: 'It starts here',
     summary: 'The first day building Sted and the first lines of the story.',
     items: [
-      { label: 'Web created', status: 'Done' },
-      { label: 'Logo v1 created', status: 'Done' },
-      { label: 'Waitlist connected to Supabase', status: 'Done' },
-      { label: 'Privacy Policy and Terms added', status: 'Done' },
-      { label: 'Libre Baskerville + Inter served locally', status: 'Done' },
-      { label: 'Social accounts and launch banners', status: 'Next' },
+      { label: 'Website online', status: 'Done' },
+      { label: 'Logo v0', status: 'Done' },
+      { label: 'Banners', status: 'Done' },
+      { label: 'Social accounts', status: 'Done' },
+      { label: 'First product sketch', status: 'Done' },
+      { label: 'Backend setup for emails', status: 'Done' },
+    ],
+    stats: [
+      { icon: '👤', label: '0 users' },
+      { icon: '💰', label: '$0 revenue' },
+      { icon: '💻', label: '0 lines of code for the mobile app' },
     ],
   },
 ]
 
 const danteLogs: BuildLog[] = [
   {
-    day: 1,
+    day: 0,
     date: 'AUG 18, 2026',
-    title: 'Building Sted from scratch.',
-    summary: 'The daily post about what I built, what I learned and what comes next.',
-    published: false,
+    title: 'I didn’t launch',
+    summary: 'I was supposed to launch Sted today. I didn’t make it — so I’m calling this Day 0. The website is online, but the app doesn’t exist yet. Tomorrow is Day 1.',
+    published: true,
+    slug: 'day-0',
+    body: [
+      'This one will be short.',
+      'I was supposed to launch Sted today. I didn’t make it.',
+      'The first video is actually filmed and edited, but by the time I finished setting everything else up, it was almost midnight where I am. I still had to prepare the posts, the accounts, and everything that comes with trying to launch something properly.',
+      'So instead of rushing it, I’m calling this Day 0.',
+      'Today was mostly setup: I got the website online, worked on the logo, colors and fonts, created the social accounts, made the banners, set up the waitlist and email backend, and a bunch of other things I didn’t expect.',
+      'On the personal side: around 12 hours on the computer, three coffees, one yoga class, way too many AI prompts, and one mild existential crisis about whether doing all of this publicly is actually a good idea.',
+      'Current Sted stats:',
+    ],
+    stats: [
+      { icon: '👤', label: '0 users' },
+      { icon: '💰', label: '$0 revenue' },
+      { icon: '💻', label: '0 lines of code for the mobile app' },
+    ],
+    bodyAfterStats: [
+      'The website exists. The app doesn’t.',
+      'Tomorrow is Day 1.',
+      '43 days left to build my first mobile app, get it on the App Store, and see how far I can get without knowing how to code.',
+    ],
   },
 ]
 
@@ -43,7 +71,11 @@ function TimelineEntry({ log, kind }: { log: BuildLog; kind: 'sted' | 'dante' })
       {kind === 'sted' && log.items && <ul className="timeline-chips">
         {log.items.map((item) => <li key={item.label} className={`chip ${item.status === 'Done' ? 'chip-done' : 'chip-pending'}`}>{item.label}</li>)}
       </ul>}
+      {kind === 'sted' && log.stats && <ul className="timeline-stats">
+        {log.stats.map((stat) => <li key={stat.label}><span aria-hidden="true">{stat.icon}</span> {stat.label}</li>)}
+      </ul>}
       {kind === 'dante' && log.published === false && <span className="chip chip-pending">Coming later today</span>}
+      {kind === 'dante' && log.slug && <a className="post-link" href={`/build/${log.slug}`}><span aria-hidden="true">📖</span> Read the full Day {log.day} blog <span aria-hidden="true">→</span></a>}
     </div>
   </article>
 }
@@ -54,9 +86,18 @@ function BuildPreviewSection() {
   const stedLog = stedLogs[0]
   const danteLog = danteLogs[0]
   return <section className="build-preview shell" aria-labelledby="build-preview-title">
-    <p className="eyebrow">DAY {stedLog.day} OF 45</p>
+    <p className="eyebrow">DAY {stedLog.day} OF {TOTAL_DAYS}</p>
     <h2 id="build-preview-title">Building Sted in public.</h2>
     <div className="build-preview-grid">
+      <div className="preview-col">
+        <p className="section-label preview-label-dante">FOUNDER LOG — DANTE</p>
+        <div className="preview-day">
+          <span className="preview-day-number">{String(danteLog.day).padStart(2, '0')}</span>
+          <div><h3>{danteLog.title}</h3><p className="preview-date">{danteLog.date}</p></div>
+        </div>
+        <p className="preview-quote">{danteLog.published === false ? '“Tonight: the story of how day one actually went.”' : `“${danteLog.summary}”`}</p>
+        <p className="preview-status">{danteLog.published === false ? 'Coming later today' : 'Read the post'}</p>
+      </div>
       <div className="preview-col">
         <p className="section-label">STED LOG</p>
         <div className="preview-day">
@@ -66,15 +107,6 @@ function BuildPreviewSection() {
         {stedLog.items && <ul className="preview-checklist">
           {stedLog.items.map((item) => <li key={item.label} className={item.status === 'Done' ? 'is-done' : 'is-next'}><span className="preview-dot" />{item.label}</li>)}
         </ul>}
-      </div>
-      <div className="preview-col">
-        <p className="section-label">FOUNDER LOG — DANTE</p>
-        <div className="preview-day">
-          <span className="preview-day-number">{String(danteLog.day).padStart(2, '0')}</span>
-          <div><h3>{danteLog.title}</h3><p className="preview-date">{danteLog.date}</p></div>
-        </div>
-        <p className="preview-quote">{danteLog.published === false ? '“Tonight: the story of how day one actually went.”' : `“${danteLog.summary}”`}</p>
-        <p className="preview-status">{danteLog.published === false ? 'Coming later today' : 'Read the post'}</p>
       </div>
     </div>
     <a className="preview-cta" href="/build">Read the full build log <span aria-hidden="true">↗</span></a>
@@ -110,13 +142,32 @@ export function AboutPage() {
 
 export function BuildPublicPage() {
   return <main className="build-page shell" aria-labelledby="build-title">
-    <div className="build-status" aria-label="Build status"><span className="amber-dot" /> <span>Day 1 / 45</span><span className="status-separator">·</span><span>Building Sted in public</span></div>
+    <div className="build-status" aria-label="Build status"><span className="amber-dot" /> <span>Day {danteLogs[0].day} / {TOTAL_DAYS}</span><span className="status-separator">·</span><span>Building Sted in public</span></div>
     <p className="section-label">BUILDING IN PUBLIC</p>
-    <h1 id="build-title">Day 1 — It starts here.</h1>
-    <p className="simple-lede">I’m building Sted from scratch in 45 days and sharing everything along the way.</p>
+    <h1 id="build-title">Day 0 — I didn’t launch.</h1>
+    <p className="simple-lede">I’m building Sted from scratch in {TOTAL_DAYS} days and sharing everything along the way.</p>
     <div className="build-timeline">
-      {stedLogs.slice(0, 3).map((log) => <TimelineEntry key={`sted-${log.day}`} log={log} kind="sted" />)}
       {danteLogs.slice(0, 3).map((log) => <TimelineEntry key={`dante-${log.day}`} log={log} kind="dante" />)}
+      {stedLogs.slice(0, 3).map((log) => <TimelineEntry key={`sted-${log.day}`} log={log} kind="sted" />)}
+    </div>
+  </main>
+}
+
+export function BuildLogPostPage({ slug }: { slug: string }) {
+  const log = danteLogs.find((entry) => entry.slug === slug)
+  if (!log) return <main className="simple-page shell" aria-labelledby="post-title">
+    <a className="post-back" href="/build">← Back to the build log</a>
+    <h1 id="post-title">Post not found.</h1>
+  </main>
+  return <main className="simple-page blog-post shell" aria-labelledby="post-title">
+    <a className="post-back" href="/build">← Back to the build log</a>
+    <p className="section-label preview-label-dante">FOUNDER LOG — DANTE</p>
+    <h1 id="post-title">Day {log.day} — {log.title}</h1>
+    <p className="post-date">{log.date}</p>
+    <div className="post-body">
+      {log.body?.map((paragraph, index) => <p key={index}>{paragraph}</p>)}
+      {log.stats && <ul className="timeline-stats">{log.stats.map((stat) => <li key={stat.label}><span aria-hidden="true">{stat.icon}</span> {stat.label}</li>)}</ul>}
+      {log.bodyAfterStats?.map((paragraph, index) => <p key={index}>{paragraph}</p>)}
     </div>
   </main>
 }
@@ -130,9 +181,10 @@ export function ContactPage() {
   </main>
 }
 
-export function RoutePage({ route, ...landingProps }: { route: 'landing' | 'about' | 'build' | 'contact' } & LandingPageProps): ReactNode {
+export function RoutePage({ route, postSlug, ...landingProps }: { route: 'landing' | 'about' | 'build' | 'contact' | 'post'; postSlug?: string | null } & LandingPageProps): ReactNode {
   if (route === 'about') return <AboutPage />
   if (route === 'build') return <BuildPublicPage />
+  if (route === 'post') return <BuildLogPostPage slug={postSlug ?? ''} />
   if (route === 'contact') return <ContactPage />
   return <LandingPage {...landingProps} />
 }
