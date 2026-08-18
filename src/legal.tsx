@@ -86,7 +86,7 @@ export function LegalPage({ document }: { document: LegalDocument }) {
       <h2>Contact</h2>
       <p>{isPrivacy ? 'For privacy questions or requests, contact:' : 'Questions about these Terms can be sent to:'}</p>
       <address><strong>Finiks Labs LLC</strong><br />30 N Gould St Ste R<br />Sheridan, WY 82801<br />United States</address>
-      <p><a className="legal-email" href="mailto:hello@finikslabs.com">hello@finikslabs.com</a></p>
+      <p><a className="legal-email" href="mailto:hello@sted.ai">hello@sted.ai</a></p>
       <div className="legal-switch"><a href="#privacy">Privacy</a><a href="#terms">Terms</a></div>
     </main>
   </div>

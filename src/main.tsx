@@ -76,8 +76,7 @@ function App() {
     <div id="top" className="min-h-screen">
       <header className="site-header shell">
         <Logo />
-        <div className="build-status" aria-label="Build status"><span className="amber-dot" /> <span>Day 1 / 45</span><span className="status-separator">·</span><span>Building Sted in public</span></div>
-        <nav className="header-nav" aria-label="Primary navigation"><a href="/about">About</a><a href="/build">Build in public</a><a href="/contact">Contact</a></nav>
+        <nav className="header-nav" aria-label="Primary navigation"><a href="/about">About</a><a href="/build">Build In Public</a><a href="/contact">Contact</a></nav>
         <button className="button button-amber header-cta" type="button" onClick={() => { setStatus(''); setIsWaitlistOpen(true) }}>Join the waitlist</button>
       </header>
 
