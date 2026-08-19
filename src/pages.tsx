@@ -8,6 +8,26 @@ const TOTAL_DAYS = 43
 
 const stedLogs: BuildLog[] = [
   {
+    day: 1,
+    date: 'AUG 19, 2026',
+    title: 'The experiment is live',
+    summary: 'The first build-in-public video is live and the 43-day experiment has officially started.',
+    items: [
+      { label: 'First build-in-public video published', status: 'Done' },
+      { label: 'Sted social accounts live', status: 'Done' },
+      { label: 'D-U-N-S application submitted', status: 'Done' },
+      { label: 'Mercury account opened', status: 'Done' },
+      { label: 'Content system/research', status: 'Done' },
+      { label: 'Website + newsletter work', status: 'Done' },
+    ],
+    stats: [
+      { icon: '👤', label: '0 users' },
+      { icon: '💰', label: '$0 revenue' },
+      { icon: '💻', label: '0 lines of mobile app code' },
+      { icon: '⏳', label: '42 days left' },
+    ],
+  },
+  {
     day: 0,
     date: 'AUG 18, 2026',
     title: 'It starts here',
@@ -29,6 +49,43 @@ const stedLogs: BuildLog[] = [
 ]
 
 const danteLogs: BuildLog[] = [
+  {
+    day: 1,
+    date: 'AUG 19, 2026',
+    title: 'I finally launched',
+    summary: 'Yesterday I didn’t make it. Today the first video went live and the 43-day experiment officially started. Most of the day disappeared into D-U-N-S, banking, verification, websites, content and company setup. The actual mobile app? Still 0 lines of code.',
+    published: true,
+    slug: 'day-1',
+    body: [
+      'Yesterday was Day 0 because I didn’t manage to launch.',
+      'Today, I finally did.',
+      'The first video is out, the Sted accounts are live, and the build in public experiment has officially started.',
+      'It feels slightly ridiculous that I’m now publicly documenting myself trying to build a mobile app when the current number of lines of mobile app code is still exactly zero.',
+      'But that’s kind of the point.',
+      'A big part of today was still doing all the boring stuff around building a company that nobody really talks about.',
+      'I submitted the D-U-N-S application I need to enroll Sted as an organization in the Apple Developer Program. I opened a Mercury account. I also tried opening a Brex account, only to find out I need a physical US business address they accept.',
+      'Between banking, SMS verification issues and company setup, I somehow lost more than two hours.',
+      'I also spent time researching content and figuring out how I want to document these 43 days, updated my personal website, set up the newsletter backend, and continued working on Sted’s website and social accounts.',
+      'And then there was the actual launch.',
+      'I published the first video and started putting Sted out into the world.',
+      'No users magically appeared.',
+      'No revenue either.',
+      'And I still haven’t started coding the mobile app.',
+      'Current Sted stats:',
+    ],
+    stats: [
+      { icon: '👤', label: '0 users' },
+      { icon: '💰', label: '$0 revenue' },
+      { icon: '💻', label: '0 lines of code for the mobile app' },
+    ],
+    bodyAfterStats: [
+      'On the personal side: another ~12 hours on the computer, one coffee, one Coke Zero, no gym, no yoga, and an unreasonable amount of time spent configuring things that I assumed would take five minutes.',
+      'Day 1 is done.',
+      'The infrastructure is slowly getting out of the way.',
+      'Tomorrow, I really need to start building the actual product.',
+      '42 days left.',
+    ],
+  },
   {
     day: 0,
     date: 'AUG 18, 2026',
@@ -141,11 +198,12 @@ export function AboutPage() {
 }
 
 export function BuildPublicPage() {
+  const latestDante = danteLogs[0]
   return <main className="build-page shell" aria-labelledby="build-title">
-    <div className="build-status" aria-label="Build status"><span className="amber-dot" /> <span>Day {danteLogs[0].day} / {TOTAL_DAYS}</span><span className="status-separator">·</span><span>Building Sted in public</span></div>
+    <div className="build-status" aria-label="Build status"><span className="amber-dot" /> <span>Day {latestDante.day} / {TOTAL_DAYS}</span><span className="status-separator">·</span><span>Building Sted in public</span></div>
     <p className="section-label">BUILDING IN PUBLIC</p>
-    <h1 id="build-title">Day 0 — I didn’t launch.</h1>
-    <p className="simple-lede">I’m building Sted from scratch in {TOTAL_DAYS} days and sharing everything along the way.</p>
+    <h1 id="build-title">Day {latestDante.day} — {latestDante.title}.</h1>
+    <p className="simple-lede">The first video is out. Sted is officially being built in public.<br />The app, however, still has exactly 0 lines of code.</p>
     <div className="build-timeline">
       {danteLogs.slice(0, 3).map((log) => <TimelineEntry key={`dante-${log.day}`} log={log} kind="dante" />)}
       {stedLogs.slice(0, 3).map((log) => <TimelineEntry key={`sted-${log.day}`} log={log} kind="sted" />)}
