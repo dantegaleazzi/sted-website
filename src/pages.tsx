@@ -8,6 +8,23 @@ const TOTAL_DAYS = 43
 
 const stedLogs: BuildLog[] = [
   {
+    day: 2,
+    date: 'AUG 20, 2026',
+    title: 'Starting to make Sted real',
+    summary: 'Today I finally explained the idea behind Sted publicly and started turning it into the first actual product mockups.',
+    items: [
+      { label: 'Sted explained publicly', status: 'Done' },
+      { label: 'First product mockups', status: 'Done' },
+      { label: 'Core idea: save → understand → find again', status: 'Done' },
+    ],
+    stats: [
+      { icon: '👤', label: '0 users' },
+      { icon: '💰', label: '$0 revenue' },
+      { icon: '📱', label: 'First mockups' },
+      { icon: '⏳', label: '41 days left' },
+    ],
+  },
+  {
     day: 1,
     date: 'AUG 19, 2026',
     title: 'The experiment is live',
@@ -49,6 +66,42 @@ const stedLogs: BuildLog[] = [
 ]
 
 const danteLogs: BuildLog[] = [
+  {
+    day: 2,
+    date: 'AUG 20, 2026',
+    title: 'The first 100 followers',
+    summary: 'Published the second video, looked at the first analytics, and started figuring out how to make this content system less manual.',
+    published: true,
+    slug: 'day-2',
+    body: [
+      'Yesterday I published my first video talking to a camera in a language that isn’t my own.',
+      'Then I did what any sophisticated growth strategy would recommend: I sent it to more than 100 friends, family members and old colleagues on WhatsApp.',
+      'It worked.',
+      'I started the day looking at the first analytics. Instagram crossed 100 followers, while X and LinkedIn each gained... one.',
+      'Not exactly viral yet.',
+      'But honestly, getting the first video out was probably more important than the numbers. Filming myself, listening to my own voice, doing it in English and then voluntarily putting it on the internet was way more uncomfortable than I expected.',
+      'Today I did it again.',
+      'I filmed and edited the second video, this time finally explaining what Sted is and the problem I’m trying to solve.',
+      'I also got a reply on X from one of RevenueCat’s co-founders, which was pretty cool considering this whole thing exists because I decided to enter their competition.',
+      'The other thing becoming obvious very quickly is that building in public means a ridiculous amount of manual publishing.',
+      'One video needs to go to Instagram, TikTok, YouTube, LinkedIn and X, plus there are the Sted accounts. So I spent some time today figuring out how I can automate more of this with AI instead of spending hours uploading the same thing everywhere.',
+      'If I manage to build a good system for it, I’ll share the whole thing.',
+      'Today’s numbers:',
+    ],
+    stats: [
+      { icon: '📸', label: 'Instagram: +100 followers' },
+      { icon: '🐦', label: 'X: +1 follower' },
+      { icon: '💼', label: 'LinkedIn: +1 follower' },
+      { icon: '👤', label: 'Sted users: 0' },
+      { icon: '💰', label: 'Revenue: $0' },
+    ],
+    bodyAfterStats: [
+      'On the product side, the first Sted mockups are starting to exist.',
+      'Still very early. Still a lot more publishing than coding.',
+      'Keep building.',
+      '41 days left.',
+    ],
+  },
   {
     day: 1,
     date: 'AUG 19, 2026',
