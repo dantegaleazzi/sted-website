@@ -8,6 +8,23 @@ const TOTAL_DAYS = 43
 
 const stedLogs: BuildLog[] = [
   {
+    day: 4,
+    date: 'AUG 22, 2026',
+    title: 'Content keeps compounding',
+    summary: 'Kept making videos and posting consistently — Sted’s Instagram just crossed 200 followers.',
+    items: [
+      { label: 'Video content continues', status: 'Done' },
+      { label: 'Consistent posting cadence', status: 'Done' },
+      { label: 'Instagram passed 200 followers', status: 'Done' },
+    ],
+    stats: [
+      { icon: '👤', label: '0 users' },
+      { icon: '💰', label: '$0 revenue' },
+      { icon: '📸', label: '200 IG followers' },
+      { icon: '⏳', label: '39 days left' },
+    ],
+  },
+  {
     day: 2,
     date: 'AUG 20, 2026',
     title: 'Starting to make Sted real',
@@ -66,6 +83,41 @@ const stedLogs: BuildLog[] = [
 ]
 
 const danteLogs: BuildLog[] = [
+  {
+    day: 4,
+    date: 'AUG 22, 2026',
+    title: 'Choose something you care about',
+    summary: 'If you’re going to build something of your own, don’t pick it just because it might make money — pick something you actually care about, because it takes longer than you think.',
+    published: true,
+    slug: 'day-4',
+    body: [
+      'If you’re thinking about building something of your own, here’s the part nobody tells you clearly enough: don’t choose it just because you think it’ll make money.',
+      'Building almost anything takes longer than you expect. A personal brand, an app, a business, a project of your own. Whatever amount of time you’re imagining right now, multiply it by ten.',
+      'Which means you should pick something you actually care about, because you’re going to be spending a lot of time with it.',
+      'That’s a big part of why I’m building Sted. It’s not a problem I made up for this experiment — I’ve wanted something like this for years, since before ChatGPT even existed.',
+      'And it’s not really about having too many bookmarks. The tools I already use for saving things — links, screenshots, notes — turn into databases that are painful to go back through. You save something, then later you forget you saved it, or you can’t find it when you actually need it.',
+      'I want Sted for myself. I’m basically my first user. AI is what finally makes it possible for me to try building it, even without knowing how to code.',
+      'If you’re building your own thing too: choose wisely. You’ll be spending a lot of time with it.',
+    ],
+  },
+  {
+    day: 3,
+    date: 'AUG 21, 2026',
+    title: 'Can one person do this?',
+    summary: 'I used to run a creative studio with more than 15 people. Now it’s just me and the computer, and I’m starting to realize coding might not be the hardest part.',
+    published: true,
+    slug: 'day-3',
+    body: [
+      'I used to run a creative studio. At one point we had a team of more than 15 people.',
+      'Now it’s just me. The computer and a coffee.',
+      'When I decided to build Sted, I assumed coding would be the hard part, since I don’t actually know how to code.',
+      'A few days in, I’m realizing that’s not really it.',
+      'Building something alone means doing everything: product, design, coding, marketing, content, research, operations, and whatever else shows up along the way that nobody warns you about.',
+      'All of it, at the same time, with no one to hand it off to.',
+      'So the question I keep coming back to is simple: can one person actually do the work that used to take a team of 15 or more, using AI?',
+      'I don’t know yet. That’s part of what this whole thing is trying to find out.',
+    ],
+  },
   {
     day: 2,
     date: 'AUG 20, 2026',
@@ -195,8 +247,9 @@ type LandingPageProps = { email: string; status: string; isSubmitting: boolean; 
 function BuildPreviewSection() {
   const stedLog = stedLogs[0]
   const danteLog = danteLogs[0]
+  const latestDay = Math.max(stedLog.day, danteLog.day)
   return <section className="build-preview shell" aria-labelledby="build-preview-title">
-    <p className="eyebrow">DAY {stedLog.day} OF {TOTAL_DAYS}</p>
+    <p className="eyebrow">DAY {latestDay} OF {TOTAL_DAYS}</p>
     <h2 id="build-preview-title">Building Sted in public.</h2>
     <div className="build-preview-grid">
       <div className="preview-col">
@@ -252,14 +305,17 @@ export function AboutPage() {
 
 export function BuildPublicPage() {
   const latestDante = danteLogs[0]
+  const latestDay = Math.max(stedLogs[0].day, danteLogs[0].day)
   return <main className="build-page shell" aria-labelledby="build-title">
-    <div className="build-status" aria-label="Build status"><span className="amber-dot" /> <span>Day {latestDante.day} / {TOTAL_DAYS}</span><span className="status-separator">·</span><span>Building Sted in public</span></div>
+    <div className="build-status" aria-label="Build status"><span className="amber-dot" /> <span>Day {latestDay} / {TOTAL_DAYS}</span><span className="status-separator">·</span><span>Building Sted in public</span></div>
     <p className="section-label">BUILDING IN PUBLIC</p>
     <h1 id="build-title">Day {latestDante.day} — {latestDante.title}.</h1>
-    <p className="simple-lede">The first video is out. Sted is officially being built in public.<br />The app, however, still has exactly 0 lines of code.</p>
+    <p className="simple-lede">Two timelines, one experiment. I’m building Sted from zero and documenting everything I learn along the way.<br />DANTE tracks the journey. STED tracks the product.</p>
     <div className="build-timeline">
-      {danteLogs.slice(0, 3).map((log) => <TimelineEntry key={`dante-${log.day}`} log={log} kind="dante" />)}
-      {stedLogs.slice(0, 3).map((log) => <TimelineEntry key={`sted-${log.day}`} log={log} kind="sted" />)}
+      <p className="section-label timeline-track-label">DANTE LOG — THE JOURNEY</p>
+      {danteLogs.map((log) => <TimelineEntry key={`dante-${log.day}`} log={log} kind="dante" />)}
+      <p className="section-label timeline-track-label">STED LOG — THE PRODUCT</p>
+      {stedLogs.map((log) => <TimelineEntry key={`sted-${log.day}`} log={log} kind="sted" />)}
     </div>
   </main>
 }

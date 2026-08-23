@@ -74,6 +74,8 @@ h1 em { color: #FFA836; font-style: normal; }
 .button-outline { border-color: #14120F; background: transparent; }
 .button-outline:hover { background: #14120F; color: #F7F5F0; }
 .build-timeline { display: grid; gap: 0; margin-top: 56px; }
+.timeline-track-label { margin: 48px 0 10px; }
+.build-timeline > .timeline-track-label:first-child { margin-top: 0; }
 .timeline-entry { display: grid; grid-template-columns: 160px 1fr; gap: 32px; padding: 32px 0; border-top: 1px solid #DDD8CF; }
 .timeline-entry:last-child { border-bottom: 1px solid #DDD8CF; }
 .timeline-meta { display: flex; flex-direction: column; align-items: flex-start; gap: 10px; }
