@@ -29,10 +29,17 @@ function App() {
   const legalDocument = hash === '#privacy' || hash === '#terms' ? hash.slice(1) as LegalDocument : null
   const pathname = window.location.pathname.replace(/\/$/, '') || '/'
   const postSlug = pathname.startsWith('/build/') ? pathname.slice('/build/'.length) : null
-  const route = pathname === '/about' || hash === '#about' ? 'about' : postSlug ? 'post' : pathname === '/build' || hash === '#build-log' ? 'build' : pathname === '/contact' || hash === '#contact' ? 'contact' : 'landing'
+  const guideSlug = pathname.startsWith('/guides/') ? pathname.slice('/guides/'.length) : null
+  const route = pathname === '/about' || hash === '#about' ? 'about'
+    : postSlug ? 'post'
+    : pathname === '/build' || hash === '#build-log' ? 'build'
+    : guideSlug ? 'guide'
+    : pathname === '/guides' ? 'guides'
+    : pathname === '/contact' || hash === '#contact' ? 'contact'
+    : 'landing'
 
   useEffect(() => {
-    document.title = legalDocument === 'privacy' ? 'Privacy Policy — STED' : legalDocument === 'terms' ? 'Terms of Use — STED' : route === 'post' ? 'Build Log — STED' : 'STED — Everything you save. Finally useful.'
+    document.title = legalDocument === 'privacy' ? 'Privacy Policy — STED' : legalDocument === 'terms' ? 'Terms of Use — STED' : route === 'post' ? 'Build Log — STED' : route === 'guide' || route === 'guides' ? 'Guides — STED' : 'STED — Everything you save. Finally useful.'
   }, [legalDocument, route])
 
   useEffect(() => {
@@ -77,11 +84,11 @@ function App() {
     <div id="top" className="min-h-screen">
       <header className="site-header shell">
         <Logo />
-        <nav className="header-nav" aria-label="Primary navigation"><a href="/about">About</a><a href="/build">Build In Public</a><a href="/contact">Contact</a></nav>
+        <nav className="header-nav" aria-label="Primary navigation"><a href="/about">About</a><a href="/build">Build In Public</a><a href="/guides">Guides</a><a href="/contact">Contact</a></nav>
         <button className="button button-amber header-cta" type="button" onClick={() => { setStatus(''); setIsWaitlistOpen(true) }}>Join the waitlist</button>
       </header>
 
-      <RoutePage route={route} postSlug={postSlug} email={email} status={status} isSubmitting={isSubmitting} onEmailChange={(value) => { setEmail(value); setStatus('') }} onSubmit={handleSubmit} />
+      <RoutePage route={route} postSlug={postSlug} guideSlug={guideSlug} onOpenWaitlist={() => { setStatus(''); setIsWaitlistOpen(true) }} email={email} status={status} isSubmitting={isSubmitting} onEmailChange={(value) => { setEmail(value); setStatus('') }} onSubmit={handleSubmit} />
 
       {isWaitlistOpen && <div className="modal-backdrop" role="presentation" onMouseDown={(event) => { if (event.target === event.currentTarget) setIsWaitlistOpen(false) }}>
         <section className="waitlist-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">

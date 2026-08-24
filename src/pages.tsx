@@ -1,12 +1,48 @@
 import type { FormEvent, ReactNode } from 'react'
+import { GuidePage, GuidesIndexPage } from './guides'
 
 type LogItem = { label: string; status: 'Done' | 'Next' }
 type LogStat = { icon: string; label: string }
-type BuildLog = { day: number; date: string; title: string; summary: string; items?: LogItem[]; stats?: LogStat[]; published?: boolean; slug?: string; body?: string[]; bodyAfterStats?: string[] }
+type BuildLog = { day: number; date: string; title: string; summary: string; items?: LogItem[]; stats?: LogStat[]; published?: boolean; slug?: string; body?: string[]; bodyAfterStats?: string[]; ctaHref?: string; ctaLabel?: string }
 
 const TOTAL_DAYS = 43
 
 const stedLogs: BuildLog[] = [
+  {
+    day: 6,
+    date: 'AUG 24, 2026',
+    title: 'I have a name. Now I have a face.',
+    summary: 'The name was already decided. Today the identity around it started becoming real — a simpler visual system, a character, and the first version of Sted’s own voice.',
+    items: [
+      { label: 'Brand direction defined', status: 'Done' },
+      { label: 'Sted character direction defined', status: 'Done' },
+      { label: '2D identity being finalized', status: 'Done' },
+      { label: 'Brand voice and Dante × Sted relationship defined', status: 'Done' },
+      { label: 'First Sted guide created: “How to choose a name”', status: 'Done' },
+    ],
+    stats: [
+      { icon: '👤', label: '0 users' },
+      { icon: '💰', label: '$0 revenue' },
+      { icon: '⏳', label: '37 days left' },
+    ],
+  },
+  {
+    day: 5,
+    date: 'AUG 23, 2026',
+    title: 'Making the story shareable',
+    summary: 'No new feature today — the real work was making sure Sted actually looks like Sted when the build-in-public story gets shared.',
+    items: [
+      { label: 'Branded social preview image created', status: 'Done' },
+      { label: 'Open Graph metadata fixed (og:image, og:url)', status: 'Done' },
+      { label: 'X/Twitter card switched to large-image format', status: 'Done' },
+      { label: 'Day 3 and Day 4 build log content published live', status: 'Done' },
+    ],
+    stats: [
+      { icon: '👤', label: '0 users' },
+      { icon: '💰', label: '$0 revenue' },
+      { icon: '⏳', label: '38 days left' },
+    ],
+  },
   {
     day: 4,
     date: 'AUG 22, 2026',
@@ -83,6 +119,60 @@ const stedLogs: BuildLog[] = [
 ]
 
 const danteLogs: BuildLog[] = [
+  {
+    day: 6,
+    date: 'AUG 24, 2026',
+    title: 'How I chose the name Sted',
+    summary: 'Today I finally shared why I chose the name Sted — and the simple tests I used to decide whether a name was worth keeping.',
+    published: true,
+    slug: 'day-6',
+    body: [
+      'I went through a lot of names before choosing Sted.',
+      'I wanted something that was short, easy to say, easy to spell, easy to remember, easy to pronounce in both English and Spanish, and capable of becoming a brand instead of just describing the product.',
+      'Eventually I landed on Sted.',
+      '## The four tests',
+      'Before committing to a name, I used four simple questions.',
+      'Can people say it? If you have to explain how to pronounce it, that’s friction every time someone talks about you.',
+      'Can they spell it without asking? A name someone can’t type into a search bar from memory loses them.',
+      'Will they remember it tomorrow? Most names get heard once, in passing — if it doesn’t stick, it doesn’t matter how clever it is.',
+      'Can I get a good domain? Not necessarily the exact .com, just something clean enough that it doesn’t undercut the name itself.',
+      'These are practical filters, not universal naming laws — just what worked for me.',
+      '## The domain problem',
+      'There was one problem: sted.com was already registered.',
+      'But I realized I was putting too much importance on owning the exact .com. A good name doesn’t necessarily need it — you can sometimes use alternatives like get[name], use[name], hey[name], or choose a TLD that makes sense for the product.',
+      'For Sted, sted.ai was available. That was enough.',
+      '## Stop naming. Start building.',
+      'You can spend weeks searching for the perfect name. But eventually the name matters less than what you build behind it.',
+      'Sted passed the tests I cared about, so I stopped searching. Now I have to build something worth remembering.',
+      '## The prompts',
+      'I also turned this whole process into a free guide with the naming framework and the exact prompts I used.',
+    ],
+    ctaHref: '/guides/how-to-choose-a-name',
+    ctaLabel: 'Try the naming prompts →',
+    bodyAfterStats: [
+      'Until now, I’ve been the one talking about Sted.',
+      'Tomorrow, Sted gets to introduce itself.',
+    ],
+  },
+  {
+    day: 5,
+    date: 'AUG 23, 2026',
+    title: 'Fixing how Sted looks when it’s shared',
+    summary: 'While pushing the last few days of content out, I noticed every shared Sted link showed a generic icon instead of the brand — so today I fixed it.',
+    published: true,
+    slug: 'day-5',
+    body: [
+      'Day 5 didn’t produce a new video or a big product update.',
+      'Most of it went into something less visible: making sure the story I’ve been telling actually looks right when someone else shares it.',
+      'I was sending the Day 3 and Day 4 posts around — DMs, group chats, comments — and kept noticing the same thing. Every link to sted.ai showed a plain, generic icon instead of anything that looked like Sted.',
+      'For a project that’s supposed to be built and shared in public, that’s a real problem. The first impression of the whole experiment was a broken preview.',
+      'So today I fixed it. I built a proper social preview image — the actual Sted look, not a placeholder — and corrected the metadata so X, LinkedIn and iMessage all pick it up correctly.',
+      'It’s a small, unglamorous fix. No new feature, no new user, nothing to film.',
+      'But it’s the kind of thing that matters more than it looks like it does — if the story is worth sharing, it should at least look like it when someone does.',
+      'Lesson for today: distribution isn’t just posting. It’s making sure what you post actually represents you once it leaves your hands.',
+      'Tomorrow I go back to something more personal: why I picked the name Sted in the first place.',
+    ],
+  },
   {
     day: 4,
     date: 'AUG 22, 2026',
@@ -310,7 +400,7 @@ export function BuildPublicPage() {
     <div className="build-status" aria-label="Build status"><span className="amber-dot" /> <span>Day {latestDay} / {TOTAL_DAYS}</span><span className="status-separator">·</span><span>Building Sted in public</span></div>
     <p className="section-label">BUILDING IN PUBLIC</p>
     <h1 id="build-title">Day {latestDante.day} — {latestDante.title}.</h1>
-    <p className="simple-lede">Two timelines, one experiment. I’m building Sted from zero and documenting everything I learn along the way.<br />DANTE tracks the journey. STED tracks the product.</p>
+    <p className="simple-lede">A simple naming framework, the constraints I used, and why I stopped looking for the perfect .com.<br />DANTE tracks the journey. STED tracks the product.</p>
     <div className="build-timeline">
       <p className="section-label timeline-track-label">DANTE LOG — THE JOURNEY</p>
       {danteLogs.map((log) => <TimelineEntry key={`dante-${log.day}`} log={log} kind="dante" />)}
@@ -332,8 +422,9 @@ export function BuildLogPostPage({ slug }: { slug: string }) {
     <h1 id="post-title">Day {log.day} — {log.title}</h1>
     <p className="post-date">{log.date}</p>
     <div className="post-body">
-      {log.body?.map((paragraph, index) => <p key={index}>{paragraph}</p>)}
+      {log.body?.map((paragraph, index) => paragraph.startsWith('## ') ? <h2 key={index}>{paragraph.slice(3)}</h2> : <p key={index}>{paragraph}</p>)}
       {log.stats && <ul className="timeline-stats">{log.stats.map((stat) => <li key={stat.label}><span aria-hidden="true">{stat.icon}</span> {stat.label}</li>)}</ul>}
+      {log.ctaHref && log.ctaLabel && <a className="post-link" href={log.ctaHref}>{log.ctaLabel}</a>}
       {log.bodyAfterStats?.map((paragraph, index) => <p key={index}>{paragraph}</p>)}
     </div>
   </main>
@@ -343,15 +434,17 @@ export function ContactPage() {
   return <main className="simple-page contact-page shell" aria-labelledby="contact-title">
     <p className="section-label">CONTACT</p>
     <h1 id="contact-title">Have a thought<br />about Sted?</h1>
-    <p className="simple-lede">Questions, ideas or just want to say hello? Send a note to Dante at Finiks Labs.</p>
+    <p className="simple-lede">Questions, ideas or just want to say hello? Send a note to Dante — he’ll personally answer your emails.</p>
     <a className="contact-email" href="mailto:hello@sted.ai">hello@sted.ai <span aria-hidden="true">↗</span></a>
   </main>
 }
 
-export function RoutePage({ route, postSlug, ...landingProps }: { route: 'landing' | 'about' | 'build' | 'contact' | 'post'; postSlug?: string | null } & LandingPageProps): ReactNode {
+export function RoutePage({ route, postSlug, guideSlug, onOpenWaitlist, ...landingProps }: { route: 'landing' | 'about' | 'build' | 'contact' | 'post' | 'guides' | 'guide'; postSlug?: string | null; guideSlug?: string | null; onOpenWaitlist: () => void } & LandingPageProps): ReactNode {
   if (route === 'about') return <AboutPage />
   if (route === 'build') return <BuildPublicPage />
   if (route === 'post') return <BuildLogPostPage slug={postSlug ?? ''} />
+  if (route === 'guides') return <GuidesIndexPage />
+  if (route === 'guide') return <GuidePage slug={guideSlug ?? ''} onOpenWaitlist={onOpenWaitlist} />
   if (route === 'contact') return <ContactPage />
   return <LandingPage {...landingProps} />
 }
