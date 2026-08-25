@@ -4,6 +4,7 @@ import { createClient } from '@supabase/supabase-js'
 import { LegalPage, type LegalDocument } from './legal'
 import { Logo } from './logo'
 import { RoutePage } from './pages'
+import { guides } from './guides'
 import './index.css'
 
 const supabaseUrl = import.meta.env.VITE_SUPABASE_URL
@@ -39,8 +40,9 @@ function App() {
     : 'landing'
 
   useEffect(() => {
-    document.title = legalDocument === 'privacy' ? 'Privacy Policy — STED' : legalDocument === 'terms' ? 'Terms of Use — STED' : route === 'post' ? 'Build Log — STED' : route === 'guide' || route === 'guides' ? 'Guides — STED' : 'STED — Everything you save. Finally useful.'
-  }, [legalDocument, route])
+    const guideTitle = route === 'guide' ? guides.find((guide) => guide.slug === guideSlug)?.title : null
+    document.title = legalDocument === 'privacy' ? 'Privacy Policy — STED' : legalDocument === 'terms' ? 'Terms of Use — STED' : route === 'post' ? 'Build Log — STED' : guideTitle ? `${guideTitle} — STED` : route === 'guide' || route === 'guides' ? 'Guides — STED' : 'STED — Everything you save. Finally useful.'
+  }, [legalDocument, route, guideSlug])
 
   useEffect(() => {
     if (!isWaitlistOpen) return

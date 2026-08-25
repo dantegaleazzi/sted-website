@@ -4,6 +4,11 @@ type Guide = { slug: string; title: string; subtitle: string }
 
 export const guides: Guide[] = [
   {
+    slug: 'build-an-app-in-24-hours',
+    title: 'How to Build an iPhone App in 24 Hours with AI',
+    subtitle: 'The exact workflow, prompts, and tools I’m using to turn a paper sketch into a working iPhone app.',
+  },
+  {
     slug: 'how-to-choose-a-name',
     title: 'How to choose a name',
     subtitle: 'A simple naming framework + the prompts I used to find Sted.',
@@ -290,8 +295,30 @@ export function GuidesIndexPage() {
   </main>
 }
 
+function BuildAppIn24HoursPage() {
+  useEffect(() => {
+    track('guide_view', { guide: 'build-an-app-in-24-hours' })
+    const description = document.querySelector('meta[name="description"]')
+    const previous = description?.getAttribute('content') ?? null
+    description?.setAttribute('content', 'The exact workflow, prompts, and tools Dante is using to turn a paper sketch into a working iPhone app for Sted — coming shortly.')
+    return () => { if (previous) description?.setAttribute('content', previous) }
+  }, [])
+
+  return <main className="simple-page guide-page shell" aria-labelledby="guide-title">
+    <a className="post-back" href="/guides">← Back to guides</a>
+    <p className="section-label">FREE GUIDE</p>
+    <h1 id="guide-title">How to Build an iPhone App in 24 Hours with AI</h1>
+    <p className="simple-lede">The exact workflow, prompts, and tools I’m using to turn a paper sketch into a working iPhone app.</p>
+    <div className="post-body">
+      <p className="post-note">I’m documenting the process as I build Sted. Full guide coming shortly.</p>
+      <p><a className="post-link" href="/">Built while building Sted <span aria-hidden="true">→</span></a></p>
+    </div>
+  </main>
+}
+
 export function GuidePage({ slug, onOpenWaitlist }: { slug: string; onOpenWaitlist: () => void }) {
   if (slug === 'how-to-choose-a-name') return <HowToChooseANamePage onOpenWaitlist={onOpenWaitlist} />
+  if (slug === 'build-an-app-in-24-hours') return <BuildAppIn24HoursPage />
   return <main className="simple-page shell" aria-labelledby="guide-title">
     <a className="post-back" href="/guides">← Back to guides</a>
     <h1 id="guide-title">Guide not found.</h1>
