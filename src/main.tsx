@@ -40,8 +40,8 @@ function App() {
     : 'landing'
 
   useEffect(() => {
-    const guideTitle = route === 'guide' ? guides.find((guide) => guide.slug === guideSlug)?.title : null
-    document.title = legalDocument === 'privacy' ? 'Privacy Policy — STED' : legalDocument === 'terms' ? 'Terms of Use — STED' : route === 'post' ? 'Build Log — STED' : guideTitle ? `${guideTitle} — STED` : route === 'guide' || route === 'guides' ? 'Guides — STED' : 'STED — Everything you save. Finally useful.'
+    const activeGuide = route === 'guide' ? guides.find((guide) => guide.slug === guideSlug) : null
+    document.title = legalDocument === 'privacy' ? 'Privacy Policy — STED' : legalDocument === 'terms' ? 'Terms of Use — STED' : route === 'post' ? 'Build Log — STED' : activeGuide ? activeGuide.seoTitle ?? `${activeGuide.title} — STED` : route === 'guide' || route === 'guides' ? 'Guides — STED' : 'STED — Everything you save. Finally useful.'
   }, [legalDocument, route, guideSlug])
 
   useEffect(() => {

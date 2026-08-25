@@ -1,12 +1,14 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, type ReactNode } from 'react'
 
-type Guide = { slug: string; title: string; subtitle: string }
+type Guide = { slug: string; title: string; subtitle: string; seoTitle?: string; seoDescription?: string }
 
 export const guides: Guide[] = [
   {
     slug: 'build-an-app-in-24-hours',
-    title: 'How to Build an iPhone App in 24 Hours with AI',
-    subtitle: 'The exact workflow, prompts, and tools I’m using to turn a paper sketch into a working iPhone app.',
+    title: 'How to Build an App in 24 Hours with AI',
+    subtitle: 'The exact workflow and prompts I’m using to turn a paper sketch into a working iPhone app.',
+    seoTitle: 'How to Build an App in 24 Hours with AI | Sted',
+    seoDescription: 'The exact prompts and AI workflow used to turn a paper sketch into a working iPhone app using ChatGPT and Claude Code.',
   },
   {
     slug: 'how-to-choose-a-name',
@@ -167,6 +169,25 @@ function CopyPromptButton({ text, onCopy }: { text: string; onCopy: () => void }
   return <button className="button button-amber" type="button" onClick={handleCopy}>{copied ? 'Copied' : 'Copy prompt'}</button>
 }
 
+function PromptCard({ number, title, prompt, guide, featured }: { number: string; title: string; prompt: string; guide: string; featured?: boolean }) {
+  return <div className={`prompt-card${featured ? ' prompt-card-featured' : ''}`} id={`prompt-${number}`}>
+    <p className="prompt-card-label">PROMPT {number}</p>
+    <h3>{title}</h3>
+    <pre>{prompt}</pre>
+    <CopyPromptButton text={prompt} onCopy={() => track('prompt_copy', { guide, prompt: title })} />
+  </div>
+}
+
+function GuideStep({ number, title, children }: { number: string; title: string; children: ReactNode }) {
+  return <section className="guide-step">
+    <div className="guide-step-number">{number}</div>
+    <div className="guide-step-content">
+      <h2>{title}</h2>
+      {children}
+    </div>
+  </section>
+}
+
 function PromptAccordion({ number, title, subtitle, prompt, isOpen, onToggle }: { number: string; title: string; subtitle: string; prompt: string; isOpen: boolean; onToggle: () => void }) {
   return <div className={`prompt-accordion${isOpen ? ' is-open' : ''}`}>
     <button className="prompt-accordion-trigger" type="button" onClick={onToggle} aria-expanded={isOpen}>
@@ -295,23 +316,253 @@ export function GuidesIndexPage() {
   </main>
 }
 
+const analyzeSketchPrompt = `Analyze this sketch of my app.
+
+First, tell me what you understand about the product, the screens, navigation, and user flow.
+
+Do not redesign it yet.
+
+Identify:
+- each screen
+- its purpose
+- main UI elements
+- navigation between screens
+- anything ambiguous or missing
+
+Then propose the minimum set of screens needed for an MVP.`
+
+const sketchToMockupPrompt = `Now turn this sketch into a polished mobile app mockup.
+
+Preserve the product structure and user flow we just defined.
+
+Use a clean, modern, minimal iOS-native visual language.
+
+Prioritize hierarchy, whitespace, typography, and usability.
+
+If I provide visual references, screenshots, a brand guide, colors, typography, or existing product screens, treat them as the visual source of truth. Do not invent a different design language.
+
+Show the screens together so I can evaluate the complete product experience.`
+
+const iteratePrompt = `Keep the same product and information architecture.
+
+Do not redesign it from scratch.
+
+Improve:
+- visual hierarchy
+- spacing
+- typography
+- navigation
+- consistency between screens
+- native iOS feel
+
+Generate the updated screens together so I can compare the full experience.
+
+Before generating the next version, briefly tell me what you are changing and why. Keep everything I did not ask you to change intact.`
+
+const buildPlanPrompt = `Now act as the CTO and principal software architect for this product. Turn the approved product into an implementation-ready specification that I can hand directly to a coding agent.
+
+I want to build it as a native iOS app.
+
+Based on the approved screens and user flows, define:
+
+- MVP scope
+- screen architecture
+- navigation
+- components
+- data models
+- state management
+- backend requirements
+- API contracts
+- authentication
+- persistence
+- edge cases
+- loading / empty / error states
+- implementation order
+
+Separate:
+1. Must ship for MVP
+2. Can wait until later
+
+Do not add features that aren't required by the product we've designed.
+
+The goal is the smallest production-ready version that preserves the core experience.
+
+Finish with:
+- recommended implementation phases/batches
+- dependencies between batches
+- acceptance criteria for each batch
+- what should be mocked initially
+- what must be real before TestFlight
+- known blockers requiring credentials or external setup`
+
+const claudeCodePrompt = `Act as the senior iOS engineer responsible for shipping this MVP.
+
+Do not start coding immediately.
+
+First:
+1. inspect the entire repository;
+2. understand the existing architecture and current implementation state;
+3. compare it against the approved build plan;
+4. identify what already exists, what is missing, what is mocked, and what is blocked;
+5. propose an implementation plan in small batches.
+
+Then execute the plan batch by batch.
+
+Use the approved mockups and build plan above as the source of truth for what to build.
+
+Build this as a native iOS app.
+
+Preserve the approved visual language exactly — don't reinterpret the design.
+
+Rules:
+- Avoid unnecessary abstractions. Don't build for hypothetical future requirements.
+- Don't add features beyond what the build plan specifies.
+- Build incrementally, one screen or flow at a time.
+- Compile frequently. Don't let changes pile up unverified.
+- Test each flow as you build it, not just at the end.
+- Clearly distinguish real functionality from mocked/placeholder functionality in the code and when you report progress.
+- Never present mocked functionality as if it were production-ready.
+- If you hit a blocker (missing credentials, unclear requirement, unavailable service), report it clearly instead of working around it silently.
+- Make logical, incremental local commits as you go.
+- Do not push anything without explicit permission.
+
+After every meaningful batch:
+- build and test;
+- report exactly what is real, mocked, blocked, and remaining.
+
+Debug mocks must never silently ship in Release. Production builds must fail clearly when required configuration is missing rather than pretending functionality succeeded.`
+
+const testChecklist = [
+  'Build succeeds',
+  'Core flow works',
+  'Empty states work',
+  'Loading states work',
+  'Errors don’t break the app',
+  'No fake production data',
+  'Authentication works',
+  'Backend calls work',
+  'App works on a real device',
+  'Main flow can be completed from start to finish',
+]
+
 function BuildAppIn24HoursPage() {
+  const guide = 'build-an-app-in-24-hours'
+
   useEffect(() => {
-    track('guide_view', { guide: 'build-an-app-in-24-hours' })
+    track('guide_view', { guide })
+    const guideMeta = guides.find((entry) => entry.slug === guide)
     const description = document.querySelector('meta[name="description"]')
-    const previous = description?.getAttribute('content') ?? null
-    description?.setAttribute('content', 'The exact workflow, prompts, and tools Dante is using to turn a paper sketch into a working iPhone app for Sted — coming shortly.')
-    return () => { if (previous) description?.setAttribute('content', previous) }
+    const previousDescription = description?.getAttribute('content') ?? null
+    if (guideMeta?.seoDescription) description?.setAttribute('content', guideMeta.seoDescription)
+    return () => { if (previousDescription) description?.setAttribute('content', previousDescription) }
+  }, [])
+
+  useEffect(() => {
+    const scrollToHash = () => {
+      if (!window.location.hash) return
+      setTimeout(() => {
+        document.getElementById(window.location.hash.slice(1))?.scrollIntoView({ behavior: 'instant', block: 'start' })
+      }, 50)
+    }
+    scrollToHash()
+    window.addEventListener('hashchange', scrollToHash)
+    return () => window.removeEventListener('hashchange', scrollToHash)
   }, [])
 
   return <main className="simple-page guide-page shell" aria-labelledby="guide-title">
     <a className="post-back" href="/guides">← Back to guides</a>
     <p className="section-label">FREE GUIDE</p>
-    <h1 id="guide-title">How to Build an iPhone App in 24 Hours with AI</h1>
-    <p className="simple-lede">The exact workflow, prompts, and tools I’m using to turn a paper sketch into a working iPhone app.</p>
+    <h1 id="guide-title">How to Build an App in 24 Hours with AI</h1>
+    <p className="simple-lede">Go from a paper sketch to a working iPhone app using ChatGPT + Claude Code.<br />The exact 7-step workflow and prompts I’m using to build Sted.</p>
+    <p className="guide-stats-line">5 prompts · 7 steps · Free · Copy everything</p>
+    <p className="guide-context">I’m building Sted in public for RevenueCat Shipaton 2026. On Day 7, I gave myself 24 hours to turn my paper sketches into a working MVP.</p>
+    <div className="guide-hero-ctas">
+      <a className="button button-amber" href="#prompt-01" onClick={() => track('start_building_click', { guide })}>Start with Prompt #1 <span aria-hidden="true">↓</span></a>
+      <a className="button button-outline" href="/">See Sted</a>
+    </div>
+
+    <div className="guide-pipeline" aria-hidden="true">
+      <span>Sketch</span><span>→</span><span>Mockup</span><span>→</span><span>Iterate</span><span>→</span><span>Build plan</span><span>→</span><span>Claude Code</span><span>→</span><span>Test</span><span>→</span><span>TestFlight</span>
+    </div>
+
     <div className="post-body">
-      <p className="post-note">I’m documenting the process as I build Sted. Full guide coming shortly.</p>
-      <p><a className="post-link" href="/">Built while building Sted <span aria-hidden="true">→</span></a></p>
+      <p>You don’t need to start by opening Xcode or writing a line of code. Start by defining the product visually — on paper is fine — and let AI carry it through mockups, a build plan, and implementation from there.</p>
+    </div>
+
+    <GuideStep number="01" title="Draw your app">
+      <p>Draw your app’s main screens on paper. Don’t worry about making them beautiful — worry about making them clear.</p>
+      <p>Focus on:</p>
+      <ul>
+        <li>what screens exist</li>
+        <li>what information appears on each one</li>
+        <li>what happens when someone taps something</li>
+        <li>how the user moves through the product</li>
+      </ul>
+    </GuideStep>
+
+    <GuideStep number="02" title="Turn the sketch into a mockup">
+      <p>Take a clear photo of the sketch and upload it to ChatGPT.</p>
+      <PromptCard number="01" title="Analyze the sketch" prompt={analyzeSketchPrompt} guide={guide} />
+      <p>Once ChatGPT understands the sketch, ask it to turn that understanding into an actual mockup.</p>
+      <PromptCard number="02" title="Turn it into a mockup" prompt={sketchToMockupPrompt} guide={guide} />
+      <p className="post-note">Don’t accept the first design blindly. Iterate.</p>
+    </GuideStep>
+
+    <GuideStep number="03" title="Iterate the design">
+      <p>This is where the real work happens — we went through several rounds on Sted instead of coding the first mockup we saw.</p>
+      <PromptCard number="03" title="Iterate the design" prompt={iteratePrompt} guide={guide} />
+      <p className="post-note">Give ChatGPT screenshots or references of styles you like, rather than trying to describe everything in words.</p>
+    </GuideStep>
+
+    <GuideStep number="04" title="Create the build plan">
+      <p>Before Claude Code writes anything, have ChatGPT turn the approved product into an implementation specification.</p>
+      <PromptCard number="04" title="Create the build plan" prompt={buildPlanPrompt} guide={guide} />
+    </GuideStep>
+
+    <GuideStep number="05" title="Give it to Claude Code">
+      <p>This is the most important prompt in the whole workflow — it’s what actually turns the plan into working software. It’s written to be reusable for whatever you’re building, not specific to Sted.</p>
+      <PromptCard number="05" title="Build the app" prompt={claudeCodePrompt} guide={guide} featured />
+      <div className="guide-stack-callout">
+        <p className="prompt-card-label">HOW I ACTUALLY SPLIT THE WORK</p>
+        <ul>
+          <li><strong>ChatGPT</strong> — product decisions, mockups, architecture and planning</li>
+          <li><strong>Claude Code</strong> — iOS implementation and UI</li>
+          <li><strong>Codex</strong> — backend, infrastructure, verification and second-opinion engineering</li>
+        </ul>
+      </div>
+    </GuideStep>
+
+    <GuideStep number="06" title="Test before you call it done">
+      <p>Don’t just test individual screens. Test the entire user journey from beginning to end.</p>
+      <ul className="guide-checklist">
+        {testChecklist.map((item) => <li key={item}><span aria-hidden="true">☐</span> {item}</li>)}
+      </ul>
+    </GuideStep>
+
+    <GuideStep number="07" title="Get it into TestFlight">
+      <p>Once the MVP actually works end to end:</p>
+      <ul>
+        <li>configure the Apple Developer project</li>
+        <li>set the bundle identifier and capabilities</li>
+        <li>create the app in App Store Connect</li>
+        <li>archive the Release build</li>
+        <li>upload it to TestFlight</li>
+        <li>test the production configuration, not just the dev build</li>
+      </ul>
+      <p className="post-note">This doesn’t guarantee App Store approval — it just gets a real build in front of real testers.</p>
+      <div className="guide-warning">
+        <p><strong>AI can write the app. It can’t create your accounts for you.</strong></p>
+        <p>Depending on your app, you’ll still need to configure things like Apple Developer, App Store Connect, authentication, databases, API keys, backend hosting and production secrets.</p>
+      </div>
+    </GuideStep>
+
+    <div className="guide-cta-block">
+      <h2>I’m testing this workflow right now.</h2>
+      <p className="simple-lede">Day 7: paper sketch. Next target: TestFlight.</p>
+      <p>If it works, you’ll see it happen in public. If it breaks, I’ll show that too.</p>
+      <div className="guide-cta">
+        <a className="button button-amber" href="/build" onClick={() => track('follow_build_click', { guide })}>Follow the build <span aria-hidden="true">→</span></a>
+      </div>
     </div>
   </main>
 }
