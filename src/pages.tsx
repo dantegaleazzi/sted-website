@@ -1,5 +1,9 @@
-import type { FormEvent, ReactNode } from 'react'
+import { useState, type FormEvent, type ReactNode } from 'react'
 import { GuidePage, GuidesIndexPage } from './guides'
+
+const SUPPORT_MESSAGE_MIN = 10
+const SUPPORT_MESSAGE_MAX = 2000
+const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
 type LogItem = { label: string; status: 'Done' | 'Next' }
 type LogStat = { icon: string; label: string }
@@ -508,12 +512,90 @@ export function ContactPage() {
   </main>
 }
 
-export function RoutePage({ route, postSlug, guideSlug, onOpenWaitlist, ...landingProps }: { route: 'landing' | 'about' | 'build' | 'contact' | 'post' | 'guides' | 'guide'; postSlug?: string | null; guideSlug?: string | null; onOpenWaitlist: () => void } & LandingPageProps): ReactNode {
+type SupportStatus = 'idle' | 'sending' | 'success' | 'error'
+
+export function SupportPage() {
+  const [name, setName] = useState('')
+  const [email, setEmail] = useState('')
+  const [message, setMessage] = useState('')
+  const [website, setWebsite] = useState('') // honeypot — real users never fill this
+  const [status, setStatus] = useState<SupportStatus>('idle')
+  const [statusMessage, setStatusMessage] = useState('')
+
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault()
+
+    if (website) return // honeypot tripped — silently drop
+
+    const trimmedName = name.trim()
+    const trimmedEmail = email.trim().toLowerCase()
+    const trimmedMessage = message.trim()
+
+    if (!trimmedName || trimmedName.length > 100) {
+      setStatus('error')
+      setStatusMessage('Please enter your name.')
+      return
+    }
+    if (!EMAIL_PATTERN.test(trimmedEmail)) {
+      setStatus('error')
+      setStatusMessage('Please enter a valid email address.')
+      return
+    }
+    if (trimmedMessage.length < SUPPORT_MESSAGE_MIN || trimmedMessage.length > SUPPORT_MESSAGE_MAX) {
+      setStatus('error')
+      setStatusMessage(`Please write a message between ${SUPPORT_MESSAGE_MIN} and ${SUPPORT_MESSAGE_MAX} characters.`)
+      return
+    }
+
+    setStatus('sending')
+    try {
+      const response = await fetch('/api/support', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name: trimmedName, email: trimmedEmail, message: trimmedMessage, website }),
+      })
+      if (!response.ok) throw new Error('Request failed')
+
+      setStatus('success')
+      setStatusMessage("Message sent. We'll get back to you soon.")
+      setName('')
+      setEmail('')
+      setMessage('')
+    } catch {
+      setStatus('error')
+      setStatusMessage('Something went wrong. You can also email us at hello@sted.ai.')
+    }
+  }
+
+  return <main className="simple-page support-page shell" aria-labelledby="support-title">
+    <p className="section-label">SUPPORT</p>
+    <h1 id="support-title">How can we help?</h1>
+    <p className="simple-lede">Send us a message and we'll get back to you.</p>
+    <form className="support-form" onSubmit={handleSubmit} noValidate>
+      <div className="support-field-hidden" aria-hidden="true">
+        <label htmlFor="support-website">Website</label>
+        <input id="support-website" name="website" type="text" tabIndex={-1} autoComplete="off" value={website} onChange={(event) => setWebsite(event.target.value)} />
+      </div>
+      <label className="sr-only" htmlFor="support-name">Name</label>
+      <input id="support-name" name="name" type="text" required maxLength={100} placeholder="Name" value={name} onChange={(event) => { setName(event.target.value); setStatus('idle') }} />
+      <label className="sr-only" htmlFor="support-email">Email</label>
+      <input id="support-email" name="email" type="email" required placeholder="Email" value={email} onChange={(event) => { setEmail(event.target.value); setStatus('idle') }} />
+      <label className="sr-only" htmlFor="support-message">Message</label>
+      <textarea id="support-message" name="message" required minLength={SUPPORT_MESSAGE_MIN} maxLength={SUPPORT_MESSAGE_MAX} rows={6} placeholder="Message" value={message} onChange={(event) => { setMessage(event.target.value); setStatus('idle') }} />
+      <button className="button button-amber" type="submit" disabled={status === 'sending'}>{status === 'sending' ? 'Sending…' : 'Send message'} <span aria-hidden="true">↗</span></button>
+    </form>
+    <p className="support-status" role="status" data-status={status}>{statusMessage}</p>
+    <a className="contact-email" href="mailto:hello@sted.ai">hello@sted.ai <span aria-hidden="true">↗</span></a>
+  </main>
+}
+
+export function RoutePage({ route, postSlug, guideSlug, onOpenWaitlist, ...landingProps }: { route: 'landing' | 'about' | 'build' | 'contact' | 'post' | 'guides' | 'guide' | 'support'; postSlug?: string | null; guideSlug?: string | null; onOpenWaitlist: () => void } & LandingPageProps): ReactNode {
   if (route === 'about') return <AboutPage />
   if (route === 'build') return <BuildPublicPage />
   if (route === 'post') return <BuildLogPostPage slug={postSlug ?? ''} />
   if (route === 'guides') return <GuidesIndexPage />
   if (route === 'guide') return <GuidePage slug={guideSlug ?? ''} onOpenWaitlist={onOpenWaitlist} />
+  if (route === 'support') return <SupportPage />
   if (route === 'contact') return <ContactPage />
   return <LandingPage {...landingProps} />
 }

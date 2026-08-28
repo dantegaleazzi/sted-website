@@ -164,9 +164,19 @@ h1 em { color: #FFA836; font-style: normal; }
 .legal-content { max-width: 760px; padding-top: 92px; padding-bottom: 120px; }
 .legal-content h1 { max-width: none; margin: 22px 0 18px; font-size: clamp(52px, 8vw, 90px); text-align: left; }
 .legal-content h2 { margin: 54px 0 14px; font-size: 32px; line-height: 1.1; letter-spacing: -.035em; }
+.legal-content h3 { margin: 28px 0 12px; font-size: 19px; line-height: 1.2; letter-spacing: -.02em; }
 .legal-content p, .legal-content li { max-width: 680px; color: #6B6459; font-size: 15px; line-height: 1.7; }
 .legal-content p { margin: 0 0 17px; }.legal-content .legal-date { color: #14120F; font-size: 12px; }.legal-content ul { margin: 0 0 18px; padding-left: 24px; }.legal-content address { margin: 22px 0 14px; color: #14120F; font-size: 14px; font-style: normal; line-height: 1.65; }.legal-email { color: #14120F; text-decoration: underline; text-underline-offset: 3px; }.legal-switch { display: flex; gap: 18px; margin-top: 48px; color: #6B6459; font-size: 12px; text-decoration: underline; text-underline-offset: 3px; }
 .simple-page, .build-page { padding-top: 48px; padding-bottom: 100px; }.simple-page h1, .build-page h1 { max-width: 700px; margin: 12px 0 14px; font-size: clamp(28px, 4.2vw, 56px); line-height: 1.05; text-align: left; }.simple-page h1 br, .build-page h1 br { display: block; }.simple-lede { max-width: 560px; margin: 0 0 4px; color: #6B6459; font-size: 16px; line-height: 1.55; }.simple-page-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 100px; margin-top: 64px; padding-top: 34px; border-top: 1px solid #DDD8CF; }.simple-page-grid h2 { max-width: 390px; margin: 18px 0 0; font-size: 38px; line-height: 1.02; }.simple-page-grid > p { max-width: 390px; margin: 0; color: #6B6459; font-size: 15px; line-height: 1.65; }.contact-page .contact-email { margin-top: 40px; }
+.support-form { display: flex; flex-direction: column; gap: 12px; max-width: 480px; margin: 36px 0 20px; }
+.support-form input, .support-form textarea { border: 1px solid #DDD8CF; background: #FBFAF7; color: #14120F; font: inherit; font-size: 14px; padding: 14px 18px; }
+.support-form input { border-radius: 999px; height: 47px; }
+.support-form textarea { border-radius: 16px; min-height: 140px; resize: vertical; }
+.support-form input::placeholder, .support-form textarea::placeholder { color: #6B6459; }
+.support-form input:focus, .support-form textarea:focus { border-color: #14120F; box-shadow: 0 0 0 3px rgba(255,168,54,.35); outline: none; }
+.support-form .button { align-self: flex-start; margin-top: 4px; }
+.support-field-hidden { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+.support-status { min-height: 18px; margin: 0 0 4px; color: #6B6459; font-size: 13px; }
 .guide-page .post-body { margin-top: 24px; }
 .footer-column h4 { margin: 0 0 22px; font-size: 11px; letter-spacing: .13em; }.footer-column h4 small { color: #6B6459; font-size: inherit; font-weight: 500; }.footer-column a { display: flex; justify-content: space-between; max-width: 285px; padding: 8px 0; color: #14120F; font-size: 12px; border-bottom: 1px solid #DDD8CF; }.footer-column a span { color: #6B6459; font-size: 10px; }.footer-brand .logo { margin-bottom: 22px; }.footer-brand p { margin: 0; font: 22px/1.15 "Libre Baskerville Variable", Georgia, serif; letter-spacing: -.03em; }.footer-brand .copyright { margin-top: 55px; color: #6B6459; font: 11px/1.4 "Inter Variable", Inter, sans-serif; }.legal { display: flex; gap: 18px; margin-top: 15px; color: #6B6459; font-size: 11px; text-decoration: underline; text-underline-offset: 3px; }
 .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }

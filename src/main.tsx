@@ -27,8 +27,8 @@ function App() {
     return () => { window.removeEventListener('popstate', updateLocation); window.removeEventListener('hashchange', updateLocation) }
   }, [])
 
-  const legalDocument = hash === '#privacy' || hash === '#terms' ? hash.slice(1) as LegalDocument : null
   const pathname = window.location.pathname.replace(/\/$/, '') || '/'
+  const legalDocument: LegalDocument | null = pathname === '/privacy' ? 'privacy' : pathname === '/terms' ? 'terms' : null
   const postSlug = pathname.startsWith('/build/') ? pathname.slice('/build/'.length) : null
   const guideSlug = pathname.startsWith('/guides/') ? pathname.slice('/guides/'.length) : null
   const route = pathname === '/about' || hash === '#about' ? 'about'
@@ -36,12 +36,20 @@ function App() {
     : pathname === '/build' || hash === '#build-log' ? 'build'
     : guideSlug ? 'guide'
     : pathname === '/guides' ? 'guides'
+    : pathname === '/support' ? 'support'
     : pathname === '/contact' || hash === '#contact' ? 'contact'
     : 'landing'
 
   useEffect(() => {
+    // Legacy #privacy / #terms links used to render legal content inline.
+    // Redirect them to the permanent routes instead of showing stale text.
+    if (hash === '#privacy') window.location.replace('/privacy')
+    else if (hash === '#terms') window.location.replace('/terms')
+  }, [hash])
+
+  useEffect(() => {
     const activeGuide = route === 'guide' ? guides.find((guide) => guide.slug === guideSlug) : null
-    document.title = legalDocument === 'privacy' ? 'Privacy Policy — STED' : legalDocument === 'terms' ? 'Terms of Use — STED' : route === 'post' ? 'Build Log — STED' : activeGuide ? activeGuide.seoTitle ?? `${activeGuide.title} — STED` : route === 'guide' || route === 'guides' ? 'Guides — STED' : 'STED — Everything you save. Finally useful.'
+    document.title = legalDocument === 'privacy' ? 'Privacy Policy | Sted' : legalDocument === 'terms' ? 'Terms of Use | Sted' : route === 'post' ? 'Build Log — STED' : route === 'support' ? 'Support | Sted' : activeGuide ? activeGuide.seoTitle ?? `${activeGuide.title} — STED` : route === 'guide' || route === 'guides' ? 'Guides — STED' : 'STED — Everything you save. Finally useful.'
   }, [legalDocument, route, guideSlug])
 
   useEffect(() => {
@@ -110,7 +118,7 @@ function App() {
       <footer className="site-footer shell">
         <div className="footer-column"><h4>STED</h4><a href="https://instagram.com/stedapp">Instagram <span>instagram.com/stedapp</span></a><a href="https://tiktok.com/@stedapp">TikTok <span>tiktok.com/@stedapp</span></a><a href="https://youtube.com/@stedapp">YouTube <span>youtube.com/@stedapp</span></a><a href="https://linkedin.com/company/stedapp">LinkedIn <span>linkedin.com/company/stedapp</span></a><a href="https://x.com/stedapp">X <span>x.com/stedapp</span></a></div>
         <div className="footer-column"><h4>DANTE <small>— BUILDING IN PUBLIC</small></h4><a href="https://youtube.com/@dante.galeazzi">YouTube <span>youtube.com/@dante.galeazzi</span></a><a href="https://x.com/dantegaleazzi">X <span>x.com/dantegaleazzi</span></a><a href="https://tiktok.com/@dante.galeazzi">TikTok <span>tiktok.com/@dante.galeazzi</span></a><a href="https://instagram.com/dantegaleazzi22">Instagram <span>instagram.com/dantegaleazzi22</span></a><a href="https://linkedin.com/in/dantegaleazzi">LinkedIn <span>linkedin.com/in/dantegaleazzi</span></a></div>
-        <div className="footer-brand"><Logo /><p>A better way to save,<br />understand and use<br />everything that matters.</p><p className="copyright">© 2026 Finiks Labs LLC</p><div className="legal"><a href="#privacy">Privacy</a><a href="#terms">Terms</a></div></div>
+        <div className="footer-brand"><Logo /><p>A better way to save,<br />understand and use<br />everything that matters.</p><p className="copyright">© 2026 Finiks Labs LLC</p><div className="legal"><a href="/privacy">Privacy</a><a href="/terms">Terms</a><a href="/support">Support</a></div></div>
       </footer>
     </div>
   )
