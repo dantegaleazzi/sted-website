@@ -15,6 +15,13 @@ export const guides: Guide[] = [
     title: 'How to choose a name',
     subtitle: 'A simple naming framework + the prompts I used to find Sted.',
   },
+  {
+    slug: 'app-store-review-checklist',
+    title: 'Before Apple Reviews Your App',
+    subtitle: '5 checks I ran before submitting Sted to the App Store — plus the AI prompts I used to audit each one.',
+    seoTitle: 'Before Apple Reviews Your App — App Store Submission Checklist | Sted',
+    seoDescription: '5 checks to run before submitting your iOS app to Apple, plus the exact ChatGPT and Claude prompts used to audit each one before submitting Sted.',
+  },
 ]
 
 // No analytics backend exists yet and the Privacy Policy states no behavioral
@@ -567,9 +574,189 @@ function BuildAppIn24HoursPage() {
   </main>
 }
 
+const privacyPolicyPrompt = `You are an App Store privacy and compliance reviewer.
+
+Review my current app implementation and Privacy Policy against each other.
+
+Identify:
+1. Data the app actually collects
+2. Data sent to third parties
+3. AI providers and exactly what they receive
+4. Any behavior missing from the Privacy Policy
+5. Any statement in the Privacy Policy that the implementation does not support
+6. Potential inconsistencies with my App Store privacy disclosures
+
+Do not invent facts.
+Mark anything you cannot verify as NEEDS CONFIRMATION.
+
+Finish with:
+PASS
+NEEDS CHANGES
+or BLOCKER BEFORE SUBMISSION.`
+
+const accountDeletionPrompt = `You are reviewing my iOS account deletion implementation before App Review.
+
+Trace the complete flow from:
+Settings → Delete Account → confirmation → backend → database → authentication provider.
+
+Check:
+- whether deletion is available inside the app
+- whether the UI is straightforward
+- what user data is deleted
+- whether authentication credentials/tokens are handled correctly
+- whether third-party requirements such as Sign in with Apple revocation apply
+- failure states
+- whether the app falsely reports successful deletion
+
+Identify P0/P1 issues and finish with GO / NO-GO.`
+
+const reviewNotesPrompt = `You are an Apple App Review specialist.
+
+Based ONLY on the actual functionality of my submitted build, write concise App Review Notes.
+
+Include:
+- what the app does
+- the primary reviewer flow
+- where important features are located
+- authentication instructions if relevant
+- AI functionality and consent if relevant
+- account deletion location
+- anything the reviewer may otherwise misunderstand
+
+Do not add marketing language.
+Do not claim functionality that isn't in the submitted build.
+Optimize for making the reviewer's job easy.`
+
+const breakYourAppPrompt = `Act as a hostile QA tester preparing my iOS app for Apple review.
+
+Create a pre-submission smoke-test plan covering the actual product.
+
+Prioritize:
+P0 = crash/data loss/auth/privacy/security
+P1 = core functionality broken
+P2 = cosmetic/non-blocking
+
+Test:
+- fresh install
+- signup/login
+- primary product flow
+- network failures
+- empty states
+- malformed input
+- repeated actions
+- background/foreground
+- logout/login
+- account deletion
+- privacy/AI consent
+- external links
+- Share Extension if applicable
+
+Return a checklist I can execute on a physical iPhone.
+
+Finish with explicit criteria for whether the build is safe to submit.`
+
+const screenshotsPrompt = `You are reviewing my App Store screenshots against the actual release build.
+
+For every screenshot check:
+- Does this screen exist in the submitted build?
+- Is the UI accurate?
+- Does the screenshot communicate a real product benefit?
+- Is any text misleading?
+- Does it imply functionality that does not exist?
+- Is the most important functionality represented?
+
+Then recommend the strongest screenshot order and explain what each screenshot should communicate.
+
+Do not invent features.`
+
+const finalCheckItems = [
+  'Privacy Policy matches product',
+  'App Privacy answers match product',
+  'Account deletion works',
+  'Sign in with Apple tested if applicable',
+  'AI consent tested if applicable',
+  'Review Notes complete',
+  'Production backend running',
+  'TestFlight/physical-device smoke passed',
+  'Screenshots match release build',
+  'Correct build selected in App Store Connect',
+]
+
+function AppStoreReviewChecklistPage({ onOpenWaitlist }: { onOpenWaitlist: () => void }) {
+  const guide = 'app-store-review-checklist'
+
+  useEffect(() => {
+    track('guide_view', { guide })
+    const guideMeta = guides.find((entry) => entry.slug === guide)
+    const description = document.querySelector('meta[name="description"]')
+    const previousDescription = description?.getAttribute('content') ?? null
+    if (guideMeta?.seoDescription) description?.setAttribute('content', guideMeta.seoDescription)
+    return () => { if (previousDescription) description?.setAttribute('content', previousDescription) }
+  }, [])
+
+  return <main className="simple-page guide-page shell" aria-labelledby="guide-title">
+    <a className="post-back" href="/guides">← Back to guides</a>
+    <p className="section-label">FREE GUIDE</p>
+    <h1 id="guide-title">Before Apple Reviews Your App</h1>
+    <p className="simple-lede">5 checks I ran before submitting Sted to the App Store — plus the AI prompts I used to audit each one.</p>
+    <p className="post-note">This is a practical checklist based on my submission process, not legal advice.</p>
+
+    <GuideStep number="01" title="Privacy Policy">
+      <p>Your Privacy Policy needs to match what your shipped app actually does — not what it did three versions ago, and not what you plan to build eventually.</p>
+      <p>Make sure it accounts for:</p>
+      <ul>
+        <li>data the app collects</li>
+        <li>third parties involved</li>
+        <li>AI providers you use</li>
+        <li>exactly what data is sent to those AI providers</li>
+        <li>account and data deletion</li>
+        <li>privacy controls available to the user</li>
+      </ul>
+      <PromptCard number="01" title="Audit your Privacy Policy" prompt={privacyPolicyPrompt} guide={guide} />
+    </GuideStep>
+
+    <GuideStep number="02" title="Account deletion">
+      <p>If your app supports account creation, users need to be able to delete their account from inside the app. Check the applicable Apple account-deletion requirements, then actually test the flow end to end — don't assume it works because the button exists.</p>
+      <PromptCard number="02" title="Trace the deletion flow" prompt={accountDeletionPrompt} guide={guide} />
+    </GuideStep>
+
+    <GuideStep number="03" title="App Review Notes">
+      <p>Make Apple's job easy. Use the Review Notes to explain what your app does and anything that isn't obvious from tapping around — test accounts, where key features live, or how AI functionality works.</p>
+      <PromptCard number="03" title="Write your Review Notes" prompt={reviewNotesPrompt} guide={guide} />
+    </GuideStep>
+
+    <GuideStep number="04" title="Break your app before Apple does">
+      <p>Send it through TestFlight, give it to friends, and fix the important bugs before a reviewer finds them for you. Test on a physical device, not just the simulator.</p>
+      <PromptCard number="04" title="Run a pre-submission smoke test" prompt={breakYourAppPrompt} guide={guide} featured />
+    </GuideStep>
+
+    <GuideStep number="05" title="Screenshots">
+      <p>Use screenshots that show the real app you're submitting — not an old build, not a redesign you haven't shipped yet.</p>
+      <PromptCard number="05" title="Audit your screenshots" prompt={screenshotsPrompt} guide={guide} />
+    </GuideStep>
+
+    <div className="guide-stack-callout">
+      <p className="prompt-card-label">FINAL 10-MINUTE CHECK</p>
+      <ul className="guide-checklist">
+        {finalCheckItems.map((item) => <li key={item}><span aria-hidden="true">☐</span> {item}</li>)}
+      </ul>
+    </div>
+
+    <div className="guide-cta-block">
+      <h2>I'm building Sted in public.</h2>
+      <p className="simple-lede">Follow the journey →</p>
+      <div className="guide-cta">
+        <a className="button button-amber" href="/build" onClick={() => track('follow_build_click', { guide })}>Follow the build <span aria-hidden="true">→</span></a>
+        <button className="button button-outline" type="button" onClick={() => { track('join_sted_click', { guide }); onOpenWaitlist() }}>Join Sted <span aria-hidden="true">↗</span></button>
+      </div>
+    </div>
+  </main>
+}
+
 export function GuidePage({ slug, onOpenWaitlist }: { slug: string; onOpenWaitlist: () => void }) {
   if (slug === 'how-to-choose-a-name') return <HowToChooseANamePage onOpenWaitlist={onOpenWaitlist} />
   if (slug === 'build-an-app-in-24-hours') return <BuildAppIn24HoursPage />
+  if (slug === 'app-store-review-checklist') return <AppStoreReviewChecklistPage onOpenWaitlist={onOpenWaitlist} />
   return <main className="simple-page shell" aria-labelledby="guide-title">
     <a className="post-back" href="/guides">← Back to guides</a>
     <h1 id="guide-title">Guide not found.</h1>
