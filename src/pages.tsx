@@ -1,6 +1,10 @@
 import { useState, type FormEvent, type ReactNode } from 'react'
 import { GuidePage, GuidesIndexPage } from './guides'
 
+// While Sted is in App Store review, the site is kept to product + legal/support only.
+// Flip this back to true to restore Build in Public and Guides — no content is deleted.
+export const SHOW_BUILD_IN_PUBLIC = false
+
 const SUPPORT_MESSAGE_MIN = 10
 const SUPPORT_MESSAGE_MAX = 2000
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
@@ -617,7 +621,7 @@ export function LandingPage({ email, status, isSubmitting, onEmailChange, onSubm
       <p id="form-note" className="form-note"><span className="tiny-dot" /> Early access <span className="note-divider">·</span> No spam. Just updates.</p>
       <p id="form-status" className="form-status" role="status">{status}</p>
     </section>
-    <BuildPreviewSection />
+    {SHOW_BUILD_IN_PUBLIC && <BuildPreviewSection />}
   </>
 }
 

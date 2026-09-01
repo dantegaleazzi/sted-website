@@ -3,7 +3,7 @@ import { createRoot } from 'react-dom/client'
 import { createClient } from '@supabase/supabase-js'
 import { LegalPage, type LegalDocument } from './legal'
 import { Logo } from './logo'
-import { RoutePage } from './pages'
+import { RoutePage, SHOW_BUILD_IN_PUBLIC } from './pages'
 import { guides } from './guides'
 import './index.css'
 
@@ -32,10 +32,10 @@ function App() {
   const postSlug = pathname.startsWith('/build/') ? pathname.slice('/build/'.length) : null
   const guideSlug = pathname.startsWith('/guides/') ? pathname.slice('/guides/'.length) : null
   const route = pathname === '/about' || hash === '#about' ? 'about'
-    : postSlug ? 'post'
-    : pathname === '/build' || hash === '#build-log' ? 'build'
-    : guideSlug ? 'guide'
-    : pathname === '/guides' ? 'guides'
+    : SHOW_BUILD_IN_PUBLIC && postSlug ? 'post'
+    : SHOW_BUILD_IN_PUBLIC && (pathname === '/build' || hash === '#build-log') ? 'build'
+    : SHOW_BUILD_IN_PUBLIC && guideSlug ? 'guide'
+    : SHOW_BUILD_IN_PUBLIC && pathname === '/guides' ? 'guides'
     : pathname === '/support' ? 'support'
     : pathname === '/contact' || hash === '#contact' ? 'contact'
     : 'landing'
@@ -94,7 +94,7 @@ function App() {
     <div id="top" className="min-h-screen">
       <header className="site-header shell">
         <Logo />
-        <nav className="header-nav" aria-label="Primary navigation"><a href="/about">About</a><a href="/build">Build In Public</a><a href="/guides">Guides</a><a href="/contact">Contact</a></nav>
+        <nav className="header-nav" aria-label="Primary navigation"><a href="/about">About</a>{SHOW_BUILD_IN_PUBLIC && <><a href="/build">Build In Public</a><a href="/guides">Guides</a></>}<a href="/contact">Contact</a></nav>
         <button className="button button-amber header-cta" type="button" onClick={() => { setStatus(''); setIsWaitlistOpen(true) }}>Join the waitlist</button>
       </header>
 
