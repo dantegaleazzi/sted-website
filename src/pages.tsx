@@ -13,6 +13,128 @@ const TOTAL_DAYS = 43
 
 const stedLogs: BuildLog[] = [
   {
+    day: 14,
+    date: 'SEP 1, 2026',
+    title: 'Sted becomes a character',
+    summary: 'The product already had a name and an app. Today we started giving Sted a personality of its own.',
+    items: [
+      { label: 'Sted character introduced', status: 'Done' },
+      { label: 'New visual identity taking shape', status: 'Done' },
+      { label: 'Character system explored for product + content', status: 'Done' },
+      { label: 'Branding moving beyond just a logo', status: 'Done' },
+    ],
+    stats: [
+      { icon: '👤', label: '0 users' },
+      { icon: '💰', label: '$0 revenue' },
+      { icon: '⏳', label: '29 days left' },
+    ],
+  },
+  {
+    day: 13,
+    date: 'AUG 31, 2026',
+    title: 'In review. Back to the brand.',
+    summary: 'The app is with Apple, so today shifted from shipping the first build to shaping the next version of Sted’s identity.',
+    items: [
+      { label: 'App Store review underway', status: 'Done' },
+      { label: 'First release candidate locked', status: 'Done' },
+      { label: 'New branding direction explored', status: 'Done' },
+      { label: 'Sted character + visual system evolving', status: 'Done' },
+    ],
+    stats: [
+      { icon: '👤', label: '0 users' },
+      { icon: '💰', label: '$0 revenue' },
+      { icon: '⏳', label: '30 days left' },
+    ],
+  },
+  {
+    day: 12,
+    date: 'AUG 30, 2026',
+    title: 'Building distribution alongside the product',
+    summary: 'Today was less about adding features and more about building the content system around Sted.',
+    items: [
+      { label: 'Build-in-public content system refined', status: 'Done' },
+      { label: 'Hooks and formats tested', status: 'Done' },
+      { label: 'Content workflow improved', status: 'Done' },
+      { label: 'Product story becoming part of distribution', status: 'Done' },
+    ],
+    stats: [
+      { icon: '👤', label: '0 users' },
+      { icon: '💰', label: '$0 revenue' },
+      { icon: '⏳', label: '31 days left' },
+    ],
+  },
+  {
+    day: 11,
+    date: 'AUG 29, 2026',
+    title: 'The AI development loop',
+    summary: 'Sted is being built through a tight human + AI workflow rather than a traditional solo coding process.',
+    items: [
+      { label: 'Ideas translated into scoped AI tasks', status: 'Done' },
+      { label: 'Claude used for implementation workflows', status: 'Done' },
+      { label: 'Codex used for code-level execution and validation', status: 'Done' },
+      { label: 'Tests + real-device checks close the loop', status: 'Done' },
+    ],
+    stats: [
+      { icon: '👤', label: '0 users' },
+      { icon: '💰', label: '$0 revenue' },
+      { icon: '⏳', label: '32 days left' },
+    ],
+  },
+  {
+    day: 10,
+    date: 'AUG 28, 2026',
+    title: 'Submitted to the App Store',
+    summary: 'The first version of Sted is officially out of my hands and waiting for Apple.',
+    items: [
+      { label: 'App Store submission completed', status: 'Done' },
+      { label: 'Privacy + Terms reviewed', status: 'Done' },
+      { label: 'In-app account deletion verified', status: 'Done' },
+      { label: 'Review Notes prepared', status: 'Done' },
+      { label: 'Final TestFlight build tested', status: 'Done' },
+    ],
+    stats: [
+      { icon: '👤', label: '0 users' },
+      { icon: '💰', label: '$0 revenue' },
+      { icon: '⏳', label: '33 days left' },
+    ],
+  },
+  {
+    day: 9,
+    date: 'AUG 27, 2026',
+    title: 'Sted is on TestFlight',
+    summary: 'The paper prototype became a real installable iPhone app.',
+    items: [
+      { label: 'First TestFlight build uploaded', status: 'Done' },
+      { label: 'Native iOS app running on real devices', status: 'Done' },
+      { label: 'Share Extension working', status: 'Done' },
+      { label: 'Backend connected end-to-end', status: 'Done' },
+      { label: 'Ready for real-world testing', status: 'Done' },
+    ],
+    stats: [
+      { icon: '👤', label: '0 users' },
+      { icon: '💰', label: '$0 revenue' },
+      { icon: '⏳', label: '34 days left' },
+    ],
+  },
+  {
+    day: 8,
+    date: 'AUG 26, 2026',
+    title: 'The 24-hour build starts',
+    summary: 'The prototype phase is over. Today the goal became getting the smallest real version of Sted onto an iPhone as fast as possible.',
+    items: [
+      { label: 'MVP scope frozen', status: 'Done' },
+      { label: 'Native iOS build underway', status: 'Done' },
+      { label: 'Share Extension connected', status: 'Done' },
+      { label: 'Backend + authentication integrated', status: 'Done' },
+      { label: 'TestFlight became the next milestone', status: 'Done' },
+    ],
+    stats: [
+      { icon: '👤', label: '0 users' },
+      { icon: '💰', label: '$0 revenue' },
+      { icon: '⏳', label: '35 days left' },
+    ],
+  },
+  {
     day: 7,
     date: 'AUG 25, 2026',
     title: 'From paper sketch to native prototype',
@@ -141,6 +263,48 @@ const stedLogs: BuildLog[] = [
 ]
 
 const danteLogs: BuildLog[] = [
+  {
+    day: 14,
+    date: 'SEP 1, 2026',
+    title: 'Meet Sted',
+    summary: 'After two weeks building the product, Sted finally became a character. Today I started turning the little guy behind the name into the face of the product.',
+  },
+  {
+    day: 13,
+    date: 'AUG 31, 2026',
+    title: 'Apple is reviewing Sted',
+    summary: 'Sted is now in Apple’s hands. While I wait, I’m using the time to rethink the brand and what Sted should feel like beyond the app.',
+  },
+  {
+    day: 12,
+    date: 'AUG 30, 2026',
+    title: 'Building the content machine',
+    summary: 'Shipping the app is only half the job. Today was about figuring out how to consistently tell the story of building Sted while I’m still building it.',
+  },
+  {
+    day: 11,
+    date: 'AUG 29, 2026',
+    title: 'My vibe coding workflow',
+    summary: 'I’m not building Sted by writing every line myself. Today I broke down the workflow I’m using to go from idea → AI → code → test → working product.',
+  },
+  {
+    day: 10,
+    date: 'AUG 28, 2026',
+    title: 'I submitted Sted to Apple',
+    summary: 'Today Sted went to the App Store. Before submitting it, I went through privacy, account deletion, review notes, TestFlight and the little things Apple can reject you for.',
+  },
+  {
+    day: 9,
+    date: 'AUG 27, 2026',
+    title: 'From drawing to TestFlight',
+    summary: 'A few days ago Sted was a drawing. Today the actual iPhone app is running through TestFlight and I can finally give it to real people to break.',
+  },
+  {
+    day: 8,
+    date: 'AUG 26, 2026',
+    title: 'Can we build the app in 24 hours?',
+    summary: 'Apple review might take longer than building the app itself, so the new goal is ridiculous: turn yesterday’s prototype into a real iPhone app in 24 hours.',
+  },
   {
     day: 7,
     date: 'AUG 25, 2026',
