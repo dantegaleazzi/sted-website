@@ -8,6 +8,8 @@ import { guides } from './guides'
 import { StedContentTunnel } from './components/content-tunnel/StedContentTunnel'
 import { InternalSourceCardQA } from './components/source-card-qa/InternalSourceCardQA'
 import './index.css'
+import './components/content-tunnel/portal-preview.css'
+import { RealContentQA } from './components/source-card-qa/RealContentQA'
 
 const supabaseUrl = import.meta.env.VITE_SUPABASE_URL
 const supabasePublishableKey = import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY
@@ -44,6 +46,7 @@ function App() {
   }, [])
 
   const pathname = window.location.pathname.replace(/\/$/, '') || '/'
+  const tunnelPreview = pathname === '/internal/content-tunnel-preview' || pathname === '/internal/hero-projects-map'
   const legalDocument: LegalDocument | null = pathname === '/privacy' ? 'privacy' : pathname === '/terms' ? 'terms' : null
   const postSlug = pathname.startsWith('/build/') ? pathname.slice('/build/'.length) : null
   const guideSlug = pathname.startsWith('/guides/') ? pathname.slice('/guides/'.length) : null
@@ -78,6 +81,7 @@ function App() {
   }, [isWaitlistOpen])
 
   if (legalDocument) return <LegalPage document={legalDocument} />
+  if (pathname === '/internal/product-design-system') return <RealContentQA />
   if (pathname === '/internal/source-card-qa') return <InternalSourceCardQA />
   if (pathname === '/tunnel') return <StedContentTunnel />
 
@@ -109,14 +113,14 @@ function App() {
   }
 
   return (
-    <div id="top" className="min-h-screen site-surface">
+    <div id="top" className={`min-h-screen site-surface${tunnelPreview ? ' portal-preview' : ''}`}>
       <header className="site-header shell">
-        <Logo />
+        {tunnelPreview ? <a className="portal-wordmark" href="/" aria-label="Sted home"><img src="/brand/sted-primary-horizontal.svg" alt="Sted" /></a> : <Logo />}
         <nav className="header-nav" aria-label="Primary navigation"><a href="/about#how-it-works">How it works</a><a href="/about">About</a>{SHOW_BUILD_IN_PUBLIC && <><a href="/build">Build In Public</a><a href="/guides">Guides</a></>}<a href="/contact">Contact</a></nav>
         <button className="button button-amber header-cta" type="button" onClick={() => { setStatus(''); setIsWaitlistOpen(true) }}>Join the waitlist</button>
       </header>
 
-      <RoutePage route={route} postSlug={postSlug} guideSlug={guideSlug} onOpenWaitlist={() => { setStatus(''); setIsWaitlistOpen(true) }} email={email} status={status} isSubmitting={isSubmitting} onEmailChange={(value) => { setEmail(value); setStatus('') }} onSubmit={handleSubmit} />
+      <RoutePage tunnelPreview={tunnelPreview} route={route} postSlug={postSlug} guideSlug={guideSlug} onOpenWaitlist={() => { setStatus(''); setIsWaitlistOpen(true) }} email={email} status={status} isSubmitting={isSubmitting} onEmailChange={(value) => { setEmail(value); setStatus('') }} onSubmit={handleSubmit} />
 
       {isWaitlistOpen && <div className="modal-backdrop" role="presentation" onMouseDown={(event) => { if (event.target === event.currentTarget) setIsWaitlistOpen(false) }}>
         <section className="waitlist-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">

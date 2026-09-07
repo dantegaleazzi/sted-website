@@ -1,0 +1,91 @@
+/* Internal review variant: uses the real SourceCard component and complete
+   fixture content while leaving the production tunnel untouched. */
+.sct--portal { --portal-duration: 7.586102s; --card-width: 260px; --card-height: 330px; --portal-travel: calc(50cqw + 420px); background: #FCF3EB; color: #141313; }
+.sct--portal .sct-window { height: 510px; overflow: clip; isolation: isolate; }
+.sct--portal .sct-camera { z-index: 1; perspective: 1200px; perspective-origin: 50% 50%; }
+.sct-portal-surface { position: absolute; left: 50%; top: 50%; width: 350px; height: 118px; transform: translate(-50%, -50%); border: 1px solid #E9E1DA; border-radius: 20px; background: #FFFFFF; box-shadow: 0 12px 36px -28px #67514430; }
+.sct--portal .sct-position { --card-width: calc(((50cqw + 190px) / 2.095238095 * .92 + 12px) * 8 / var(--side-slots)); --card-height: 420px; width: var(--card-width); height: var(--card-height); visibility: visible; animation: sct-portal-travel var(--portal-duration) linear infinite; animation-delay: calc(-1 * var(--portal-duration) / 16 - (var(--depth) + var(--side-phase)) * var(--portal-duration) / var(--side-slots)); }
+.sct--portal .sct-hover { transition: none; transform: none; }
+.sct--portal .source-card { --card-ink: #141313; --card-muted: #69615B; --card-border: #E8E1DB; color: #141313; background: #FFFFFF; border-radius: 18px; box-shadow: 0 12px 24px -18px #49332440; min-height: 0; }
+.sct--portal .source-card__header { min-height: 54px; padding: 12px 16px; }
+.sct--portal .source-card__source strong { font-size: 13px; }
+.sct--portal .source-card__source span, .sct--portal .source-card__saved { font-size: 10px; }
+.sct--portal .source-icon { width: 28px; height: 28px; border-radius: 7px; background: transparent; }
+.sct--portal .source-card__body { padding: 18px; }
+.sct--portal .source-card__body h3 { font-size: 23px; font-weight: 600; line-height: 1.18; letter-spacing: -.035em; }
+.sct--portal .source-card__body-copy { font-size: 14px; line-height: 1.45; }
+.sct--portal .source-card__meta { font-size: 11px; line-height: 1.4; }
+/* These embellishments contain hardcoded synthetic code/stats or placeholder
+   graphics, rather than fixture content. Keep them out of this audit variant. */
+.sct--portal :is(.source-card__social-actions, .source-card__social-row, .source-card__code, .source-card__repo-stats, .source-card__document-lines, .source-card__wave) { display: none; }
+.sct--portal .source-card__social-row { font-size: 11px; }
+.sct--portal .sct-center { z-index: 2; padding: 0; min-width: 0; width: 150px; height: 194.37px; gap: 0; }
+.sct--portal .sct-center img { width: 150px; filter: drop-shadow(0 12px 10px #1413130A); }
+.sct--portal .sct-center strong { position: absolute; top: calc(100% + 8px); font-size: 24px; color: #141313; }
+.sct--portal .sct-center > span { position: absolute; top: calc(100% + 34px); color: #69615B; font-size: 11px; }
+@media (prefers-reduced-motion: reduce) {
+  .sct--portal .sct-position { animation: none; opacity: 1; transform: translateX(calc(var(--side) * var(--portal-travel) * var(--portal-rest-x))) translateZ(var(--portal-rest-z)) rotateY(calc(var(--side) * var(--portal-rest-angle))); }
+}
+
+/* Eight phase slots travel through a projected funnel. Wider spacing at the
+   edges compresses into the 350px portal; only the last 20% holds 110px height.
+   Native width tracks viewport width to retain a small central overlap. */
+@keyframes sct-portal-travel {
+  0% { transform: translateX(calc(var(--side) * var(--portal-travel) * 1.000000)) translateZ(0.000px) rotateY(calc(var(--side) * 28.000deg)); opacity: 0; }
+  2.5% { transform: translateX(calc(var(--side) * var(--portal-travel) * 0.987964)) translateZ(-28.332px) rotateY(calc(var(--side) * 28.000deg)); opacity: 1; }
+  5% { transform: translateX(calc(var(--side) * var(--portal-travel) * 0.975718)) translateZ(-58.034px) rotateY(calc(var(--side) * 28.000deg)); opacity: 1; }
+  7.5% { transform: translateX(calc(var(--side) * var(--portal-travel) * 0.963253)) translateZ(-89.209px) rotateY(calc(var(--side) * 28.000deg)); opacity: 1; }
+  10% { transform: translateX(calc(var(--side) * var(--portal-travel) * 0.950559)) translateZ(-121.967px) rotateY(calc(var(--side) * 28.000deg)); opacity: 1; }
+  12.5% { transform: translateX(calc(var(--side) * var(--portal-travel) * 0.937624)) translateZ(-156.434px) rotateY(calc(var(--side) * 28.000deg)); opacity: 1; }
+  15% { transform: translateX(calc(var(--side) * var(--portal-travel) * 0.924437)) translateZ(-192.746px) rotateY(calc(var(--side) * 28.000deg)); opacity: 1; }
+  17.5% { transform: translateX(calc(var(--side) * var(--portal-travel) * 0.910984)) translateZ(-231.056px) rotateY(calc(var(--side) * 28.000deg)); opacity: 1; }
+  20% { transform: translateX(calc(var(--side) * var(--portal-travel) * 0.897253)) translateZ(-271.533px) rotateY(calc(var(--side) * 28.000deg)); opacity: 1; }
+  22.5% { transform: translateX(calc(var(--side) * var(--portal-travel) * 0.883226)) translateZ(-314.366px) rotateY(calc(var(--side) * 28.000deg)); opacity: 1; }
+  25% { transform: translateX(calc(var(--side) * var(--portal-travel) * 0.868889)) translateZ(-359.768px) rotateY(calc(var(--side) * 28.000deg)); opacity: 1; }
+  27.5% { transform: translateX(calc(var(--side) * var(--portal-travel) * 0.854224)) translateZ(-407.976px) rotateY(calc(var(--side) * 28.000deg)); opacity: 1; }
+  30% { transform: translateX(calc(var(--side) * var(--portal-travel) * 0.839209)) translateZ(-459.259px) rotateY(calc(var(--side) * 28.000deg)); opacity: 1; }
+  32.5% { transform: translateX(calc(var(--side) * var(--portal-travel) * 0.823825)) translateZ(-513.921px) rotateY(calc(var(--side) * 28.000deg)); opacity: 1; }
+  35% { transform: translateX(calc(var(--side) * var(--portal-travel) * 0.808047)) translateZ(-572.308px) rotateY(calc(var(--side) * 28.000deg)); opacity: 1; }
+  37.5% { transform: translateX(calc(var(--side) * var(--portal-travel) * 0.791849)) translateZ(-634.812px) rotateY(calc(var(--side) * 28.000deg)); opacity: 1; }
+  40% { transform: translateX(calc(var(--side) * var(--portal-travel) * 0.775203)) translateZ(-701.887px) rotateY(calc(var(--side) * 28.000deg)); opacity: 1; }
+  42.5% { transform: translateX(calc(var(--side) * var(--portal-travel) * 0.758075)) translateZ(-774.051px) rotateY(calc(var(--side) * 26.250deg)); opacity: 1; }
+  45% { transform: translateX(calc(var(--side) * var(--portal-travel) * 0.740431)) translateZ(-851.908px) rotateY(calc(var(--side) * 24.500deg)); opacity: 1; }
+  47.5% { transform: translateX(calc(var(--side) * var(--portal-travel) * 0.722230)) translateZ(-936.159px) rotateY(calc(var(--side) * 22.750deg)); opacity: 1; }
+  50% { transform: translateX(calc(var(--side) * var(--portal-travel) * 0.703426)) translateZ(-1027.624px) rotateY(calc(var(--side) * 21.000deg)); opacity: 1; }
+  52.5% { transform: translateX(calc(var(--side) * var(--portal-travel) * 0.683970)) translateZ(-1127.273px) rotateY(calc(var(--side) * 19.250deg)); opacity: 1; }
+  55% { transform: translateX(calc(var(--side) * var(--portal-travel) * 0.663802)) translateZ(-1236.254px) rotateY(calc(var(--side) * 17.500deg)); opacity: 1; }
+  57.5% { transform: translateX(calc(var(--side) * var(--portal-travel) * 0.642857)) translateZ(-1355.943px) rotateY(calc(var(--side) * 15.750deg)); opacity: 1; }
+  60% { transform: translateX(calc(var(--side) * var(--portal-travel) * 0.621058)) translateZ(-1488.000px) rotateY(calc(var(--side) * 14.000deg)); opacity: 1; }
+  62.5% { transform: translateX(calc(var(--side) * var(--portal-travel) * 0.598316)) translateZ(-1634.446px) rotateY(calc(var(--side) * 12.250deg)); opacity: 1; }
+  65% { transform: translateX(calc(var(--side) * var(--portal-travel) * 0.574529)) translateZ(-1797.770px) rotateY(calc(var(--side) * 10.500deg)); opacity: 1; }
+  67.5% { transform: translateX(calc(var(--side) * var(--portal-travel) * 0.549576)) translateZ(-1981.065px) rotateY(calc(var(--side) * 8.750deg)); opacity: 1; }
+  70% { transform: translateX(calc(var(--side) * var(--portal-travel) * 0.523314)) translateZ(-2188.235px) rotateY(calc(var(--side) * 7.000deg)); opacity: 1; }
+  72.5% { transform: translateX(calc(var(--side) * var(--portal-travel) * 0.495570)) translateZ(-2424.270px) rotateY(calc(var(--side) * 5.250deg)); opacity: 1; }
+  75% { transform: translateX(calc(var(--side) * var(--portal-travel) * 0.466138)) translateZ(-2695.652px) rotateY(calc(var(--side) * 3.500deg)); opacity: 1; }
+  77.5% { transform: translateX(calc(var(--side) * var(--portal-travel) * 0.434766)) translateZ(-3010.966px) rotateY(calc(var(--side) * 1.750deg)); opacity: 1; }
+  80% { transform: translateX(calc(var(--side) * var(--portal-travel) * 0.401142)) translateZ(-3381.818px) rotateY(calc(var(--side) * 0.000deg)); opacity: 1; }
+  82.5% { transform: translateX(calc(var(--side) * var(--portal-travel) * 0.332744)) translateZ(-3381.818px) rotateY(calc(var(--side) * 0.000deg)); opacity: 1; }
+  85% { transform: translateX(calc(var(--side) * var(--portal-travel) * 0.268154)) translateZ(-3381.818px) rotateY(calc(var(--side) * 0.000deg)); opacity: 1; }
+  87.5% { transform: translateX(calc(var(--side) * var(--portal-travel) * 0.207745)) translateZ(-3381.818px) rotateY(calc(var(--side) * 0.000deg)); opacity: 1; }
+  90% { transform: translateX(calc(var(--side) * var(--portal-travel) * 0.152005)) translateZ(-3381.818px) rotateY(calc(var(--side) * 0.000deg)); opacity: 1; }
+  92.5% { transform: translateX(calc(var(--side) * var(--portal-travel) * 0.101611)) translateZ(-3381.818px) rotateY(calc(var(--side) * 0.000deg)); opacity: 1; }
+  95% { transform: translateX(calc(var(--side) * var(--portal-travel) * 0.057599)) translateZ(-3381.818px) rotateY(calc(var(--side) * 0.000deg)); opacity: 1; }
+  97.5% { transform: translateX(calc(var(--side) * var(--portal-travel) * 0.021826)) translateZ(-3381.818px) rotateY(calc(var(--side) * 0.000deg)); opacity: 1; }
+  98% { transform: translateX(calc(var(--side) * var(--portal-travel) * 0.015970)) translateZ(-3381.818px) rotateY(calc(var(--side) * 0.000deg)); opacity: 1; }
+  99% { transform: translateX(calc(var(--side) * var(--portal-travel) * 0.006051)) translateZ(-3381.818px) rotateY(calc(var(--side) * 0.000deg)); opacity: 1; }
+  100% { transform: translateX(calc(var(--side) * var(--portal-travel) * 0.000000)) translateZ(-3381.818px) rotateY(calc(var(--side) * 0.000deg)); opacity: 0; }
+}
+
+/* Keep all eight slots at the requested 1024px desktop checkpoint. */
+@container (max-width: 1100px) {
+  .sct--portal .sct-position { --card-height: 420px; }
+  .sct--portal .source-card__body { padding: 15px; }
+  .sct--portal .source-card__body h3 { font-size: 20px; }
+  .sct--portal .source-card__body-copy { font-size: 12px; }
+  .sct--portal .source-card__header { padding-inline: 12px; }
+}
+
+/* Preserve the full source artwork, including text embedded in OG images. */
+.sct--portal .source-card__media-image { object-fit: contain; background: #FFFFFF; }
+
+/* Both lanes share the root duration and evenly spaced phase delays. */

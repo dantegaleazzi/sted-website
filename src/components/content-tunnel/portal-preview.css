@@ -1,0 +1,24 @@
+.portal-preview { color-scheme: light; --sted-surface: #FCF3EB; --sted-white: #FFFFFF; --sted-ink: #141313; --sted-yellow: #FFD400; --sted-border: #E9E1DA; --sted-secondary: #69615B; --sted-subtle: #FFFFFF; background: #FCF3EB; }
+.portal-preview .site-header { display: grid; grid-template-columns: 1fr auto 1fr; gap: 24px; }
+.portal-wordmark { display: inline-flex; width: 120px; }
+.portal-wordmark img { display: block; width: 100%; }
+.portal-preview .header-cta { justify-self: end; }
+.portal-preview .hero { width: 100%; max-width: none; height: auto; min-height: 0; max-height: none; padding: 14px 0 20px; overflow: visible; }
+.portal-preview .hero-content { width: min(700px, calc(100% - 48px)); margin-inline: auto; }
+.portal-preview .home-tunnel { position: relative; inset: auto; width: 100%; transform: none; margin: 6px 0 0; }
+.portal-preview .home-tunnel .sct-window { height: clamp(300px, calc(100svh - 420px), 420px); }
+.portal-preview .hero-waitlist { position: relative; inset: auto; width: min(364px, calc(100% - 48px)); margin: 20px auto 0; transform: none; }
+.portal-preview .waitlist-form input { background: #FFFFFF; border-width: 1px; }
+.portal-preview .button-amber { color: #141313; }
+.portal-preview .waitlist-modal { background: #FFFFFF; }
+.portal-preview .site-footer { padding-block: 32px; }
+
+/* Keep the canonical heading/copy styles from index.css. Only the scene layout
+   changes in this review route. */
+.portal-preview .form-status:empty { display: none; }
+
+/* Compact review CTA: 30% narrower and shorter, with room below the mascot. */
+.portal-preview .waitlist-form { gap: 7px; margin-bottom: 6px; }
+.portal-preview .waitlist-form input { height: 32px; padding-inline: 13px; font-size: 11px; }
+.portal-preview .waitlist-form .button { height: 32px; min-height: 32px; padding-inline: 15px; gap: 8px; font-size: 11px; }
+.portal-preview .form-note { font-size: 9px; gap: 5px; }

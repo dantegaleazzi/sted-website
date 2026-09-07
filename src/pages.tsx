@@ -1,6 +1,7 @@
 import { useState, type FormEvent, type ReactNode } from 'react'
 import { GuidePage, GuidesIndexPage } from './guides'
 import { StedContentTunnel } from './components/content-tunnel/StedContentTunnel'
+import { portalFixtures } from './components/content-tunnel/portal-fixtures'
 import { sourceCardFixtures } from './components/source-cards/source-card-fixtures'
 
 // While Sted is in App Store review, the site is kept to product + legal/support only.
@@ -575,7 +576,7 @@ function TimelineEntry({ log, kind }: { log: BuildLog; kind: 'sted' | 'dante' })
   </article>
 }
 
-type LandingPageProps = { email: string; status: string; isSubmitting: boolean; onEmailChange: (value: string) => void; onSubmit: (event: FormEvent<HTMLFormElement>) => void }
+type LandingPageProps = { tunnelPreview?: boolean; email: string; status: string; isSubmitting: boolean; onEmailChange: (value: string) => void; onSubmit: (event: FormEvent<HTMLFormElement>) => void }
 
 function BuildPreviewSection() {
   const stedLog = stedLogs[0]
@@ -609,14 +610,14 @@ function BuildPreviewSection() {
   </section>
 }
 
-export function LandingPage({ email, status, isSubmitting, onEmailChange, onSubmit }: LandingPageProps) {
+export function LandingPage({ tunnelPreview = false, email, status, isSubmitting, onEmailChange, onSubmit }: LandingPageProps) {
   return <>
     <section className="hero shell" aria-labelledby="hero-title">
       <div className="hero-content">
         <h1 id="hero-title"><span>Everything you save.</span><span><em>Finally useful.</em></span></h1>
         <p className="hero-copy">Links, videos, posts, articles, repos and more.<br />All in one place, organized around your projects.</p>
       </div>
-      <StedContentTunnel items={sourceCardFixtures} className="home-tunnel" />
+      <StedContentTunnel items={tunnelPreview ? portalFixtures : sourceCardFixtures} variant={tunnelPreview ? 'portal' : 'original'} className="home-tunnel" />
       <div className="hero-waitlist">
         <form id="waitlist" className="waitlist-form" onSubmit={onSubmit} noValidate>
           <label className="sr-only" htmlFor="email">Your email address</label>

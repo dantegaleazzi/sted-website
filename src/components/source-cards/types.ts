@@ -19,6 +19,12 @@ export type SourceType =
   | 'bluesky'
 
 export type SourceCardItem = {
+  url?: string
+  verifiedContent?: boolean
+  caption?: string
+  postType?: string
+  publishedAt?: string
+  duration?: string
   id: string
   type: SourceType
   title: string

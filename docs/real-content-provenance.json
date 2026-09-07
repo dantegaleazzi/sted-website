@@ -1,0 +1,249 @@
+{
+  "retrievedAt": "2026-09-07",
+  "items": {
+    "revenuecat": {
+      "source": "https://www.revenuecat.com/blog/engineering/ios-in-app-subscription-tutorial-with-storekit-2-and-swift",
+      "remoteImage": "https://cdn.sanity.io/images/c3qnx9b0/production/7131b1457b699e0bf0e5be3fcf3cd3f99b5e307c-1200x630.png",
+      "localImage": "/content/real/revenuecat.png",
+      "sha256": "6796b53411c3b078b4de34fab7d68a9ea9ea337752c0589d07ae97293b059259",
+      "dimensions": [
+        1200,
+        630
+      ],
+      "status": "downloaded"
+    },
+    "openai": {
+      "source": "https://developers.openai.com/blog/codex-as-a-platform",
+      "remoteImage": "https://developers.openai.com/images/blog/codex-as-a-platform-cover.webp",
+      "localImage": "/content/real/openai.webp",
+      "sha256": "f03ae8b4ca57066df967a0bf5d4402da0faee7bee4932fcd4d73463f3acacf97",
+      "dimensions": [
+        1600,
+        590
+      ],
+      "status": "downloaded"
+    },
+    "youtube1": {
+      "source": "https://www.youtube.com/watch?v=nRmlLrI0OVk",
+      "remoteImage": "https://i.ytimg.com/vi/nRmlLrI0OVk/maxresdefault.jpg",
+      "localImage": "/content/real/youtube1.jpg",
+      "sha256": "184e9631b182ec7b391a5ecc82eef840da5e071f912b0494c63dbf7fcfe52764",
+      "dimensions": [
+        1280,
+        720
+      ],
+      "status": "downloaded"
+    },
+    "youtube2": {
+      "source": "https://www.youtube.com/watch?v=-a0ecQMq-rM",
+      "remoteImage": "https://i.ytimg.com/vi/-a0ecQMq-rM/maxresdefault.jpg",
+      "localImage": "/content/real/youtube2.jpg",
+      "sha256": "6727cb35985074d02f19695282f2f9e61b50e69d558799cfbde4a98c2c64cbee",
+      "dimensions": [
+        1280,
+        720
+      ],
+      "status": "downloaded"
+    },
+    "x1": {
+      "source": "https://cdn.syndication.twimg.com/tweet-result?id=2087153563340325341&lang=en&token=0",
+      "remoteImage": "https://pbs.twimg.com/card_img/2094763887241334784/KUU0RPxp?format=jpg&name=800x419",
+      "localImage": "/content/real/x1.jpg",
+      "sha256": "2a27aa3338aa001a1f3a01b9089eb83b253e658509e119655ef6b0a8110625d2",
+      "dimensions": [
+        800,
+        419
+      ],
+      "status": "downloaded"
+    },
+    "x2": {
+      "source": "https://cdn.syndication.twimg.com/tweet-result?id=2087733334617063503&lang=en&token=0",
+      "remoteImage": "https://pbs.twimg.com/media/HPkeUsWXsAAgdAy.jpg",
+      "localImage": "/content/real/x2.jpg",
+      "sha256": "78691fbd7442c936934cbd482a6a1dde12eb4186e2d37fbe6fcf8adc36ad60d6",
+      "dimensions": [
+        1200,
+        480
+      ],
+      "status": "downloaded"
+    },
+    "karakeep": {
+      "source": "https://github.com/karakeep-app/karakeep",
+      "remoteImage": "https://opengraph.githubassets.com/52f861b8342e7b125212ab1924fdcf6fbfa146cf6a4d808dbd42dbc46c505878/karakeep-app/karakeep",
+      "localImage": "/content/real/karakeep.png",
+      "sha256": "546a3c7e3aa66df9f55871401090a7d7185961774ce9a868226bfb46ff12107a",
+      "dimensions": [
+        1200,
+        600
+      ],
+      "status": "downloaded"
+    },
+    "anydoc": {
+      "source": "https://github.com/firecrawl/anydoc",
+      "remoteImage": "https://opengraph.githubassets.com/bb5f66218b3dce3cc7c7afaa75fc4e946c16368f651737b1ebe28bb8c5fdca2d/firecrawl/anydoc",
+      "localImage": "/content/real/anydoc.png",
+      "sha256": "ea3c6c91d735ea13d95deb2ce615d811d2a1d03ba24e93d655f6bf1933a20026",
+      "dimensions": [
+        1200,
+        600
+      ],
+      "status": "downloaded"
+    },
+    "firecrawl": {
+      "source": "https://www.firecrawl.dev/",
+      "remoteImage": "https://www.firecrawl.dev/og.png",
+      "localImage": "/content/real/firecrawl.png",
+      "sha256": "4b05d0f4bcfc02f13e180543f2b154387b0411b3329fdd97a279b23e39103593",
+      "dimensions": [
+        2400,
+        1260
+      ],
+      "status": "downloaded"
+    },
+    "jina": {
+      "source": "https://jina.ai/reader/",
+      "remoteImage": "https://jina.ai/og/page.png?title=Reader+API&subtitle=Convert+any+URL+to+Markdown+for+better+grounding+LLMs.",
+      "localImage": "/content/real/jina.png",
+      "sha256": "bbf32d50903747a3699b3f0eccc990cfe38d02dc67d133780a7b7d2de454e106",
+      "dimensions": [
+        1200,
+        630
+      ],
+      "status": "downloaded"
+    },
+    "instagram": {
+      "source": "https://www.instagram.com/p/DYZUwiBjMRp/",
+      "remoteImage": "https://scontent-sin11-2.cdninstagram.com/v/t51.71878-15/707407198_1550392139752836_8040582438896138776_n.jpg?stp=cmp1_dst-jpg_e35_s640x640_tt6&_nc_cat=101&ccb=7-5&_nc_sid=18de74&efg=eyJlZmdfdGFnIjoiQUQuYmVzdF9pbWFnZV91cmxnZW4uQzMifQ%3D%3D&_nc_ohc=sp5AY9qvFYUQ7kNvwHi5xkR&_nc_oc=AdrLq0EDIUl9B68jqdD-vNNxWWmPWzpZcBMKMUVsaIyNjrKBi6CBeuFe0fAcvMTp_MU&_nc_zt=23&_nc_ht=scontent-sin11-2.cdninstagram.com&_nc_gid=oXfZfI_nDqHHcrYZI6QH-w&_nc_ss=79a02&oh=00_AQJLGuKDO6G510oVwynw9W1z7tW6XvecSlvvewmiSEKbZQ&oe=6AA469E5",
+      "localImage": "/content/real/instagram.jpg",
+      "sha256": "d8227808cb59e3b4326a29abfc6de7d38c31c4714e9eb90061bd8437774dcd70",
+      "dimensions": [
+        360,
+        640
+      ],
+      "status": "downloaded"
+    },
+    "pinterest": {
+      "source": "https://uk.pinterest.com/pin/exterior-modern-style--7177680653110489",
+      "remoteImage": "https://i.pinimg.com/736x/fa/0b/59/fa0b59454a89578c58d095603280420a.jpg",
+      "localImage": "/content/real/pinterest.jpg",
+      "sha256": "49f080604af32bd180433f43aeb0ac5bbf8b26a39cde5a122d246773a76f2636",
+      "dimensions": [
+        736,
+        1308
+      ],
+      "status": "downloaded"
+    },
+    "instagram-visual": {
+      "source": "https://www.instagram.com/p/Dc0rlpZCAkC/",
+      "remoteImage": "https://scontent-sin11-2.cdninstagram.com/v/t39.30808-6/794230027_1010182862070069_5077661805869359452_n.jpg?stp=c216.0.648.648a_dst-jpg_e35_s640x640_tt6&_nc_cat=108&ccb=7-5&_nc_sid=18de74&efg=eyJlZmdfdGFnIjoiRkVFRC5iZXN0X2ltYWdlX3VybGdlbi5DMyJ9&_nc_ohc=Bl8xb8K1vygQ7kNvwE7k9XX&_nc_oc=AdoATyi1mX5pLYp0748nRLcIwuKKX68rGQ-VCkCKAfCZyBRtNxDZt_q7JIS_Uu0hcw4&_nc_zt=23&_nc_ht=scontent-sin11-2.cdninstagram.com&_nc_gid=7o5xH2zXp6mnrKdyGn2wMA&_nc_ss=79a02&oh=00_AQJ0-hSA_NoJmdQOSOfMRh8NzgaOfLfjtFavIbO6mhA9cw&oe=6AA48F6D",
+      "localImage": "/content/real/instagram-osmo-global-360-ii.jpg",
+      "sha256": "5b2d80d93e4611023e836d88d76027d677c769245e8634d9fcad28f7f7026985",
+      "dimensions": [
+        640,
+        640
+      ],
+      "status": "downloaded"
+    },
+    "spotify-episode": {
+      "source": "https://open.spotify.com/episode/3Ac9iIUCIp25qHpDaNugZS",
+      "remoteImage": "https://image-cdn-ak.spotifycdn.com/image/ab6772ab00001692d4fe21219e863a89af2135e2",
+      "localImage": "/content/real/spotify-lennys-podcast-ian-silber.jpg",
+      "sha256": "1b2cfe316af6222a3f66fd9f6744609dbf6d86eca155c34c1fde55b4efc19db0",
+      "dimensions": [
+        1280,
+        720
+      ],
+      "status": "downloaded"
+    },
+    "spotify-playlist": {
+      "source": "https://open.spotify.com/playlist/37i9dQZF1DZ06evO1YkSM1",
+      "remoteImage": "https://pickasso.spotifycdn.com/image/ab67c0de0000deef/dt/v1/img/thisisv3/3oKRxpszQKUjjaHz388fVA/en",
+      "localImage": "/content/real/spotify-this-is-parcels.jpg",
+      "sha256": "52e119f5615e1da6b936acb5934570e6b4bd8f9da73925f0ab46bad921ea5787",
+      "dimensions": [
+        320,
+        320
+      ],
+      "status": "downloaded"
+    },
+    "instagram-dji": {
+      "source": "https://www.instagram.com/p/DcwPDHOO86H/",
+      "status": "awaiting-user-asset",
+      "requestedFilename": "instagram-dji-osmo-360-II.jpg",
+      "note": "Do not fetch an alternative image. URL returns @claudeai metadata, although the user requests a DJI visual. Await supplied file."
+    }
+  },
+  "videos": {
+    "youtube1": {
+      "oembed": {
+        "title": "【松原みき】Miki Matsubara ’Mayonaka no Door -stay with me’ (Music Video)  2023 by Fridman Sisters",
+        "author_name": "Miki Matsubara Official \"stay with me\"",
+        "author_url": "https://www.youtube.com/@staywithme_miki",
+        "type": "video",
+        "height": 113,
+        "width": 200,
+        "version": "1.0",
+        "provider_name": "YouTube",
+        "provider_url": "https://www.youtube.com/",
+        "thumbnail_height": 360,
+        "thumbnail_width": 480,
+        "thumbnail_url": "https://i.ytimg.com/vi/nRmlLrI0OVk/hqdefault.jpg",
+        "html": "<iframe width=\"200\" height=\"113\" src=\"https://www.youtube.com/embed/nRmlLrI0OVk?feature=oembed\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\" referrerpolicy=\"strict-origin-when-cross-origin\" allowfullscreen title=\"【松原みき】Miki Matsubara ’Mayonaka no Door -stay with me’ (Music Video)  2023 by Fridman Sisters\"></iframe>"
+      },
+      "duration": "PT6M15S",
+      "rawLengthSeconds": [
+        "374",
+        "375"
+      ]
+    },
+    "youtube2": {
+      "oembed": {
+        "title": "Starship - Critical Path",
+        "author_name": "SpaceX",
+        "author_url": "https://www.youtube.com/@SpaceX",
+        "type": "video",
+        "height": 113,
+        "width": 200,
+        "version": "1.0",
+        "provider_name": "YouTube",
+        "provider_url": "https://www.youtube.com/",
+        "thumbnail_height": 360,
+        "thumbnail_width": 480,
+        "thumbnail_url": "https://i.ytimg.com/vi/-a0ecQMq-rM/hqdefault.jpg",
+        "html": "<iframe width=\"200\" height=\"113\" src=\"https://www.youtube.com/embed/-a0ecQMq-rM?feature=oembed\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\" referrerpolicy=\"strict-origin-when-cross-origin\" allowfullscreen title=\"Starship - Critical Path\"></iframe>"
+      },
+      "duration": "PT34M16S",
+      "rawLengthSeconds": [
+        "2056",
+        "2056"
+      ]
+    }
+  },
+  "notes": [
+    "User-supplied titles/descriptions preserved.",
+    "shadcn media is the linked repository card image; Google Cloud media is the linked X article cover.",
+    "YouTube 1 uses public HTML duration PT6M15S; embedded lengthSeconds contains both 374 and 375.",
+    "No missing required thumbnails or video metadata. Optional engagement, repository language/stars and article author/date are omitted.",
+    "Superseding request adds two Spotify items and replaces @trycursor with two Instagram fixtures. 15 unique items. First Instagram image pending supplied file; Instagram post types unavailable and omitted."
+  ],
+  "additionalMetadata": {
+    "spotify-episode": {
+      "url": "https://open.spotify.com/episode/3Ac9iIUCIp25qHpDaNugZS",
+      "meta": {
+        "og:title": " Chatbots are not the final interface: OpenAI’s Head of Design on what’s next | Ian Silber",
+        "og:description": "Lenny's Podcast · Episode",
+        "og:image": "https://image-cdn-ak.spotifycdn.com/image/ab6772ab00001692d4fe21219e863a89af2135e2",
+        "twitter:image": "https://image-cdn-ak.spotifycdn.com/image/ab6772ab00001692d4fe21219e863a89af2135e2"
+      }
+    },
+    "spotify-playlist": {
+      "url": "https://open.spotify.com/playlist/37i9dQZF1DZ06evO1YkSM1",
+      "meta": {
+        "og:title": "This Is Parcels",
+        "og:description": "Playlist · Spotify · 42 items · 123.6K saves",
+        "og:image": "https://pickasso.spotifycdn.com/image/ab67c0de0000deef/dt/v1/img/thisisv3/3oKRxpszQKUjjaHz388fVA/en",
+        "twitter:image": "https://pickasso.spotifycdn.com/image/ab67c0de0000deef/dt/v1/img/thisisv3/3oKRxpszQKUjjaHz388fVA/en"
+      }
+    }
+  }
+}

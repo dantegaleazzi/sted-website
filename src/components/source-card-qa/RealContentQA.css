@@ -1,0 +1,9 @@
+.real-content-qa { min-height: 100vh; padding: 32px max(24px, calc((100% - 1120px) / 2)); background: #FCF3EB; color: #141313; }
+.real-content-qa > header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 48px; }
+.real-content-qa h1 { font-size: 40px; letter-spacing: -.04em; margin-bottom: 12px; }
+.real-content-qa h2 { font-size: 22px; margin: 40px 0 20px; }
+.real-content-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; }
+.real-content-qa .source-card { --card-ink: #141313; --card-muted: #69615B; --card-border: #E8E1DB; background: #fff; border-radius: 18px; }
+.real-content-qa .source-card__media-image { height: 240px; object-fit: contain; background: #fff; }
+.real-content-qa .source-card__body h3 { overflow-wrap: anywhere; }
+.real-content-source { display: inline-block; margin-top: 12px; font-size: 13px; text-decoration: underline; }

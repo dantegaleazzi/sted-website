@@ -1,5 +1,7 @@
 # Guía de diseño del Sted Content Tunnel
 
+> Para la variante interna actual con portal, ver [content-tunnel-portal-preview.md](content-tunnel-portal-preview.md). Las secciones históricas siguientes contienen referencias a ContentCard, pausa manual y assets que ya no corresponden a la implementación actual.
+
 Esta guía explica cómo modificar la experiencia visual que se ve en:
 
 `/dev/content-tunnel/`
