@@ -235,3 +235,15 @@ h1 em { color: #FFD400; font-style: normal; }
   .button-outline { color: var(--sted-ink); border-color: var(--sted-ink); }
   .button-outline:hover { color: #10100F; background: #F7F6F3; }
 }
+
+/* Temporary structural polish: spacing and simple typography only. */
+.site-surface > .site-footer { margin-top: 160px; }
+.how-it-works { margin-top: 96px; scroll-margin-top: 32px; }
+.how-it-works-steps { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 48px; padding: 0; margin: 32px 0 0; list-style: none; }
+.how-it-works-steps h3 { margin: 16px 0 12px; font-size: 24px; line-height: 1.2; font-weight: 600; letter-spacing: -.035em; }
+.how-it-works-steps p { margin: 0; max-width: 340px; font-size: 16px; line-height: 1.6; color: var(--sted-secondary); }
+@media (max-width: 800px) {
+ .site-surface > .site-footer { margin-top: 96px; }
+ .how-it-works { margin-top: 72px; }
+ .how-it-works-steps { grid-template-columns: 1fr; gap: 36px; }
+}

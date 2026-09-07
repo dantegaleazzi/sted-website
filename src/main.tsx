@@ -3,6 +3,7 @@ import { createRoot } from 'react-dom/client'
 import { createClient } from '@supabase/supabase-js'
 import { LegalPage, type LegalDocument } from './legal'
 import { Logo } from './logo'
+import { StedMenu } from './components/header/StedMenu'
 import { RoutePage, SHOW_BUILD_IN_PUBLIC } from './pages'
 import { guides } from './guides'
 import { StedContentTunnel } from './components/content-tunnel/StedContentTunnel'
@@ -46,7 +47,7 @@ function App() {
   }, [])
 
   const pathname = window.location.pathname.replace(/\/$/, '') || '/'
-  const tunnelPreview = pathname === '/internal/content-tunnel-preview' || pathname === '/internal/hero-projects-map'
+  const tunnelPreview = pathname === '/' || pathname === '/internal/content-tunnel-preview' || pathname === '/internal/hero-projects-map'
   const legalDocument: LegalDocument | null = pathname === '/privacy' ? 'privacy' : pathname === '/terms' ? 'terms' : null
   const postSlug = pathname.startsWith('/build/') ? pathname.slice('/build/'.length) : null
   const guideSlug = pathname.startsWith('/guides/') ? pathname.slice('/guides/'.length) : null
@@ -115,8 +116,7 @@ function App() {
   return (
     <div id="top" className={`min-h-screen site-surface${tunnelPreview ? ' portal-preview' : ''}`}>
       <header className="site-header shell">
-        {tunnelPreview ? <a className="portal-wordmark" href="/" aria-label="Sted home"><img src="/brand/sted-primary-horizontal.svg" alt="Sted" /></a> : <Logo />}
-        <nav className="header-nav" aria-label="Primary navigation"><a href="/about#how-it-works">How it works</a><a href="/about">About</a>{SHOW_BUILD_IN_PUBLIC && <><a href="/build">Build In Public</a><a href="/guides">Guides</a></>}<a href="/contact">Contact</a></nav>
+        <StedMenu />
         <button className="button button-amber header-cta" type="button" onClick={() => { setStatus(''); setIsWaitlistOpen(true) }}>Join the waitlist</button>
       </header>
 

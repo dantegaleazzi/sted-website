@@ -1,9 +1,9 @@
-.portal-preview { color-scheme: light; --sted-surface: #FCF3EB; --sted-white: #FFFFFF; --sted-ink: #141313; --sted-yellow: #FFD400; --sted-border: #E9E1DA; --sted-secondary: #69615B; --sted-subtle: #FFFFFF; background: #FCF3EB; }
-.portal-preview .site-header { display: grid; grid-template-columns: 1fr auto 1fr; gap: 24px; }
+.portal-preview { color-scheme: light; --sted-surface: #FFFFFF; --sted-white: #FFFFFF; --sted-ink: #141313; --sted-yellow: #FFD400; --sted-border: #E9E1DA; --sted-secondary: #69615B; --sted-subtle: #FFFFFF; background: #FFFFFF; }
+.portal-preview .site-header { display: flex; justify-content: space-between; gap: 24px; }
 .portal-wordmark { display: inline-flex; width: 120px; }
 .portal-wordmark img { display: block; width: 100%; }
 .portal-preview .header-cta { justify-self: end; }
-.portal-preview .hero { width: 100%; max-width: none; height: auto; min-height: 0; max-height: none; padding: 14px 0 20px; overflow: visible; }
+.portal-preview .hero { width: 100%; max-width: none; height: auto; min-height: 0; max-height: none; padding: 4px 0 20px; overflow: visible; }
 .portal-preview .hero-content { width: min(700px, calc(100% - 48px)); margin-inline: auto; }
 .portal-preview .home-tunnel { position: relative; inset: auto; width: 100%; transform: none; margin: 6px 0 0; }
 .portal-preview .home-tunnel .sct-window { height: clamp(300px, calc(100svh - 420px), 420px); }
@@ -22,3 +22,13 @@
 .portal-preview .waitlist-form input { height: 32px; padding-inline: 13px; font-size: 11px; }
 .portal-preview .waitlist-form .button { height: 32px; min-height: 32px; padding-inline: 15px; gap: 8px; font-size: 11px; }
 .portal-preview .form-note { font-size: 9px; gap: 5px; }
+
+@media (max-width: 600px) {
+ .portal-preview .site-header { gap: 12px; }
+ .portal-preview .hero-content { width: calc(100% - 32px); }
+ .portal-preview .hero h1 { font-size: clamp(36px, 10vw, 44px); }
+ .portal-preview .hero-copy { font-size: 14px; }
+ .portal-preview .home-tunnel .sct-window { height: 300px; }
+ .portal-preview .hero-waitlist { margin-top: 20px; }
+ .portal-preview .waitlist-form input, .portal-preview .waitlist-form .button { height: 40px; min-height: 40px; font-size: 12px; }
+}

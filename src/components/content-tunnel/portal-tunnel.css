@@ -1,6 +1,6 @@
 /* Internal review variant: uses the real SourceCard component and complete
    fixture content while leaving the production tunnel untouched. */
-.sct--portal { --portal-duration: 7.586102s; --card-width: 260px; --card-height: 330px; --portal-travel: calc(50cqw + 420px); background: #FCF3EB; color: #141313; }
+.sct--portal { --portal-duration: 6.321752s; --card-width: 260px; --card-height: 330px; --portal-travel: calc(50cqw + 420px); background: #FFFFFF; color: #141313; }
 .sct--portal .sct-window { height: 510px; overflow: clip; isolation: isolate; }
 .sct--portal .sct-camera { z-index: 1; perspective: 1200px; perspective-origin: 50% 50%; }
 .sct-portal-surface { position: absolute; left: 50%; top: 50%; width: 350px; height: 118px; transform: translate(-50%, -50%); border: 1px solid #E9E1DA; border-radius: 20px; background: #FFFFFF; box-shadow: 0 12px 36px -28px #67514430; }

@@ -637,7 +637,15 @@ export function AboutPage() {
     <p className="section-label">ABOUT STED</p>
     <h1 id="about-title">Keep the things<br />worth coming back to.</h1>
     <p className="simple-lede">Sted is being built for the links, screenshots, notes and ideas you save because they might matter later.</p>
-    <div id="how-it-works" className="simple-page-grid"><div><p className="section-label">THE IDEA</p><h2>A calmer place for what you keep.</h2></div><p>Sted helps you understand what you save, organize it around your projects and find it when you need it. It is being built in public, one day at a time.</p></div>
+    <div className="simple-page-grid"><div><p className="section-label">THE IDEA</p><h2>A calmer place for what you keep.</h2></div><p>Sted helps you understand what you save, organize it around your projects, and find it when you need it.</p></div>
+    <section id="how-it-works" className="how-it-works" aria-labelledby="how-it-works-title">
+      <h2 id="how-it-works-title" className="section-label">HOW IT WORKS</h2>
+      <ol className="how-it-works-steps">
+        <li><span className="section-label" aria-hidden="true">01</span><h3>Save anything.</h3><p>From apps, websites, videos, posts and more.</p></li>
+        <li><span className="section-label" aria-hidden="true">02</span><h3>Sted understands it.</h3><p>It pulls out the useful context and organizes it around your projects.</p></li>
+        <li><span className="section-label" aria-hidden="true">03</span><h3>Find it when it matters.</h3><p>Search, browse, or ask Sted when you need it.</p></li>
+      </ol>
+    </section>
   </main>
 }
 
