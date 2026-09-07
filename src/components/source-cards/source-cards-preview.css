@@ -1,0 +1,21 @@
+@import './SourceCard.css';
+
+:root { color: #141313; background: #f5f4ef; font-family: Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
+* { box-sizing: border-box; }
+body { margin: 0; }
+.source-board { width: min(1440px, calc(100% - 64px)); margin: 0 auto; padding: 62px 0 100px; }
+.source-board__intro { display: flex; align-items: flex-end; justify-content: space-between; gap: 40px; padding-bottom: 40px; border-bottom: 1px solid #dfddd7; }
+.source-board__kicker { margin: 0 0 17px; color: #6f6d69; font-size: 10px; font-weight: 700; letter-spacing: .18em; }
+.source-board h1 { max-width: 700px; margin: 0; font-size: clamp(48px, 7vw, 98px); line-height: .92; letter-spacing: -.075em; }
+.source-board__lede { max-width: 470px; margin: 25px 0 0; color: #6f6d69; font-size: 16px; line-height: 1.55; }
+.source-board__audit { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 8px; max-width: 310px; color: #6f6d69; font-size: 10px; line-height: 1.4; text-align: right; }
+.source-board__audit span { padding: 7px 9px; border: 1px solid #dedbd2; border-radius: 999px; background: #fff; }
+.source-board__grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 34px 20px; padding-top: 40px; }
+.source-board__cell { min-width: 0; }
+.source-board__cell:nth-child(2n) .source-card { border-radius: 18px; }
+.source-board__cell:nth-child(3n) .source-card { min-height: 330px; }
+.source-board__caption { margin: 9px 0 0 3px; color: #9a9690; font: 10px ui-monospace, SFMono-Regular, monospace; }
+@media (max-width: 1080px) { .source-board__grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+@media (max-width: 760px) { .source-board { width: min(100% - 32px, 560px); padding-top: 38px; }.source-board__intro { display: block; }.source-board__audit { justify-content: flex-start; margin-top: 24px; text-align: left; }.source-board__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px 12px; padding-top: 28px; } }
+@media (max-width: 470px) { .source-board__grid { grid-template-columns: 1fr; }.source-board h1 { font-size: 52px; } }
+

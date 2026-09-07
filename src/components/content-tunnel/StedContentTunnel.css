@@ -32,10 +32,10 @@
 .sct-film-label { position: absolute; left: 17px; bottom: 14px; font-size: 8px; letter-spacing: 2px; color: #fff; }
 .sct-card--instagram .sct-landscape { height: 235px; background: #e2d9bd; }
 .sct-card--instagram .sct-copy h3 { font-size: 19px; }
-.sct-editorial { height: 195px; background: #febc23; padding: 23px; display: flex; flex-direction: column; justify-content: space-between; }
+.sct-editorial { height: 195px; background: #FFD400; padding: 23px; display: flex; flex-direction: column; justify-content: space-between; }
 .sct-editorial > span:first-child { font-size: 49px; line-height: .9; font-weight: 800; letter-spacing: -3px; }
 .sct-editorial > span:last-child { font-size: 9px; }
-.sct-cover { background: #f7f7f5; margin: 14px 30px 0; border-left: 5px solid #febc23; padding: 20px; display: flex; flex-direction: column; gap: 15px; }
+.sct-cover { background: #f7f7f5; margin: 14px 30px 0; border-left: 5px solid #FFD400; padding: 20px; display: flex; flex-direction: column; gap: 15px; }
 .sct-cover > span:first-child { font-size: 29px; font-weight: 700; letter-spacing: -1px; line-height: .95; }
 .sct-cover > span:last-child { font-size: 9px; }
 .sct-author { display: flex; gap: 10px; align-items: center; margin-bottom: 24px; font-size: 13px; }
@@ -50,12 +50,13 @@
 .sct-still-life > span:last-child { position: absolute; top: 18px; left: 18px; font-size: 9px; letter-spacing: 2px; }
 .sct-vase { position: absolute; width: 90px; height: 110px; border-radius: 25% 25% 45% 45%; background: linear-gradient(90deg,#a56e4c,#d6ad8d 45%,#bd8c68); left: 90px; top: 70px; box-shadow: 20px 15px 20px #1413131a; }
 .sct-orbit { position: absolute; width: 85px; height: 85px; border: 20px solid #d9bd82; border-radius: 50%; top: 112px; left: 188px; }
-.sct-center { position: absolute; z-index: 2; top: 50%; left: 50%; transform: translate(-50%,-50%); display: grid; justify-items: center; gap: 14px; pointer-events: none; }
-.sct-center::before { content: ''; position: absolute; width: 155px; height: 155px; top: -35px; border-radius: 50%; background: radial-gradient(circle,#fff 30%,#ffffffd9 48%,#ffffff00 72%); z-index: -1; }
-.sct-center img { width: 76px; height: 76px; filter: drop-shadow(0 9px 8px #14131312); }
-.sct-center > span { position: absolute; top: 91px; white-space: nowrap; font-size: 11px; color: #6f6d69; }
+.sct-center { position: absolute; z-index: 2; top: 50%; left: 50%; transform: translate(-50%,-50%); display: grid; justify-items: center; gap: 6px; min-width: 150px; padding: 18px 20px 16px; pointer-events: none; }
+.sct-center::before { content: ''; position: absolute; width: 230px; height: 230px; top: 50%; left: 50%; transform: translate(-50%,-50%); border: 1px solid #FFD40038; border-radius: 50%; background: radial-gradient(circle,#fff 24%,#fffffff2 44%,#ffffffd1 60%,#ffffff00 73%); box-shadow: 0 0 70px #FFD40026; z-index: -1; }
+.sct-center img { width: 82px; height: auto; aspect-ratio: 453 / 587; object-fit: contain; filter: drop-shadow(0 9px 8px #14131318); }
+.sct-center strong { color: #141313; font-size: 18px; font-weight: 700; letter-spacing: -.06em; }
+.sct-center > span { white-space: nowrap; font-size: 10px; color: #6f6d69; }
 .sct-pause { position: absolute; bottom: 14px; left: 50%; transform: translateX(-50%); display: flex; align-items: center; gap: 7px; padding: 8px 12px; border: 1px solid #e8e7e4; border-radius: 99px; background: #fff; color: #6f6d69; font-family: inherit; font-size: 10px; line-height: 1.2; cursor: pointer; }
-.sct-pause:focus-visible { outline: 2px solid #febc23; outline-offset: 4px; }
+.sct-pause:focus-visible { outline: 2px solid #FFD400; outline-offset: 4px; }
 .sct[data-paused='true'] .sct-position { animation-play-state: paused; }
 @container (max-width: 1024px) {
   .sct-position[data-tablet-hidden='true'] { visibility: hidden; pointer-events: none; }
@@ -84,9 +85,11 @@
   .sct-editorial > span:last-child { font-size: 6px; }
   .sct-cover { padding: 12px; margin: 9px 15px 0; gap: 7px; }
   .sct-cover > span:first-child { font-size: 20px; }
-  .sct-center img { width: 56px; height: 56px; }
-  .sct-center::before { width: 100px; height: 100px; top: -22px; }
-  .sct-center > span { top: 76px; font-size: 9px; }
+  .sct-center { min-width: 112px; padding: 12px 14px 10px; }
+  .sct-center img { width: 56px; height: auto; }
+  .sct-center::before { width: 150px; height: 150px; }
+  .sct-center strong { font-size: 14px; }
+  .sct-center > span { font-size: 8px; }
   .sct-author { margin-bottom: 10px; }
   .sct-reactions { margin-top: 12px; }
   .sct-code { font-size: 8px; padding: 10px 5px; }

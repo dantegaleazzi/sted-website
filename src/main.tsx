@@ -5,7 +5,7 @@ import { LegalPage, type LegalDocument } from './legal'
 import { Logo } from './logo'
 import { RoutePage, SHOW_BUILD_IN_PUBLIC } from './pages'
 import { guides } from './guides'
-import { StedContentTunnel } from './components/StedContentTunnel'
+import { StedContentTunnel } from './components/content-tunnel/StedContentTunnel'
 import './index.css'
 
 const supabaseUrl = import.meta.env.VITE_SUPABASE_URL
@@ -107,10 +107,10 @@ function App() {
   }
 
   return (
-    <div id="top" className="min-h-screen">
+    <div id="top" className="min-h-screen site-surface">
       <header className="site-header shell">
         <Logo />
-        <nav className="header-nav" aria-label="Primary navigation"><a href="/about">About</a>{SHOW_BUILD_IN_PUBLIC && <><a href="/build">Build In Public</a><a href="/guides">Guides</a></>}<a href="/contact">Contact</a></nav>
+        <nav className="header-nav" aria-label="Primary navigation"><a href="/about#how-it-works">How it works</a><a href="/about">About</a>{SHOW_BUILD_IN_PUBLIC && <><a href="/build">Build In Public</a><a href="/guides">Guides</a></>}<a href="/contact">Contact</a></nav>
         <button className="button button-amber header-cta" type="button" onClick={() => { setStatus(''); setIsWaitlistOpen(true) }}>Join the waitlist</button>
       </header>
 

@@ -1,5 +1,7 @@
 import { useState, type FormEvent, type ReactNode } from 'react'
 import { GuidePage, GuidesIndexPage } from './guides'
+import { StedContentTunnel } from './components/content-tunnel/StedContentTunnel'
+import { sourceCardFixtures } from './components/source-cards/source-card-fixtures'
 
 // While Sted is in App Store review, the site is kept to product + legal/support only.
 // Flip this back to true to restore Build in Public and Guides — no content is deleted.
@@ -607,44 +609,15 @@ function BuildPreviewSection() {
   </section>
 }
 
-const HERO_FAN_GRADIENTS = [
-  'linear-gradient(155deg, #3a352c, #14120F)',
-  'linear-gradient(155deg, #DDD8CF, #F7F5F0)',
-  'linear-gradient(155deg, #FFD9A0, #FFA836)',
-  'linear-gradient(155deg, #6B6459, #14120F)',
-  'linear-gradient(155deg, #14120F, #2b271f)',
-  'linear-gradient(155deg, #FFA836, #f7a02d)',
-  'linear-gradient(155deg, #2b271f, #14120F)',
-  'linear-gradient(155deg, #F7F5F0, #DDD8CF)',
-  'linear-gradient(155deg, #FFA836, #6B6459)',
-]
-
-function HeroCardFan() {
-  const center = (HERO_FAN_GRADIENTS.length - 1) / 2
-  return <div className="hero-fan" aria-hidden="true">
-    {HERO_FAN_GRADIENTS.map((gradient, index) => {
-      const delta = index - center
-      const distance = Math.abs(delta)
-      const transform = [
-        `translateX(${delta * 148}px)`,
-        `translateY(${distance * 15}px)`,
-        `translateZ(${distance * -70}px)`,
-        `rotateY(${delta * -13}deg)`,
-        `scale(${1 - distance * 0.045})`,
-      ].join(' ')
-      return <div key={index} className="fan-card" style={{ background: gradient, transform, opacity: Math.max(0.55, 1 - distance * 0.09), zIndex: 100 - Math.round(distance * 10) }} />
-    })}
-  </div>
-}
-
 export function LandingPage({ email, status, isSubmitting, onEmailChange, onSubmit }: LandingPageProps) {
   return <>
     <section className="hero shell" aria-labelledby="hero-title">
-      <HeroCardFan />
       <div className="hero-content">
-        <p className="eyebrow">A new way to keep what matters</p>
         <h1 id="hero-title"><span>Everything you save.</span><span><em>Finally useful.</em></span></h1>
-        <p className="hero-copy">Links, screenshots, notes, ideas.<br />Sted organizes it around your projects and helps you find it again.</p>
+        <p className="hero-copy"><span className="hero-subtitle">A new way to keep what matters.</span><br />Links, screenshots, notes, ideas.<br />Sted organizes it around your projects and helps you find it again.</p>
+      </div>
+      <StedContentTunnel items={sourceCardFixtures} className="home-tunnel" />
+      <div className="hero-waitlist">
         <form id="waitlist" className="waitlist-form" onSubmit={onSubmit} noValidate>
           <label className="sr-only" htmlFor="email">Your email address</label>
           <input id="email" name="email" type="email" required value={email} onChange={(event) => onEmailChange(event.target.value)} placeholder="your@email.com" aria-describedby="form-note form-status" />
@@ -663,7 +636,7 @@ export function AboutPage() {
     <p className="section-label">ABOUT STED</p>
     <h1 id="about-title">Keep the things<br />worth coming back to.</h1>
     <p className="simple-lede">Sted is being built for the links, screenshots, notes and ideas you save because they might matter later.</p>
-    <div className="simple-page-grid"><div><p className="section-label">THE IDEA</p><h2>A calmer place for what you keep.</h2></div><p>Sted helps you understand what you save, organize it around your projects and find it when you need it. It is being built in public, one day at a time.</p></div>
+    <div id="how-it-works" className="simple-page-grid"><div><p className="section-label">THE IDEA</p><h2>A calmer place for what you keep.</h2></div><p>Sted helps you understand what you save, organize it around your projects and find it when you need it. It is being built in public, one day at a time.</p></div>
   </main>
 }
 

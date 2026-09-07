@@ -15,7 +15,8 @@
 .stlp-heading p { font-size: clamp(15px, 1.4vw, 23px); line-height: 1.5; letter-spacing: -.025em; color: #6f6d69; margin: 28px 0 0; }
 .stlp-tunnel { position: absolute; top: 25%; left: 0; }
 .stlp-tunnel .sct-window { height: clamp(410px, 39vw, 620px); }
-.stlp-tunnel .sct-center img { width: 115px; height: 115px; object-fit: contain; mix-blend-mode: multiply; }
+.stlp-tunnel .sct-center img { width: 92px; height: auto; object-fit: contain; mix-blend-mode: multiply; }
+.stlp-tunnel .sct-center strong { font-size: 21px; }
 .stlp-tunnel .sct-center > span { display: none; }
 .stlp-tunnel .sct-pause { bottom: 5px; }
 .stlp-save { position: absolute; z-index: 4; bottom: 14px; left: 50%; transform: translateX(-50%); width: min(510px, 86%); text-align: center; }
@@ -53,7 +54,8 @@
   .stlp-heading p { font-size: 14px; margin-top: 22px; }
   .stlp-tunnel { top: 29%; }
   .stlp-tunnel .sct-window { height: 350px; }
-  .stlp-tunnel .sct-center img { width: 83px; height: 83px; }
+  .stlp-tunnel .sct-center img { width: 66px; height: auto; }
+  .stlp-tunnel .sct-center strong { font-size: 16px; }
   .stlp-save { bottom: 10px; width: 88%; }
   .stlp-save form { padding-left: 18px; gap: 10px; }
   .stlp-save button { width: 44px; height: 44px; }
