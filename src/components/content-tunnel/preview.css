@@ -1,0 +1,61 @@
+.stlp { min-height: 100svh; background: #fff; color: #141313; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
+.stlp * { box-sizing: border-box; }
+.stlp-header { height: 88px; padding: 0 6%; display: flex; align-items: center; justify-content: space-between; gap: 28px; position: relative; z-index: 5; }
+.stlp-header > a { width: 100px; display: flex; }
+.stlp-header img { width: 100%; height: 42px; object-fit: contain; }
+.stlp-header nav { display: flex; align-items: center; gap: 35px; }
+.stlp a { color: inherit; text-decoration: none; }
+.stlp-header nav a { font-size: 14px; color: #494744; }
+.stlp-header nav a:hover { color: #141313; }
+.stlp-download { border: 0; border-radius: 99px; background: #141313; color: #fff; padding: 15px 25px; font: 500 14px/1.2 inherit; font-family: inherit; cursor: pointer; }
+.stlp-hero { position: relative; min-height: 730px; height: calc(100svh - 88px); max-height: 1100px; overflow: hidden; }
+.stlp-heading { position: absolute; z-index: 3; top: 36px; left: 50%; transform: translateX(-50%); width: 85%; text-align: center; pointer-events: none; }
+.stlp-heading h1 { font-family: inherit; font-size: clamp(46px, 5.1vw, 88px); font-weight: 650; line-height: 1.04; letter-spacing: -.055em; margin: 0; }
+.stlp-heading h1 span { display: block; color: #6f6d69; }
+.stlp-heading p { font-size: clamp(15px, 1.4vw, 23px); line-height: 1.5; letter-spacing: -.025em; color: #6f6d69; margin: 28px 0 0; }
+.stlp-tunnel { position: absolute; top: 25%; left: 0; }
+.stlp-tunnel .sct-window { height: clamp(410px, 39vw, 620px); }
+.stlp-tunnel .sct-center img { width: 115px; height: 115px; object-fit: contain; mix-blend-mode: multiply; }
+.stlp-tunnel .sct-center > span { display: none; }
+.stlp-tunnel .sct-pause { bottom: 5px; }
+.stlp-save { position: absolute; z-index: 4; bottom: 14px; left: 50%; transform: translateX(-50%); width: min(510px, 86%); text-align: center; }
+.stlp-save form { display: flex; align-items: center; gap: 16px; padding: 10px 11px 10px 25px; border: 1px solid #e8e7e4; border-radius: 99px; background: #ffffffef; box-shadow: 0 6px 30px #14131304; }
+.stlp-save input { flex: 1; width: 0; border: 0; outline: none; background: transparent; color: #141313; font: 16px/1.5 -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
+.stlp-save input::placeholder { color: #6f6d69; }
+.stlp-save form:focus-within { outline: 2px solid #febc23; outline-offset: 3px; }
+.stlp-save button { flex-shrink: 0; width: 52px; height: 52px; border: 0; border-radius: 50%; color: #fff; background: #141313; font-size: 27px; cursor: pointer; }
+.stlp-save > p { margin: 14px -30px 0; font-size: 12px; line-height: 1.5; color: #6f6d69; }
+.stlp-save .stlp-status { min-height: 18px; margin-top: 5px; }
+.stlp-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+.stlp-backdrop { position: fixed; z-index: 10; inset: 0; display: grid; place-items: center; background: #14131335; padding: 24px; }
+.stlp-dialog { position: relative; max-width: 400px; padding: 35px; background: #fff; border-radius: 24px; }
+.stlp-dialog > button { position: absolute; right: 14px; top: 10px; border: 0; background: transparent; font-size: 24px; cursor: pointer; }
+.stlp-dialog h2 { font-family: inherit; letter-spacing: -.04em; }
+.stlp-dialog p { color: #6f6d69; line-height: 1.6; }
+.stlp-dialog a { display: inline-block; margin-top: 10px; font-weight: 600; }
+@media (min-width: 1700px) { .stlp-heading { top: 50px; } }
+@media (max-width: 900px) {
+  .stlp-header { height: 76px; padding: 0 5%; }
+  .stlp-header nav { gap: 20px; }
+  .stlp-header > a { width: 80px; }
+  .stlp-download { padding: 13px 18px; font-size: 12px; }
+  .stlp-hero { height: calc(100svh - 76px); min-height: 730px; }
+  .stlp-heading { top: 46px; }
+  .stlp-tunnel { top: 29%; }
+  .stlp-tunnel .sct-window { height: 420px; }
+}
+@media (max-width: 600px) {
+  .stlp-header nav { display: none; }
+  .stlp-header > a { width: 72px; }
+  .stlp-hero { min-height: 665px; }
+  .stlp-heading { top: 33px; width: 94%; }
+  .stlp-heading h1 { font-size: clamp(34px, 8.3vw, 49px); }
+  .stlp-heading p { font-size: 14px; margin-top: 22px; }
+  .stlp-tunnel { top: 29%; }
+  .stlp-tunnel .sct-window { height: 350px; }
+  .stlp-tunnel .sct-center img { width: 83px; height: 83px; }
+  .stlp-save { bottom: 10px; width: 88%; }
+  .stlp-save form { padding-left: 18px; gap: 10px; }
+  .stlp-save button { width: 44px; height: 44px; }
+  .stlp-save > p { margin-left: 0; margin-right: 0; font-size: 11px; }
+}

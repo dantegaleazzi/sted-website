@@ -1,0 +1,28 @@
+import type { StedContentItem } from './StedContentTunnel'
+
+export const demoItems: StedContentItem[] = [
+  { id: 'slow-web', type: 'article', title: 'A quieter corner of the internet.', metadata: 'Field Notes · 6 min read', body: 'On making room for the things that stay with you.' },
+  { id: 'weekend', type: 'youtube', title: 'A little cabin. A long weekend.', metadata: 'Outside, together · 12:48', body: 'Leave the busy behind.' },
+  { id: 'details', type: 'x', title: 'The best interfaces make a thousand small decisions so you only have to make one.', metadata: '@ellapark · Yesterday', body: 'Ella Park' },
+  { id: 'repo', type: 'github', title: 'tiny-tools / daily', metadata: 'TypeScript · ★ 2.4k', body: 'Small, thoughtful tools for the everyday. Open source, always.' },
+  { id: 'guide', type: 'pdf', title: 'The creative field guide', metadata: 'PDF · 24 pages', body: 'A few good ways to begin.' },
+  { id: 'notes', type: 'document', title: 'Things worth coming back to', metadata: 'Notion · Personal notes', body: 'A place for half-formed ideas, good questions, and the next small step.' },
+  { id: 'studio', type: 'website', title: 'Objects for a slower day', metadata: 'morning.studio', body: 'Made with care. Kept for years.' },
+  { id: 'reel', type: 'instagram', title: 'Somewhere with no notifications.', metadata: '@slow.weekends · Reel', body: 'Sunday, somewhere green.' },
+  { id: 'reading-room', type: 'newsletter', title: 'Five links for a curious Friday', metadata: 'The Reading Room · Issue 42', body: 'A good essay, a tiny tool, and something that made us look twice.' },
+  { id: 'small-work', type: 'podcast', title: 'Doing good work at a human pace', metadata: 'Small Hours · Episode 18 · 38 min', body: 'A conversation about attention, creative routines, and knowing when to stop.' },
+  { id: 'kyoto', type: 'place', title: 'A morning walk through eastern Kyoto', metadata: 'Japan collection · 4 stops', body: 'Start at the canal. Find the tiny coffee shop. Take the long way home.' },
+  { id: 'tomatoes', type: 'recipe', title: 'Slow-roasted tomatoes on toast', metadata: 'Sunday Kitchen · 35 min', body: 'Cherry tomatoes, olive oil, a little garlic. Finish with basil and thick-cut sourdough.' },
+  { id: 'workshop', type: 'youtube', title: 'Turning a spare room into a studio', metadata: 'Made by Hand · 08:24', body: 'One desk, good light, and a place to make a mess.' },
+  { id: 'habits', type: 'x', title: 'Keep a notebook for the ideas that do not have a project yet.', metadata: '@noahmakes · 2 hours ago', body: 'Noah Chen' },
+  { id: 'components', type: 'github', title: 'open-studio / little-components', metadata: 'React · ★ 1.8k', body: 'Accessible building blocks for thoughtful interfaces. Small enough to understand.' },
+  { id: 'garden', type: 'instagram', title: 'A balcony, slowly becoming a garden.', metadata: '@city.greens · Reel', body: 'The first tomatoes of the season. Worth the wait.' },
+  { id: 'desk', type: 'reddit', title: 'What small change made your workspace better?', metadata: 'r/Workspaces · 186 comments', body: 'Moving the desk toward the window was the best upgrade I made this year.' },
+  { id: 'craft', type: 'linkedin', title: 'The most useful prototype is the one people can try.', metadata: 'Maya Flores · Product design', body: 'We learned more from five short sessions than from another week polishing the presentation.' },
+  { id: 'light', type: 'photo', title: 'Late afternoon, Porto', metadata: 'Travel journal · Photo', body: 'Warm light on tiled walls. A reference for the next color study.' },
+  { id: 'wayfinding', type: 'design', title: 'Wayfinding that feels like a welcome', metadata: 'Design collection · 12 references', body: 'Clear arrows, generous space, and signs that help you feel at home.' },
+  { id: 'attention', type: 'article', title: 'The art of noticing ordinary things', metadata: 'Common Ground · 8 min read', body: 'A walk without headphones, and what becomes visible along the way.' },
+  { id: 'research', type: 'pdf', title: 'A practical guide to better questions', metadata: 'PDF · 18 pages', body: 'Interview prompts, listening exercises, and room for your notes.' },
+  { id: 'week-plan', type: 'document', title: 'A small plan for next week', metadata: 'Notion · Weekly reset', body: 'Finish one thing. Learn one thing. Leave a little room for a surprise.' },
+  { id: 'bookshop', type: 'website', title: 'A bookshop for the endlessly curious', metadata: 'shelfandco.example', body: 'Independent magazines, unexpected stories, and books to keep close.' },
+]
