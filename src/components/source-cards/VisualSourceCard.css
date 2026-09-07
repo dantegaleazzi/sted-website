@@ -1,0 +1,43 @@
+/* Card-only experiment. Camera, slot geometry, hero and motion are unchanged. */
+.source-card.visual-card, .sct--portal .source-card.visual-card { position: relative; display: flex; flex-direction: column; height: 100%; min-height: 0; border: 1px solid #14131318; border-radius: 18px; overflow: hidden; background: #f3eee7; color: #141313; text-align: left; box-shadow: 0 10px 24px #14131312; }
+.visual-card__image { display: block; width: 100%; height: 62%; object-fit: cover; flex: none; }
+.visual-card__header { position: absolute; z-index: 2; inset: 12px 12px auto; display: flex; align-items: center; gap: 8px; padding: 8px 10px; border-radius: 11px; color: #141313; background: #fffffff2; }
+.visual-card__header > div { display: flex; flex-direction: column; min-width: 0; }
+.visual-card__header strong { font-size: 12px; line-height: 1.2; }
+.visual-card__header div span { font-size: 10px; overflow-wrap: anywhere; }
+.visual-card__bookmark { margin-left: auto; font-size: 18px; }
+.visual-card__content { position: relative; z-index: 1; padding: 15px; flex: 1; display: flex; flex-direction: column; min-height: 0; }
+.visual-card__content h3 { margin: 0; font-size: 20px; font-weight: 600; letter-spacing: -.035em; line-height: 1.16; overflow-wrap: anywhere; }
+.visual-card__content p { font-size: 12px; line-height: 1.45; margin: 10px 0 0; opacity: .8; }
+.visual-card__content footer { display: flex; justify-content: space-between; gap: 8px; margin-top: auto; padding-top: 12px; font-size: 9px; opacity: .8; }
+.visual-card__content footer span { overflow-wrap: anywhere; }
+.visual-card--photo .visual-card__image { position: absolute; inset: 0; height: 100%; }
+.visual-card--photo .visual-card__content { margin-top: auto; flex: none; padding: 58px 18px 18px; color: white; background: linear-gradient(transparent, #000b 40%, #000d); }
+.visual-card--photo .visual-card__content h3 { font-size: 25px; }
+.visual-card--photo .visual-card__header { inset: 12px auto auto 12px; max-width: calc(100% - 24px); }
+.sct--portal .source-card.visual-card--video { height: 91%; top: 4.5%; background: #182320; color: #fff; }
+.visual-card--video .visual-card__image { height: 59%; }
+.visual-card--video .visual-card__content h3 { font-size: 17px; }
+.visual-card__play { position: absolute; left: 50%; top: 32%; transform: translate(-50%, -50%); display: grid; place-items: center; width: 42px; height: 42px; border-radius: 50%; background: #14131380; color: white; border: 1px solid #fff8; }
+.source-card.visual-card--audio, .sct--portal .source-card.visual-card--audio { background: #12291f; color: #fff; }
+.visual-card--audio .visual-card__image { height: 68%; object-fit: cover; }
+.visual-card--audio .visual-card__content h3 { font-size: 17px; }
+.source-card.visual-card--repo, .sct--portal .source-card.visual-card--repo { background: #202127; color: #fff; height: 91%; top: 4.5%; }
+.visual-card--repo .visual-card__header { background: transparent; color: #fff; padding: 0; inset: 18px; bottom: auto; }
+.visual-card--repo .visual-card__image { order: 3; height: 25%; object-fit: contain; background: #fff; }
+.visual-card--repo .visual-card__content { padding-top: 85px; }
+.visual-card__identity { position: absolute; right: 18px; top: 60px; color: #bda3ff; font-size: 30px; font-weight: 600; }
+.source-card.visual-card--post, .sct--portal .source-card.visual-card--post { background: #e9e1f5; }
+.visual-card--post .visual-card__header { background: transparent; }
+.visual-card--post .visual-card__image { position: absolute; bottom: 0; height: 34%; object-fit: contain; background: #fff; }
+.visual-card--post .visual-card__content { padding-top: 75px; padding-bottom: 155px; }
+.visual-card__quote { font-size: 44px; line-height: .7; color: #71589f; }
+.visual-card--post .visual-card__content h3 { font-size: 24px; }
+.visual-card--editorial .visual-card__image { height: 56%; }
+.visual-card--editorial .visual-card__content h3 { font-size: 21px; }
+.visual-card--text .visual-card__content { padding-top: 85px; background: none; color: #141313; }
+@container (max-width: 1100px) {
+ .visual-card__content h3, .visual-card--editorial .visual-card__content h3 { font-size: 18px; }
+ .visual-card--photo .visual-card__content h3, .visual-card--post .visual-card__content h3 { font-size: 21px; }
+ .visual-card--video .visual-card__content h3, .visual-card--audio .visual-card__content h3 { font-size: 15px; }
+}

@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState, type CSSProperties, type PointerEvent } from 'react'
 import { motion, useMotionValue, useReducedMotion, useSpring } from 'framer-motion'
+import { VisualSourceCard } from '../source-cards/VisualSourceCard'
 import { SourceCard } from '../source-cards/SourceCard'
 import { sourceCardFixtures } from '../source-cards/source-card-fixtures'
 import type { SourceCardItem } from '../source-cards/types'
@@ -44,7 +45,7 @@ export function StedContentTunnel({ items = sourceCardFixtures, className = '', 
           const portalPhase = ((depth + (variant === 'portal' ? 0 : sideIndex * .47)) / sideCount + 1 / 16) % 1
           const portalScale = 1 - (1 - 110 / 420) * Math.min(portalPhase / .8, 1)
           return <div key={`${side}-${depth}-${item.id}`} className="sct-position" data-content-id={item.id} data-side={side === -1 ? 'left' : 'right'} data-depth={depth} data-tablet-hidden={depth >= 8} data-mobile-hidden={depth >= 3} style={{ '--side-slots': sideCount, '--side': side, '--portal-rest-x': Math.pow(1 - portalPhase, 1.4) / portalScale, '--portal-rest-z': `${1200 * (1 - 1 / portalScale)}px`, '--portal-rest-angle': `${28 * (1 - Math.min(Math.max((portalPhase - .4) / .4, 0), 1))}deg`, '--depth': depth, '--side-phase': variant === 'portal' ? 0 : sideIndex * .47, '--rest-z': `${240 - depth / Math.max(1, count - 1) * 3180}px`, '--rest-scale': 1 - depth / Math.max(1, count - 1) * .27, '--rest-opacity': 1 - depth / Math.max(1, count - 1) * .66 } as CSSProperties}>
-            <div className="sct-hover"><SourceCard item={item} contentOnly={variant === 'portal'} /></div>
+            <div className="sct-hover">{variant === 'portal' ? <VisualSourceCard item={item} /> : <SourceCard item={item} />}</div>
           </div>
         }))}
       </motion.div>

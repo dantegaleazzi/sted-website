@@ -1,8 +1,7 @@
 import { realContentFixtures } from '../source-cards/real-content-fixtures'
+import { visualExplorationFixtures } from './visual-exploration-fixtures'
 
-// Temporary duplicate authorized to keep eight cards on each side.
-// Replace this final slot with a new real item when supplied.
-export const portalFixtures = [
-  ...realContentFixtures,
-  { ...realContentFixtures[0], id: 'portal-pending-replacement-revenuecat' },
-]
+const collection = [...realContentFixtures, ...visualExplorationFixtures]
+// Interleave photography and text on both sides throughout the entire loop.
+const order = ['pinterest', 'youtube1', 'x1', 'recipe', 'spotify-playlist', 'karakeep', 'travel', 'x2', 'anydoc', 'instagram-visual', 'youtube2', 'place', 'openai', 'spotify-episode', 'revenuecat', 'firecrawl']
+export const portalFixtures = order.map(id => collection.find(item => item.id === id)!)

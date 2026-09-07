@@ -1,10 +1,10 @@
-import { realContentFixtures } from '../source-cards/real-content-fixtures'
-import { SourceCard } from '../source-cards/SourceCard'
+import { portalFixtures as realContentFixtures } from '../content-tunnel/portal-fixtures'
+import { VisualSourceCard as SourceCard } from '../source-cards/VisualSourceCard'
 import './RealContentQA.css'
 
 const groups = [
   ['Articles', 'article'], ['Videos', 'youtube'], ['X Posts', 'x'],
-  ['GitHub Repos', 'github'], ['Websites', 'website'], ['Instagram', 'instagram'], ['Pinterest', 'pinterest'], ['Spotify', 'spotify'],
+  ['GitHub Repos', 'github'], ['Websites', 'website'], ['Instagram', 'instagram'], ['Pinterest', 'pinterest'], ['Spotify', 'spotify'], ['Places', 'place'],
 ] as const
 
 export function RealContentQA() {
