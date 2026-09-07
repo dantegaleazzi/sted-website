@@ -1,18 +1,21 @@
-.sct { --wall: 48cqw; --card-width: 330px; --card-height: 410px; position: relative; container-type: inline-size; width: 100%; color: #141313; background: #fff; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
+.sct { --wall: 53cqw; --card-width: 390px; --card-height: 470px; position: relative; container-type: inline-size; width: 100%; color: #141313; background: #fff; font-family: "Inter Variable", Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
 .sct *, .sct *::before, .sct *::after { box-sizing: border-box; }
 .sct-window { position: relative; height: clamp(490px, 55vw, 760px); overflow: hidden; }
-.sct-camera { position: absolute; inset: 0; perspective: 800px; perspective-origin: 50% 50%; transform-style: preserve-3d; }
+.sct-camera { position: absolute; inset: 0; perspective: 900px; perspective-origin: 50% 50%; transform-style: preserve-3d; }
 .sct-position { position: absolute; top: 50%; left: 50%; width: var(--card-width); height: var(--card-height); margin-left: calc(var(--card-width) / -2); margin-top: calc(var(--card-height) / -2); transform-style: preserve-3d; transform: translateX(calc(var(--side) * var(--wall))) translateZ(var(--rest-z)) rotateY(calc(var(--side) * -48deg)) scale(var(--rest-scale)); animation: sct-travel 7.5s cubic-bezier(.25, .45, .6, .85) infinite; animation-delay: calc(-.375s - (var(--depth) + var(--side-phase)) * 7.5s / var(--slots)); will-change: transform, opacity; }
 /* Perspective supplies the compressed spacing. Every slot follows the same inward
    path, with an even phase offset. Fade only at entry and under the mascot. */
 @keyframes sct-travel {
-  0% { transform: translateX(calc(var(--side) * var(--wall) * 1.25)) translateZ(380px) rotateY(calc(var(--side) * -48deg)) scale(1); opacity: 0; }
-  3% { opacity: 1; }
-  80% { opacity: 1; }
-  92% { opacity: .8; }
+  0% { transform: translateX(calc(var(--side) * var(--wall) * 1.22)) translateZ(600px) rotateY(calc(var(--side) * -54deg)) scale(1.14); opacity: 0; }
+  5% { transform: translateX(calc(var(--side) * var(--wall) * 1.08)) translateZ(480px) rotateY(calc(var(--side) * -50deg)) scale(1.1); opacity: 1; }
+  28% { transform: translateX(calc(var(--side) * var(--wall) * .72)) translateZ(180px) rotateY(calc(var(--side) * -40deg)) scale(.98); opacity: 1; }
+  56% { transform: translateX(calc(var(--side) * var(--wall) * .38)) translateZ(-420px) rotateY(calc(var(--side) * -27deg)) scale(.82); opacity: 1; }
+  82% { transform: translateX(calc(var(--side) * var(--wall) * .14)) translateZ(-1280px) rotateY(calc(var(--side) * -15deg)) scale(.62); opacity: 1; }
+  94% { opacity: .72; }
   100% { transform: translateX(0px) translateZ(-2400px) rotateY(calc(var(--side) * -8deg)) scale(.4); opacity: 0; }
 }
 .sct-hover { width: 100%; height: 100%; transform-style: preserve-3d; transition: transform .65s cubic-bezier(.2,.7,.2,1); }
+.sct-hover > .source-card { height: 100%; }
 @media (hover: hover) and (prefers-reduced-motion: no-preference) { .sct-position:hover .sct-hover { transform: translateZ(42px) scale(1.025); } }
 .sct-card { height: 100%; overflow: hidden; border: 1px solid #e8e7e4; border-radius: 17px; background: #fff; box-shadow: 0 20px 45px -25px #14131340, 0 2px 4px #14131308; display: flex; flex-direction: column; }
 .sct-source { display: flex; align-items: center; gap: 8px; padding: 13px 16px; font-size: 11px; font-weight: 600; border-bottom: 1px solid #e8e7e4; }
@@ -51,18 +54,15 @@
 .sct-vase { position: absolute; width: 90px; height: 110px; border-radius: 25% 25% 45% 45%; background: linear-gradient(90deg,#a56e4c,#d6ad8d 45%,#bd8c68); left: 90px; top: 70px; box-shadow: 20px 15px 20px #1413131a; }
 .sct-orbit { position: absolute; width: 85px; height: 85px; border: 20px solid #d9bd82; border-radius: 50%; top: 112px; left: 188px; }
 .sct-center { position: absolute; z-index: 2; top: 50%; left: 50%; transform: translate(-50%,-50%); display: grid; justify-items: center; gap: 6px; min-width: 150px; padding: 18px 20px 16px; pointer-events: none; }
-.sct-center::before { content: ''; position: absolute; width: 230px; height: 230px; top: 50%; left: 50%; transform: translate(-50%,-50%); border: 1px solid #FFD40038; border-radius: 50%; background: radial-gradient(circle,#fff 24%,#fffffff2 44%,#ffffffd1 60%,#ffffff00 73%); box-shadow: 0 0 70px #FFD40026; z-index: -1; }
-.sct-center img { width: 82px; height: auto; aspect-ratio: 453 / 587; object-fit: contain; filter: drop-shadow(0 9px 8px #14131318); }
-.sct-center strong { color: #141313; font-size: 18px; font-weight: 700; letter-spacing: -.06em; }
+.sct-center img { width: 108px; height: auto; aspect-ratio: 453 / 587; object-fit: contain; filter: drop-shadow(0 12px 10px #14131318); }
+.sct-center strong { color: #141313; font-size: 22px; font-weight: 700; letter-spacing: -.06em; }
 .sct-center > span { white-space: nowrap; font-size: 10px; color: #6f6d69; }
-.sct-pause { position: absolute; bottom: 14px; left: 50%; transform: translateX(-50%); display: flex; align-items: center; gap: 7px; padding: 8px 12px; border: 1px solid #e8e7e4; border-radius: 99px; background: #fff; color: #6f6d69; font-family: inherit; font-size: 10px; line-height: 1.2; cursor: pointer; }
-.sct-pause:focus-visible { outline: 2px solid #FFD400; outline-offset: 4px; }
 .sct[data-paused='true'] .sct-position { animation-play-state: paused; }
 @container (max-width: 1024px) {
   .sct-position[data-tablet-hidden='true'] { visibility: hidden; pointer-events: none; }
   .sct-window { height: 560px; }
   .sct-camera { perspective: 650px; }
-  .sct-position { --card-width: 260px; --card-height: 360px; animation-delay: calc(-.375s - (var(--depth) + var(--side-phase)) * 7.5s / min(8, var(--slots))); }
+  .sct-position { --card-width: 300px; --card-height: 390px; animation-delay: calc(-.375s - (var(--depth) + var(--side-phase)) * 7.5s / min(8, var(--slots))); }
   .sct-copy { padding: 15px; }
   .sct-copy h3 { font-size: 20px; }
   .sct-landscape, .sct-editorial, .sct-still-life { height: 165px; }
@@ -70,7 +70,7 @@
 @container (max-width: 600px) {
   .sct-window { height: 420px; }
   .sct-camera { perspective: 900px; }
-  .sct-position { --wall: 53cqw; --card-width: 185px; --card-height: 260px; animation-name: sct-travel-mobile; animation-delay: calc(-.375s - (var(--depth) + var(--side-phase)) * 7.5s / min(3, var(--slots))); }
+  .sct-position { --wall: 54cqw; --card-width: 210px; --card-height: 290px; animation-name: sct-travel-mobile; animation-delay: calc(-.375s - (var(--depth) + var(--side-phase)) * 7.5s / min(3, var(--slots))); }
   .sct-position[data-mobile-hidden='true'] { visibility: hidden; pointer-events: none; }
   .sct-position[data-depth='1'] { --rest-z: -650px; }
   .sct-position[data-depth='0'] { --rest-z: 0px; }
@@ -96,15 +96,21 @@
   .sct-notes { font-size: 9px; line-height: 2; }
 }
 @keyframes sct-travel-mobile {
-  0% { transform: translateX(calc(var(--side) * var(--wall) * 1.6)) translateZ(170px) rotateY(calc(var(--side) * -30deg)) scale(1); opacity: 0; }
-  3% { opacity: 1; }
-  80% { opacity: 1; }
-  92% { opacity: .8; }
+  0% { transform: translateX(calc(var(--side) * var(--wall) * 1.55)) translateZ(260px) rotateY(calc(var(--side) * -34deg)) scale(1.08); opacity: 0; }
+  6% { transform: translateX(calc(var(--side) * var(--wall) * 1.35)) translateZ(190px) rotateY(calc(var(--side) * -30deg)) scale(1.04); opacity: 1; }
+  36% { transform: translateX(calc(var(--side) * var(--wall) * .78)) translateZ(-120px) rotateY(calc(var(--side) * -21deg)) scale(.82); opacity: 1; }
+  76% { transform: translateX(calc(var(--side) * var(--wall) * .28)) translateZ(-650px) rotateY(calc(var(--side) * -11deg)) scale(.5); opacity: 1; }
+  92% { opacity: .72; }
   100% { transform: translateX(0px) translateZ(-1200px) rotateY(calc(var(--side) * -5deg)) scale(.25); opacity: 0; }
 }
 @media (prefers-reduced-motion: reduce) {
   .sct-position { animation: none; opacity: var(--rest-opacity); will-change: auto; }
   .sct-hover { transition: none; }
   .sct-camera { transform: none !important; }
-  .sct-pause { display: none; }
+}
+
+@media (prefers-color-scheme: dark) {
+  .sct { color: #F7F6F3; background: #10100F; }
+  .sct-center strong { color: #F7F6F3; }
+  .sct-center > span { color: #A7A49F; }
 }

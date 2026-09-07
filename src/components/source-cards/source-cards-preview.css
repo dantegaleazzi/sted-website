@@ -19,3 +19,10 @@ body { margin: 0; }
 @media (max-width: 760px) { .source-board { width: min(100% - 32px, 560px); padding-top: 38px; }.source-board__intro { display: block; }.source-board__audit { justify-content: flex-start; margin-top: 24px; text-align: left; }.source-board__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px 12px; padding-top: 28px; } }
 @media (max-width: 470px) { .source-board__grid { grid-template-columns: 1fr; }.source-board h1 { font-size: 52px; } }
 
+@media (prefers-color-scheme: dark) {
+  :root { color: #F7F6F3; background: #10100F; }
+  .source-board__intro { border-color: #2B2B29; }
+  .source-board__kicker, .source-board__lede, .source-board__audit { color: #A7A49F; }
+  .source-board__audit span { border-color: #2B2B29; background: #181817; }
+  .source-board__caption { color: #A7A49F; }
+}

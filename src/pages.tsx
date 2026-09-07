@@ -614,7 +614,7 @@ export function LandingPage({ email, status, isSubmitting, onEmailChange, onSubm
     <section className="hero shell" aria-labelledby="hero-title">
       <div className="hero-content">
         <h1 id="hero-title"><span>Everything you save.</span><span><em>Finally useful.</em></span></h1>
-        <p className="hero-copy"><span className="hero-subtitle">A new way to keep what matters.</span><br />Links, screenshots, notes, ideas.<br />Sted organizes it around your projects and helps you find it again.</p>
+        <p className="hero-copy">Links, videos, posts, articles, repos and more.<br />All in one place, organized around your projects.</p>
       </div>
       <StedContentTunnel items={sourceCardFixtures} className="home-tunnel" />
       <div className="hero-waitlist">

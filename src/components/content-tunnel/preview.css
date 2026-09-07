@@ -18,12 +18,11 @@
 .stlp-tunnel .sct-center img { width: 92px; height: auto; object-fit: contain; mix-blend-mode: multiply; }
 .stlp-tunnel .sct-center strong { font-size: 21px; }
 .stlp-tunnel .sct-center > span { display: none; }
-.stlp-tunnel .sct-pause { bottom: 5px; }
 .stlp-save { position: absolute; z-index: 4; bottom: 14px; left: 50%; transform: translateX(-50%); width: min(510px, 86%); text-align: center; }
 .stlp-save form { display: flex; align-items: center; gap: 16px; padding: 10px 11px 10px 25px; border: 1px solid #e8e7e4; border-radius: 99px; background: #ffffffef; box-shadow: 0 6px 30px #14131304; }
 .stlp-save input { flex: 1; width: 0; border: 0; outline: none; background: transparent; color: #141313; font: 16px/1.5 -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
 .stlp-save input::placeholder { color: #6f6d69; }
-.stlp-save form:focus-within { outline: 2px solid #febc23; outline-offset: 3px; }
+.stlp-save form:focus-within { outline: 2px solid #FFD400; outline-offset: 3px; }
 .stlp-save button { flex-shrink: 0; width: 52px; height: 52px; border: 0; border-radius: 50%; color: #fff; background: #141313; font-size: 27px; cursor: pointer; }
 .stlp-save > p { margin: 14px -30px 0; font-size: 12px; line-height: 1.5; color: #6f6d69; }
 .stlp-save .stlp-status { min-height: 18px; margin-top: 5px; }
@@ -60,4 +59,14 @@
   .stlp-save form { padding-left: 18px; gap: 10px; }
   .stlp-save button { width: 44px; height: 44px; }
   .stlp-save > p { margin-left: 0; margin-right: 0; font-size: 11px; }
+}
+
+@media (prefers-color-scheme: dark) {
+  .stlp { color: #F7F6F3; background: #10100F; }
+  .stlp-header nav a, .stlp-heading h1 span, .stlp-heading p, .stlp-save input::placeholder, .stlp-save > p, .stlp-dialog p { color: #A7A49F; }
+  .stlp-header nav a:hover { color: #F7F6F3; }
+  .stlp-download, .stlp-save button { color: #10100F; background: #FFD400; }
+  .stlp-save form { border-color: #2B2B29; background: #181817ef; box-shadow: 0 6px 30px #00000035; }
+  .stlp-save input { color: #F7F6F3; }
+  .stlp-dialog { color: #F7F6F3; background: #181817; }
 }

@@ -70,11 +70,11 @@ Cada tarjeta recibe una clase como `sct-card--article`, `sct-card--youtube` o `s
 
 ```css
 .sct-card--article {
-  background: #febc23;
+  background: #FFD400;
 }
 
 .sct-card--article .sct-copy h3 {
-  font-family: Georgia, serif;
+  font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 }
 ```
 

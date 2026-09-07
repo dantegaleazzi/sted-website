@@ -6,6 +6,7 @@ import { Logo } from './logo'
 import { RoutePage, SHOW_BUILD_IN_PUBLIC } from './pages'
 import { guides } from './guides'
 import { StedContentTunnel } from './components/content-tunnel/StedContentTunnel'
+import { InternalSourceCardQA } from './components/source-card-qa/InternalSourceCardQA'
 import './index.css'
 
 const supabaseUrl = import.meta.env.VITE_SUPABASE_URL
@@ -77,6 +78,7 @@ function App() {
   }, [isWaitlistOpen])
 
   if (legalDocument) return <LegalPage document={legalDocument} />
+  if (pathname === '/internal/source-card-qa') return <InternalSourceCardQA />
   if (pathname === '/tunnel') return <StedContentTunnel />
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
