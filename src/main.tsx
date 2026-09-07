@@ -5,6 +5,7 @@ import { LegalPage, type LegalDocument } from './legal'
 import { Logo } from './logo'
 import { RoutePage, SHOW_BUILD_IN_PUBLIC } from './pages'
 import { guides } from './guides'
+import { StedContentTunnel } from './components/StedContentTunnel'
 import './index.css'
 
 const supabaseUrl = import.meta.env.VITE_SUPABASE_URL
@@ -76,6 +77,7 @@ function App() {
   }, [isWaitlistOpen])
 
   if (legalDocument) return <LegalPage document={legalDocument} />
+  if (pathname === '/tunnel') return <StedContentTunnel />
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault()

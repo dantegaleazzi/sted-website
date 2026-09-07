@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-labelledby="title desc">
+  <title id="title">Sted brand mark</title>
+  <desc id="desc">Yellow rounded bookmark character with black eyes and smile.</desc>
+  <path fill="#FFD400" d="M28 12h72c8.8 0 16 7.2 16 16v66.8c0 11.6-13.6 17.8-22.4 10.2L69.2 83.8a8 8 0 0 0-10.4 0L34.4 105C25.6 112.6 12 106.4 12 94.8V28c0-8.8 7.2-16 16-16Z"/>
+  <rect x="40" y="43" width="11" height="28" rx="5.5" fill="#141313"/>
+  <rect x="77" y="43" width="11" height="28" rx="5.5" fill="#141313"/>
+  <path d="M47 79c4.2 7 10.1 10.5 17 10.5S76.8 86 81 79" fill="none" stroke="#141313" stroke-width="6" stroke-linecap="round"/>
+</svg>
