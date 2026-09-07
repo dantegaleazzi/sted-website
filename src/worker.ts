@@ -1,3 +1,18 @@
+const SITEMAP = `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://www.sted.ai/</loc></url>
+  <url><loc>https://www.sted.ai/privacy</loc></url>
+  <url><loc>https://www.sted.ai/terms</loc></url>
+  <url><loc>https://www.sted.ai/support</loc></url>
+</urlset>
+`
+
+const ROBOTS = `User-agent: *
+Allow: /
+
+Sitemap: https://sted.ai/sitemap.xml
+`
+
 interface Env {
   ASSETS: {
     fetch(request: Request): Promise<Response>
@@ -56,6 +71,18 @@ async function handleSupportRequest(request: Request, env: Env): Promise<Respons
 export default {
   async fetch(request: Request, env: Env): Promise<Response> {
     const url = new URL(request.url)
+
+    // Serve crawl metadata before both the apex redirect and SPA asset fallback.
+    if (url.pathname === '/sitemap.xml' || url.pathname === '/robots.txt') {
+      const sitemap = url.pathname === '/sitemap.xml'
+      return new Response(request.method === 'HEAD' ? null : sitemap ? SITEMAP : ROBOTS, {
+        status: 200,
+        headers: {
+          'Content-Type': sitemap ? 'application/xml; charset=utf-8' : 'text/plain; charset=utf-8',
+          'Cache-Control': 'public, max-age=300',
+        },
+      })
+    }
 
     if (url.hostname === 'sted.ai') {
       url.hostname = 'www.sted.ai'
