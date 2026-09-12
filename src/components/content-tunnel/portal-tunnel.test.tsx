@@ -10,6 +10,8 @@ describe('internal portal tunnel', () => {
     const html = renderToStaticMarkup(createElement(StedContentTunnel, { items: portalFixtures, variant: 'portal' }))
     expect((html.match(/<article class="source-card /g) || []).length).toBe(16)
     expect(html).toContain('sct-portal-surface')
+    // Keep third-party example descriptions out of Google's Sted snippet.
+    expect(html).toMatch(/<div[^>]*class="sct-camera"[^>]*data-nosnippet=""/)
     const ids = [...html.matchAll(/data-content-id="([^"]+)"/g)].map(match => match[1])
     expect(new Set(ids).size).toBe(16)
     expect((html.match(/data-side="left"/g) || []).length).toBe(8)

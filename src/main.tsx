@@ -69,7 +69,7 @@ function App() {
 
   useEffect(() => {
     const activeGuide = route === 'guide' ? guides.find((guide) => guide.slug === guideSlug) : null
-    document.title = legalDocument === 'privacy' ? 'Privacy Policy | Sted' : legalDocument === 'terms' ? 'Terms of Use | Sted' : route === 'post' ? 'Build Log — STED' : route === 'support' ? 'Support | Sted' : activeGuide ? activeGuide.seoTitle ?? `${activeGuide.title} — STED` : route === 'guide' || route === 'guides' ? 'Guides — STED' : 'STED — Everything you save. Finally useful.'
+    document.title = legalDocument === 'privacy' ? 'Privacy Policy | Sted' : legalDocument === 'terms' ? 'Terms of Use | Sted' : route === 'post' ? 'Build Log — STED' : route === 'support' ? 'Support | Sted' : activeGuide ? activeGuide.seoTitle ?? `${activeGuide.title} — STED` : route === 'guide' || route === 'guides' ? 'Guides — STED' : 'Sted — Save links, posts and more. Then chat with them.'
   }, [legalDocument, route, guideSlug])
 
   useEffect(() => {

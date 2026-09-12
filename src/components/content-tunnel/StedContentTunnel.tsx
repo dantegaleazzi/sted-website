@@ -38,7 +38,7 @@ export function StedContentTunnel({ items = sourceCardFixtures, className = '', 
   return <section ref={root} className={`sct ${variant === 'portal' ? 'sct--portal' : ''} ${className}`} style={{ '--slots': count } as CSSProperties} aria-label="Your saved internet, together in Sted" data-paused={!inView} onPointerMove={move} onPointerLeave={reset}>
     <div className="sct-window">
       {variant === 'portal' && <div className="sct-portal-surface" aria-hidden="true" />}
-      <motion.div key={sequenceKey} className="sct-camera" aria-hidden="true" style={{ x: reducedMotion ? 0 : x, y: reducedMotion ? 0 : y }}>
+      <motion.div key={sequenceKey} className="sct-camera" data-nosnippet="" aria-hidden="true" style={{ x: reducedMotion ? 0 : x, y: reducedMotion ? 0 : y }}>
         {items.length > 0 && ([-1, 1] as const).flatMap((side, sideIndex) => Array.from({ length: variant === 'portal' ? items.filter((_, index) => index % 2 === sideIndex).length : count }, (_, depth) => {
           const sideCount = variant === 'portal' ? Math.floor((items.length + 1 - sideIndex) / 2) : count
           const item = variant === 'portal' ? items[depth * 2 + sideIndex] : items[(depth + sideIndex * Math.ceil(items.length / 2)) % items.length]
