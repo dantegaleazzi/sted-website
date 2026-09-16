@@ -309,7 +309,7 @@ export function LegalPage({ document }: { document: LegalDocument }) {
 
       {isDeletion ? <DeleteAccountContent /> : isPrivacy ? <PrivacyPolicy /> : <TermsOfUse />}
 
-      <div className="legal-switch"><a href="/privacy">Privacy</a><a href="/terms">Terms</a></div>
+      <div className="legal-switch"><a href="/privacy">Privacy</a><a href="/terms">Terms</a><a href="/delete-account">Delete Account</a><a href="/support">Support</a></div>
     </main>
   </div>
 }

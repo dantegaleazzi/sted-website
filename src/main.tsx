@@ -156,7 +156,7 @@ function App() {
           <SocialIcon href="https://linkedin.com/company/stedapp" label="LinkedIn" />
           <SocialIcon href="https://x.com/stedapp" label="X" />
         </nav>
-        <div className="footer-meta"><span className="copyright">© 2026 Finiks Labs LLC</span><div className="legal"><a href="/privacy">Privacy</a><a href="/terms">Terms</a><a href="/support">Support</a></div></div>
+        <div className="footer-meta"><span className="copyright">© 2026 Finiks Labs LLC</span><div className="legal"><a href="/privacy">Privacy</a><a href="/terms">Terms</a><a href="/delete-account">Delete Account</a><a href="/support">Support</a></div></div>
       </footer>
     </div>
   )
