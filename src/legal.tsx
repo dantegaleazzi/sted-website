@@ -1,6 +1,7 @@
 import { Logo } from './logo'
+import { DeleteAccountContent } from './delete-account'
 
-export type LegalDocument = 'privacy' | 'terms'
+export type LegalDocument = 'privacy' | 'terms' | 'delete-account'
 
 function PrivacyPolicy() {
   return <>
@@ -294,6 +295,7 @@ function TermsOfUse() {
 
 export function LegalPage({ document }: { document: LegalDocument }) {
   const isPrivacy = document === 'privacy'
+  const isDeletion = document === 'delete-account'
 
   return <div id="top" className="min-h-screen legal-page">
     <header className="site-header shell">
@@ -302,10 +304,10 @@ export function LegalPage({ document }: { document: LegalDocument }) {
     </header>
     <main className="legal-content shell">
       <p className="section-label">FINIKS LABS LLC</p>
-      <h1>{isPrivacy ? 'Privacy Policy' : 'Terms of Use'}</h1>
-      <p className="legal-date"><strong>Last updated: September 1, 2026</strong></p>
+      <h1>{isDeletion ? 'Delete your Sted account' : isPrivacy ? 'Privacy Policy' : 'Terms of Use'}</h1>
+      {!isDeletion && <p className="legal-date"><strong>Last updated: September 1, 2026</strong></p>}
 
-      {isPrivacy ? <PrivacyPolicy /> : <TermsOfUse />}
+      {isDeletion ? <DeleteAccountContent /> : isPrivacy ? <PrivacyPolicy /> : <TermsOfUse />}
 
       <div className="legal-switch"><a href="/privacy">Privacy</a><a href="/terms">Terms</a></div>
     </main>

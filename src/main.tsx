@@ -48,7 +48,7 @@ function App() {
 
   const pathname = window.location.pathname.replace(/\/$/, '') || '/'
   const tunnelPreview = pathname === '/' || pathname === '/internal/content-tunnel-preview' || pathname === '/internal/hero-projects-map'
-  const legalDocument: LegalDocument | null = pathname === '/privacy' ? 'privacy' : pathname === '/terms' ? 'terms' : null
+  const legalDocument: LegalDocument | null = pathname === '/privacy' ? 'privacy' : pathname === '/terms' ? 'terms' : pathname === '/delete-account' ? 'delete-account' : null
   const postSlug = pathname.startsWith('/build/') ? pathname.slice('/build/'.length) : null
   const guideSlug = pathname.startsWith('/guides/') ? pathname.slice('/guides/'.length) : null
   const route = pathname === '/about' || hash === '#about' ? 'about'
@@ -69,7 +69,7 @@ function App() {
 
   useEffect(() => {
     const activeGuide = route === 'guide' ? guides.find((guide) => guide.slug === guideSlug) : null
-    document.title = legalDocument === 'privacy' ? 'Privacy Policy | Sted' : legalDocument === 'terms' ? 'Terms of Use | Sted' : route === 'post' ? 'Build Log — STED' : route === 'support' ? 'Support | Sted' : activeGuide ? activeGuide.seoTitle ?? `${activeGuide.title} — STED` : route === 'guide' || route === 'guides' ? 'Guides — STED' : 'Sted — Save links, posts and more. Then chat with them.'
+    document.title = legalDocument === 'delete-account' ? 'Delete your Sted account' : legalDocument === 'privacy' ? 'Privacy Policy | Sted' : legalDocument === 'terms' ? 'Terms of Use | Sted' : route === 'post' ? 'Build Log — STED' : route === 'support' ? 'Support | Sted' : activeGuide ? activeGuide.seoTitle ?? `${activeGuide.title} — STED` : route === 'guide' || route === 'guides' ? 'Guides — STED' : 'Sted — Save links, posts and more. Then chat with them.'
   }, [legalDocument, route, guideSlug])
 
   useEffect(() => {
