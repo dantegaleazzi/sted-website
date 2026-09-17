@@ -181,19 +181,20 @@ function PrivacyPolicy() {
 
 function TermsOfUse() {
   return <>
-    <p>These Terms of Service (“Terms”) govern your access to and use of Sted, including the Sted iOS application, Share Extension, sted.ai, and related services (collectively, the “Service”).</p>
+    <p>These Terms of Service (“Terms”) govern your access to and use of Sted, including the Sted iOS and Android applications, the Sted Share Extension, sted.ai, and related services (collectively, the “Service”).</p>
     <p>The Service is operated by <strong>Finiks Labs LLC</strong>, a Wyoming limited liability company (“Finiks Labs,” “Sted,” “we,” “us,” or “our”).</p>
-    <p>By creating an account or using the Service, you agree to these Terms. If you do not agree, do not use Sted.</p>
+    <p>By accessing or using the Service, including through a guest session or registered account, you agree to these Terms. If you do not agree, do not use Sted.</p>
 
     <h2>1. Eligibility</h2>
     <p>You must be at least <strong>16 years old</strong> to use Sted.</p>
     <p>If you are under 18, you may use Sted only with the permission of a parent or legal guardian and only where your use of the Service is permitted by applicable law.</p>
     <p>You may not use the Service if applicable law prohibits you from doing so.</p>
 
-    <h2>2. Your account</h2>
-    <p>Sted currently uses <strong>Sign in with Apple</strong> to authenticate users.</p>
-    <p>You are responsible for maintaining control of the Apple account and devices you use to access Sted and for activity occurring through your Sted account.</p>
-    <p>You may delete your Sted account from within the application.</p>
+    <h2>2. Guest sessions and accounts</h2>
+    <p>You can use Sted without creating a registered account or providing an email address. When you first use Sted, our authentication infrastructure may establish an anonymous or guest session that allows Sted to associate saved links, projects, settings, generated information, and other application data with your use of the Service.</p>
+    <p>Where available, Sted may offer optional account sign-in methods, including Sign in with Apple. Sign in with Apple is not required to save links or use Sted as a guest.</p>
+    <p>If you choose to link or use a registered account, you are responsible for maintaining control of the account credentials and devices you use to access Sted and for activity occurring through your Sted account.</p>
+    <p>You may delete data associated with your guest session or, where applicable, delete your Sted account using the deletion controls available in the application, as further described in our Privacy Policy.</p>
 
     <h2>3. What Sted does</h2>
     <p>Sted helps you save links and organize information associated with those links.</p>
@@ -243,7 +244,7 @@ function TermsOfUse() {
 
     <h2>9. Privacy and data processing</h2>
     <p>Our Privacy Policy explains how Sted collects, uses, and shares information and the choices available to you.</p>
-    <p>Certain processing, including sharing saved-content information with third-party AI service providers, depends on the permission and settings applicable to your account.</p>
+    <p>Certain processing, including sharing saved-content information with third-party AI service providers, depends on the permission and settings applicable to your guest session or account.</p>
 
     <h2>10. Third-party services</h2>
     <p>Sted relies on third-party services for portions of the Service, including authentication, hosting, database infrastructure, website delivery, and artificial-intelligence processing.</p>
@@ -252,7 +253,7 @@ function TermsOfUse() {
 
     <h2>11. Paid features</h2>
     <p>Sted may offer paid features or subscriptions.</p>
-    <p>If a purchase is offered through Apple’s App Store, the pricing, billing, renewal, cancellation, and other purchase information shown at the time of purchase will apply together with Apple’s applicable payment terms.</p>
+    <p>If a purchase is offered through Apple’s App Store or Google Play, the pricing, billing, renewal, cancellation, and other purchase information shown at the time of purchase will apply together with the applicable app store’s payment terms.</p>
     <p>Nothing in these Terms represents that any particular paid feature or subscription is currently available unless it is actually offered in the version of Sted you are using.</p>
 
     <h2>12. Changes to the Service</h2>
@@ -260,10 +261,10 @@ function TermsOfUse() {
     <p>We may add, modify, suspend, or discontinue features or portions of the Service.</p>
     <p>We do not promise that any roadmap item, prototype, planned feature, integration, model, or service provider will remain available or be released.</p>
 
-    <h2>13. Termination and account deletion</h2>
-    <p>You may stop using Sted at any time and may delete your account through the application.</p>
+    <h2>13. Termination and deletion</h2>
+    <p>You may stop using Sted at any time. You may delete data associated with your guest session or, where applicable, delete your Sted account using the deletion controls available in the application.</p>
     <p>We may suspend or terminate access when reasonably necessary because of a material violation of these Terms, legal requirements, security concerns, abuse, or conduct that creates material risk to Sted or others.</p>
-    <p>Account deletion is handled as described in our Privacy Policy.</p>
+    <p>Guest-data and account deletion are handled as described in our Privacy Policy.</p>
     <p>Provisions that by their nature should survive termination, including intellectual-property provisions, disclaimers, limitations of liability, and dispute provisions, survive as applicable.</p>
 
     <h2>14. Disclaimers</h2>
@@ -279,9 +280,9 @@ function TermsOfUse() {
     <h2>16. Copyright and intellectual-property concerns</h2>
     <p>If you believe content processed or made available through Sted infringes your copyright or other intellectual-property rights, contact us at <a className="legal-email" href="mailto:hello@sted.ai">hello@sted.ai</a> with sufficient information for us to understand and investigate the concern.</p>
 
-    <h2>17. Apple Standard EULA</h2>
-    <p>The license to use the Sted iOS application is also subject to Apple’s applicable <strong>Standard Licensed Application End User License Agreement</strong>.</p>
-    <p>These Terms govern your Sted account and the Sted Service and do not replace Apple’s Standard EULA.</p>
+    <h2>17. App store terms</h2>
+    <p>For users of the Sted iOS application, the license to use the application is also subject to Apple’s applicable <strong>Standard Licensed Application End User License Agreement</strong>.</p>
+    <p>These Terms govern your use of the Sted Service and do not replace any applicable terms imposed by the platform through which you obtain the application.</p>
 
     <h2>18. Changes to these Terms</h2>
     <p>We may update these Terms from time to time.</p>
