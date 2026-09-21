@@ -55,9 +55,11 @@ function App() {
   }, [hash])
 
   useEffect(() => {
+    // Landing4CPreview sets its own title; child effects run first, so skip here.
+    if (pathname === '/internal/landing-4c') return
     const activeGuide = route === 'guide' ? guides.find((guide) => guide.slug === guideSlug) : null
     document.title = legalDocument === 'delete-account' ? 'Delete your Sted account' : legalDocument === 'privacy' ? 'Privacy Policy | Sted' : legalDocument === 'terms' ? 'Terms of Use | Sted' : route === 'post' ? 'Build Log — STED' : route === 'support' ? 'Support | Sted' : activeGuide ? activeGuide.seoTitle ?? `${activeGuide.title} — STED` : route === 'guide' || route === 'guides' ? 'Guides — STED' : 'Sted — Save links, posts and more. Then chat with them.'
-  }, [legalDocument, route, guideSlug])
+  }, [pathname, legalDocument, route, guideSlug])
 
   useEffect(() => {
     if (!isWaitlistOpen) return
