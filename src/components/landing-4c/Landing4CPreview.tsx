@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import { createClient } from '@supabase/supabase-js'
 import { SourceIcon } from '../source-cards/source-icons'
 import { SiteFooter } from '../footer/SiteFooter'
+import { FEATURE_KEYS, FeatureShowcase, Landing4CSections, type FeatureKey } from './Landing4CSections'
 import './Landing4CPreview.css'
 
 const supabaseUrl = import.meta.env.VITE_SUPABASE_URL
@@ -113,13 +114,17 @@ export function Landing4CPreview() {
 
   function openWaitlist() { setStatus(''); setIsWaitlistOpen(true) }
 
+  // Review aid: ?feature=chat|summary|feed pins the showcase to one state (no auto-rotation).
+  const featureParam = new URLSearchParams(window.location.search).get('feature')
+  const pinnedFeature: FeatureKey | undefined = FEATURE_KEYS.find((key) => key === featureParam)
+
   return <div className="l4c-page">
     <div className="l4c-scene-outer">
       <div className="l4c-scene">
         <header className="l4c-header">
           <img className="l4c-logo" src="/brand/sted-primary-horizontal.svg" alt="Sted" />
           <nav className="l4c-nav" aria-label="4c preview navigation">
-            <a href="/about#how-it-works">How it works</a>
+            <a href="#how-it-works">How it works</a>
           </nav>
           <button type="button" className="l4c-button l4c-button-dark l4c-header-cta" onClick={openWaitlist}>Join the waitlist</button>
         </header>
@@ -129,7 +134,7 @@ export function Landing4CPreview() {
           <p className="l4c-subcopy">Save links, notes and ideas. Sted understands them, connects them to your projects, and brings them back when they matter.</p>
           <div className="l4c-cta-row">
             <button type="button" className="l4c-button l4c-button-dark" onClick={openWaitlist}>Join the waitlist</button>
-            <a href="/about#how-it-works" className="l4c-secondary-cta">
+            <a href="#how-it-works" className="l4c-secondary-cta">
               <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10.4" fill="none" stroke="#141313" strokeWidth="1.6" /><path fill="#141313" d="M9.6 7.8v8.4l6.4-4.2z" /></svg>
               See how it works
             </a>
@@ -233,6 +238,8 @@ export function Landing4CPreview() {
       </div>
     </div>
 
+    <Landing4CSections initial={pinnedFeature ?? 'chat'} autoplay={!pinnedFeature} onJoin={openWaitlist} />
+
     <SiteFooter />
 
     {isWaitlistOpen && <div className="modal-backdrop" role="presentation" onMouseDown={(event) => { if (event.target === event.currentTarget) setIsWaitlistOpen(false) }}>
@@ -249,5 +256,19 @@ export function Landing4CPreview() {
         <p className="modal-status" role="status">{status}</p>
       </section>
     </div>}
+  </div>
+}
+
+/** Internal review page: the three showcase states stacked, at the same desktop width. */
+export function Landing4CShowcaseStates() {
+  useEffect(() => {
+    document.title = '4c showcase states — Sted'
+  }, [])
+
+  return <div className="l4c-page l4c-states-page">
+    {FEATURE_KEYS.map((key, index) => <div key={key} className="l4c-state-block">
+      <p className="l4c-state-label">State {index + 1} of 3 · {key}</p>
+      <FeatureShowcase initial={key} autoplay={false} />
+    </div>)}
   </div>
 }

@@ -7,7 +7,7 @@ import { RoutePage, SHOW_BUILD_IN_PUBLIC } from './pages'
 import { guides } from './guides'
 import { StedContentTunnel } from './components/content-tunnel/StedContentTunnel'
 import { InternalSourceCardQA } from './components/source-card-qa/InternalSourceCardQA'
-import { Landing4CPreview } from './components/landing-4c/Landing4CPreview'
+import { Landing4CPreview, Landing4CShowcaseStates } from './components/landing-4c/Landing4CPreview'
 import { SiteFooter } from './components/footer/SiteFooter'
 import './index.css'
 import './components/content-tunnel/portal-preview.css'
@@ -56,7 +56,7 @@ function App() {
 
   useEffect(() => {
     // Landing4CPreview sets its own title; child effects run first, so skip here.
-    if (pathname === '/internal/landing-4c') return
+    if (pathname.startsWith('/internal/landing-4c')) return
     const activeGuide = route === 'guide' ? guides.find((guide) => guide.slug === guideSlug) : null
     document.title = legalDocument === 'delete-account' ? 'Delete your Sted account' : legalDocument === 'privacy' ? 'Privacy Policy | Sted' : legalDocument === 'terms' ? 'Terms of Use | Sted' : route === 'post' ? 'Build Log — STED' : route === 'support' ? 'Support | Sted' : activeGuide ? activeGuide.seoTitle ?? `${activeGuide.title} — STED` : route === 'guide' || route === 'guides' ? 'Guides — STED' : 'Sted — Save links, posts and more. Then chat with them.'
   }, [pathname, legalDocument, route, guideSlug])
@@ -74,6 +74,7 @@ function App() {
   if (pathname === '/internal/product-design-system') return <RealContentQA />
   if (pathname === '/internal/source-card-qa') return <InternalSourceCardQA />
   if (pathname === '/internal/landing-4c') return <Landing4CPreview />
+  if (pathname === '/internal/landing-4c/states') return <Landing4CShowcaseStates />
   if (pathname === '/tunnel') return <StedContentTunnel />
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
