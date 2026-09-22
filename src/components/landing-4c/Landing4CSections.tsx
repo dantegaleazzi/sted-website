@@ -1,14 +1,11 @@
 import { useEffect, useReducer, useRef, useState } from 'react'
-import { SourceIcon } from '../source-cards/source-icons'
-import type { SourceType } from '../source-cards/types'
 import { ROTATE_MS, isRotating, rotationReducer } from './showcase-rotation'
-import { APP_STORE_URL, SIGN_IN_URL, WAITLIST_MESSAGES, joinWaitlist } from './app-links'
+import { APP_STORE_URL, SIGN_IN_URL } from './app-links'
 import './landing-4c-tokens.css'
 import './Landing4CSections.css'
 
 /**
- * Everything below the approved 4c hero. Desktop-first (1600px canvas);
- * mobile composition still deferred.
+ * Everything below the 4c hero, plus the header/CTA pieces the hero shares (badge, sign in).
  *
  * Feature showcase rotation rules live in showcase-rotation.ts.
  */
@@ -36,30 +33,6 @@ const STEDS_IN_ACTION: { prop: string; tint: string; tilt: number; action: strin
   { prop: 'media', tint: 'var(--sted-supportive-green)', tilt: 4, action: 'picked three saves worth your next five minutes.' },
 ]
 
-const SOURCE_CHIPS: { label: string; tiles?: SourceType[]; icon?: string }[] = [
-  { label: 'links', tiles: ['website'] },
-  { label: 'posts', tiles: ['x', 'instagram'] },
-  { label: 'videos', tiles: ['youtube'] },
-  { label: 'podcasts', tiles: ['spotify'] },
-  { label: 'notes', icon: 'notes' },
-]
-
-/** Inline source chips for the hero subtitle ("Save [links] [posts] …"). */
-export function SourceChips() {
-  return <>
-    {SOURCE_CHIPS.map((chip, index) => <span key={chip.label}>
-      <span className="l4s-inline-chip">
-        <span className="l4s-inline-chip-icons">
-          {chip.tiles?.map((tile) => <SourceIcon key={tile} type={tile} />)}
-          {chip.icon && <img src={`${ICONS}/${chip.icon}.webp`} alt="" className="l4s-inline-chip-illo" width={192} height={192} />}
-        </span>
-        {chip.label}
-      </span>
-      {index === SOURCE_CHIPS.length - 2 ? ' and ' : index < SOURCE_CHIPS.length - 1 ? ' ' : ''}
-    </span>)}
-  </>
-}
-
 /** Official Apple badge (tools.applemediaservices.com). Keep it unmodified and at least 40px tall.
  *  Until APP_STORE_URL exists it renders as a non-interactive element rather than a dead "#" link,
  *  so keyboard and screen-reader users don't land on a control that does nothing. */
@@ -72,33 +45,6 @@ export function AppStoreBadge({ height = 56, className = '' }: { height?: number
 export function SignInLink() {
   if (!SIGN_IN_URL) return <span className="l4s-signin is-pending" title="Sign in goes live with the web app" aria-disabled="true">Sign in</span>
   return <a className="l4s-signin" href={SIGN_IN_URL}>Sign in</a>
-}
-
-/** Android notify form. Shared by the final section and the hero modal; the insert is tagged
- *  as the Android list (see joinWaitlist). */
-export function AndroidNotify({ id = 'l4s-notify-email', label = 'Android is coming soon.', autoFocus = false }: { id?: string; label?: string; autoFocus?: boolean }) {
-  const [email, setEmail] = useState('')
-  const [status, setStatus] = useState('')
-  const [isSubmitting, setIsSubmitting] = useState(false)
-
-  async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
-    event.preventDefault()
-    if (!event.currentTarget.checkValidity()) { setStatus('Please enter a valid email address.'); return }
-    setIsSubmitting(true)
-    const result = await joinWaitlist(email, 'android')
-    setIsSubmitting(false)
-    setStatus(WAITLIST_MESSAGES[result])
-    if (result === 'joined') setEmail('')
-  }
-
-  return <form className="l4s-notify" onSubmit={handleSubmit} noValidate>
-    <label htmlFor={id} className="l4s-notify-label">{label}</label>
-    <div className="l4s-notify-row">
-      <input id={id} type="email" name="email" autoComplete="email" required placeholder="your@email.com" value={email} autoFocus={autoFocus} onChange={(event) => { setEmail(event.target.value); setStatus('') }} />
-      <button type="submit" disabled={isSubmitting}>{isSubmitting ? 'Sending…' : 'Notify me'}</button>
-    </div>
-    <p className="l4s-notify-status" role="status">{status}</p>
-  </form>
 }
 
 function Mascot({ size }: { size: number }) {
@@ -217,7 +163,7 @@ export function Landing4CSections({ initial, autoplay }: { initial: FeatureKey; 
       <div className="l4s-final-badge"><Mascot size={112} /></div>
       <h2 id="l4s-final-title" className="l4s-h2 l4s-final-title">You saved it for a reason.<br /><span className="l4s-yellow">Make it useful.</span></h2>
       <AppStoreBadge height={60} />
-      <AndroidNotify />
+      <p className="l4s-reassurance">Free to start · No account required</p>
     </section>
   </>
 }
