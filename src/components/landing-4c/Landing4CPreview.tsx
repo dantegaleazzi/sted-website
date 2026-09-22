@@ -12,7 +12,7 @@ type Output = { icon: OutputIcon; tint: string; title: string; pills?: string[];
 /** Key points are derived from the saves on the left (pour-over video, Dan Koe's post, the repo), so the
  *  output visibly comes from the input. The recap shows the app's real section names as an editorial list. */
 const OUTPUTS: Output[] = [
-  { icon: 'article', tint: 'var(--sted-supportive-blue)', title: 'Summary & Key Points', points: ['Pour-over technique', 'Building better systems', 'AI / creator workflows'] },
+  { icon: 'article', tint: 'var(--sted-supportive-blue)', title: 'Summary & Key Points', points: ['Pour-over technique', 'Building better systems', 'Creator business / $155K story'] },
   { icon: 'tag', tint: 'var(--sted-supportive-pink)', title: 'Topics & Tags', pills: ['AI', 'Design', 'Coffee', 'Japan'] },
   { icon: 'newspaper', tint: 'var(--sted-supportive-purple)', title: 'Your Daily Recap', list: ['Sted’s Picks', 'The Recap', 'Your Saves'] },
 ]
@@ -26,7 +26,7 @@ const PHOSPHOR: Record<OutputIcon, string> = {
 }
 
 function Phosphor({ name }: { name: OutputIcon }) {
-  return <svg width="22" height="22" viewBox="0 0 256 256" aria-hidden="true"><path fill="var(--sted-ink)" d={PHOSPHOR[name]} /></svg>
+  return <svg width="18" height="18" viewBox="0 0 256 256" aria-hidden="true"><path fill="var(--sted-ink)" d={PHOSPHOR[name]} /></svg>
 }
 
 function OutputCard({ icon, tint, title, pills, points, list }: Output) {
@@ -96,13 +96,13 @@ export function Landing4CPreview() {
         <div className="l4c-illustration">
           <svg className="l4c-flows" viewBox="0 0 1600 820" fill="none" aria-hidden="true" preserveAspectRatio="none">
             {/* Three ribbons, same family of curves, threading the gaps between cards and meeting at Sted. */}
-            <path className="l4c-ribbon" d="M-40 292C150 262 250 330 340 420S560 480 738 572" strokeWidth="24" />
-            <path className="l4c-ribbon" d="M-40 486C120 470 200 566 330 582S600 590 738 600" strokeWidth="20" />
-            <path className="l4c-ribbon" d="M-40 776C150 800 300 792 470 770S660 700 744 632" strokeWidth="16" />
+            <path className="l4c-ribbon" d="M-40 292C150 262 250 330 340 420S560 470 738 560" strokeWidth="18" />
+            <path className="l4c-ribbon" d="M-40 486C120 470 200 566 330 582S600 588 738 586" strokeWidth="15" />
+            <path className="l4c-ribbon" d="M-40 740C150 760 300 756 470 740S660 680 744 616" strokeWidth="12" />
             {/* Sted → outputs */}
-            <path className="l4c-inkline" d="M874 602H930" />
-            <path className="l4c-inkline" d="M874 594C902 594 902 548 930 548" />
-            <path className="l4c-inkline" d="M874 610C902 610 902 656 930 656" />
+            <path className="l4c-inkline" d="M874 586H930" />
+            <path className="l4c-inkline" d="M874 578C902 578 902 540 930 540" />
+            <path className="l4c-inkline" d="M874 594C902 594 902 632 930 632" />
           </svg>
 
           <div className="l4c-saves">
@@ -174,9 +174,9 @@ export function Landing4CPreview() {
             {OUTPUTS.map((output) => <OutputCard key={output.title} {...output} />)}
           </div>
 
-          <p className="l4c-note l4c-note-left"><span>Messy input.<br />Real life.</span><CurvedArrow /></p>
+          <p className="l4c-note l4c-note-left"><span>Messy input.</span><CurvedArrow /></p>
           <p className="l4c-note l4c-note-sted"><span>Sted understands it.</span></p>
-          <p className="l4c-note l4c-note-right"><CurvedArrow flip /><span>Clear output.<br />Real value.</span></p>
+          <p className="l4c-note l4c-note-right"><CurvedArrow flip /><span>Useful output.</span></p>
         </div>
       </div>
     </div>
