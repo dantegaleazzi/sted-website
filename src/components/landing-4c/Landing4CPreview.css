@@ -1,6 +1,7 @@
 /* "4c" landing hero. Desktop fidelity to the 1600px reference, compacted to 720px tall so the whole
    hero fits a 14" laptop viewport. Colours, radii and shadows come from landing-4c-tokens.css.
-   Story: four real saves → Sted → three outcomes. Content first, chrome last. */
+   Story: four real saves → Sted → three outcomes, read left to right on one axis. No connector lines:
+   proximity and the shared vertical centre do the work (see docs/landing-4c-review.md). */
 
 .l4c-page {
   min-height: 100vh;
@@ -89,8 +90,6 @@
 .l4c-illustration { position: absolute; left: 566px; top: 140px; width: 978px; height: 583px; z-index: 2; }
 .l4c-illustration-fixed { width: 1040px; height: 620px; position: relative; transform-origin: 0 0; transform: scale(0.94038); }
 .l4c-saves, .l4c-results { display: contents; }
-.l4c-connectors { position: absolute; left: 0; top: 0; width: 1040px; height: 620px; z-index: 1; pointer-events: none; }
-.l4c-bracket { stroke: var(--sted-ink-faint); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
 
 /* Saved content: real thumbnails, larger, no labels or pills inside the card. */
 .l4c-card { position: absolute; background: var(--sted-surface); border-radius: var(--sted-radius-lg); overflow: hidden; box-shadow: var(--sted-shadow-card); }
@@ -123,9 +122,10 @@
 }
 .l4c-mascot-badge img { width: 69px; height: 90px; display: block; }
 
-/* Outcomes: three white rows. Title, one line, and pills with the real names from the app. No carets. */
+/* Outcomes: three white rows. Title, one line, and pills with the real names from the app. No carets.
+   The Sted badge overlaps the column's left edge by 20px: the outcomes belong to Sted, no line needed. */
 .l4c-outcome {
-  position: absolute; left: 640px; width: 400px; height: 108px; z-index: 3;
+  position: absolute; left: 592px; width: 440px; height: 108px; z-index: 3;
   background: var(--sted-surface); border-radius: var(--sted-radius-xl); padding: 0 20px; box-sizing: border-box;
   display: flex; align-items: center; gap: 16px;
   box-shadow: var(--sted-shadow-subtle);
@@ -163,7 +163,6 @@
 
   .l4c-illustration { padding: 40px 20px 0; }
   .l4c-illustration-fixed { width: auto; height: auto; transform: none; display: flex; flex-direction: column; align-items: center; gap: 24px; }
-  .l4c-connectors { display: none; }
 
   /* Saves: a horizontal strip, natural size, no rotation. */
   .l4c-saves { display: flex; align-items: flex-start; gap: 14px; width: 100%; overflow-x: auto; scrollbar-width: none; padding: 8px 4px 14px; scroll-snap-type: x proximity; }

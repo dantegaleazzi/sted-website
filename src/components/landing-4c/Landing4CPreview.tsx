@@ -90,13 +90,6 @@ export function Landing4CPreview() {
 
         <div className="l4c-illustration">
           <div className="l4c-illustration-fixed">
-            <svg className="l4c-connectors" viewBox="0 0 1040 620" fill="none" aria-hidden="true">
-              {/* saves → Sted */}
-              <path className="l4c-bracket" d="M452 310H472" />
-              {/* Sted → each outcome */}
-              <path className="l4c-bracket" d="M612 310H626M626 194Q626 182 638 182H640M626 194V418Q626 430 638 430H640M626 306H640" />
-            </svg>
-
             <div className="l4c-saves">
               <div className="l4c-card l4c-card-kyoto">
                 <img src="/content/landing-4c/fushimi-inari-kyoto.webp" alt="Fushimi-Inari, Kyoto" className="l4c-card-image l4c-card-image-portrait" width={320} height={400} fetchPriority="high" />
