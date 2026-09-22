@@ -121,7 +121,7 @@
 .l4c-card-image { width: 100%; object-fit: cover; display: block; }
 .l4c-card-image-short { height: 58px; }
 .l4c-card-image-tall { height: 80px; }
-.l4c-card-image-portrait { aspect-ratio: 4 / 5; }
+.l4c-card-image-portrait { aspect-ratio: 4 / 5; height: auto; } /* height:auto so the intrinsic height attribute defers to the ratio */
 
 .l4c-pill { display: flex; align-items: center; gap: 7px; background: var(--sted-cream); border-radius: var(--sted-radius-pill); padding: 4px 10px; align-self: flex-start; }
 .l4c-pill span { font-size: 11px; font-weight: var(--sted-weight-semibold); line-height: 1.3; white-space: nowrap; }

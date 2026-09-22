@@ -18,6 +18,8 @@ export type FeatureKey = 'chat' | 'summary' | 'feed'
 export const FEATURE_KEYS: FeatureKey[] = ['chat', 'summary', 'feed']
 
 const ICONS = '/content/landing-4c/icons'
+// Everything below the hero is off-screen on load; let the browser defer it.
+const LAZY = { loading: 'lazy', decoding: 'async' } as const
 
 const FEATURES: { key: FeatureKey; icon: string; title: string; body: string }[] = [
   { key: 'chat', icon: 'chat', title: 'Chat with your saved items', body: 'Ask questions across everything you’ve saved and get answers grounded in your own content.' },
@@ -49,7 +51,7 @@ export function SourceChips() {
       <span className="l4s-inline-chip">
         <span className="l4s-inline-chip-icons">
           {chip.tiles?.map((tile) => <SourceIcon key={tile} type={tile} />)}
-          {chip.icon && <img src={`${ICONS}/${chip.icon}.png`} alt="" className="l4s-inline-chip-illo" />}
+          {chip.icon && <img src={`${ICONS}/${chip.icon}.webp`} alt="" className="l4s-inline-chip-illo" width={192} height={192} />}
         </span>
         {chip.label}
       </span>
@@ -100,7 +102,7 @@ export function AndroidNotify({ id = 'l4s-notify-email', label = 'Android is com
 }
 
 function Mascot({ size }: { size: number }) {
-  return <img src="/sted-mascot.svg" alt="" aria-hidden="true" style={{ height: size, width: 'auto', display: 'block' }} />
+  return <img src="/sted-mascot.svg" alt="" aria-hidden="true" style={{ height: size, width: 'auto', display: 'block' }} {...LAZY} />
 }
 
 // Provisional app screenshots (device frame baked in, background cut to transparent).
@@ -114,7 +116,7 @@ const SHOTS: Record<FeatureKey, { src: string; alt: string; tint: string }> = {
 function PhoneShot({ feature, isActive }: { feature: (typeof FEATURES)[number]; isActive: boolean }) {
   const shot = SHOTS[feature.key]
   return <div className={isActive ? 'l4s-shot is-active' : 'l4s-shot'} style={{ '--l4s-tint': shot.tint } as React.CSSProperties} aria-hidden={!isActive}>
-    <img src={shot.src} alt={shot.alt} className="l4s-phone" width={715} height={1427} />
+    <img src={shot.src} alt={shot.alt} className="l4s-phone" width={715} height={1427} {...LAZY} />
   </div>
 }
 
@@ -164,7 +166,7 @@ export function FeatureShowcase({ initial = 'chat', autoplay = true, id }: { ini
               onBlur={() => dispatch({ type: 'leave' })}
               onClick={() => dispatch({ type: 'pin', key: feature.key })}
             >
-              <img src={`${ICONS}/${feature.icon}.png`} alt="" className="l4s-feature-icon" />
+              <img src={`${ICONS}/${feature.icon}.webp`} alt="" className="l4s-feature-icon" width={192} height={192} {...LAZY} />
               <span className="l4s-feature-text">
                 <span className="l4s-feature-title">{feature.title}</span>
                 {isActive && <span className="l4s-feature-body">{feature.body}</span>}
@@ -184,10 +186,10 @@ export function FeatureShowcase({ initial = 'chat', autoplay = true, id }: { ini
     <div className="l4s-stage">
       {FEATURES.map((feature) => <PhoneShot key={feature.key} feature={feature} isActive={feature.key === state.active} />)}
       {/* Floating Steds (placeholder art until the variant SVGs land). */}
-      <img src="/sted-mascot.svg" alt="" aria-hidden="true" className="l4s-floater l4s-floater-mascot" />
-      <img src={`${ICONS}/chat.png`} alt="" aria-hidden="true" className="l4s-floater l4s-floater-a" />
-      <img src={`${ICONS}/topics.png`} alt="" aria-hidden="true" className="l4s-floater l4s-floater-b" />
-      <img src={`${ICONS}/summary-note.png`} alt="" aria-hidden="true" className="l4s-floater l4s-floater-c" />
+      <img src="/sted-mascot.svg" alt="" aria-hidden="true" className="l4s-floater l4s-floater-mascot" {...LAZY} />
+      <img src={`${ICONS}/chat.webp`} alt="" aria-hidden="true" className="l4s-floater l4s-floater-a" {...LAZY} />
+      <img src={`${ICONS}/topics.webp`} alt="" aria-hidden="true" className="l4s-floater l4s-floater-b" {...LAZY} />
+      <img src={`${ICONS}/summary-note.webp`} alt="" aria-hidden="true" className="l4s-floater l4s-floater-c" {...LAZY} />
     </div>
   </section>
 }
@@ -202,8 +204,8 @@ export function Landing4CSections({ initial, autoplay }: { initial: FeatureKey; 
         {STEDS_IN_ACTION.map((sted) => <div key={sted.prop} className="l4s-sted-card">
           <div className="l4s-sted-portrait" style={{ '--l4s-tint': sted.tint } as React.CSSProperties}>
             <div className="l4s-sted-figure" style={{ transform: `rotate(${sted.tilt}deg)` }}>
-              <img src="/sted-mascot.svg" alt="" className="l4s-sted-mascot" />
-              <img src={`${ICONS}/${sted.prop}.png`} alt="" className="l4s-sted-prop" />
+              <img src="/sted-mascot.svg" alt="" className="l4s-sted-mascot" {...LAZY} />
+              <img src={`${ICONS}/${sted.prop}.webp`} alt="" className="l4s-sted-prop" width={192} height={192} {...LAZY} />
             </div>
           </div>
           <p className="l4s-sted-action"><strong>Sted</strong> {sted.action}</p>

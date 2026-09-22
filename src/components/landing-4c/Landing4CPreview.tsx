@@ -124,14 +124,14 @@ export function Landing4CPreview() {
                 <div className="l4c-pill"><GlobeIcon /><span>Web page</span></div>
                 <span className="l4c-card-title">RevenueCat Shipaton 2026</span>
                 <div className="l4c-domain-row">
-                  <img src="/content/landing-4c/shipaton-favicon.png" alt="" className="l4c-favicon" />
+                  <img src="/content/landing-4c/shipaton-favicon.webp" alt="" className="l4c-favicon" width={128} height={128} />
                   <span className="l4c-domain">shipaton.com</span>
                 </div>
               </div>
             </div>
 
             <div className="l4c-card l4c-card-xpost">
-              <img src="/content/landing-4c/x-post-falling-into-hole.jpg" alt="How to fix your entire life in 1 day" className="l4c-card-image l4c-card-image-short" />
+              <img src="/content/landing-4c/x-post-falling-into-hole.webp" alt="How to fix your entire life in 1 day" className="l4c-card-image l4c-card-image-short" width={480} height={192} />
               <div className="l4c-card-pad">
                 <span className="l4c-card-title">How to fix your entire life in 1 day</span>
                 <div className="l4c-domain-row"><SourceIcon type="x" /><span className="l4c-domain">x.com</span></div>
@@ -139,7 +139,7 @@ export function Landing4CPreview() {
             </div>
 
             <div className="l4c-card l4c-card-youtube">
-              <img src="/content/landing-4c/pour-over-method.jpg" alt="V60 pour over" className="l4c-card-image l4c-card-image-tall" />
+              <img src="/content/landing-4c/pour-over-method.webp" alt="V60 pour over" className="l4c-card-image l4c-card-image-tall" width={400} height={224} />
               <div className="l4c-card-pad">
                 <span className="l4c-card-title">The pour over method, start to finish</span>
                 <div className="l4c-domain-row"><SourceIcon type="youtube" /><span className="l4c-domain">youtube.com</span></div>
@@ -147,7 +147,7 @@ export function Landing4CPreview() {
             </div>
 
             <div className="l4c-card l4c-card-instagram">
-              <img src="/content/landing-4c/fushimi-inari-kyoto.jpg" alt="Fushimi-Inari, Kyoto" className="l4c-card-image l4c-card-image-portrait" />
+              <img src="/content/landing-4c/fushimi-inari-kyoto.webp" alt="Fushimi-Inari, Kyoto" className="l4c-card-image l4c-card-image-portrait" width={320} height={400} fetchPriority="high" />
               <div className="l4c-card-pad l4c-card-pad-tight">
                 <span className="l4c-card-title">Fushimi-Inari, Kyoto, Japan</span>
                 <div className="l4c-domain-row"><SourceIcon type="instagram" /><span className="l4c-domain">instagram.com</span></div>
@@ -167,7 +167,7 @@ export function Landing4CPreview() {
             <div className="l4c-card l4c-card-starter-story">
               <div className="l4c-card-pad">
                 <div className="l4c-story-head">
-                  <img src="/content/landing-4c/starter-story-podcast-cover.png" alt="Starter Story" className="l4c-story-cover" />
+                  <img src="/content/landing-4c/starter-story-podcast-cover.webp" alt="Starter Story" className="l4c-story-cover" width={184} height={184} />
                   <div className="l4c-story-text">
                     <span className="l4c-card-title">Starter Story</span>
                     <span className="l4c-domain">This app replaced my 9-5 ($155K/year)</span>

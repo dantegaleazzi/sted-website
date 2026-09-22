@@ -6,7 +6,8 @@ import { sourceCardFixtures } from './components/source-cards/source-card-fixtur
 
 // While Sted is in App Store review, the site is kept to product + legal/support only.
 // Flip this back to true to restore Build in Public and Guides — no content is deleted.
-export const SHOW_BUILD_IN_PUBLIC = false
+import { SHOW_BUILD_IN_PUBLIC } from './flags'
+export { SHOW_BUILD_IN_PUBLIC }
 
 const SUPPORT_MESSAGE_MIN = 10
 const SUPPORT_MESSAGE_MAX = 2000
