@@ -29,9 +29,9 @@ const FEATURES: { key: FeatureKey; icon: string; title: string; body: string }[]
 // dedicated Sted variant SVGs (glasses, headphones, magnifier…) once they exist.
 const STEDS_IN_ACTION: { prop: string; tint: string; tilt: number; action: string }[] = [
   { prop: 'summary-card', tint: 'var(--sted-supportive-purple)', tilt: -4, action: 'read the 40-minute video you saved, so you don’t have to.' },
-  { prop: 'chat', tint: 'var(--sted-supportive-blue)', tilt: 3, action: 'found the three things you saved about AI agents.' },
+  { prop: 'media', tint: 'var(--sted-supportive-blue)', tilt: 3, action: 'put this morning’s Magazine together before you woke up.' },
   { prop: 'topics', tint: 'var(--sted-supportive-pink)', tilt: -3, action: 'sorted this week’s saves into Travel, Coffee and AI.' },
-  { prop: 'media', tint: 'var(--sted-supportive-green)', tilt: 4, action: 'picked three saves worth your next five minutes.' },
+  { prop: 'summary-note', tint: 'var(--sted-supportive-green)', tilt: 4, action: 'picked three saves worth your next five minutes.' },
 ]
 
 /** Official Apple badge (tools.applemediaservices.com). Keep it unmodified and at least 40px tall.
@@ -171,7 +171,7 @@ export function Landing4CSections({ initial, autoplay }: { initial: FeatureKey; 
     <FeatureShowcase initial={initial} autoplay={autoplay} id="how-it-works" />
 
     <section className="l4s-section l4s-steds" id="why-sted" aria-labelledby="l4s-steds-title">
-      <h2 id="l4s-steds-title" className="l4s-h2">Everything you save.<br />Finally useful.</h2>
+      <h2 id="l4s-steds-title" className="l4s-h2">Meanwhile,<br />Sted is working.</h2>
       <div className="l4s-steds-grid">
         {STEDS_IN_ACTION.map((sted) => <div key={sted.prop} className="l4s-sted-card">
           <div className="l4s-sted-portrait" style={{ '--l4s-tint': sted.tint } as React.CSSProperties}>

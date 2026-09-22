@@ -199,7 +199,19 @@ Flagged, not applied, except P1 which is applied and easy to revert.
 9. **Section headline for "Steds in action"** (F9): pick one of the suggestions or keep the echo.
 10. **`?ref` attribution.** The old site stored `?ref` for the general waitlist. Should the App Store badge also carry a campaign token (`?pt=…&ct=…` on the App Store URL) once the URL exists, so installs from this page are attributable?
 
-## 7. Method and measurements
+## 7. Branch status after the polish rounds (September 22, 2026)
+
+Decisions Dante made after the audit, all applied on this branch:
+
+- Android is gone from the landing (hero line, modal, final-section form, waitlist insert). Sign in stays in the header on `SIGN_IN_URL`.
+- Hero copy: headline unchanged, formats as a typographic line, pain-first subcopy, App Store badge plus "Free to start · No account required".
+- Hero illustration rebuilt on composition 16 of the Social North Star ("Messy input canvas"): real saves and type cards on the left, yellow ribbons and ink lines into one Sted badge, four output cards on the right (clean summary, key points, topics and tags, your daily magazine). Chat and Projects stay out of the hero.
+- Showcase opens with "Save from anywhere", a real share-sheet recording in a CSS device frame; the chat state is gone until chat ships in iOS. The feed state is "A daily magazine from your saves".
+- "Steds in action" has its own headline ("Meanwhile, Sted is working.") and no card implies search or chat.
+
+Commits after `ba1f61d`: `3ee8507`, `0d9f533`, `aa3c5ac`, `fa31e7b`, `0e44475` and the one carrying this note.
+
+## 8. Method and measurements
 
 - Dev server: the branch's own worktree (`sted-new-web-c`), Vite on a free port; `.env` copied from the `sted-new-web-b` worktree.
 - Measurements: `getBoundingClientRect()` and computed styles via the in-app browser at 1512×982, 1024×768 and 390×844; effective font sizes = CSS size × rendered scale of the canvas.
