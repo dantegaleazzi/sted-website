@@ -10,7 +10,7 @@ const SITEMAP = `<?xml version="1.0" encoding="UTF-8"?>
 const ROBOTS = `User-agent: *
 Allow: /
 
-Sitemap: https://sted.ai/sitemap.xml
+Sitemap: https://www.sted.ai/sitemap.xml
 `
 
 interface Env {

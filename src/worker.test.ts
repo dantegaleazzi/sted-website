@@ -18,7 +18,7 @@ describe('SEO routes before redirects and SPA fallback', () => {
         if (path === '/sitemap.xml') {
           expect(body).toMatch(/^<\?xml/)
           expect([...body.matchAll(/<loc>(.*?)<\/loc>/g)].map(match => match[1])).toEqual(['https://www.sted.ai/', 'https://www.sted.ai/privacy', 'https://www.sted.ai/terms', 'https://www.sted.ai/support'])
-        } else expect(body).toContain('Sitemap: https://sted.ai/sitemap.xml')
+        } else expect(body).toContain('Sitemap: https://www.sted.ai/sitemap.xml')
         const head = await worker.fetch(new Request(`https://${host}${path}`, { method: 'HEAD' }), bindings)
         expect(head.status).toBe(200)
         expect(await head.text()).toBe('')
