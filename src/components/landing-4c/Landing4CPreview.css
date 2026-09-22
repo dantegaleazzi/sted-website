@@ -123,17 +123,19 @@
 }
 .l4c-mascot-badge img { width: 69px; height: 90px; display: block; }
 
-/* Outcomes: three quiet white rows, one icon tile each, no chips, no carets. */
+/* Outcomes: three white rows. Title, one line, and pills with the real names from the app. No carets. */
 .l4c-outcome {
-  position: absolute; left: 640px; width: 400px; height: 84px; z-index: 3;
-  background: var(--sted-surface); border-radius: var(--sted-radius-xl); padding: 0 22px; box-sizing: border-box;
+  position: absolute; left: 640px; width: 400px; height: 108px; z-index: 3;
+  background: var(--sted-surface); border-radius: var(--sted-radius-xl); padding: 0 20px; box-sizing: border-box;
   display: flex; align-items: center; gap: 16px;
   box-shadow: var(--sted-shadow-subtle);
 }
 .l4c-outcome-icon { width: 44px; height: 44px; border-radius: 14px; display: flex; align-items: center; justify-content: center; flex: none; }
-.l4c-outcome-body { flex: 1; display: flex; flex-direction: column; gap: 4px; min-width: 0; }
-.l4c-outcome-title { font-size: 18px; font-weight: var(--sted-weight-semibold); line-height: 1.2; letter-spacing: -0.01em; }
-.l4c-outcome-meta { font-size: 14px; font-weight: var(--sted-weight-medium); color: var(--sted-text-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.l4c-outcome-body { flex: 1; display: flex; flex-direction: column; gap: 5px; min-width: 0; }
+.l4c-outcome-title { font-size: 17px; font-weight: var(--sted-weight-semibold); line-height: 1.2; letter-spacing: -0.01em; }
+.l4c-outcome-meta { font-size: 13px; font-weight: var(--sted-weight-regular); color: var(--sted-text-muted); line-height: 1.35; }
+.l4c-outcome-pills { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 3px; }
+.l4c-pill { background: var(--sted-cream); border-radius: var(--sted-radius-pill); padding: 3px 9px; font-size: 12px; font-weight: var(--sted-weight-medium); line-height: 1.4; white-space: nowrap; }
 
 /* ---------- Reflow below 1100px ----------
    Above 1100px the canvas scales with the viewport (hero title still ~48px effective there). Below it

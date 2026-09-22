@@ -10,18 +10,19 @@ import './Landing4CSections.css'
  * Feature showcase rotation rules live in showcase-rotation.ts.
  */
 
-export type FeatureKey = 'chat' | 'summary' | 'feed'
+export type FeatureKey = 'save' | 'summary' | 'feed'
 
-export const FEATURE_KEYS: FeatureKey[] = ['chat', 'summary', 'feed']
+/** Rotation order: how you save first (the number-one question), then what Sted makes of it. */
+export const FEATURE_KEYS: FeatureKey[] = ['save', 'summary', 'feed']
 
 const ICONS = '/content/landing-4c/icons'
 // Everything below the hero is off-screen on load; let the browser defer it.
 const LAZY = { loading: 'lazy', decoding: 'async' } as const
 
 const FEATURES: { key: FeatureKey; icon: string; title: string; body: string }[] = [
-  { key: 'chat', icon: 'chat', title: 'Chat with your saved items', body: 'Ask questions across everything you’ve saved and get answers grounded in your own content.' },
-  { key: 'summary', icon: 'summary-note', title: 'Summary and key points', body: 'Sted reads everything you save and pulls out the summary and what’s worth knowing.' },
-  { key: 'feed', icon: 'media', title: 'A feed made from your saves', body: 'A daily recap of what you saved, with picks worth coming back to.' },
+  { key: 'save', icon: 'web-page', title: 'Save from anywhere', body: 'Share it from Instagram, YouTube, X, Safari or Spotify. Sted takes it from there.' },
+  { key: 'summary', icon: 'summary-note', title: 'Summary and key points', body: 'Sted reads every link and writes the summary and key points for you.' },
+  { key: 'feed', icon: 'media', title: 'A daily magazine from your saves', body: 'Every day Sted builds a Magazine from what you saved: The Recap, Sted’s Picks and Your Saves.' },
 ]
 
 // Placeholder art: the base mascot plus an existing pastel prop icon. Swap for the
@@ -53,16 +54,41 @@ function Mascot({ size }: { size: number }) {
 
 // Provisional app screenshots (device frame baked in, background cut to transparent).
 // Final shots will replace the files in public/content/landing-4c/app/.
-const SHOTS: Record<FeatureKey, { src: string; alt: string; tint: string }> = {
-  chat: { src: '/content/landing-4c/app/chat.webp', alt: 'Ask Sted: chat with everything you’ve saved', tint: 'var(--sted-supportive-blue)' },
+// The 'save' state is a real screen recording of the share sheet, played inside a CSS device frame.
+const SHOTS: Record<FeatureKey, { src: string; alt: string; tint: string; video?: { mp4: string; poster: string } }> = {
+  save: {
+    src: '/content/landing-4c/app/share-poster.webp', alt: 'Sharing a link to Sted from another app: “Saved to Sted”, with a project picker and tags', tint: 'var(--sted-supportive-blue)',
+    video: { mp4: '/content/landing-4c/app/share.mp4', poster: '/content/landing-4c/app/share-poster.webp' },
+  },
   summary: { src: '/content/landing-4c/app/summary.webp', alt: 'A saved X post in Sted with its summary, key ideas and topics', tint: 'var(--sted-yellow)' },
   feed: { src: '/content/landing-4c/app/feed.webp', alt: 'Sted Magazine with Sted’s picks, the recap and your saved Steds', tint: 'var(--sted-supportive-green)' },
 }
 
-function PhoneShot({ feature, isActive }: { feature: (typeof FEATURES)[number]; isActive: boolean }) {
+/** Screen recording in a device frame. Plays only while its state is active and motion is allowed;
+ *  otherwise it sits on its poster frame. */
+function DeviceVideo({ video, alt, isActive, reducedMotion }: { video: NonNullable<(typeof SHOTS)[FeatureKey]['video']>; alt: string; isActive: boolean; reducedMotion: boolean }) {
+  const ref = useRef<HTMLVideoElement>(null)
+  useEffect(() => {
+    const node = ref.current
+    if (!node) return
+    if (isActive && !reducedMotion) { node.play().catch(() => {}) } else { node.pause(); if (!isActive) node.currentTime = 0 }
+  }, [isActive, reducedMotion])
+  return <div className="l4s-device">
+    <div className="l4s-device-screen">
+      <video ref={ref} muted loop playsInline preload="metadata" poster={video.poster} aria-label={alt}>
+        <source src={video.mp4} type="video/mp4" />
+      </video>
+    </div>
+    <span className="l4s-device-island" aria-hidden="true" />
+  </div>
+}
+
+function PhoneShot({ feature, isActive, reducedMotion }: { feature: (typeof FEATURES)[number]; isActive: boolean; reducedMotion: boolean }) {
   const shot = SHOTS[feature.key]
   return <div className={isActive ? 'l4s-shot is-active' : 'l4s-shot'} style={{ '--l4s-tint': shot.tint } as React.CSSProperties} aria-hidden={!isActive}>
-    <img src={shot.src} alt={shot.alt} className="l4s-phone" width={715} height={1427} {...LAZY} />
+    {shot.video
+      ? <DeviceVideo video={shot.video} alt={shot.alt} isActive={isActive} reducedMotion={reducedMotion} />
+      : <img src={shot.src} alt={shot.alt} className="l4s-phone" width={715} height={1427} {...LAZY} />}
   </div>
 }
 
@@ -78,7 +104,7 @@ function usePrefersReducedMotion() {
   return reduced
 }
 
-export function FeatureShowcase({ initial = 'chat', autoplay = true, id }: { initial?: FeatureKey; autoplay?: boolean; id?: string }) {
+export function FeatureShowcase({ initial = 'save', autoplay = true, id }: { initial?: FeatureKey; autoplay?: boolean; id?: string }) {
   const [state, dispatch] = useReducer(rotationReducer<FeatureKey>, { active: initial, hovering: false, pinned: !autoplay })
   const [inView, setInView] = useState(false)
   const reducedMotion = usePrefersReducedMotion()
@@ -130,10 +156,10 @@ export function FeatureShowcase({ initial = 'chat', autoplay = true, id }: { ini
       </ol>
     </div>
     <div className="l4s-stage">
-      {FEATURES.map((feature) => <PhoneShot key={feature.key} feature={feature} isActive={feature.key === state.active} />)}
+      {FEATURES.map((feature) => <PhoneShot key={feature.key} feature={feature} isActive={feature.key === state.active} reducedMotion={reducedMotion} />)}
       {/* Floating Steds (placeholder art until the variant SVGs land). */}
       <img src="/sted-mascot.svg" alt="" aria-hidden="true" className="l4s-floater l4s-floater-mascot" {...LAZY} />
-      <img src={`${ICONS}/chat.webp`} alt="" aria-hidden="true" className="l4s-floater l4s-floater-a" {...LAZY} />
+      <img src={`${ICONS}/video.webp`} alt="" aria-hidden="true" className="l4s-floater l4s-floater-a" {...LAZY} />
       <img src={`${ICONS}/topics.webp`} alt="" aria-hidden="true" className="l4s-floater l4s-floater-b" {...LAZY} />
       <img src={`${ICONS}/summary-note.webp`} alt="" aria-hidden="true" className="l4s-floater l4s-floater-c" {...LAZY} />
     </div>

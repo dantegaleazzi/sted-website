@@ -1,9 +1,9 @@
 import { describe, expect, it } from 'vitest'
 import { isRotating, rotationReducer, type RotationState } from './showcase-rotation'
 
-const KEYS = ['chat', 'summary', 'feed'] as const
+const KEYS = ['save', 'summary', 'feed'] as const
 type Key = (typeof KEYS)[number]
-const start: RotationState<Key> = { active: 'chat', hovering: false, pinned: false }
+const start: RotationState<Key> = { active: 'save', hovering: false, pinned: false }
 const env = { autoplay: true, inView: true, reducedMotion: false }
 
 describe('showcase rotation', () => {
@@ -13,7 +13,7 @@ describe('showcase rotation', () => {
     expect(state.active).toBe('summary')
     state = rotationReducer(state, { type: 'advance', keys: KEYS })
     state = rotationReducer(state, { type: 'advance', keys: KEYS })
-    expect(state.active).toBe('chat')
+    expect(state.active).toBe('save')
   })
 
   it('hover activates the item and pauses until leave', () => {
@@ -23,7 +23,7 @@ describe('showcase rotation', () => {
     expect(rotationReducer(state, { type: 'advance', keys: KEYS }).active).toBe('feed')
     state = rotationReducer(state, { type: 'leave' })
     expect(isRotating(state, env)).toBe(true)
-    expect(rotationReducer(state, { type: 'advance', keys: KEYS }).active).toBe('chat')
+    expect(rotationReducer(state, { type: 'advance', keys: KEYS }).active).toBe('save')
   })
 
   it('click pins the item and stops rotation even after leave', () => {

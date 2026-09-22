@@ -4,14 +4,16 @@ import { SiteFooter } from '../footer/SiteFooter'
 import { AppStoreBadge, FEATURE_KEYS, FeatureShowcase, Landing4CSections, SignInLink, type FeatureKey } from './Landing4CSections'
 import './Landing4CPreview.css'
 
-/** What Sted makes out of the saves. Three outcomes tell the story; chat stays out of the hero
- *  until it ships in the public iOS app. */
-type OutcomeIconName = 'projects' | 'summary' | 'tags'
+/** What Sted makes out of the saves. Three automatic outcomes tell the story; chat stays out of the
+ *  hero until it ships in the public iOS app, and Projects stays out because it isn't automatic. */
 
-const OUTCOMES: { icon: OutcomeIconName; color: string; title: string; meta: string; top: number }[] = [
-  { icon: 'projects', color: 'var(--sted-supportive-green)', title: 'Projects', meta: 'Sted launch · Travel · Coffee', top: 150 },
-  { icon: 'summary', color: 'var(--sted-supportive-blue)', title: 'Summary and key points', meta: 'Every save, read for you', top: 262 },
-  { icon: 'tags', color: 'var(--sted-supportive-pink)', title: 'Topics and tags', meta: 'AI · Design · Coffee · Japan', top: 374 },
+type OutcomeIconName = 'feed' | 'summary' | 'tags'
+
+/** Title, one marketing line, and pills with the real names/examples from the app. */
+const OUTCOMES: { icon: OutcomeIconName; color: string; title: string; meta: string; pills: string[]; top: number }[] = [
+  { icon: 'feed', color: 'var(--sted-supportive-green)', title: 'Your feed, made from your saves.', meta: 'A daily magazine from your saves', pills: ['The Recap', 'Sted’s Picks', 'Your Saves'], top: 128 },
+  { icon: 'summary', color: 'var(--sted-supportive-blue)', title: 'Summary and key points.', meta: 'Sted reads every link and writes the summary for you.', pills: ['Summary', 'Key points'], top: 252 },
+  { icon: 'tags', color: 'var(--sted-supportive-pink)', title: 'Topics and tags.', meta: 'Sted tags and files every save by topic, automatically.', pills: ['AI', 'Design', 'Coffee', 'Japan'], top: 376 },
 ]
 
 const SPOTIFY_BAR_HEIGHTS = [26, 52, 78, 40, 64, 34, 88, 46, 70, 30, 58, 42, 80, 36, 62, 28, 74, 48, 66, 32, 54, 38]
@@ -23,8 +25,8 @@ function SpotifyIcon({ size = 18 }: { size?: number }) {
 function OutcomeIcon({ name }: { name: OutcomeIconName }) {
   const common = { width: 22, height: 22, viewBox: '0 0 24 24', fill: 'var(--sted-ink)', 'aria-hidden': true } as const
   switch (name) {
-    case 'projects':
-      return <svg {...common}><path d="M9 3h6a1 1 0 0 1 1 1v2h4a2 2 0 0 1 2 2v2H2V8a2 2 0 0 1 2-2h4V4a1 1 0 0 1 1-1zm1 3h4V5h-4v1zM2 11h20v7a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2v-7zm7 2v2h6v-2H9z" /></svg>
+    case 'feed':
+      return <svg {...common}><path d="M4 3h16a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1zm1 2v14h14V5H5zm2 2h5v5H7V7zm7 0h3v1.6h-3V7zm0 3.4h3V12h-3v-1.6zM7 14h10v1.6H7V14zm0 3h7v1.6H7V17z" /></svg>
     case 'summary':
       return <svg {...common}><path fillRule="evenodd" d="M4 4.5A1.5 1.5 0 0 1 5.5 3h13A1.5 1.5 0 0 1 20 4.5v15a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 4 19.5v-15zM7 8h10v1.6H7V8zm0 4.2h10v1.6H7v-1.6zM7 16.4h6V18H7v-1.6z" /></svg>
     case 'tags':
@@ -32,19 +34,20 @@ function OutcomeIcon({ name }: { name: OutcomeIconName }) {
   }
 }
 
-function OutcomeRow({ icon, color, title, meta, top }: (typeof OUTCOMES)[number]) {
+function OutcomeRow({ icon, color, title, meta, pills, top }: (typeof OUTCOMES)[number]) {
   return <div className="l4c-outcome" style={{ top }}>
     <div className="l4c-outcome-icon" style={{ background: color }}><OutcomeIcon name={icon} /></div>
     <div className="l4c-outcome-body">
       <span className="l4c-outcome-title">{title}</span>
       <span className="l4c-outcome-meta">{meta}</span>
+      <span className="l4c-outcome-pills">{pills.map((pill) => <span key={pill} className="l4c-pill">{pill}</span>)}</span>
     </div>
   </div>
 }
 
 /**
  * The "4c" landing: header + hero + sections + footer.
- * Hero story: real saves → Sted → three outcomes. ?feature=chat|summary|feed pins the showcase below.
+ * Hero story: real saves → Sted → three outcomes. ?feature=save|summary|feed pins the showcase below.
  */
 export function Landing4CPreview() {
   useEffect(() => {
@@ -71,7 +74,7 @@ export function Landing4CPreview() {
           <h1>Everything<br />you save.<br /><span className="l4c-yellow">Finally useful.</span></h1>
           <div className="l4c-copy-text">
             <p className="l4c-formats">Links. Posts. Videos. Podcasts. Notes.</p>
-            <p className="l4c-subcopy">Sted understands what you save, organizes it, and brings it back when it matters.</p>
+            <p className="l4c-subcopy">You save more than you’ll ever get back to. Sted reads it, organizes it, and brings it back when it matters.</p>
           </div>
           <div className="l4c-cta">
             <div className="l4c-cta-row">
@@ -91,7 +94,7 @@ export function Landing4CPreview() {
               {/* saves → Sted */}
               <path className="l4c-bracket" d="M452 310H472" />
               {/* Sted → each outcome */}
-              <path className="l4c-bracket" d="M612 310H626M626 192Q626 180 638 180H640M626 192V428Q626 440 638 440H640M626 310H640" />
+              <path className="l4c-bracket" d="M612 310H626M626 194Q626 182 638 182H640M626 194V418Q626 430 638 430H640M626 306H640" />
             </svg>
 
             <div className="l4c-saves">
@@ -150,7 +153,7 @@ export function Landing4CPreview() {
       </div>
     </div>
 
-    <Landing4CSections initial={pinnedFeature ?? 'chat'} autoplay={!pinnedFeature} />
+    <Landing4CSections initial={pinnedFeature ?? 'save'} autoplay={!pinnedFeature} />
 
     <SiteFooter />
   </div>
