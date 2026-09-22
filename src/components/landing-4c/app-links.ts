@@ -12,17 +12,23 @@ const supabase = supabaseUrl && supabasePublishableKey ? createClient(supabaseUr
 
 export type WaitlistResult = 'joined' | 'unavailable' | 'error'
 
-/** Same insert as the live site's waitlist; a duplicate email counts as joined. */
-export async function joinWaitlist(email: string): Promise<WaitlistResult> {
+/** What the visitor signed up for. Stored in `waitlist.source` so the Android list can be
+ *  told apart from the original waitlist ("android" or "android:<ref>" when a ?ref= is present). */
+export type WaitlistList = 'android'
+
+/** Same insert as the live site's waitlist; a duplicate email counts as joined.
+ *  Note: this only records the email. No confirmation email is sent; the follow-up is manual. */
+export async function joinWaitlist(email: string, list: WaitlistList): Promise<WaitlistResult> {
   if (!supabase) return 'unavailable'
-  const source = new URLSearchParams(window.location.search).get('ref')?.slice(0, 120) || null
+  const ref = new URLSearchParams(window.location.search).get('ref')?.slice(0, 100)
+  const source = ref ? `${list}:${ref}` : list
   const { error } = await supabase.from('waitlist').insert({ email: email.trim().toLowerCase(), source })
   if (error && error.code !== '23505') return 'error'
   return 'joined'
 }
 
 export const WAITLIST_MESSAGES: Record<WaitlistResult, string> = {
-  joined: 'You’re on the list. We’ll email you when Android is ready.',
-  unavailable: 'Notifications are temporarily unavailable. Please try again shortly.',
+  joined: 'You’re on the list. We’ll let you know when Sted for Android is ready.',
+  unavailable: 'Sign-ups are temporarily unavailable. Please try again shortly.',
   error: 'Something went wrong. Please try again.',
 }

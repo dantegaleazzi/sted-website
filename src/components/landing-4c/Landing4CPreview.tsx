@@ -1,8 +1,7 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { SourceIcon } from '../source-cards/source-icons'
 import { SiteFooter } from '../footer/SiteFooter'
-import { AppStoreBadge, FEATURE_KEYS, FeatureShowcase, Landing4CSections, SignInLink, SourceChips, type FeatureKey } from './Landing4CSections'
-import { WAITLIST_MESSAGES, joinWaitlist } from './app-links'
+import { AndroidNotify, AppStoreBadge, FEATURE_KEYS, FeatureShowcase, Landing4CSections, SignInLink, SourceChips, type FeatureKey } from './Landing4CSections'
 import './Landing4CPreview.css'
 
 
@@ -63,11 +62,7 @@ function ResultRow({ icon, color, title, top, chips, extra, meta }: (typeof RESU
  * Not linked from navigation and excluded from the sitemap — see docs/content-tunnel-portal-preview.md siblings.
  */
 export function Landing4CPreview() {
-  const [email, setEmail] = useState('')
-  const [status, setStatus] = useState('')
-  const [isSubmitting, setIsSubmitting] = useState(false)
   const [isWaitlistOpen, setIsWaitlistOpen] = useState(false)
-  const modalInputRef = useRef<HTMLInputElement>(null)
 
   useEffect(() => {
     document.title = '4c preview — Sted'
@@ -75,27 +70,13 @@ export function Landing4CPreview() {
 
   useEffect(() => {
     if (!isWaitlistOpen) return
-    modalInputRef.current?.focus()
     const closeOnEscape = (event: KeyboardEvent) => { if (event.key === 'Escape') setIsWaitlistOpen(false) }
     document.addEventListener('keydown', closeOnEscape)
     document.body.style.overflow = 'hidden'
     return () => { document.removeEventListener('keydown', closeOnEscape); document.body.style.overflow = '' }
   }, [isWaitlistOpen])
 
-  async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
-    event.preventDefault()
-    if (!event.currentTarget.checkValidity()) {
-      setStatus('Please enter a valid email address.')
-      return
-    }
-    setIsSubmitting(true)
-    const result = await joinWaitlist(email)
-    setIsSubmitting(false)
-    setStatus(WAITLIST_MESSAGES[result])
-    if (result === 'joined') setEmail('')
-  }
-
-  function openWaitlist() { setStatus(''); setIsWaitlistOpen(true) }
+  function openWaitlist() { setIsWaitlistOpen(true) }
 
   // Review aid: ?feature=chat|summary|feed pins the showcase to one state (no auto-rotation).
   const featureParam = new URLSearchParams(window.location.search).get('feature')
@@ -225,17 +206,13 @@ export function Landing4CPreview() {
     <SiteFooter />
 
     {isWaitlistOpen && <div className="modal-backdrop" role="presentation" onMouseDown={(event) => { if (event.target === event.currentTarget) setIsWaitlistOpen(false) }}>
-      <section className="waitlist-modal" role="dialog" aria-modal="true" aria-labelledby="l4c-modal-title">
-        <button className="modal-close" type="button" onClick={() => setIsWaitlistOpen(false)} aria-label="Close waitlist dialog">×</button>
-        <p className="section-label">ANDROID</p>
-        <h2 id="l4c-modal-title">Sted for Android is coming.</h2>
-        <p>Leave your email and we’ll let you know as soon as it’s ready.</p>
-        <form className="modal-form" onSubmit={handleSubmit} noValidate>
-          <label className="sr-only" htmlFor="l4c-modal-email">Your email address</label>
-          <input ref={modalInputRef} id="l4c-modal-email" name="email" type="email" required value={email} onChange={(event) => { setEmail(event.target.value); setStatus('') }} placeholder="your@email.com" />
-          <button className="button button-amber" type="submit" disabled={isSubmitting}>{isSubmitting ? 'Sending…' : 'Notify me'} <span aria-hidden="true">↗</span></button>
-        </form>
-        <p className="modal-status" role="status">{status}</p>
+      <section className="l4c-modal" role="dialog" aria-modal="true" aria-labelledby="l4c-modal-title">
+        <button className="l4c-modal-close" type="button" onClick={() => setIsWaitlistOpen(false)} aria-label="Close">
+          <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" strokeWidth="2" strokeLinecap="round" /></svg>
+        </button>
+        <div className="l4c-modal-badge"><img src="/sted-mascot.svg" alt="" aria-hidden="true" /></div>
+        <h2 id="l4c-modal-title" className="l4s-h2">Sted for Android<br />is coming.</h2>
+        <AndroidNotify id="l4c-modal-email" label="Leave your email and we’ll let you know when it’s ready." autoFocus />
       </section>
     </div>}
   </div>

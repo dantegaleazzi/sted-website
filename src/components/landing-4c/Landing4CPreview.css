@@ -25,6 +25,23 @@
 /* Footer and sections share the hero's 1600px grid (64px side margins). */
 .l4c-page .site-footer { width: min(1472px, 100% - 32px); margin-top: 128px; margin-bottom: 48px; }
 
+/* Android notify modal: white card on the page's own tokens (the global .waitlist-modal is the old site's). */
+.l4c-page .modal-backdrop { background: rgba(20, 19, 19, 0.4); }
+.l4c-modal {
+  position: relative; width: min(100%, 520px); padding: 48px 40px 36px; box-sizing: border-box;
+  background: var(--sted-surface); border-radius: var(--sted-radius-3xl); box-shadow: var(--sted-shadow-card), var(--sted-shadow-floating);
+  display: flex; flex-direction: column; align-items: center; text-align: center; gap: 20px;
+}
+.l4c-modal .l4s-h2 { font-size: clamp(30px, 2vw + 20px, 40px); }
+.l4c-modal .l4s-notify { margin-top: 4px; width: 100%; }
+.l4c-modal .l4s-notify-row { width: 100%; max-width: 400px; }
+.l4c-modal .l4s-notify-label { color: var(--sted-text-muted); font-size: var(--sted-text-body); font-weight: var(--sted-weight-regular); line-height: 1.5; max-width: 340px; }
+.l4c-modal-badge { width: 88px; height: 88px; border-radius: 22px; background: var(--sted-cream); display: flex; align-items: center; justify-content: center; }
+.l4c-modal-badge img { width: 40px; height: 52px; display: block; }
+.l4c-modal-close { position: absolute; top: 14px; right: 14px; width: 40px; height: 40px; border: none; border-radius: var(--sted-radius-pill); background: transparent; color: var(--sted-ink); cursor: pointer; display: flex; align-items: center; justify-content: center; }
+.l4c-modal-close:hover { background: var(--sted-cream); }
+@media (max-width: 480px) { .l4c-modal { padding: 44px 20px 28px; } }
+
 /* Internal review page for the showcase states */
 .l4c-states-page { padding-bottom: 120px; }
 .l4c-state-block { width: 100%; display: flex; flex-direction: column; align-items: center; padding: 48px 0 0; border-top: 1px dashed var(--sted-ink-hairline); margin-top: 48px; }

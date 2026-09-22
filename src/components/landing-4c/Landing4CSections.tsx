@@ -58,26 +58,23 @@ export function SourceChips() {
   </>
 }
 
-/** Official Apple badge (tools.applemediaservices.com). Keep it unmodified and at least 40px tall. */
+/** Official Apple badge (tools.applemediaservices.com). Keep it unmodified and at least 40px tall.
+ *  Until APP_STORE_URL exists it renders as a non-interactive element rather than a dead "#" link,
+ *  so keyboard and screen-reader users don't land on a control that does nothing. */
 export function AppStoreBadge({ height = 56, className = '' }: { height?: number; className?: string }) {
-  return <a
-    className={`l4s-appstore ${className}`}
-    href={APP_STORE_URL ?? '#'}
-    title={APP_STORE_URL ? undefined : 'App Store link goes live at launch'}
-    onClick={APP_STORE_URL ? undefined : (event) => event.preventDefault()}
-  ><img src="/brand/app-store-badge.svg" alt="Download on the App Store" style={{ height }} /></a>
+  const badge = <img src="/brand/app-store-badge.svg" alt="Download on the App Store" style={{ height }} />
+  if (!APP_STORE_URL) return <span className={`l4s-appstore is-pending ${className}`} title="App Store link goes live at launch">{badge}</span>
+  return <a className={`l4s-appstore ${className}`} href={APP_STORE_URL}>{badge}</a>
 }
 
 export function SignInLink() {
-  return <a
-    className="l4s-signin"
-    href={SIGN_IN_URL ?? '#'}
-    title={SIGN_IN_URL ? undefined : 'Sign in goes live with the web app'}
-    onClick={SIGN_IN_URL ? undefined : (event) => event.preventDefault()}
-  >Sign in</a>
+  if (!SIGN_IN_URL) return <span className="l4s-signin is-pending" title="Sign in goes live with the web app" aria-disabled="true">Sign in</span>
+  return <a className="l4s-signin" href={SIGN_IN_URL}>Sign in</a>
 }
 
-function AndroidNotify() {
+/** Android notify form. Shared by the final section and the hero modal; the insert is tagged
+ *  as the Android list (see joinWaitlist). */
+export function AndroidNotify({ id = 'l4s-notify-email', label = 'Android is coming soon.', autoFocus = false }: { id?: string; label?: string; autoFocus?: boolean }) {
   const [email, setEmail] = useState('')
   const [status, setStatus] = useState('')
   const [isSubmitting, setIsSubmitting] = useState(false)
@@ -86,16 +83,16 @@ function AndroidNotify() {
     event.preventDefault()
     if (!event.currentTarget.checkValidity()) { setStatus('Please enter a valid email address.'); return }
     setIsSubmitting(true)
-    const result = await joinWaitlist(email)
+    const result = await joinWaitlist(email, 'android')
     setIsSubmitting(false)
     setStatus(WAITLIST_MESSAGES[result])
     if (result === 'joined') setEmail('')
   }
 
   return <form className="l4s-notify" onSubmit={handleSubmit} noValidate>
-    <label htmlFor="l4s-notify-email" className="l4s-notify-label">Android is coming soon.</label>
+    <label htmlFor={id} className="l4s-notify-label">{label}</label>
     <div className="l4s-notify-row">
-      <input id="l4s-notify-email" type="email" required placeholder="your@email.com" value={email} onChange={(event) => { setEmail(event.target.value); setStatus('') }} />
+      <input id={id} type="email" name="email" autoComplete="email" required placeholder="your@email.com" value={email} autoFocus={autoFocus} onChange={(event) => { setEmail(event.target.value); setStatus('') }} />
       <button type="submit" disabled={isSubmitting}>{isSubmitting ? 'Sending…' : 'Notify me'}</button>
     </div>
     <p className="l4s-notify-status" role="status">{status}</p>

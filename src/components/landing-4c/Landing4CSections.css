@@ -34,7 +34,7 @@ html:has(.l4c-page) { scroll-behavior: smooth; }
   width: 100%; border: none; background: transparent; font: inherit; color: inherit; text-align: left;
   display: flex; align-items: flex-start; gap: 16px;
   padding: 16px 20px; border-radius: 20px;
-  opacity: 0.56; cursor: pointer;
+  opacity: 0.72; cursor: pointer; /* 0.56 put the inactive titles at 4.1:1 on cream */
   transition: opacity .2s ease, background-color .2s ease;
 }
 .l4s-feature:hover { opacity: 0.85; }
@@ -109,9 +109,11 @@ html:has(.l4c-page) { scroll-behavior: smooth; }
 /* Hero additions */
 .l4s-appstore { display: inline-flex; flex: none; border-radius: 10px; }
 .l4s-appstore img { display: block; width: auto; }
-.l4s-appstore:focus-visible { outline: 2px solid var(--sted-ink); outline-offset: 3px; }
+.l4s-appstore:focus-visible { outline: 2px solid var(--sted-focus); outline-offset: 3px; }
+.l4s-appstore.is-pending, .l4s-signin.is-pending { cursor: default; }
 .l4s-signin { font-size: 16px; font-weight: var(--sted-weight-semibold); color: var(--sted-ink); text-decoration: none; }
-.l4s-signin:hover { text-decoration: underline; text-underline-offset: 4px; }
+a.l4s-signin:hover { text-decoration: underline; text-underline-offset: 4px; }
+.l4s-notify-row button:focus-visible, .l4c-android-line button:focus-visible, .l4s-secondary-cta:focus-visible { outline: 2px solid var(--sted-focus); outline-offset: 3px; }
 .l4s-inline-chip {
   display: inline-flex; align-items: center; gap: 6px; vertical-align: 1px;
   background: var(--sted-surface); border-radius: var(--sted-radius-pill); padding: 2px 11px 2px 3px;
