@@ -11,9 +11,9 @@ type OutcomeIconName = 'feed' | 'summary' | 'tags'
 
 /** Title, one marketing line, and pills with the real names/examples from the app. */
 const OUTCOMES: { icon: OutcomeIconName; color: string; title: string; meta: string; pills: string[]; top: number }[] = [
-  { icon: 'feed', color: 'var(--sted-supportive-green)', title: 'Your feed, made from your saves.', meta: 'A daily magazine from your saves', pills: ['The Recap', 'Sted’s Picks', 'Your Saves'], top: 128 },
-  { icon: 'summary', color: 'var(--sted-supportive-blue)', title: 'Summary and key points.', meta: 'Sted reads every link and writes the summary for you.', pills: ['Summary', 'Key points'], top: 252 },
-  { icon: 'tags', color: 'var(--sted-supportive-pink)', title: 'Topics and tags.', meta: 'Sted tags and files every save by topic, automatically.', pills: ['AI', 'Design', 'Coffee', 'Japan'], top: 376 },
+  { icon: 'feed', color: 'var(--sted-supportive-green)', title: 'Your feed, made from your saves.', meta: 'A daily magazine from your saves', pills: ['The Recap', 'Sted’s Picks', 'Your Saves'], top: 122 },
+  { icon: 'summary', color: 'var(--sted-supportive-blue)', title: 'Summary and key points.', meta: 'Sted reads every link and writes the summary for you.', pills: ['Summary', 'Key points'], top: 254 },
+  { icon: 'tags', color: 'var(--sted-supportive-pink)', title: 'Topics and tags.', meta: 'Sted tags and files every save by topic, automatically.', pills: ['AI', 'Design', 'Coffee', 'Japan'], top: 386 },
 ]
 
 const SPOTIFY_BAR_HEIGHTS = [26, 52, 78, 40, 64, 34, 88, 46, 70, 30, 58, 42, 80, 36, 62, 28, 74, 48, 66, 32, 54, 38]
@@ -90,6 +90,18 @@ export function Landing4CPreview() {
 
         <div className="l4c-illustration">
           <div className="l4c-illustration-fixed">
+            <svg className="l4c-connectors" viewBox="0 0 1040 620" fill="none" aria-hidden="true">
+              {/* Saves → Sted: one straight line into the badge. */}
+              <path className="l4c-flow" d="M424 312H480" />
+              {/* Sted → outcomes: a short stem, then a soft fan to each row's centre. */}
+              <path className="l4c-flow" d="M620 312H638" />
+              <path className="l4c-flow" d="M638 312C660 312 650 180 672 180" />
+              <path className="l4c-flow" d="M638 312H672" />
+              <path className="l4c-flow" d="M638 312C660 312 650 444 672 444" />
+              <circle className="l4c-flow-dot" cx="672" cy="180" r="3.5" />
+              <circle className="l4c-flow-dot" cx="672" cy="312" r="3.5" />
+              <circle className="l4c-flow-dot" cx="672" cy="444" r="3.5" />
+            </svg>
             <div className="l4c-saves">
               <div className="l4c-card l4c-card-kyoto">
                 <img src="/content/landing-4c/fushimi-inari-kyoto.webp" alt="Fushimi-Inari, Kyoto" className="l4c-card-image l4c-card-image-portrait" width={320} height={400} fetchPriority="high" />

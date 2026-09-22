@@ -1,7 +1,6 @@
 /* "4c" landing hero. Desktop fidelity to the 1600px reference, compacted to 720px tall so the whole
    hero fits a 14" laptop viewport. Colours, radii and shadows come from landing-4c-tokens.css.
-   Story: four real saves → Sted → three outcomes, read left to right on one axis. No connector lines:
-   proximity and the shared vertical centre do the work (see docs/landing-4c-review.md). */
+   Story: four real saves → Sted → three outcomes, read left to right on one axis. */
 
 .l4c-page {
   min-height: 100vh;
@@ -68,28 +67,33 @@
 .l4c-copy {
   position: absolute;
   left: 64px;
-  top: 172px;
-  width: 500px;
+  top: 214px;
+  width: 420px;
   z-index: 7;
   display: flex;
   flex-direction: column;
-  gap: 36px;
+  gap: 28px;
 }
-.l4c-copy h1 { margin: 0; font-size: 72px; font-weight: var(--sted-weight-semibold); letter-spacing: var(--sted-tracking-heading); line-height: 1.02; }
+.l4c-copy h1 { margin: 0; font-size: 58px; font-weight: var(--sted-weight-semibold); letter-spacing: var(--sted-tracking-heading); line-height: 1.02; }
 .l4c-yellow { color: var(--sted-yellow); }
-.l4c-copy-text { display: flex; flex-direction: column; gap: 10px; max-width: 460px; }
+.l4c-copy-text { display: flex; flex-direction: column; gap: 8px; max-width: 400px; }
 /* The formats read as a typographic line, not as controls. */
-.l4c-formats { margin: 0; font-size: 21px; font-weight: var(--sted-weight-semibold); letter-spacing: -0.01em; line-height: 1.4; color: var(--sted-ink); }
-.l4c-subcopy { margin: 0; font-size: 19px; font-weight: var(--sted-weight-regular); line-height: 1.6; color: var(--sted-text-muted); }
-.l4c-cta { display: flex; flex-direction: column; gap: 14px; }
-.l4c-cta-row { display: flex; align-items: center; gap: 22px; }
-.l4c-secondary-cta { font-size: 17px; font-weight: var(--sted-weight-semibold); display: flex; align-items: center; gap: 10px; white-space: nowrap; }
-.l4c-reassurance { margin: 0; font-size: 14px; font-weight: var(--sted-weight-medium); color: var(--sted-text-muted); letter-spacing: 0.01em; }
+.l4c-formats { margin: 0; font-size: 17px; font-weight: var(--sted-weight-semibold); letter-spacing: -0.01em; line-height: 1.4; color: var(--sted-ink); }
+.l4c-subcopy { margin: 0; font-size: 16px; font-weight: var(--sted-weight-regular); line-height: 1.6; color: var(--sted-text-muted); }
+.l4c-cta { display: flex; flex-direction: column; gap: 12px; }
+.l4c-cta-row { display: flex; align-items: center; gap: 18px; }
+.l4c-cta-row .l4s-appstore img { height: 48px !important; } /* 80% of the reference 58px */
+.l4c-secondary-cta { font-size: 14px; font-weight: var(--sted-weight-semibold); display: flex; align-items: center; gap: 10px; white-space: nowrap; }
+.l4c-reassurance { margin: 0; font-size: 12px; font-weight: var(--sted-weight-medium); color: var(--sted-text-muted); letter-spacing: 0.01em; }
 
 /* Illustration: a 1040x620 composition scaled into the right two thirds of the canvas. */
-.l4c-illustration { position: absolute; left: 566px; top: 140px; width: 978px; height: 583px; z-index: 2; }
+.l4c-illustration { position: absolute; left: 546px; top: 140px; width: 978px; height: 583px; z-index: 2; }
 .l4c-illustration-fixed { width: 1040px; height: 620px; position: relative; transform-origin: 0 0; transform: scale(0.94038); }
 .l4c-saves, .l4c-results { display: contents; }
+/* Flow lines: one straight line into Sted, a soft fan out to the three outcomes. Faint ink, round caps. */
+.l4c-connectors { position: absolute; left: 0; top: 0; width: 1040px; height: 620px; z-index: 1; pointer-events: none; }
+.l4c-flow { stroke: var(--sted-ink-faint); stroke-width: 2; stroke-linecap: round; fill: none; }
+.l4c-flow-dot { fill: var(--sted-ink-faint); }
 
 /* Saved content: real thumbnails, larger, no labels or pills inside the card. */
 .l4c-card { position: absolute; background: var(--sted-surface); border-radius: var(--sted-radius-lg); overflow: hidden; box-shadow: var(--sted-shadow-card); }
@@ -103,10 +107,10 @@
 .l4c-card-image-video { height: 124px; }
 .l4c-card-image-wide { height: 96px; }
 
-.l4c-card-kyoto { left: 0; top: 64px; width: 204px; z-index: 3; transform: rotate(-3deg); }
-.l4c-card-coffee { left: 236px; top: 26px; width: 216px; z-index: 2; transform: rotate(2deg); }
-.l4c-card-post { left: 232px; top: 292px; width: 216px; z-index: 2; transform: rotate(-2deg); }
-.l4c-card-podcast { left: 4px; top: 432px; width: 232px; z-index: 2; transform: rotate(2deg); }
+.l4c-card-kyoto { left: 0; top: 64px; width: 196px; z-index: 3; transform: rotate(-3deg); }
+.l4c-card-coffee { left: 226px; top: 30px; width: 204px; z-index: 2; transform: rotate(2deg); }
+.l4c-card-post { left: 222px; top: 292px; width: 204px; z-index: 2; transform: rotate(-2deg); }
+.l4c-card-podcast { left: 4px; top: 420px; width: 220px; z-index: 2; transform: rotate(2deg); }
 .l4c-story-head { display: flex; align-items: flex-start; gap: 12px; }
 .l4c-story-cover { width: 46px; height: 46px; border-radius: 10px; display: block; flex: none; }
 .l4c-story-text { flex: 1; display: flex; flex-direction: column; gap: 3px; min-width: 0; }
@@ -116,23 +120,23 @@
 .l4c-story-bars span { flex: 1; border-radius: var(--sted-radius-pill); background: #1DB954; display: block; }
 
 .l4c-mascot-badge {
-  position: absolute; left: 472px; top: 240px; width: 140px; height: 140px; z-index: 5;
+  position: absolute; left: 480px; top: 242px; width: 140px; height: 140px; z-index: 5;
   border-radius: 34px; background: var(--sted-surface); display: flex; align-items: center; justify-content: center;
   box-shadow: var(--sted-shadow-card), var(--sted-shadow-floating);
 }
 .l4c-mascot-badge img { width: 69px; height: 90px; display: block; }
 
 /* Outcomes: three white rows. Title, one line, and pills with the real names from the app. No carets.
-   The Sted badge overlaps the column's left edge by 20px: the outcomes belong to Sted, no line needed. */
+   Rows sit 52px clear of the badge; the fan lines make the link. */
 .l4c-outcome {
-  position: absolute; left: 592px; width: 440px; height: 108px; z-index: 3;
+  position: absolute; left: 672px; width: 368px; height: 116px; z-index: 3;
   background: var(--sted-surface); border-radius: var(--sted-radius-xl); padding: 0 20px; box-sizing: border-box;
   display: flex; align-items: center; gap: 16px;
   box-shadow: var(--sted-shadow-subtle);
 }
 .l4c-outcome-icon { width: 44px; height: 44px; border-radius: 14px; display: flex; align-items: center; justify-content: center; flex: none; }
 .l4c-outcome-body { flex: 1; display: flex; flex-direction: column; gap: 5px; min-width: 0; }
-.l4c-outcome-title { font-size: 17px; font-weight: var(--sted-weight-semibold); line-height: 1.2; letter-spacing: -0.01em; }
+.l4c-outcome-title { font-size: 16px; font-weight: var(--sted-weight-semibold); line-height: 1.2; letter-spacing: -0.01em; }
 .l4c-outcome-meta { font-size: 13px; font-weight: var(--sted-weight-regular); color: var(--sted-text-muted); line-height: 1.35; }
 .l4c-outcome-pills { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 3px; }
 .l4c-pill { background: var(--sted-cream); border-radius: var(--sted-radius-pill); padding: 3px 9px; font-size: 12px; font-weight: var(--sted-weight-medium); line-height: 1.4; white-space: nowrap; }
@@ -163,6 +167,7 @@
 
   .l4c-illustration { padding: 40px 20px 0; }
   .l4c-illustration-fixed { width: auto; height: auto; transform: none; display: flex; flex-direction: column; align-items: center; gap: 24px; }
+  .l4c-connectors { display: none; } /* flow lines go first on small screens (design-system.md §9) */
 
   /* Saves: a horizontal strip, natural size, no rotation. */
   .l4c-saves { display: flex; align-items: flex-start; gap: 14px; width: 100%; overflow-x: auto; scrollbar-width: none; padding: 8px 4px 14px; scroll-snap-type: x proximity; }
