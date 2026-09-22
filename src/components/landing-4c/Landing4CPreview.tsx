@@ -73,24 +73,23 @@ export function Landing4CPreview() {
             <a href="#why-sted">Why Sted</a>
             <a href="#download">Download</a>
           </nav>
-          <div className="l4c-header-actions"><SignInLink /><AppStoreBadge height={44} /></div>
+          <div className="l4c-header-actions"><SignInLink /><AppStoreBadge height={40} /></div>
         </header>
 
         <div className="l4c-copy">
           <h1>Everything you save.<br /><span className="l4c-yellow">Finally useful.</span></h1>
           <div className="l4c-copy-text">
             <p className="l4c-formats">Links. Posts. Videos. Podcasts. Notes.</p>
-            <p className="l4c-subcopy">You save more than you’ll ever get back to. Sted reads it, organizes it, and brings it back when it matters.</p>
+            <p className="l4c-subcopy">Your bookmark graveyard, finally organized. Send everything to Sted: he reads it, organizes it and summarizes it for you. Free to start.</p>
           </div>
           <div className="l4c-cta">
             <div className="l4c-cta-row">
-              <AppStoreBadge height={50} />
+              <AppStoreBadge height={42} />
               <a href="#how-it-works" className="l4c-secondary-cta">
                 <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10.4" fill="none" stroke="var(--sted-ink)" strokeWidth="1.6" /><path fill="var(--sted-ink)" d="M9.6 7.8v8.4l6.4-4.2z" /></svg>
                 See how it works
               </a>
             </div>
-            <p className="l4c-reassurance">Free to start</p>
           </div>
         </div>
 

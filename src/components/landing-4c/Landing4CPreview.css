@@ -66,7 +66,7 @@
 .l4c-copy {
   position: absolute;
   left: 400px;
-  top: 112px;
+  top: 95px;
   width: 800px;
   z-index: 7;
   display: flex;
@@ -77,13 +77,12 @@
 }
 .l4c-copy h1 { margin: 0; font-size: 64px; font-weight: var(--sted-weight-semibold); letter-spacing: var(--sted-tracking-heading); line-height: 1.02; }
 .l4c-yellow { color: var(--sted-yellow); }
-.l4c-copy-text { display: flex; flex-direction: column; gap: 4px; max-width: 520px; }
+.l4c-copy-text { display: flex; flex-direction: column; gap: 4px; max-width: 600px; }
 .l4c-formats { margin: 0; font-size: 17px; font-weight: var(--sted-weight-semibold); letter-spacing: -0.01em; line-height: 1.4; color: var(--sted-ink); }
 .l4c-subcopy { margin: 0; font-size: 16px; font-weight: var(--sted-weight-regular); line-height: 1.55; color: var(--sted-text-muted); }
 .l4c-cta { display: flex; flex-direction: column; align-items: center; gap: 10px; margin-top: 2px; }
 .l4c-cta-row { display: flex; align-items: center; gap: 20px; }
 .l4c-secondary-cta { font-size: 15px; font-weight: var(--sted-weight-semibold); display: flex; align-items: center; gap: 10px; white-space: nowrap; }
-.l4c-reassurance { margin: 0; font-size: 13px; font-weight: var(--sted-weight-medium); color: var(--sted-text-muted); letter-spacing: 0.01em; }
 
 /* Illustration: the whole 1600x920 scene is the canvas. */
 .l4c-illustration { position: absolute; inset: 0; z-index: 2; pointer-events: none; }
