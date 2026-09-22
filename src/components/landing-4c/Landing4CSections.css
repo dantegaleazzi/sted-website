@@ -2,7 +2,7 @@
 
 .l4s-section {
   width: 100%;
-  max-width: 1568px;
+  max-width: 1600px;
   padding: 0 64px;
   box-sizing: border-box;
   color: var(--sted-ink);
@@ -19,7 +19,7 @@ html:has(.l4c-page) { scroll-behavior: smooth; }
 
 /* ---------- Section 1: feature showcase ---------- */
 .l4s-showcase {
-  margin-top: 150px;
+  margin-top: 128px;
   display: grid;
   grid-template-columns: 448px 1fr;
   column-gap: 80px;
@@ -73,7 +73,7 @@ html:has(.l4c-page) { scroll-behavior: smooth; }
 }
 
 /* ---------- Section 2: Steds in action ---------- */
-.l4s-steds { margin-top: 170px; display: flex; flex-direction: column; gap: 56px; }
+.l4s-steds { margin-top: 128px; display: flex; flex-direction: column; gap: 56px; }
 .l4s-steds-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
 .l4s-sted-card { display: flex; flex-direction: column; gap: 18px; }
 .l4s-sted-portrait {
@@ -88,7 +88,7 @@ html:has(.l4c-page) { scroll-behavior: smooth; }
 .l4s-sted-action strong { color: var(--sted-ink); font-weight: var(--sted-weight-semibold); }
 
 /* ---------- Section 4: final CTA ---------- */
-.l4s-final { margin-top: 190px; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 36px; }
+.l4s-final { margin-top: 128px; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 36px; }
 .l4s-final-badge {
   width: 176px; height: 176px; border-radius: 44px; background: var(--sted-surface);
   display: flex; align-items: center; justify-content: center; transform: rotate(-4deg);
@@ -138,7 +138,6 @@ html:has(.l4c-page) { scroll-behavior: smooth; }
   .l4s-phone { height: 520px; }
   .l4s-steds-grid { grid-template-columns: repeat(2, 1fr); }
   .l4s-floater { display: none; }
-  
 }
 @media (max-width: 600px) {
   .l4s-steds-grid { grid-template-columns: 1fr; }

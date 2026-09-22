@@ -16,13 +16,14 @@
   position: relative;
   width: 100%;
   max-width: 1600px;
-  aspect-ratio: 1600 / 790;
+  aspect-ratio: 1600 / 720;
   container-type: inline-size;
   overflow: hidden;
   flex: none;
 }
 
-.l4c-page .site-footer { margin-top: 170px; margin-bottom: 48px; }
+/* Footer and sections share the hero's 1600px grid (64px side margins). */
+.l4c-page .site-footer { width: min(1472px, 100% - 32px); margin-top: 128px; margin-bottom: 48px; }
 
 /* Internal review page for the showcase states */
 .l4c-states-page { padding-bottom: 120px; }
@@ -36,7 +37,7 @@
   top: 0;
   left: 0;
   width: 1600px;
-  height: 790px;
+  height: 720px;
   background: var(--sted-cream);
   transform: scale(calc(100cqw / 1600px));
   transform-origin: top left;
@@ -69,7 +70,7 @@
 .l4c-copy {
   position: absolute;
   left: 64px;
-  top: 180px;
+  top: 168px;
   width: 480px;
   z-index: 7;
   display: flex;
@@ -153,3 +154,4 @@
 .l4c-tagline { position: absolute; left: 620px; top: 520px; z-index: 5; display: flex; gap: 16px; align-items: stretch; }
 .l4c-tagline-bar { width: 3px; border-radius: 2px; background: var(--sted-ink-faint); display: block; flex: none; }
 .l4c-tagline span:last-child { font-size: 15px; font-weight: var(--sted-weight-medium); line-height: 1.6; color: var(--sted-text-muted); white-space: nowrap; }
+
