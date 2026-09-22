@@ -189,7 +189,7 @@ export function Landing4CSections({ initial, autoplay }: { initial: FeatureKey; 
       <div className="l4s-final-badge"><Mascot size={112} /></div>
       <h2 id="l4s-final-title" className="l4s-h2 l4s-final-title">You saved it for a reason.<br /><span className="l4s-yellow">Make it useful.</span></h2>
       <AppStoreBadge height={60} />
-      <p className="l4s-reassurance">Free to start · No account required</p>
+      <p className="l4s-reassurance">Free to start</p>
     </section>
   </>
 }

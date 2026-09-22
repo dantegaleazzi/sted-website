@@ -71,33 +71,28 @@ export function Landing4CPreview() {
           </div>
           <div className="l4c-cta">
             <div className="l4c-cta-row">
-              <AppStoreBadge height={56} />
+              <AppStoreBadge height={50} />
               <a href="#how-it-works" className="l4c-secondary-cta">
                 <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10.4" fill="none" stroke="var(--sted-ink)" strokeWidth="1.6" /><path fill="var(--sted-ink)" d="M9.6 7.8v8.4l6.4-4.2z" /></svg>
                 See how it works
               </a>
             </div>
-            <p className="l4c-reassurance">Free to start · No account required</p>
+            <p className="l4c-reassurance">Free to start</p>
           </div>
         </div>
 
         {/* Illustration: messy input (left) flows into Sted (centre) and comes out as clear output (right).
             Composition 16 of the Social North Star, rebuilt with the landing tokens. One mascot only. */}
         <div className="l4c-illustration">
-          <svg className="l4c-flows" viewBox="0 0 1600 920" fill="none" aria-hidden="true" preserveAspectRatio="none">
+          <svg className="l4c-flows" viewBox="0 0 1600 820" fill="none" aria-hidden="true" preserveAspectRatio="none">
             {/* yellow ribbons: everything you find flows toward Sted */}
-            <path className="l4c-ribbon" d="M-40 420C200 380 320 560 520 560 640 560 700 620 760 660" strokeWidth="28" />
-            <path className="l4c-ribbon" d="M-40 640C180 700 340 600 520 620 640 634 700 650 760 668" strokeWidth="24" />
-            <path className="l4c-ribbon" d="M-40 860C220 900 380 760 560 760 660 760 720 700 764 680" strokeWidth="20" />
-            {/* ink lines */}
-            <path className="l4c-inkline" d="M-40 360C220 330 300 520 520 530 650 536 710 600 758 650" />
-            <path className="l4c-inkline" d="M-40 560C200 600 330 500 540 520 660 532 712 620 760 656" />
-            <path className="l4c-inkline" d="M-40 740C220 800 360 680 560 690 660 696 716 660 762 672" />
-            <path className="l4c-inkline" d="M-40 900C240 940 420 820 600 800 680 792 730 700 766 686" />
+            <path className="l4c-ribbon" d="M-40 380C200 340 320 500 520 500 640 500 700 560 762 596" strokeWidth="26" />
+            <path className="l4c-ribbon" d="M-40 580C180 630 340 540 520 560 640 572 700 590 762 604" strokeWidth="22" />
+            <path className="l4c-ribbon" d="M-40 780C220 820 380 690 560 690 660 690 720 640 766 614" strokeWidth="18" />
             {/* Sted → outputs */}
-            <path className="l4c-inkline" d="M872 660H930" />
-            <path className="l4c-inkline" d="M872 654C900 654 900 600 930 600" />
-            <path className="l4c-inkline" d="M872 666C900 666 900 720 930 720" />
+            <path className="l4c-inkline" d="M862 602H930" />
+            <path className="l4c-inkline" d="M862 596C890 596 890 548 930 548" />
+            <path className="l4c-inkline" d="M862 608C890 608 890 656 930 656" />
           </svg>
 
           <div className="l4c-saves">
@@ -105,7 +100,7 @@ export function Landing4CPreview() {
               <img src="/content/landing-4c/pour-over-method.webp" alt="V60 pour over" className="l4c-card-image l4c-card-image-video" width={400} height={224} />
               <div className="l4c-card-pad">
                 <span className="l4c-card-title">The pour over method, start to finish</span>
-                <div className="l4c-domain-row"><SourceIcon type="youtube" /><span className="l4c-domain">youtube.com</span></div>
+                <div className="l4c-domain-row"><SourceIcon type="youtube" /><span className="l4c-domain">YouTube</span></div>
               </div>
             </div>
 
@@ -113,15 +108,15 @@ export function Landing4CPreview() {
               <img src="/content/landing-4c/x-post-falling-into-hole.webp" alt="How to fix your entire life in 1 day" className="l4c-card-image l4c-card-image-wide" width={480} height={192} />
               <div className="l4c-card-pad">
                 <span className="l4c-card-title">How to fix your entire life in 1 day</span>
-                <div className="l4c-domain-row"><SourceIcon type="x" /><span className="l4c-domain">x.com</span></div>
+                <div className="l4c-domain-row"><SourceIcon type="x" /><span className="l4c-domain">X</span></div>
               </div>
             </div>
 
             <div className="l4c-card l4c-card-kyoto">
-              <img src="/content/landing-4c/fushimi-inari-kyoto.webp" alt="Fushimi-Inari, Kyoto" className="l4c-card-image l4c-card-image-portrait" width={320} height={400} fetchPriority="high" />
+              <img src="/content/landing-4c/fushimi-inari-kyoto.webp" alt="Fushimi-Inari, Kyoto" className="l4c-card-image l4c-card-image-kyoto" width={320} height={400} fetchPriority="high" />
               <div className="l4c-card-pad">
-                <span className="l4c-card-title">Fushimi-Inari, Kyoto, Japan</span>
-                <div className="l4c-domain-row"><SourceIcon type="instagram" /><span className="l4c-domain">instagram.com</span></div>
+                <span className="l4c-card-title">Kyoto, Japan</span>
+                <div className="l4c-domain-row"><SourceIcon type="instagram" /><span className="l4c-domain">Instagram</span></div>
               </div>
             </div>
 
