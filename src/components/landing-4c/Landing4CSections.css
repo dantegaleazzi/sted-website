@@ -130,16 +130,38 @@ html:has(.l4c-page) { scroll-behavior: smooth; }
 .l4s-floater-b { width: 70px; right: -26px; bottom: 150px; transform: rotate(-8deg); }
 .l4s-floater-c { width: 60px; left: 150px; top: 70px; transform: rotate(-6deg); }
 
-/* Mobile composition is deferred; this only keeps narrow viewports from breaking. */
-@media (max-width: 1100px) {
-  .l4s-section { padding: 0 8px; }
-  .l4s-showcase { grid-template-columns: 1fr; row-gap: 48px; margin-top: 96px; }
-  .l4s-stage { height: 560px; }
-  .l4s-phone { height: 520px; }
-  .l4s-steds-grid { grid-template-columns: repeat(2, 1fr); }
+/* Below 1100px the page stacks: same 20px/32px gutters as the reflowed hero. */
+@media (max-width: 1099px) {
+  .l4s-section { padding: 0 32px; }
+  .l4s-showcase { grid-template-columns: 1fr; row-gap: 40px; margin-top: 96px; }
+  .l4s-showcase-copy .l4s-lede { max-width: 560px; }
+  .l4s-features { max-width: 560px; }
+  .l4s-stage { height: 520px; }
+  .l4s-phone { height: 480px; }
+  .l4s-steds { margin-top: 96px; gap: 36px; }
+  .l4s-steds-grid { grid-template-columns: repeat(2, 1fr); gap: 16px; }
+  .l4s-sted-portrait { height: 200px; }
+  .l4s-sted-action { font-size: var(--sted-text-body); }
+  .l4s-final { margin-top: 96px; gap: 28px; }
+  .l4s-final-badge { width: 132px; height: 132px; border-radius: 34px; }
+  .l4s-final-badge img { height: 84px !important; }
   .l4s-floater { display: none; }
 }
-@media (max-width: 600px) {
-  .l4s-steds-grid { grid-template-columns: 1fr; }
+@media (max-width: 639px) {
+  .l4s-section { padding: 0 20px; }
+  .l4s-stage { height: 440px; border-radius: 24px; }
+  .l4s-phone { height: 400px; }
+  .l4s-feature { padding: 12px 14px; gap: 12px; }
+  .l4s-feature.is-active { padding: 16px 14px; }
+  .l4s-feature-icon { width: 40px; height: 40px; }
+  .l4s-feature-title { font-size: 17px; }
+  .l4s-feature-text { padding-top: 8px; }
+  /* Steds in action: a horizontal strip instead of four stacked 240px tiles. */
+  .l4s-steds-grid { display: flex; gap: 12px; overflow-x: auto; scrollbar-width: none; margin: 0 -20px; padding: 0 20px 8px; scroll-snap-type: x proximity; }
+  .l4s-steds-grid::-webkit-scrollbar { display: none; }
+  .l4s-sted-card { flex: none; width: 240px; scroll-snap-align: start; }
+  .l4s-sted-portrait { height: 180px; }
   .l4s-notify-row { width: 100%; }
+  .l4s-inline-chip { font-size: 15px; }
+  .l4s-inline-chip .source-icon, .l4s-inline-chip-illo { width: 20px; height: 20px; }
 }

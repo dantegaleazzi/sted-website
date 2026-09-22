@@ -137,6 +137,7 @@ export function Landing4CPreview() {
               <path className="l4c-bracket" d="M590 310H602M602 187Q602 175 614 175H618M602 187V433Q602 445 614 445H618M602 265H618M602 355H618" />
             </svg>
 
+            <div className="l4c-saves">
             <div className="l4c-card l4c-card-revenuecat">
               <div className="l4c-card-pad">
                 <div className="l4c-pill"><GlobeIcon /><span>Web page</span></div>
@@ -200,11 +201,15 @@ export function Landing4CPreview() {
               </div>
             </div>
 
+            </div>
+
             <div className="l4c-mascot-badge">
               <img src="/sted-mascot.svg" alt="Sted" />
             </div>
 
-            {RESULTS.map((result) => <ResultRow key={result.title} {...result} />)}
+            <div className="l4c-results">
+              {RESULTS.map((result) => <ResultRow key={result.title} {...result} />)}
+            </div>
 
             <div className="l4c-tagline">
               <span className="l4c-tagline-bar" />
