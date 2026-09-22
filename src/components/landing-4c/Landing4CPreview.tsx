@@ -9,20 +9,20 @@ import './Landing4CPreview.css'
 type ResultIconName = 'projects' | 'chat' | 'summary' | 'tags'
 
 const RESULTS: { icon: ResultIconName; color: string; title: string; top: number; chips?: string[]; extra?: string; meta?: string }[] = [
-  { icon: 'projects', color: '#B2D78F', title: 'Projects', top: 138, chips: ['Sted launch', 'AI Agents', 'Travel'], extra: '+10' },
-  { icon: 'chat', color: '#83B0FC', title: 'Chat with your saved items', top: 228, chips: ['What did I save this week'], extra: '+5' },
-  { icon: 'summary', color: '#FCF3EB', title: 'Summary and key points', top: 318, meta: '24 summaries · 86 key points' },
-  { icon: 'tags', color: '#FD95A0', title: 'Topics and tags', top: 408, chips: ['AI', 'Design', 'Startups'], extra: '+31' },
+  { icon: 'projects', color: 'var(--sted-supportive-green)', title: 'Projects', top: 138, chips: ['Sted launch', 'AI Agents', 'Travel'], extra: '+10' },
+  { icon: 'chat', color: 'var(--sted-supportive-blue)', title: 'Chat with your saved items', top: 228, chips: ['What did I save this week'], extra: '+5' },
+  { icon: 'summary', color: 'var(--sted-cream)', title: 'Summary and key points', top: 318, meta: '24 summaries · 86 key points' },
+  { icon: 'tags', color: 'var(--sted-supportive-pink)', title: 'Topics and tags', top: 408, chips: ['AI', 'Design', 'Startups'], extra: '+31' },
 ]
 
 const SPOTIFY_BAR_HEIGHTS = [26, 52, 78, 40, 64, 34, 88, 46, 70, 30, 58, 42, 80, 36, 62, 28, 74, 48, 66, 32, 54, 38]
 
 function GlobeIcon() {
-  return <svg width="12" height="12" viewBox="0 0 24 24" aria-hidden="true"><path fill="rgba(20,19,19,0.55)" d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm7.94 9h-3.06a15.7 15.7 0 0 0-1.32-5.51A8.03 8.03 0 0 1 19.94 11zM12 4.04c.83 1.2 1.66 3.16 1.9 4.96h-3.8c.24-1.8 1.07-3.76 1.9-4.96zM4.06 13h3.06c.14 1.98.6 3.85 1.32 5.51A8.03 8.03 0 0 1 4.06 13zm0-2a8.03 8.03 0 0 1 4.38-5.51A15.7 15.7 0 0 0 7.12 11H4.06zM12 19.96c-.83-1.2-1.66-3.16-1.9-4.96h3.8c-.24 1.8-1.07 3.76-1.9 4.96zM10.1 13h3.8c-.1 1.53-.5 3.06-1.9 5.51A15.7 15.7 0 0 1 10.1 13zm.1-2c.1-1.53.5-3.06 1.9-5.51 1.4 2.45 1.8 3.98 1.9 5.51h-3.8zm5.44 7.51c.72-1.66 1.18-3.53 1.32-5.51h3.06a8.03 8.03 0 0 1-4.38 5.51z" /></svg>
+  return <svg width="12" height="12" viewBox="0 0 24 24" aria-hidden="true"><path fill="var(--sted-text-muted)" d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm7.94 9h-3.06a15.7 15.7 0 0 0-1.32-5.51A8.03 8.03 0 0 1 19.94 11zM12 4.04c.83 1.2 1.66 3.16 1.9 4.96h-3.8c.24-1.8 1.07-3.76 1.9-4.96zM4.06 13h3.06c.14 1.98.6 3.85 1.32 5.51A8.03 8.03 0 0 1 4.06 13zm0-2a8.03 8.03 0 0 1 4.38-5.51A15.7 15.7 0 0 0 7.12 11H4.06zM12 19.96c-.83-1.2-1.66-3.16-1.9-4.96h3.8c-.24 1.8-1.07 3.76-1.9 4.96zM10.1 13h3.8c-.1 1.53-.5 3.06-1.9 5.51A15.7 15.7 0 0 1 10.1 13zm.1-2c.1-1.53.5-3.06 1.9-5.51 1.4 2.45 1.8 3.98 1.9 5.51h-3.8zm5.44 7.51c.72-1.66 1.18-3.53 1.32-5.51h3.06a8.03 8.03 0 0 1-4.38 5.51z" /></svg>
 }
 
 function DocIcon() {
-  return <svg width="17" height="17" viewBox="0 0 24 24" aria-hidden="true"><path fill="#141313" d="M6 2h12a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2zm0 2v16h12V4H6zm2 3h8v1.6H8V7zm0 4h8v1.6H8V11zm0 4h5v1.6H8V15z" /></svg>
+  return <svg width="17" height="17" viewBox="0 0 24 24" aria-hidden="true"><path fill="var(--sted-ink)" d="M6 2h12a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2zm0 2v16h12V4H6zm2 3h8v1.6H8V7zm0 4h8v1.6H8V11zm0 4h5v1.6H8V15z" /></svg>
 }
 
 function SpotifyIcon({ size = 18 }: { size?: number }) {
@@ -30,7 +30,7 @@ function SpotifyIcon({ size = 18 }: { size?: number }) {
 }
 
 function ResultIcon({ name }: { name: ResultIconName }) {
-  const common = { width: 23, height: 23, viewBox: '0 0 24 24', fill: '#141313', 'aria-hidden': true } as const
+  const common = { width: 23, height: 23, viewBox: '0 0 24 24', fill: 'var(--sted-ink)', 'aria-hidden': true } as const
   switch (name) {
     case 'projects':
       return <svg {...common}><path d="M9 3h6a1 1 0 0 1 1 1v2h4a2 2 0 0 1 2 2v2H2V8a2 2 0 0 1 2-2h4V4a1 1 0 0 1 1-1zm1 3h4V5h-4v1zM2 11h20v7a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2v-7zm7 2v2h6v-2H9z" /></svg>
@@ -54,7 +54,7 @@ function ResultRow({ icon, color, title, top, chips, extra, meta }: (typeof RESU
       </div>}
       {meta && <span className="l4c-result-meta">{meta}</span>}
     </div>
-    <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true" className="l4c-result-caret"><path fill="rgba(20,19,19,0.34)" d="M9 6l6 6-6 6V6z" /></svg>
+    <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true" className="l4c-result-caret"><path fill="var(--sted-ink-faint)" d="M9 6l6 6-6 6V6z" /></svg>
   </div>
 }
 
@@ -120,7 +120,7 @@ export function Landing4CPreview() {
           <div className="l4c-cta-row">
             <AppStoreBadge height={58} />
             <a href="#how-it-works" className="l4c-secondary-cta">
-              <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10.4" fill="none" stroke="#141313" strokeWidth="1.6" /><path fill="#141313" d="M9.6 7.8v8.4l6.4-4.2z" /></svg>
+              <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10.4" fill="none" stroke="var(--sted-ink)" strokeWidth="1.6" /><path fill="var(--sted-ink)" d="M9.6 7.8v8.4l6.4-4.2z" /></svg>
               See how it works
             </a>
           </div>

@@ -1,0 +1,65 @@
+/* Sted design tokens for the 4c landing, scoped to .l4c-page.
+   Names and values mirror sted-design-new/tokens/tokens.css (1.0.0-batch1) so this file can be
+   swapped for the shared tokens.css once the site adopts it globally. Only the tokens the
+   landing uses are declared here. */
+
+.l4c-page {
+  /* core */
+  --sted-ink: #141313;
+  --sted-yellow: #FFD400;
+  --sted-white: #FFFFFF;
+  --sted-cream: #FCF3EB;
+  --sted-text-secondary: #6F6D69;
+
+  /* supportive (labels and tints only, never primary identity) */
+  --sted-supportive-pink: #FD95A0;
+  --sted-supportive-blue: #83B0FC;
+  --sted-supportive-green: #B2D78F;
+  --sted-supportive-purple: #C998FA;
+
+  /* semantic */
+  --sted-bg-marketing: var(--sted-cream);
+  --sted-surface: var(--sted-white);
+  --sted-text: var(--sted-ink);
+  --sted-text-muted: var(--sted-text-secondary);
+  --sted-accent: var(--sted-yellow);
+  --sted-focus: var(--sted-ink);
+  /* Translucent ink for hairlines and decorative strokes on cream/white. */
+  --sted-ink-soft: rgba(20, 19, 19, 0.62);
+  --sted-ink-faint: rgba(20, 19, 19, 0.26);
+  --sted-ink-hairline: rgba(20, 19, 19, 0.1);
+
+  /* radius */
+  --sted-radius-sm: 8px;
+  --sted-radius-md: 12px;
+  --sted-radius-lg: 16px;
+  --sted-radius-xl: 20px;
+  --sted-radius-2xl: 24px;
+  --sted-radius-3xl: 32px;
+  --sted-radius-pill: 999px;
+
+  /* shadow */
+  --sted-shadow-subtle: 0 1px 2px rgba(20, 19, 19, 0.04), 0 8px 24px rgba(20, 19, 19, 0.06);
+  --sted-shadow-card: 0 2px 4px rgba(20, 19, 19, 0.04), 0 12px 28px rgba(20, 19, 19, 0.08);
+  --sted-shadow-floating: 0 8px 18px rgba(20, 19, 19, 0.12);
+
+  /* type */
+  --sted-weight-regular: 400;
+  --sted-weight-medium: 500;
+  --sted-weight-semibold: 600;
+  --sted-tracking-heading: -0.03em;
+  --sted-leading-heading: 1.05;
+  --sted-leading-body: 1.45;
+  /* Web type scale (design-system.md §4): hero display 72–96 desktop / 44–56 mobile, H2 40–56 / 32–40. */
+  --sted-text-display: clamp(44px, 2.3vw + 38px, 72px);
+  --sted-text-h2: clamp(32px, 1.5vw + 28px, 52px);
+  --sted-text-body-lg: clamp(17px, 0.25vw + 16px, 20px);
+  --sted-text-body: 16px;
+  --sted-text-label: 13px;
+  --sted-text-meta: 12px;
+
+  /* motion */
+  --sted-duration-base: 200ms;
+  --sted-duration-slow: 320ms;
+  --sted-ease-standard: cubic-bezier(0.2, 0, 0, 1);
+}

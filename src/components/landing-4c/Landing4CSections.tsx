@@ -3,6 +3,7 @@ import { SourceIcon } from '../source-cards/source-icons'
 import type { SourceType } from '../source-cards/types'
 import { ROTATE_MS, isRotating, rotationReducer } from './showcase-rotation'
 import { APP_STORE_URL, SIGN_IN_URL, WAITLIST_MESSAGES, joinWaitlist } from './app-links'
+import './landing-4c-tokens.css'
 import './Landing4CSections.css'
 
 /**
@@ -27,10 +28,10 @@ const FEATURES: { key: FeatureKey; icon: string; title: string; body: string }[]
 // Placeholder art: the base mascot plus an existing pastel prop icon. Swap for the
 // dedicated Sted variant SVGs (glasses, headphones, magnifier…) once they exist.
 const STEDS_IN_ACTION: { prop: string; tint: string; tilt: number; action: string }[] = [
-  { prop: 'summary-card', tint: '#B79CF2', tilt: -4, action: 'read the 40-minute video you saved, so you don’t have to.' },
-  { prop: 'chat', tint: '#83B0FC', tilt: 3, action: 'found the three things you saved about AI agents.' },
-  { prop: 'topics', tint: '#FD95A0', tilt: -3, action: 'sorted this week’s saves into Travel, Coffee and AI.' },
-  { prop: 'media', tint: '#B2D78F', tilt: 4, action: 'picked three saves worth your next five minutes.' },
+  { prop: 'summary-card', tint: 'var(--sted-supportive-purple)', tilt: -4, action: 'read the 40-minute video you saved, so you don’t have to.' },
+  { prop: 'chat', tint: 'var(--sted-supportive-blue)', tilt: 3, action: 'found the three things you saved about AI agents.' },
+  { prop: 'topics', tint: 'var(--sted-supportive-pink)', tilt: -3, action: 'sorted this week’s saves into Travel, Coffee and AI.' },
+  { prop: 'media', tint: 'var(--sted-supportive-green)', tilt: 4, action: 'picked three saves worth your next five minutes.' },
 ]
 
 const SOURCE_CHIPS: { label: string; tiles?: SourceType[]; icon?: string }[] = [
@@ -108,9 +109,9 @@ function Mascot({ size }: { size: number }) {
 // Provisional app screenshots (device frame baked in, background cut to transparent).
 // Final shots will replace the files in public/content/landing-4c/app/.
 const SHOTS: Record<FeatureKey, { src: string; alt: string; tint: string }> = {
-  chat: { src: '/content/landing-4c/app/chat.webp', alt: 'Ask Sted: chat with everything you’ve saved', tint: '#83B0FC' },
-  summary: { src: '/content/landing-4c/app/summary.webp', alt: 'A saved X post in Sted with its summary, key ideas and topics', tint: '#FFD400' },
-  feed: { src: '/content/landing-4c/app/feed.webp', alt: 'Sted Magazine with Sted’s picks, the recap and your saved Steds', tint: '#B2D78F' },
+  chat: { src: '/content/landing-4c/app/chat.webp', alt: 'Ask Sted: chat with everything you’ve saved', tint: 'var(--sted-supportive-blue)' },
+  summary: { src: '/content/landing-4c/app/summary.webp', alt: 'A saved X post in Sted with its summary, key ideas and topics', tint: 'var(--sted-yellow)' },
+  feed: { src: '/content/landing-4c/app/feed.webp', alt: 'Sted Magazine with Sted’s picks, the recap and your saved Steds', tint: 'var(--sted-supportive-green)' },
 }
 
 function PhoneShot({ feature, isActive }: { feature: (typeof FEATURES)[number]; isActive: boolean }) {
