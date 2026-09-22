@@ -75,20 +75,25 @@
   text-align: center;
   gap: 20px;
 }
-.l4c-copy h1 { margin: 0; font-size: 64px; font-weight: var(--sted-weight-semibold); letter-spacing: var(--sted-tracking-heading); line-height: 1.02; }
+.l4c-copy h1 { margin: 0; font-size: 72px; font-weight: var(--sted-weight-semibold); letter-spacing: var(--sted-tracking-heading); line-height: 1.02; }
 .l4c-yellow { color: var(--sted-yellow); }
 .l4c-copy-text { display: flex; flex-direction: column; gap: 4px; max-width: 600px; }
-.l4c-formats { margin: 0; font-size: 17px; font-weight: var(--sted-weight-semibold); letter-spacing: -0.01em; line-height: 1.4; color: var(--sted-ink); }
+.l4c-formats { color: var(--sted-ink); }
+.l4c-formats { margin: 0; font-size: 18px; font-weight: var(--sted-weight-semibold); letter-spacing: -0.01em; line-height: 1.4; color: var(--sted-ink); }
 .l4c-subcopy { margin: 0; font-size: 16px; font-weight: var(--sted-weight-regular); line-height: 1.55; color: var(--sted-text-muted); }
 .l4c-cta { display: flex; flex-direction: column; align-items: center; gap: 10px; margin-top: 2px; }
 .l4c-cta-row { display: flex; align-items: center; gap: 20px; }
-.l4c-secondary-cta { font-size: 15px; font-weight: var(--sted-weight-semibold); display: flex; align-items: center; gap: 10px; white-space: nowrap; }
+.l4c-secondary-cta { font-size: 14px; font-weight: var(--sted-weight-medium); color: var(--sted-text-muted); display: flex; align-items: center; gap: 8px; white-space: nowrap; }
+.l4c-secondary-cta:hover { color: var(--sted-ink); }
 
 /* Illustration: the whole 1600x920 scene is the canvas. */
 .l4c-illustration { position: absolute; inset: 0; z-index: 2; pointer-events: none; }
+.l4c-illustration a { pointer-events: auto; color: inherit; text-decoration: none; transition: transform var(--sted-duration-base) var(--sted-ease-standard); }
+.l4c-illustration a:hover { transform: translateY(-2px) rotate(var(--l4c-tilt, 0deg)); }
+.l4c-illustration a:focus-visible { outline: 2px solid var(--sted-focus); outline-offset: 3px; }
 .l4c-saves, .l4c-results { display: contents; }
 .l4c-flows { position: absolute; left: 0; top: 0; width: 1600px; height: 820px; z-index: 1; }
-.l4c-ribbon { stroke: var(--sted-yellow); stroke-linecap: round; opacity: 0.5; }
+.l4c-ribbon { stroke: var(--sted-yellow); stroke-linecap: round; opacity: 0.45; }
 .l4c-inkline { stroke: var(--sted-ink); stroke-width: 2.5; stroke-linecap: round; opacity: 0.7; }
 
 /* Saved content: real thumbnails, no labels or pills inside the card. Sizes from the North Star handoff (M: 180–210, radius 16). */
@@ -104,30 +109,24 @@
 .l4c-card-image-wide { height: 82px; }
 
 .l4c-card-coffee { left: 36px; top: 300px; width: 180px; transform: rotate(-3deg); }
-.l4c-card-post { left: 270px; top: 262px; width: 176px; transform: rotate(2deg); z-index: 4; }
+.l4c-card-post { left: 270px; top: 262px; width: 176px; transform: rotate(2deg); --l4c-tilt: 2deg; z-index: 4; }
 .l4c-card-kyoto { left: 70px; top: 500px; width: 180px; transform: rotate(-2deg); z-index: 4; }
-.l4c-card-podcast { left: 300px; top: 458px; width: 194px; transform: rotate(3deg); }
+.l4c-card-podcast { left: 300px; top: 452px; width: 232px; transform: rotate(3deg); --l4c-tilt: 3deg; }
 .l4c-story-head { display: flex; align-items: flex-start; gap: 12px; }
 .l4c-story-cover { width: 46px; height: 46px; border-radius: 10px; display: block; flex: none; }
 .l4c-story-text { flex: 1; display: flex; flex-direction: column; gap: 3px; min-width: 0; }
-.l4c-story-text .l4c-domain { line-height: 1.35; white-space: normal; }
+.l4c-story-text .l4c-domain { line-height: 1.35; white-space: nowrap; }
 .l4c-story-player { height: 20px; display: flex; align-items: center; gap: 9px; margin-top: 2px; }
 .l4c-story-bars { flex: 0 0 65%; height: 100%; display: flex; align-items: center; gap: 3px; } /* 30% shorter than the full row */
 .l4c-story-bars span { flex: 1; border-radius: var(--sted-radius-pill); background: #1DB954; display: block; }
 
-/* Website: Shipaton 2026 logo as the thumbnail, then the web tile beside the label and the URL below. */
-.l4c-card-web { left: 276px; top: 600px; width: 176px; transform: rotate(2deg); z-index: 5; }
-.l4c-web-thumb { height: 92px; background: var(--sted-cream); display: flex; align-items: center; justify-content: center; padding: 8px 0; box-sizing: border-box; }
-.l4c-web-thumb img { height: 100%; width: auto; display: block; }
-.l4c-web-head { display: flex; align-items: center; gap: 8px; }
-.l4c-web-head .source-icon { width: 22px; height: 22px; border-radius: 6px; flex: none; }
-.l4c-card-web .l4c-card-pad { gap: 6px; padding-top: 12px; }
-
-/* Repo: the product's dense StedRow (tile, title, one line of metadata). */
-.l4c-card-repo { left: 488px; top: 606px; width: 224px; padding: 12px 14px; box-sizing: border-box; display: flex; align-items: center; gap: 12px; transform: rotate(-3deg); border-radius: var(--sted-radius-md); }
-.l4c-card-repo .source-icon { width: 36px; height: 36px; border-radius: 10px; flex: none; }
-.l4c-repo-text { display: flex; flex-direction: column; gap: 3px; min-width: 0; }
-.l4c-repo-text .l4c-card-title { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+/* Rows: website and repo share the product's dense StedRow (tile, bold title, one line of metadata). */
+.l4c-card-row { padding: 12px 14px; box-sizing: border-box; display: flex; align-items: center; gap: 12px; border-radius: var(--sted-radius-md); }
+.l4c-card-row .source-icon, .l4c-row-tile { width: 36px; height: 36px; border-radius: 10px; flex: none; display: block; }
+.l4c-row-text { display: flex; flex-direction: column; gap: 3px; min-width: 0; }
+.l4c-row-text .l4c-card-title { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.l4c-card-web { left: 262px; top: 626px; width: 224px; transform: rotate(2deg); --l4c-tilt: 2deg; z-index: 5; }
+.l4c-card-repo { left: 476px; top: 700px; width: 224px; transform: rotate(-3deg); --l4c-tilt: -3deg; }
 
 .l4c-lines { display: flex; flex-direction: column; gap: 5px; }
 .l4c-lines i { display: block; height: 5px; border-radius: var(--sted-radius-pill); background: var(--sted-ink-hairline); }
@@ -136,11 +135,11 @@
 
 /* One Sted, in the middle of the flow. */
 .l4c-mascot-badge {
-  position: absolute; left: 738px; top: 540px; width: 124px; height: 124px; z-index: 5;
-  border-radius: 30px; background: var(--sted-surface); display: flex; align-items: center; justify-content: center;
+  position: absolute; left: 726px; top: 528px; width: 148px; height: 148px; z-index: 5;
+  border-radius: 36px; background: var(--sted-surface); display: flex; align-items: center; justify-content: center;
   box-shadow: var(--sted-shadow-card), var(--sted-shadow-floating);
 }
-.l4c-mascot-badge img { width: 61px; height: 80px; display: block; }
+.l4c-mascot-badge img { width: 73px; height: 95px; display: block; }
 
 /* Outputs: four calm white cards in a row. Skeleton lines are placeholders for text, not claims. */
 .l4c-results { position: absolute; left: 920px; top: 500px; display: flex; gap: 12px; z-index: 3; }
@@ -152,6 +151,15 @@
 .l4c-output-icon { width: 36px; height: 36px; border-radius: 11px; display: flex; align-items: center; justify-content: center; }
 .l4c-output-title { font-size: 15px; font-weight: var(--sted-weight-semibold); line-height: 1.25; letter-spacing: -0.01em; }
 .l4c-output .l4c-lines { margin-top: 2px; }
+/* Key points: short, derived from the saves on the left. */
+.l4c-points { margin: 2px 0 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 7px; }
+.l4c-points li { position: relative; padding-left: 14px; font-size: 13px; font-weight: var(--sted-weight-medium); line-height: 1.35; color: var(--sted-ink); }
+.l4c-points li::before { content: ''; position: absolute; left: 0; top: 6px; width: 6px; height: 6px; border-radius: 50%; background: var(--sted-yellow); }
+/* Recap: editorial numbered list, no pills. */
+.l4c-list { margin: 4px 0 0; padding: 0; list-style: none; display: flex; flex-direction: column; }
+.l4c-list li { display: flex; align-items: baseline; gap: 10px; padding: 7px 0; font-size: 12px; font-weight: var(--sted-weight-semibold); letter-spacing: 0.08em; text-transform: uppercase; color: var(--sted-ink); border-top: 1px solid var(--sted-ink-hairline); }
+.l4c-list li:first-child { border-top: none; padding-top: 2px; }
+.l4c-list-index { font-weight: var(--sted-weight-medium); color: var(--sted-text-muted); letter-spacing: 0.04em; }
 /* Key ideas: a yellow dot and a grey line per bullet, like the app. */
 .l4c-bullets { display: flex; flex-direction: column; gap: 7px; margin-top: 8px; }
 .l4c-bullets i { display: block; height: 5px; border-radius: var(--sted-radius-pill); background: var(--sted-ink-hairline); position: relative; margin-left: 14px; }
@@ -166,7 +174,7 @@
 .l4c-note-left { left: 60px; top: 196px; align-items: flex-start; gap: 6px; }
 .l4c-arrow { flex: none; margin-top: -4px; }
 .l4c-arrow.is-flipped { transform: scaleX(-1); }
-.l4c-note-sted { left: 700px; top: 680px; width: 200px; justify-content: center; text-align: center; font-size: 12px; }
+.l4c-note-sted { left: 700px; top: 692px; width: 200px; justify-content: center; text-align: center; font-size: 12px; }
 .l4c-note-right { left: 1330px; top: 360px; text-align: right; align-items: flex-start; gap: 6px; }
 
 /* ---------- Reflow below 1100px ----------
@@ -203,9 +211,8 @@
   .l4c-saves .l4c-card { position: static; transform: none; flex: none; scroll-snap-align: start; }
   .l4c-card-kyoto { order: -1; } /* tallest card first, so the strip's height is visible content */
   .l4c-card-coffee, .l4c-card-post, .l4c-card-kyoto { width: 190px; }
-  .l4c-card-podcast { width: 210px; }
-  .l4c-card-web { width: 176px; }
-  .l4c-card-repo { width: 224px; }
+  .l4c-card-podcast { width: 232px; }
+  .l4c-card-web, .l4c-card-repo { width: 224px; }
 
   .l4c-mascot-badge { position: static; width: 104px; height: 104px; border-radius: 26px; }
   .l4c-mascot-badge img { width: 52px; height: 68px; }

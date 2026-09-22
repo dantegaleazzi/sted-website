@@ -7,12 +7,14 @@ import './Landing4CPreview.css'
 /** What Sted makes out of the saves: the automatic outcomes the iOS app ships today.
  *  Chat stays out until it ships in iOS; Projects stays out because it isn't automatic. */
 type OutputIcon = 'article' | 'list-checks' | 'tag' | 'newspaper'
-type Output = { icon: OutputIcon; tint: string; title: string; pills?: string[]; summary?: true }
+type Output = { icon: OutputIcon; tint: string; title: string; pills?: string[]; points?: string[]; list?: string[] }
 
+/** Key points are derived from the saves on the left (pour-over video, Dan Koe's post, the repo), so the
+ *  output visibly comes from the input. The recap shows the app's real section names as an editorial list. */
 const OUTPUTS: Output[] = [
-  { icon: 'article', tint: 'var(--sted-supportive-blue)', title: 'Summary & Key Points', summary: true },
+  { icon: 'article', tint: 'var(--sted-supportive-blue)', title: 'Summary & Key Points', points: ['Pour-over technique', 'Building better systems', 'AI / creator workflows'] },
   { icon: 'tag', tint: 'var(--sted-supportive-pink)', title: 'Topics & Tags', pills: ['AI', 'Design', 'Coffee', 'Japan'] },
-  { icon: 'newspaper', tint: 'var(--sted-supportive-purple)', title: 'Your Daily Recap', pills: ['The Recap', 'Sted’s Picks', 'Your Saves'] },
+  { icon: 'newspaper', tint: 'var(--sted-supportive-purple)', title: 'Your Daily Recap', list: ['Sted’s Picks', 'The Recap', 'Your Saves'] },
 ]
 
 /** Phosphor Icons (regular), MIT. Ink on a supportive tile, per design-system.md §6. */
@@ -27,16 +29,13 @@ function Phosphor({ name }: { name: OutputIcon }) {
   return <svg width="22" height="22" viewBox="0 0 256 256" aria-hidden="true"><path fill="var(--sted-ink)" d={PHOSPHOR[name]} /></svg>
 }
 
-function OutputCard({ icon, tint, title, pills, summary }: Output) {
+function OutputCard({ icon, tint, title, pills, points, list }: Output) {
   return <div className="l4c-output">
     <span className="l4c-output-icon" style={{ background: tint }}><Phosphor name={icon} /></span>
     <span className="l4c-output-title">{title}</span>
-    {summary && <>
-      {/* Like the app's detail view: a summary paragraph, then key ideas as bullets. */}
-      <span className="l4c-lines"><i /><i /><i /></span>
-      <span className="l4c-bullets"><i /><i /><i /></span>
-    </>}
+    {points && <ul className="l4c-points">{points.map((point) => <li key={point}>{point}</li>)}</ul>}
     {pills && <span className="l4c-output-pills">{pills.map((pill) => <span key={pill} className="l4c-pill">{pill}</span>)}</span>}
+    {list && <ol className="l4c-list">{list.map((item, index) => <li key={item}><span className="l4c-list-index">{String(index + 1).padStart(2, '0')}</span>{item}</li>)}</ol>}
   </div>
 }
 
@@ -72,25 +71,20 @@ export function Landing4CPreview() {
       <div className="l4c-scene">
         <header className="l4c-header">
           <img className="l4c-logo" src="/brand/sted-primary-horizontal.svg" alt="Sted" />
-          <nav className="l4c-nav" aria-label="Landing navigation">
-            <a href="#how-it-works">How it works</a>
-            <a href="#why-sted">Why Sted</a>
-            <a href="#download">Download</a>
-          </nav>
           <div className="l4c-header-actions"><SignInLink /><AppStoreBadge height={40} /></div>
         </header>
 
         <div className="l4c-copy">
           <h1>Everything you save.<br /><span className="l4c-yellow">Finally useful.</span></h1>
           <div className="l4c-copy-text">
-            <p className="l4c-formats">Links. Posts. Videos. Podcasts. Notes.</p>
-            <p className="l4c-subcopy">Your bookmark graveyard, finally organized. Send everything to Sted: he reads it, organizes it and summarizes it for you. Free to start.</p>
+            <p className="l4c-formats">Save links, posts, videos, podcasts and notes.</p>
+            <p className="l4c-subcopy">Sted reads and organizes what you save, so it’s actually useful.</p>
           </div>
           <div className="l4c-cta">
             <div className="l4c-cta-row">
               <AppStoreBadge height={42} />
               <a href="#how-it-works" className="l4c-secondary-cta">
-                <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10.4" fill="none" stroke="var(--sted-ink)" strokeWidth="1.6" /><path fill="var(--sted-ink)" d="M9.6 7.8v8.4l6.4-4.2z" /></svg>
+                <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10.4" fill="none" stroke="currentColor" strokeWidth="1.6" /><path fill="currentColor" d="M9.6 7.8v8.4l6.4-4.2z" /></svg>
                 See how it works
               </a>
             </div>
@@ -101,14 +95,14 @@ export function Landing4CPreview() {
             Composition 16 of the Social North Star, rebuilt with the landing tokens. One mascot only. */}
         <div className="l4c-illustration">
           <svg className="l4c-flows" viewBox="0 0 1600 820" fill="none" aria-hidden="true" preserveAspectRatio="none">
-            {/* yellow ribbons: everything you find flows toward Sted */}
-            <path className="l4c-ribbon" d="M-40 380C200 340 320 500 520 500 640 500 700 560 762 596" strokeWidth="26" />
-            <path className="l4c-ribbon" d="M-40 580C180 630 340 540 520 560 640 572 700 590 762 604" strokeWidth="22" />
-            <path className="l4c-ribbon" d="M-40 780C220 820 380 690 560 690 660 690 720 640 766 614" strokeWidth="18" />
+            {/* Three ribbons, same family of curves, threading the gaps between cards and meeting at Sted. */}
+            <path className="l4c-ribbon" d="M-40 292C150 262 250 330 340 420S560 480 738 572" strokeWidth="24" />
+            <path className="l4c-ribbon" d="M-40 486C120 470 200 566 330 582S600 590 738 600" strokeWidth="20" />
+            <path className="l4c-ribbon" d="M-40 776C150 800 300 792 470 770S660 700 744 632" strokeWidth="16" />
             {/* Sted → outputs */}
-            <path className="l4c-inkline" d="M862 602H930" />
-            <path className="l4c-inkline" d="M862 596C890 596 890 548 930 548" />
-            <path className="l4c-inkline" d="M862 608C890 608 890 656 930 656" />
+            <path className="l4c-inkline" d="M874 602H930" />
+            <path className="l4c-inkline" d="M874 594C902 594 902 548 930 548" />
+            <path className="l4c-inkline" d="M874 610C902 610 902 656 930 656" />
           </svg>
 
           <div className="l4c-saves">
@@ -120,13 +114,13 @@ export function Landing4CPreview() {
               </div>
             </div>
 
-            <div className="l4c-card l4c-card-post">
+            <a className="l4c-card l4c-card-post" href="https://x.com/thedankoe/article/2010751592346030461" target="_blank" rel="noopener noreferrer">
               <img src="/content/landing-4c/x-post-falling-into-hole.webp" alt="How to fix your entire life in 1 day" className="l4c-card-image l4c-card-image-wide" width={480} height={192} />
               <div className="l4c-card-pad">
                 <span className="l4c-card-title">How to fix your entire life in 1 day</span>
-                <div className="l4c-domain-row"><SourceIcon type="x" /><span className="l4c-domain">X</span></div>
+                <div className="l4c-domain-row"><SourceIcon type="x" /><span className="l4c-domain">x.com/thedankoe/</span></div>
               </div>
-            </div>
+            </a>
 
             <div className="l4c-card l4c-card-kyoto">
               <img src="/content/landing-4c/fushimi-inari-kyoto.webp" alt="Fushimi-Inari, Kyoto" className="l4c-card-image l4c-card-image-kyoto" width={320} height={400} fetchPriority="high" />
@@ -136,13 +130,13 @@ export function Landing4CPreview() {
               </div>
             </div>
 
-            <div className="l4c-card l4c-card-podcast">
+            <a className="l4c-card l4c-card-podcast" href="https://open.spotify.com/episode/29zRQB9zJcmmcIEXlsnRdH" target="_blank" rel="noopener noreferrer">
               <div className="l4c-card-pad">
                 <div className="l4c-story-head">
                   <img src="/content/landing-4c/starter-story-podcast-cover.webp" alt="Starter Story" className="l4c-story-cover" width={184} height={184} />
                   <div className="l4c-story-text">
                     <span className="l4c-card-title">Starter Story</span>
-                    <span className="l4c-domain">This app replaced my 9-5 ($155K/year)</span>
+                    <span className="l4c-domain l4c-story-line">This app replaced<br />my 9-5 ($155K/year)</span>
                   </div>
                 </div>
                 <div className="l4c-story-player">
@@ -152,24 +146,24 @@ export function Landing4CPreview() {
                   </div>
                 </div>
               </div>
-            </div>
+            </a>
 
-            {/* A website (Shipaton 2026 logo from the RevenueCat marketing kit) and a GitHub repo. */}
-            <div className="l4c-card l4c-card-web">
-              <div className="l4c-web-thumb"><img src="/content/landing-4c/shipaton-2026-logo.svg" alt="Shipaton 2026" width={407} height={481} /></div>
-              <div className="l4c-card-pad">
-                <div className="l4c-web-head"><SourceIcon type="website" /><span className="l4c-card-title">Websites</span></div>
-                <span className="l4c-domain">www.shipaton.com</span>
+            {/* A website and a repo: the same dense row (tile, title, one line of metadata). */}
+            <a className="l4c-card l4c-card-row l4c-card-web" href="https://www.shipaton.com" target="_blank" rel="noopener noreferrer">
+              <img src="/content/landing-4c/shipaton-favicon.webp" alt="" className="l4c-row-tile" width={128} height={128} />
+              <div className="l4c-row-text">
+                <span className="l4c-card-title">www.shipaton.com</span>
+                <span className="l4c-domain">RevenueCat hackathon</span>
               </div>
-            </div>
+            </a>
 
-            <div className="l4c-card l4c-card-repo">
+            <a className="l4c-card l4c-card-row l4c-card-repo" href="https://github.com/mvanhorn/last30days-skill" target="_blank" rel="noopener noreferrer">
               <SourceIcon type="github" />
-              <div className="l4c-repo-text">
+              <div className="l4c-row-text">
                 <span className="l4c-card-title">last30days-skill</span>
                 <span className="l4c-domain">mvanhorn · Sep 14, 2026</span>
               </div>
-            </div>
+            </a>
           </div>
 
           <div className="l4c-mascot-badge">
