@@ -163,11 +163,11 @@
 
 /* Margin notes: italic small caps in Inter, like the North Star annotations. */
 .l4c-note { position: absolute; margin: 0; z-index: 6; display: flex; align-items: flex-end; gap: 10px; font-size: 13px; font-style: italic; font-weight: var(--sted-weight-semibold); letter-spacing: 0.1em; text-transform: uppercase; line-height: 1.45; color: var(--sted-ink); }
-.l4c-note-left { left: 60px; top: 196px; align-items: flex-start; }
-.l4c-note-left svg { transform: rotate(90deg); margin-top: 6px; }
+.l4c-note-left { left: 60px; top: 196px; align-items: flex-start; gap: 6px; }
+.l4c-arrow { flex: none; margin-top: -4px; }
+.l4c-arrow.is-flipped { transform: scaleX(-1); }
 .l4c-note-sted { left: 700px; top: 680px; width: 200px; justify-content: center; text-align: center; font-size: 12px; }
-.l4c-note-right { left: 1300px; top: 736px; text-align: left; align-items: flex-start; }
-.l4c-note-right svg { transform: rotate(-90deg); margin-top: -6px; }
+.l4c-note-right { left: 1330px; top: 360px; text-align: right; align-items: flex-start; gap: 6px; }
 
 /* ---------- Reflow below 1100px ----------
    Above 1100px the canvas scales with the viewport (hero title still ~48px effective there). Below it

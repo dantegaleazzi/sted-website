@@ -40,11 +40,12 @@ function OutputCard({ icon, tint, title, pills, summary }: Output) {
   </div>
 }
 
-/** Small hand-drawn-style arrow for the margin notes (2px ink, round caps, like the North Star canvas). */
-function ArrowGlyph({ flip = false }: { flip?: boolean }) {
-  return <svg width="44" height="36" viewBox="0 0 56 46" fill="none" aria-hidden="true" style={flip ? { transform: 'scaleX(-1)' } : undefined}>
-    <path d="M6 4C6 26 26 34 48 34" stroke="var(--sted-ink)" strokeWidth="2.5" strokeLinecap="round" />
-    <path d="M40 26l9 8-10 7" stroke="var(--sted-ink)" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+/** Hand-drawn-style curved arrow for the margin notes (2.5px ink, round caps, like the North Star canvas).
+ *  Starts beside the note, swings out and comes down onto the thing it points at. `flip` mirrors it. */
+function CurvedArrow({ flip = false }: { flip?: boolean }) {
+  return <svg width="96" height="84" viewBox="0 0 96 84" fill="none" aria-hidden="true" className={flip ? 'l4c-arrow is-flipped' : 'l4c-arrow'}>
+    <path d="M4 10C40 2 82 12 74 72" stroke="var(--sted-ink)" strokeWidth="2.5" strokeLinecap="round" />
+    <path d="M62 60l12 14 13-12" stroke="var(--sted-ink)" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
   </svg>
 }
 
@@ -179,9 +180,9 @@ export function Landing4CPreview() {
             {OUTPUTS.map((output) => <OutputCard key={output.title} {...output} />)}
           </div>
 
-          <p className="l4c-note l4c-note-left"><span>Messy input.<br />Real life.</span><ArrowGlyph /></p>
+          <p className="l4c-note l4c-note-left"><span>Messy input.<br />Real life.</span><CurvedArrow /></p>
           <p className="l4c-note l4c-note-sted"><span>Sted understands it.</span></p>
-          <p className="l4c-note l4c-note-right"><ArrowGlyph /><span>Clear output.<br />Real value.</span></p>
+          <p className="l4c-note l4c-note-right"><CurvedArrow flip /><span>Clear output.<br />Real value.</span></p>
         </div>
       </div>
     </div>
