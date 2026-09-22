@@ -100,13 +100,13 @@
 .l4c-domain { font-size: 12px; font-weight: var(--sted-weight-medium); color: var(--sted-text-muted); white-space: nowrap; }
 .l4c-card .source-icon { width: 18px; height: 18px; border-radius: 5px; }
 .l4c-card-image { width: 100%; object-fit: cover; display: block; }
-.l4c-card-image-kyoto { height: 150px; object-position: center top; } /* crop: the top of the torii, not the ground */
+.l4c-card-image-kyoto { height: 124px; object-position: center top; } /* crop: the top of the torii, not the ground */
 .l4c-card-image-video { height: 100px; }
 .l4c-card-image-wide { height: 82px; }
 
 .l4c-card-coffee { left: 36px; top: 300px; width: 180px; transform: rotate(-3deg); }
 .l4c-card-post { left: 270px; top: 262px; width: 176px; transform: rotate(2deg); z-index: 4; }
-.l4c-card-kyoto { left: 84px; top: 500px; width: 134px; transform: rotate(-2deg); z-index: 4; }
+.l4c-card-kyoto { left: 70px; top: 500px; width: 180px; transform: rotate(-2deg); z-index: 4; }
 .l4c-card-podcast { left: 300px; top: 458px; width: 194px; transform: rotate(3deg); }
 .l4c-story-head { display: flex; align-items: flex-start; gap: 12px; }
 .l4c-story-cover { width: 46px; height: 46px; border-radius: 10px; display: block; flex: none; }
@@ -116,20 +116,24 @@
 .l4c-story-bars { flex: 0 0 65%; height: 100%; display: flex; align-items: center; gap: 3px; } /* 30% shorter than the full row */
 .l4c-story-bars span { flex: 1; border-radius: var(--sted-radius-pill); background: #1DB954; display: block; }
 
-/* Type cards: tile + label + quiet lines (S size: 140–170, radius 12). */
-.l4c-type { width: 138px; padding: 11px 13px 13px; box-sizing: border-box; border-radius: var(--sted-radius-md); display: flex; flex-direction: column; gap: 8px; }
-.l4c-type-icon { display: flex; align-items: center; height: 28px; }
-.l4c-type-icon .source-icon { width: 28px; height: 28px; border-radius: 8px; }
-.l4c-type-icon .source-icon + .source-icon { margin-left: -8px; box-shadow: 0 0 0 2px var(--sted-surface); }
-.l4c-type-icon img:not(.source-icon) { width: 30px; height: 30px; display: block; }
-.l4c-type-label { font-size: 14px; font-weight: var(--sted-weight-semibold); line-height: 1.2; letter-spacing: -0.01em; }
+/* Web page with a placeholder thumbnail (cream tile + favicon) until a real thumbnail is approved. */
+.l4c-card-web { left: 276px; top: 630px; width: 168px; transform: rotate(2deg); z-index: 5; }
+.l4c-thumb-placeholder { height: 72px; background: var(--sted-cream); display: flex; align-items: center; justify-content: center; }
+.l4c-thumb-placeholder img { width: 32px; height: 32px; border-radius: 8px; display: block; }
+
+/* Repo: the product's dense StedRow (tile, title, one line of metadata). */
+.l4c-card-repo { left: 450px; top: 700px; width: 232px; padding: 12px 14px; box-sizing: border-box; display: flex; align-items: center; gap: 12px; transform: rotate(-2deg); border-radius: var(--sted-radius-md); }
+.l4c-card-repo .source-icon { width: 36px; height: 36px; border-radius: 10px; flex: none; }
+.l4c-repo-text { display: flex; flex-direction: column; gap: 3px; min-width: 0; }
+.l4c-repo-text .l4c-card-title { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+/* Note: the app's note icon, a title and placeholder lines. */
+.l4c-card-note { left: 520px; top: 556px; width: 150px; padding: 12px 14px 14px; box-sizing: border-box; display: flex; flex-direction: column; gap: 8px; transform: rotate(-4deg); border-radius: var(--sted-radius-md); }
+.l4c-note-icon { width: 30px; height: 30px; display: block; }
 .l4c-lines { display: flex; flex-direction: column; gap: 5px; }
 .l4c-lines i { display: block; height: 5px; border-radius: var(--sted-radius-pill); background: var(--sted-ink-hairline); }
 .l4c-lines i:nth-child(2) { width: 82%; }
 .l4c-lines i:nth-child(3) { width: 60%; }
-.l4c-type-notes { left: 300px; top: 606px; transform: rotate(-2deg); }
-.l4c-type-web { left: 262px; top: 696px; transform: rotate(2deg); z-index: 5; }
-.l4c-type-posts { left: 470px; top: 646px; transform: rotate(-4deg); }
 
 /* One Sted, in the middle of the flow. */
 .l4c-mascot-badge {
@@ -147,7 +151,6 @@
   display: flex; flex-direction: column; gap: 10px;
 }
 .l4c-output-icon { width: 36px; height: 36px; border-radius: 11px; display: flex; align-items: center; justify-content: center; }
-.l4c-output-icon img { width: 24px; height: 24px; display: block; }
 .l4c-output-title { font-size: 14px; font-weight: var(--sted-weight-semibold); line-height: 1.25; letter-spacing: -0.01em; }
 .l4c-output .l4c-lines { margin-top: 2px; }
 .l4c-output-pills { display: flex; flex-wrap: wrap; gap: 5px; }
@@ -192,10 +195,12 @@
   .l4c-saves { display: flex; align-items: flex-start; gap: 14px; width: 100%; overflow-x: auto; scrollbar-width: none; padding: 8px 4px 14px; scroll-snap-type: x proximity; }
   .l4c-saves::-webkit-scrollbar { display: none; }
   .l4c-saves .l4c-card { position: static; transform: none; flex: none; scroll-snap-align: start; }
-  .l4c-card-kyoto { width: 150px; order: -1; } /* tallest card first, so the strip's height is visible content */
-  .l4c-card-coffee, .l4c-card-post { width: 190px; }
+  .l4c-card-kyoto { order: -1; } /* tallest card first, so the strip's height is visible content */
+  .l4c-card-coffee, .l4c-card-post, .l4c-card-kyoto { width: 190px; }
   .l4c-card-podcast { width: 210px; }
-  .l4c-type { width: 140px; }
+  .l4c-card-web { width: 168px; }
+  .l4c-card-repo { width: 232px; }
+  .l4c-card-note { width: 150px; }
 
   .l4c-mascot-badge { position: static; width: 104px; height: 104px; border-radius: 26px; }
   .l4c-mascot-badge img { width: 52px; height: 68px; }

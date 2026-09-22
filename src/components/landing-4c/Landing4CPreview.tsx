@@ -6,18 +6,31 @@ import './Landing4CPreview.css'
 
 /** What Sted makes out of the saves: the automatic outcomes the iOS app ships today.
  *  Chat stays out until it ships in iOS; Projects stays out because it isn't automatic. */
-type Output = { icon: string; tint: string; title: string; pills?: string[]; lines?: number }
+type OutputIcon = 'article' | 'list-checks' | 'tag' | 'newspaper'
+type Output = { icon: OutputIcon; tint: string; title: string; pills?: string[]; lines?: number }
 
 const OUTPUTS: Output[] = [
-  { icon: 'summary-note', tint: 'var(--sted-supportive-blue)', title: 'Clean summary', lines: 3 },
-  { icon: 'summary-card', tint: 'var(--sted-supportive-green)', title: 'Key points', lines: 3 },
-  { icon: 'topics', tint: 'var(--sted-supportive-pink)', title: 'Topics and tags', pills: ['AI', 'Design', 'Coffee', 'Japan'] },
-  { icon: 'media', tint: 'var(--sted-supportive-purple)', title: 'Your daily magazine', pills: ['The Recap', 'Sted’s Picks', 'Your Saves'] },
+  { icon: 'article', tint: 'var(--sted-supportive-blue)', title: 'Clean summary', lines: 3 },
+  { icon: 'list-checks', tint: 'var(--sted-supportive-green)', title: 'Key points', lines: 3 },
+  { icon: 'tag', tint: 'var(--sted-supportive-pink)', title: 'Topics and tags', pills: ['AI', 'Design', 'Coffee', 'Japan'] },
+  { icon: 'newspaper', tint: 'var(--sted-supportive-purple)', title: 'Your daily recap', pills: ['The Recap', 'Sted’s Picks', 'Your Saves'] },
 ]
+
+/** Phosphor Icons (regular), MIT. Ink on a supportive tile, per design-system.md §6. */
+const PHOSPHOR: Record<OutputIcon, string> = {
+  article: 'M216,40H40A16,16,0,0,0,24,56V200a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V56A16,16,0,0,0,216,40Zm0,160H40V56H216V200ZM184,96a8,8,0,0,1-8,8H80a8,8,0,0,1,0-16h96A8,8,0,0,1,184,96Zm0,32a8,8,0,0,1-8,8H80a8,8,0,0,1,0-16h96A8,8,0,0,1,184,128Zm0,32a8,8,0,0,1-8,8H80a8,8,0,0,1,0-16h96A8,8,0,0,1,184,160Z',
+  'list-checks': 'M224,128a8,8,0,0,1-8,8H128a8,8,0,0,1,0-16h88A8,8,0,0,1,224,128ZM128,72h88a8,8,0,0,0,0-16H128a8,8,0,0,0,0,16Zm88,112H128a8,8,0,0,0,0,16h88a8,8,0,0,0,0-16ZM82.34,42.34,56,68.69,45.66,58.34A8,8,0,0,0,34.34,69.66l16,16a8,8,0,0,0,11.32,0l32-32A8,8,0,0,0,82.34,42.34Zm0,64L56,132.69,45.66,122.34a8,8,0,0,0-11.32,11.32l16,16a8,8,0,0,0,11.32,0l32-32a8,8,0,0,0-11.32-11.32Zm0,64L56,196.69,45.66,186.34a8,8,0,0,0-11.32,11.32l16,16a8,8,0,0,0,11.32,0l32-32a8,8,0,0,0-11.32-11.32Z',
+  tag: 'M243.31,136,144,36.69A15.86,15.86,0,0,0,132.69,32H40a8,8,0,0,0-8,8v92.69A15.86,15.86,0,0,0,36.69,144L136,243.31a16,16,0,0,0,22.63,0l84.68-84.68a16,16,0,0,0,0-22.63Zm-96,96L48,132.69V48h84.69L232,147.31ZM96,84A12,12,0,1,1,84,72,12,12,0,0,1,96,84Z',
+  newspaper: 'M88,112a8,8,0,0,1,8-8h80a8,8,0,0,1,0,16H96A8,8,0,0,1,88,112Zm8,40h80a8,8,0,0,0,0-16H96a8,8,0,0,0,0,16ZM232,64V184a24,24,0,0,1-24,24H32A24,24,0,0,1,8,184.11V88a8,8,0,0,1,16,0v96a8,8,0,0,0,16,0V64A16,16,0,0,1,56,48H216A16,16,0,0,1,232,64Zm-16,0H56V184a23.84,23.84,0,0,1-1.37,8H208a8,8,0,0,0,8-8Z',
+}
+
+function Phosphor({ name }: { name: OutputIcon }) {
+  return <svg width="22" height="22" viewBox="0 0 256 256" aria-hidden="true"><path fill="var(--sted-ink)" d={PHOSPHOR[name]} /></svg>
+}
 
 function OutputCard({ icon, tint, title, pills, lines }: Output) {
   return <div className="l4c-output">
-    <span className="l4c-output-icon" style={{ background: tint }}><img src={`/content/landing-4c/icons/${icon}.webp`} alt="" width={192} height={192} /></span>
+    <span className="l4c-output-icon" style={{ background: tint }}><Phosphor name={icon} /></span>
     <span className="l4c-output-title">{title}</span>
     {lines && <span className="l4c-lines">{Array.from({ length: lines }, (_, index) => <i key={index} />)}</span>}
     {pills && <span className="l4c-output-pills">{pills.map((pill) => <span key={pill} className="l4c-pill">{pill}</span>)}</span>}
@@ -138,20 +151,27 @@ export function Landing4CPreview() {
               </div>
             </div>
 
-            {/* Type cards: the formats Sted takes, with the official source tiles. */}
-            <div className="l4c-card l4c-type l4c-type-notes">
-              <span className="l4c-type-icon"><img src="/content/landing-4c/icons/notes.webp" alt="" width={192} height={192} /></span>
-              <span className="l4c-type-label">Notes<br />and docs</span>
-              <span className="l4c-lines"><i /><i /></span>
+            {/* A web page (placeholder thumbnail until a real one is approved), a repo and a note. */}
+            <div className="l4c-card l4c-card-web">
+              <div className="l4c-thumb-placeholder"><img src="/content/landing-4c/shipaton-favicon.webp" alt="" width={128} height={128} /></div>
+              <div className="l4c-card-pad">
+                <span className="l4c-card-title">Web pages</span>
+                <div className="l4c-domain-row"><SourceIcon type="website" /><span className="l4c-domain">shipaton.com</span></div>
+              </div>
             </div>
-            <div className="l4c-card l4c-type l4c-type-web">
-              <span className="l4c-type-icon"><SourceIcon type="website" /></span>
-              <span className="l4c-type-label">Web pages</span>
+
+            <div className="l4c-card l4c-card-repo">
+              <SourceIcon type="github" />
+              <div className="l4c-repo-text">
+                <span className="l4c-card-title">last30days-skill</span>
+                <span className="l4c-domain">mvanhorn · Sep 14, 2026</span>
+              </div>
+            </div>
+
+            <div className="l4c-card l4c-card-note">
+              <img src="/content/landing-4c/icons/notes.webp" alt="" className="l4c-note-icon" width={192} height={192} />
+              <span className="l4c-card-title">Sted launch notes</span>
               <span className="l4c-lines"><i /><i /><i /></span>
-            </div>
-            <div className="l4c-card l4c-type l4c-type-posts">
-              <span className="l4c-type-icon"><SourceIcon type="x" /><SourceIcon type="instagram" /></span>
-              <span className="l4c-type-label">Posts<br />and reels</span>
             </div>
           </div>
 
