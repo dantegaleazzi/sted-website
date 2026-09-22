@@ -2,6 +2,7 @@ import { useEffect, useReducer, useRef, useState } from 'react'
 import { SourceIcon } from '../source-cards/source-icons'
 import type { SourceType } from '../source-cards/types'
 import { ROTATE_MS, isRotating, rotationReducer } from './showcase-rotation'
+import { APP_STORE_URL, SIGN_IN_URL, WAITLIST_MESSAGES, joinWaitlist } from './app-links'
 import './Landing4CSections.css'
 
 /**
@@ -23,22 +24,82 @@ const FEATURES: { key: FeatureKey; icon: string; title: string; body: string }[]
   { key: 'feed', icon: 'media', title: 'A feed made from your saves', body: 'A daily recap of what you saved, with picks worth coming back to.' },
 ]
 
-const BENEFITS: { icon: string; title: string; body: string }[] = [
-  { icon: 'summary-card', title: 'Understand without rereading', body: 'Every save comes with a summary and key points.' },
-  { icon: 'chat', title: 'Find what you already found', body: 'Ask Sted instead of digging through bookmarks.' },
-  { icon: 'projects', title: 'Keep context together', body: 'Group related saves into Projects and chat with them.' },
-  { icon: 'topics', title: 'Organized automatically', body: 'Topics make sense of what you collect. No manual tagging.' },
+// Placeholder art: the base mascot plus an existing pastel prop icon. Swap for the
+// dedicated Sted variant SVGs (glasses, headphones, magnifier…) once they exist.
+const STEDS_IN_ACTION: { prop: string; tint: string; tilt: number; action: string }[] = [
+  { prop: 'summary-card', tint: '#B79CF2', tilt: -4, action: 'read the 40-minute video you saved, so you don’t have to.' },
+  { prop: 'chat', tint: '#83B0FC', tilt: 3, action: 'found the three things you saved about AI agents.' },
+  { prop: 'topics', tint: '#FD95A0', tilt: -3, action: 'sorted this week’s saves into Travel, Coffee and AI.' },
+  { prop: 'media', tint: '#B2D78F', tilt: 4, action: 'picked three saves worth your next five minutes.' },
 ]
 
-const SOURCES: { label: string; tile?: SourceType; icon?: string }[] = [
-  { label: 'Web pages', icon: 'web-page' },
-  { label: 'X posts', tile: 'x' },
-  { label: 'YouTube videos', tile: 'youtube' },
-  { label: 'Instagram reels & posts', tile: 'instagram' },
-  { label: 'Articles & newsletters', icon: 'article' },
-  { label: 'Podcasts', icon: 'podcast' },
-  { label: 'Notes & docs', icon: 'notes' },
+const SOURCE_CHIPS: { label: string; tiles?: SourceType[]; icon?: string }[] = [
+  { label: 'links', tiles: ['website'] },
+  { label: 'posts', tiles: ['x', 'instagram'] },
+  { label: 'videos', tiles: ['youtube'] },
+  { label: 'podcasts', tiles: ['spotify'] },
+  { label: 'notes', icon: 'notes' },
 ]
+
+/** Inline source chips for the hero subtitle ("Save [links] [posts] …"). */
+export function SourceChips() {
+  return <>
+    {SOURCE_CHIPS.map((chip, index) => <span key={chip.label}>
+      <span className="l4s-inline-chip">
+        <span className="l4s-inline-chip-icons">
+          {chip.tiles?.map((tile) => <SourceIcon key={tile} type={tile} />)}
+          {chip.icon && <img src={`${ICONS}/${chip.icon}.png`} alt="" className="l4s-inline-chip-illo" />}
+        </span>
+        {chip.label}
+      </span>
+      {index === SOURCE_CHIPS.length - 2 ? ' and ' : index < SOURCE_CHIPS.length - 1 ? ' ' : ''}
+    </span>)}
+  </>
+}
+
+/** Official Apple badge (tools.applemediaservices.com). Keep it unmodified and at least 40px tall. */
+export function AppStoreBadge({ height = 56, className = '' }: { height?: number; className?: string }) {
+  return <a
+    className={`l4s-appstore ${className}`}
+    href={APP_STORE_URL ?? '#'}
+    title={APP_STORE_URL ? undefined : 'App Store link goes live at launch'}
+    onClick={APP_STORE_URL ? undefined : (event) => event.preventDefault()}
+  ><img src="/brand/app-store-badge.svg" alt="Download on the App Store" style={{ height }} /></a>
+}
+
+export function SignInLink() {
+  return <a
+    className="l4s-signin"
+    href={SIGN_IN_URL ?? '#'}
+    title={SIGN_IN_URL ? undefined : 'Sign in goes live with the web app'}
+    onClick={SIGN_IN_URL ? undefined : (event) => event.preventDefault()}
+  >Sign in</a>
+}
+
+function AndroidNotify() {
+  const [email, setEmail] = useState('')
+  const [status, setStatus] = useState('')
+  const [isSubmitting, setIsSubmitting] = useState(false)
+
+  async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault()
+    if (!event.currentTarget.checkValidity()) { setStatus('Please enter a valid email address.'); return }
+    setIsSubmitting(true)
+    const result = await joinWaitlist(email)
+    setIsSubmitting(false)
+    setStatus(WAITLIST_MESSAGES[result])
+    if (result === 'joined') setEmail('')
+  }
+
+  return <form className="l4s-notify" onSubmit={handleSubmit} noValidate>
+    <label htmlFor="l4s-notify-email" className="l4s-notify-label">Android is coming soon.</label>
+    <div className="l4s-notify-row">
+      <input id="l4s-notify-email" type="email" required placeholder="your@email.com" value={email} onChange={(event) => { setEmail(event.target.value); setStatus('') }} />
+      <button type="submit" disabled={isSubmitting}>{isSubmitting ? 'Sending…' : 'Notify me'}</button>
+    </div>
+    <p className="l4s-notify-status" role="status">{status}</p>
+  </form>
+}
 
 function Mascot({ size }: { size: number }) {
   return <img src="/sted-mascot.svg" alt="" aria-hidden="true" style={{ height: size, width: 'auto', display: 'block' }} />
@@ -124,42 +185,39 @@ export function FeatureShowcase({ initial = 'chat', autoplay = true, id }: { ini
     </div>
     <div className="l4s-stage">
       {FEATURES.map((feature) => <PhoneShot key={feature.key} feature={feature} isActive={feature.key === state.active} />)}
+      {/* Floating Steds (placeholder art until the variant SVGs land). */}
+      <img src="/sted-mascot.svg" alt="" aria-hidden="true" className="l4s-floater l4s-floater-mascot" />
+      <img src={`${ICONS}/chat.png`} alt="" aria-hidden="true" className="l4s-floater l4s-floater-a" />
+      <img src={`${ICONS}/topics.png`} alt="" aria-hidden="true" className="l4s-floater l4s-floater-b" />
+      <img src={`${ICONS}/summary-note.png`} alt="" aria-hidden="true" className="l4s-floater l4s-floater-c" />
     </div>
   </section>
 }
 
-export function Landing4CSections({ initial, autoplay, onJoin }: { initial: FeatureKey; autoplay: boolean; onJoin: () => void }) {
+export function Landing4CSections({ initial, autoplay }: { initial: FeatureKey; autoplay: boolean }) {
   return <>
     <FeatureShowcase initial={initial} autoplay={autoplay} id="how-it-works" />
 
-    <section className="l4s-section l4s-benefits" aria-labelledby="l4s-benefits-title">
-      <h2 id="l4s-benefits-title" className="l4s-h2">Everything you save.<br />Finally useful.</h2>
-      <div className="l4s-benefit-grid">
-        {BENEFITS.map((benefit) => <div key={benefit.title} className="l4s-benefit">
-          <img src={`${ICONS}/${benefit.icon}.png`} alt="" className="l4s-benefit-icon" />
-          <h3>{benefit.title}</h3>
-          <p>{benefit.body}</p>
+    <section className="l4s-section l4s-steds" id="why-sted" aria-labelledby="l4s-steds-title">
+      <h2 id="l4s-steds-title" className="l4s-h2">Everything you save.<br />Finally useful.</h2>
+      <div className="l4s-steds-grid">
+        {STEDS_IN_ACTION.map((sted) => <div key={sted.prop} className="l4s-sted-card">
+          <div className="l4s-sted-portrait" style={{ '--l4s-tint': sted.tint } as React.CSSProperties}>
+            <div className="l4s-sted-figure" style={{ transform: `rotate(${sted.tilt}deg)` }}>
+              <img src="/sted-mascot.svg" alt="" className="l4s-sted-mascot" />
+              <img src={`${ICONS}/${sted.prop}.png`} alt="" className="l4s-sted-prop" />
+            </div>
+          </div>
+          <p className="l4s-sted-action"><strong>Sted</strong> {sted.action}</p>
         </div>)}
       </div>
     </section>
 
-    <section className="l4s-section l4s-sources-section" aria-labelledby="l4s-sources-title">
-      <div className="l4s-sources-head">
-        <h2 id="l4s-sources-title" className="l4s-h2">One place for everything<br />worth keeping.</h2>
-        <p className="l4s-lede">Save from the places where you already find useful things.</p>
-      </div>
-      <div className="l4s-source-row">
-        {SOURCES.map((source) => <div key={source.label} className="l4s-source-card">
-          {source.tile ? <SourceIcon type={source.tile} /> : <img src={`${ICONS}/${source.icon}.png`} alt="" className="l4s-source-illo" />}
-          <span>{source.label}</span>
-        </div>)}
-      </div>
-    </section>
-
-    <section className="l4s-section l4s-final" aria-labelledby="l4s-final-title">
+    <section className="l4s-section l4s-final" id="download" aria-labelledby="l4s-final-title">
       <div className="l4s-final-badge"><Mascot size={112} /></div>
       <h2 id="l4s-final-title" className="l4s-h2 l4s-final-title">You saved it for a reason.<br /><span className="l4s-yellow">Make it useful.</span></h2>
-      <button type="button" className="l4c-button l4c-button-dark l4s-final-cta" onClick={onJoin}>Join the waitlist</button>
+      <AppStoreBadge height={60} />
+      <AndroidNotify />
     </section>
   </>
 }

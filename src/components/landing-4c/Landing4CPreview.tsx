@@ -1,13 +1,10 @@
 import { useEffect, useRef, useState } from 'react'
-import { createClient } from '@supabase/supabase-js'
 import { SourceIcon } from '../source-cards/source-icons'
 import { SiteFooter } from '../footer/SiteFooter'
-import { FEATURE_KEYS, FeatureShowcase, Landing4CSections, type FeatureKey } from './Landing4CSections'
+import { AppStoreBadge, FEATURE_KEYS, FeatureShowcase, Landing4CSections, SignInLink, SourceChips, type FeatureKey } from './Landing4CSections'
+import { WAITLIST_MESSAGES, joinWaitlist } from './app-links'
 import './Landing4CPreview.css'
 
-const supabaseUrl = import.meta.env.VITE_SUPABASE_URL
-const supabasePublishableKey = import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY
-const supabase = supabaseUrl && supabasePublishableKey ? createClient(supabaseUrl, supabasePublishableKey) : null
 
 type ResultIconName = 'projects' | 'chat' | 'summary' | 'tags'
 
@@ -40,7 +37,7 @@ function ResultIcon({ name }: { name: ResultIconName }) {
     case 'chat':
       return <svg {...common}><path d="M4 4h16a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H9l-4.4 3.3a.6.6 0 0 1-.96-.48V17H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2zm2.5 6.5a1.25 1.25 0 1 0 0-2.5 1.25 1.25 0 0 0 0 2.5zm5.5 0a1.25 1.25 0 1 0 0-2.5 1.25 1.25 0 0 0 0 2.5zm5.5 0a1.25 1.25 0 1 0 0-2.5 1.25 1.25 0 0 0 0 2.5z" /></svg>
     case 'summary':
-      return <svg {...common}><path d="M4 4.5A1.5 1.5 0 0 1 5.5 3h13A1.5 1.5 0 0 1 20 4.5v15a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 4 19.5v-15zM7 8h10v1.6H7V8zm0 4.2h10v1.6H7v-1.6zM7 16.4h6V18H7v-1.6z" /></svg>
+      return <svg {...common}><path fillRule="evenodd" d="M4 4.5A1.5 1.5 0 0 1 5.5 3h13A1.5 1.5 0 0 1 20 4.5v15a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 4 19.5v-15zM7 8h10v1.6H7V8zm0 4.2h10v1.6H7v-1.6zM7 16.4h6V18H7v-1.6z" /></svg>
     case 'tags':
       return <svg {...common}><path d="M12.6 3.4 20 10.8a2 2 0 0 1 0 2.83l-6.37 6.37a2 2 0 0 1-2.83 0L3.4 12.6a2 2 0 0 1-.6-1.42V5a1.6 1.6 0 0 1 1.6-1.6h6.18a2 2 0 0 1 1.42.6zM7.5 8.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z" /></svg>
   }
@@ -91,25 +88,11 @@ export function Landing4CPreview() {
       setStatus('Please enter a valid email address.')
       return
     }
-    if (!supabase) {
-      setStatus('The waitlist is temporarily unavailable. Please try again shortly.')
-      return
-    }
-
     setIsSubmitting(true)
-    const source = new URLSearchParams(window.location.search).get('ref')?.slice(0, 120) || null
-    const normalizedEmail = email.trim().toLowerCase()
-    const { error } = await supabase.from('waitlist').insert({ email: normalizedEmail, source })
+    const result = await joinWaitlist(email)
     setIsSubmitting(false)
-
-    if (error && error.code !== '23505') {
-      setStatus('Something went wrong. Please try again.')
-      return
-    }
-
-    setEmail('')
-    setStatus("You're on the list.")
-    setIsWaitlistOpen(false)
+    setStatus(WAITLIST_MESSAGES[result])
+    if (result === 'joined') setEmail('')
   }
 
   function openWaitlist() { setStatus(''); setIsWaitlistOpen(true) }
@@ -125,39 +108,33 @@ export function Landing4CPreview() {
           <img className="l4c-logo" src="/brand/sted-primary-horizontal.svg" alt="Sted" />
           <nav className="l4c-nav" aria-label="4c preview navigation">
             <a href="#how-it-works">How it works</a>
+            <a href="#why-sted">Why Sted</a>
+            <a href="#download">Download</a>
           </nav>
-          <button type="button" className="l4c-button l4c-button-dark l4c-header-cta" onClick={openWaitlist}>Join the waitlist</button>
+          <div className="l4c-header-actions"><SignInLink /><AppStoreBadge height={44} /></div>
         </header>
 
         <div className="l4c-copy">
           <h1>Everything<br />you save.<br /><span className="l4c-yellow">Finally useful.</span></h1>
-          <p className="l4c-subcopy">Save links, notes and ideas. Sted understands them, connects them to your projects, and brings them back when they matter.</p>
+          <p className="l4c-subcopy">Save <SourceChips />. Sted understands them, connects them to your projects, and brings them back when they matter.</p>
           <div className="l4c-cta-row">
-            <button type="button" className="l4c-button l4c-button-dark" onClick={openWaitlist}>Join the waitlist</button>
+            <AppStoreBadge height={58} />
             <a href="#how-it-works" className="l4c-secondary-cta">
               <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10.4" fill="none" stroke="#141313" strokeWidth="1.6" /><path fill="#141313" d="M9.6 7.8v8.4l6.4-4.2z" /></svg>
               See how it works
             </a>
           </div>
+          <p className="l4c-android-line">Android coming soon · <button type="button" onClick={openWaitlist}>Get notified</button></p>
         </div>
 
         <div className="l4c-illustration">
           <div className="l4c-illustration-fixed">
             <svg className="l4c-connectors" viewBox="0 0 1040 620" fill="none" aria-hidden="true">
-              <g stroke="rgba(20,19,19,0.18)" strokeWidth="1.2" strokeLinecap="round">
-                <path d="M196 72C300 92 412 244 448 296" />
-                <path d="M372 150C404 186 434 258 448 302" />
-                <path d="M190 230C290 250 400 286 448 308" />
-                <path d="M364 374C392 360 422 336 448 316" />
-                <path d="M208 395C290 392 400 350 448 312" />
-                <path d="M234 525C320 500 412 400 448 320" />
-              </g>
-              <g stroke="rgba(20,19,19,0.28)" strokeWidth="2" strokeLinecap="round">
-                <path d="M588 304C602 304 604 210 620 175" />
-                <path d="M588 308C602 308 604 280 620 265" />
-                <path d="M588 312C602 312 604 340 620 355" />
-                <path d="M588 316C602 316 604 410 620 445" />
-              </g>
+              {/* "}" brace: every saved card funnels into Sted. */}
+              <path className="l4c-bracket" d="M392 34Q408 34 408 50V286Q408 310 426 310Q408 310 408 334V552Q408 568 392 568" />
+              <path className="l4c-bracket" d="M426 310H446" />
+              {/* Branching bracket: Sted feeds each result row. */}
+              <path className="l4c-bracket" d="M590 310H602M602 187Q602 175 614 175H618M602 187V433Q602 445 614 445H618M602 265H618M602 355H618" />
             </svg>
 
             <div className="l4c-card l4c-card-revenuecat">
@@ -238,20 +215,20 @@ export function Landing4CPreview() {
       </div>
     </div>
 
-    <Landing4CSections initial={pinnedFeature ?? 'chat'} autoplay={!pinnedFeature} onJoin={openWaitlist} />
+    <Landing4CSections initial={pinnedFeature ?? 'chat'} autoplay={!pinnedFeature} />
 
     <SiteFooter />
 
     {isWaitlistOpen && <div className="modal-backdrop" role="presentation" onMouseDown={(event) => { if (event.target === event.currentTarget) setIsWaitlistOpen(false) }}>
       <section className="waitlist-modal" role="dialog" aria-modal="true" aria-labelledby="l4c-modal-title">
         <button className="modal-close" type="button" onClick={() => setIsWaitlistOpen(false)} aria-label="Close waitlist dialog">×</button>
-        <p className="section-label">EARLY ACCESS</p>
-        <h2 id="l4c-modal-title">Keep me posted.</h2>
-        <p>Leave your email and we’ll let you know when Sted is ready for its next step.</p>
+        <p className="section-label">ANDROID</p>
+        <h2 id="l4c-modal-title">Sted for Android is coming.</h2>
+        <p>Leave your email and we’ll let you know as soon as it’s ready.</p>
         <form className="modal-form" onSubmit={handleSubmit} noValidate>
           <label className="sr-only" htmlFor="l4c-modal-email">Your email address</label>
           <input ref={modalInputRef} id="l4c-modal-email" name="email" type="email" required value={email} onChange={(event) => { setEmail(event.target.value); setStatus('') }} placeholder="your@email.com" />
-          <button className="button button-amber" type="submit" disabled={isSubmitting}>{isSubmitting ? 'Joining…' : 'Join the waitlist'} <span aria-hidden="true">↗</span></button>
+          <button className="button button-amber" type="submit" disabled={isSubmitting}>{isSubmitting ? 'Sending…' : 'Notify me'} <span aria-hidden="true">↗</span></button>
         </form>
         <p className="modal-status" role="status">{status}</p>
       </section>
