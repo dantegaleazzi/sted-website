@@ -151,12 +151,12 @@ export function Landing4CPreview() {
               </div>
             </div>
 
-            {/* A web page (placeholder thumbnail until a real one is approved), a repo and a note. */}
+            {/* A website (Shipaton 2026 logo from the RevenueCat marketing kit) and a GitHub repo. */}
             <div className="l4c-card l4c-card-web">
-              <div className="l4c-thumb-placeholder"><img src="/content/landing-4c/shipaton-favicon.webp" alt="" width={128} height={128} /></div>
+              <div className="l4c-web-thumb"><img src="/content/landing-4c/shipaton-2026-logo.svg" alt="Shipaton 2026" width={407} height={481} /></div>
               <div className="l4c-card-pad">
-                <span className="l4c-card-title">Web pages</span>
-                <div className="l4c-domain-row"><SourceIcon type="website" /><span className="l4c-domain">shipaton.com</span></div>
+                <div className="l4c-web-head"><SourceIcon type="website" /><span className="l4c-card-title">Websites</span></div>
+                <span className="l4c-domain">www.shipaton.com</span>
               </div>
             </div>
 
@@ -166,12 +166,6 @@ export function Landing4CPreview() {
                 <span className="l4c-card-title">last30days-skill</span>
                 <span className="l4c-domain">mvanhorn · Sep 14, 2026</span>
               </div>
-            </div>
-
-            <div className="l4c-card l4c-card-note">
-              <img src="/content/landing-4c/icons/notes.webp" alt="" className="l4c-note-icon" width={192} height={192} />
-              <span className="l4c-card-title">Sted launch notes</span>
-              <span className="l4c-lines"><i /><i /><i /></span>
             </div>
           </div>
 

@@ -116,20 +116,20 @@
 .l4c-story-bars { flex: 0 0 65%; height: 100%; display: flex; align-items: center; gap: 3px; } /* 30% shorter than the full row */
 .l4c-story-bars span { flex: 1; border-radius: var(--sted-radius-pill); background: #1DB954; display: block; }
 
-/* Web page with a placeholder thumbnail (cream tile + favicon) until a real thumbnail is approved. */
-.l4c-card-web { left: 276px; top: 630px; width: 168px; transform: rotate(2deg); z-index: 5; }
-.l4c-thumb-placeholder { height: 72px; background: var(--sted-cream); display: flex; align-items: center; justify-content: center; }
-.l4c-thumb-placeholder img { width: 32px; height: 32px; border-radius: 8px; display: block; }
+/* Website: Shipaton 2026 logo as the thumbnail, then the web tile beside the label and the URL below. */
+.l4c-card-web { left: 276px; top: 600px; width: 176px; transform: rotate(2deg); z-index: 5; }
+.l4c-web-thumb { height: 92px; background: var(--sted-cream); display: flex; align-items: center; justify-content: center; padding: 8px 0; box-sizing: border-box; }
+.l4c-web-thumb img { height: 100%; width: auto; display: block; }
+.l4c-web-head { display: flex; align-items: center; gap: 8px; }
+.l4c-web-head .source-icon { width: 22px; height: 22px; border-radius: 6px; flex: none; }
+.l4c-card-web .l4c-card-pad { gap: 6px; padding-top: 12px; }
 
 /* Repo: the product's dense StedRow (tile, title, one line of metadata). */
-.l4c-card-repo { left: 450px; top: 700px; width: 232px; padding: 12px 14px; box-sizing: border-box; display: flex; align-items: center; gap: 12px; transform: rotate(-2deg); border-radius: var(--sted-radius-md); }
+.l4c-card-repo { left: 488px; top: 606px; width: 224px; padding: 12px 14px; box-sizing: border-box; display: flex; align-items: center; gap: 12px; transform: rotate(-3deg); border-radius: var(--sted-radius-md); }
 .l4c-card-repo .source-icon { width: 36px; height: 36px; border-radius: 10px; flex: none; }
 .l4c-repo-text { display: flex; flex-direction: column; gap: 3px; min-width: 0; }
 .l4c-repo-text .l4c-card-title { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
-/* Note: the app's note icon, a title and placeholder lines. */
-.l4c-card-note { left: 520px; top: 556px; width: 150px; padding: 12px 14px 14px; box-sizing: border-box; display: flex; flex-direction: column; gap: 8px; transform: rotate(-4deg); border-radius: var(--sted-radius-md); }
-.l4c-note-icon { width: 30px; height: 30px; display: block; }
 .l4c-lines { display: flex; flex-direction: column; gap: 5px; }
 .l4c-lines i { display: block; height: 5px; border-radius: var(--sted-radius-pill); background: var(--sted-ink-hairline); }
 .l4c-lines i:nth-child(2) { width: 82%; }
@@ -198,9 +198,8 @@
   .l4c-card-kyoto { order: -1; } /* tallest card first, so the strip's height is visible content */
   .l4c-card-coffee, .l4c-card-post, .l4c-card-kyoto { width: 190px; }
   .l4c-card-podcast { width: 210px; }
-  .l4c-card-web { width: 168px; }
-  .l4c-card-repo { width: 232px; }
-  .l4c-card-note { width: 150px; }
+  .l4c-card-web { width: 176px; }
+  .l4c-card-repo { width: 224px; }
 
   .l4c-mascot-badge { position: static; width: 104px; height: 104px; border-radius: 26px; }
   .l4c-mascot-badge img { width: 52px; height: 68px; }
