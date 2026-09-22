@@ -7,13 +7,12 @@ import './Landing4CPreview.css'
 /** What Sted makes out of the saves: the automatic outcomes the iOS app ships today.
  *  Chat stays out until it ships in iOS; Projects stays out because it isn't automatic. */
 type OutputIcon = 'article' | 'list-checks' | 'tag' | 'newspaper'
-type Output = { icon: OutputIcon; tint: string; title: string; pills?: string[]; lines?: number }
+type Output = { icon: OutputIcon; tint: string; title: string; pills?: string[]; summary?: true }
 
 const OUTPUTS: Output[] = [
-  { icon: 'article', tint: 'var(--sted-supportive-blue)', title: 'Clean summary', lines: 3 },
-  { icon: 'list-checks', tint: 'var(--sted-supportive-green)', title: 'Key points', lines: 3 },
-  { icon: 'tag', tint: 'var(--sted-supportive-pink)', title: 'Topics and tags', pills: ['AI', 'Design', 'Coffee', 'Japan'] },
-  { icon: 'newspaper', tint: 'var(--sted-supportive-purple)', title: 'Your daily recap', pills: ['The Recap', 'Sted’s Picks', 'Your Saves'] },
+  { icon: 'article', tint: 'var(--sted-supportive-blue)', title: 'Summary & Key Points', summary: true },
+  { icon: 'tag', tint: 'var(--sted-supportive-pink)', title: 'Topics & Tags', pills: ['AI', 'Design', 'Coffee', 'Japan'] },
+  { icon: 'newspaper', tint: 'var(--sted-supportive-purple)', title: 'Your Daily Recap', pills: ['The Recap', 'Sted’s Picks', 'Your Saves'] },
 ]
 
 /** Phosphor Icons (regular), MIT. Ink on a supportive tile, per design-system.md §6. */
@@ -28,11 +27,15 @@ function Phosphor({ name }: { name: OutputIcon }) {
   return <svg width="22" height="22" viewBox="0 0 256 256" aria-hidden="true"><path fill="var(--sted-ink)" d={PHOSPHOR[name]} /></svg>
 }
 
-function OutputCard({ icon, tint, title, pills, lines }: Output) {
+function OutputCard({ icon, tint, title, pills, summary }: Output) {
   return <div className="l4c-output">
     <span className="l4c-output-icon" style={{ background: tint }}><Phosphor name={icon} /></span>
     <span className="l4c-output-title">{title}</span>
-    {lines && <span className="l4c-lines">{Array.from({ length: lines }, (_, index) => <i key={index} />)}</span>}
+    {summary && <>
+      {/* Like the app's detail view: a summary paragraph, then key ideas as bullets. */}
+      <span className="l4c-lines"><i /><i /><i /></span>
+      <span className="l4c-bullets"><i /><i /><i /></span>
+    </>}
     {pills && <span className="l4c-output-pills">{pills.map((pill) => <span key={pill} className="l4c-pill">{pill}</span>)}</span>}
   </div>
 }
@@ -176,9 +179,9 @@ export function Landing4CPreview() {
             {OUTPUTS.map((output) => <OutputCard key={output.title} {...output} />)}
           </div>
 
-          <p className="l4c-note l4c-note-left"><ArrowGlyph flip /><span>Messy input.<br />Real life.</span></p>
+          <p className="l4c-note l4c-note-left"><span>Messy input.<br />Real life.</span><ArrowGlyph /></p>
           <p className="l4c-note l4c-note-sted"><span>Sted understands it.</span></p>
-          <p className="l4c-note l4c-note-right"><span>Clear output.<br />Real value.</span><ArrowGlyph /></p>
+          <p className="l4c-note l4c-note-right"><ArrowGlyph /><span>Clear output.<br />Real value.</span></p>
         </div>
       </div>
     </div>
