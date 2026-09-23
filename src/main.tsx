@@ -14,9 +14,9 @@ const Landing4CShowcaseStates = lazy(() => import('./components/landing-4c/Landi
 
 function Root() {
   const pathname = window.location.pathname.replace(/\/$/, '') || '/'
-  const page = pathname === '/internal/product-design-system' ? <RealContentQA />
+  const page = pathname === '/' || pathname === '/internal/landing-4c' ? <Landing4CPreview />
+    : pathname === '/internal/product-design-system' ? <RealContentQA />
     : pathname === '/internal/source-card-qa' ? <InternalSourceCardQA />
-    : pathname === '/internal/landing-4c' ? <Landing4CPreview />
     : pathname === '/internal/landing-4c/states' ? <Landing4CShowcaseStates />
     : pathname === '/tunnel' ? <StedContentTunnel />
     : <SiteApp />

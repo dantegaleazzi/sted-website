@@ -63,7 +63,7 @@ function SpotifyIcon({ size = 18 }: { size?: number }) {
  */
 export function Landing4CPreview() {
   useEffect(() => {
-    document.title = '4c preview — Sted'
+    document.title = 'Sted — Everything you save. Finally useful.'
   }, [])
 
   const featureParam = new URLSearchParams(window.location.search).get('feature')
