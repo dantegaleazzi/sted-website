@@ -15,11 +15,12 @@ const Landing4CShowcaseStates = lazy(() => import('./components/landing-4c/Landi
 function Root() {
   const pathname = window.location.pathname.replace(/\/$/, '') || '/'
   const page = pathname === '/' || pathname === '/internal/landing-4c' ? <Landing4CPreview />
-    : pathname === '/internal/product-design-system' ? <RealContentQA />
-    : pathname === '/internal/source-card-qa' ? <InternalSourceCardQA />
-    : pathname === '/internal/landing-4c/states' ? <Landing4CShowcaseStates />
-    : pathname === '/tunnel' ? <StedContentTunnel />
-    : <SiteApp />
+    : import.meta.env.DEV && pathname === '/internal/product-design-system' ? <RealContentQA />
+    : import.meta.env.DEV && pathname === '/internal/source-card-qa' ? <InternalSourceCardQA />
+    : import.meta.env.DEV && pathname === '/internal/landing-4c/states' ? <Landing4CShowcaseStates />
+    : import.meta.env.DEV && pathname === '/tunnel' ? <StedContentTunnel />
+    : ['/support', '/privacy', '/terms', '/delete-account'].includes(pathname) ? <SiteApp />
+    : <Landing4CPreview />
   return <Suspense fallback={null}>{page}</Suspense>
 }
 
