@@ -68,6 +68,8 @@ export function Landing4CPreview() {
 
   const featureParam = new URLSearchParams(window.location.search).get('feature')
   const pinnedFeature: FeatureKey | undefined = FEATURE_KEYS.find((key) => key === featureParam)
+  const isPublicHome = window.location.pathname === '/'
+  const initialFeature = pinnedFeature ?? (isPublicHome ? 'summary' : 'save')
 
   return <div className="l4c-page">
     <div className="l4c-scene-outer">
@@ -184,7 +186,7 @@ export function Landing4CPreview() {
       </div>
     </div>
 
-    <Landing4CSections initial={pinnedFeature ?? 'save'} autoplay={!pinnedFeature} />
+    <Landing4CSections initial={initialFeature} autoplay={!pinnedFeature && !isPublicHome} />
 
     <SiteFooter />
   </div>
