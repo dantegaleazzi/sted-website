@@ -111,13 +111,13 @@ export function Landing4CPreview() {
           </svg>
 
           <div className="l4c-saves">
-            <div className="l4c-card l4c-card-coffee">
+            <a className="l4c-card l4c-card-coffee" href="https://www.youtube.com/watch?v=UdvPCv4DJfg&t=1s" target="_blank" rel="noopener noreferrer">
               <img src="/content/landing-4c/pour-over-method.webp" alt="V60 pour over" className="l4c-card-image l4c-card-image-video" width={400} height={224} />
               <div className="l4c-card-pad">
                 <span className="l4c-card-title">The pour over method, start to finish</span>
                 <div className="l4c-domain-row"><SourceIcon type="youtube" /><span className="l4c-domain">YouTube</span></div>
               </div>
-            </div>
+            </a>
 
             <a className="l4c-card l4c-card-post" href="https://x.com/thedankoe/article/2010751592346030461" target="_blank" rel="noopener noreferrer">
               <img src="/content/landing-4c/x-post-falling-into-hole.webp" alt="How to fix your entire life in 1 day" className="l4c-card-image l4c-card-image-wide" width={480} height={192} />
@@ -127,13 +127,13 @@ export function Landing4CPreview() {
               </div>
             </a>
 
-            <div className="l4c-card l4c-card-kyoto">
-              <img src="/content/landing-4c/fushimi-inari-kyoto.webp" alt="Fushimi-Inari, Kyoto" className="l4c-card-image l4c-card-image-kyoto" width={320} height={400} fetchPriority="high" />
+            <a className="l4c-card l4c-card-kyoto" href="https://www.instagram.com/p/DcgDDydsiqL/" target="_blank" rel="noopener noreferrer">
+              <img src="/content/landing-4c/fushimi-inari-kyoto.webp" alt="Torii gates at Fushimi Inari Shrine, Kyoto" className="l4c-card-image l4c-card-image-kyoto" width={320} height={418} fetchPriority="high" />
               <div className="l4c-card-pad">
                 <span className="l4c-card-title">Kyoto, Japan</span>
                 <div className="l4c-domain-row"><SourceIcon type="instagram" /><span className="l4c-domain">Instagram</span></div>
               </div>
-            </div>
+            </a>
 
             <a className="l4c-card l4c-card-podcast" href="https://open.spotify.com/episode/29zRQB9zJcmmcIEXlsnRdH" target="_blank" rel="noopener noreferrer">
               <div className="l4c-card-pad">

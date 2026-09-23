@@ -104,7 +104,7 @@
 .l4c-domain { font-size: 12px; font-weight: var(--sted-weight-medium); color: var(--sted-text-muted); white-space: nowrap; }
 .l4c-card .source-icon { width: 18px; height: 18px; border-radius: 5px; }
 .l4c-card-image { width: 100%; object-fit: cover; display: block; }
-.l4c-card-image-kyoto { height: 124px; object-position: center top; } /* crop: the top of the torii, not the ground */
+.l4c-card-image-kyoto { height: 202px; object-fit: cover; object-position: center; }
 .l4c-card-image-video { height: 100px; }
 .l4c-card-image-wide { height: 82px; }
 
