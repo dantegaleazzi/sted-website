@@ -207,7 +207,7 @@
   .l4c-saves { display: flex; align-items: flex-start; gap: 14px; width: 100%; overflow-x: auto; scrollbar-width: none; padding: 8px 4px 14px; scroll-snap-type: x proximity; }
   .l4c-saves::-webkit-scrollbar { display: none; }
   .l4c-saves .l4c-card { position: static; transform: none; flex: none; scroll-snap-align: start; }
-  .l4c-card-kyoto { order: -1; } /* tallest card first, so the strip's height is visible content */
+  /* Keep the strip in the same left-to-right flow as the desktop composition. */
   .l4c-card-coffee, .l4c-card-post, .l4c-card-kyoto { width: 190px; }
   .l4c-card-podcast { width: 232px; }
   .l4c-card-web, .l4c-card-repo { width: 192px; }
