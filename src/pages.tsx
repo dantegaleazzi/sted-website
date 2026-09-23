@@ -1,4 +1,4 @@
-import { useState, type FormEvent, type ReactNode } from 'react'
+import { useEffect, useId, useRef, useState, type FormEvent, type ReactNode } from 'react'
 import { GuidePage, GuidesIndexPage } from './guides'
 import { StedContentTunnel } from './components/content-tunnel/StedContentTunnel'
 import { portalFixtures } from './components/content-tunnel/portal-fixtures'
@@ -698,10 +698,80 @@ export function ContactPage() {
 
 type SupportStatus = 'idle' | 'sending' | 'success' | 'error'
 
+const SUPPORT_CATEGORIES = ['Account', 'Report a bug', 'Other'] as const
+
+function SupportCategoryPicker({ value, onChange }: { value: string; onChange: (value: string) => void }) {
+  const [open, setOpen] = useState(false)
+  const [activeIndex, setActiveIndex] = useState(0)
+  const rootRef = useRef<HTMLDivElement>(null)
+  const triggerRef = useRef<HTMLButtonElement>(null)
+  const optionRefs = useRef<Array<HTMLButtonElement | null>>([])
+  const listboxId = useId()
+
+  useEffect(() => {
+    if (open) optionRefs.current[activeIndex]?.focus()
+  }, [open, activeIndex])
+
+  useEffect(() => {
+    if (!open) return
+    const closeOutside = (event: PointerEvent) => {
+      if (!rootRef.current?.contains(event.target as Node)) setOpen(false)
+    }
+    document.addEventListener('pointerdown', closeOutside)
+    return () => document.removeEventListener('pointerdown', closeOutside)
+  }, [open])
+
+  function toggle() {
+    setActiveIndex(Math.max(0, SUPPORT_CATEGORIES.indexOf(value as (typeof SUPPORT_CATEGORIES)[number])))
+    setOpen((current) => !current)
+  }
+
+  function moveActive(index: number) {
+    setActiveIndex((index + SUPPORT_CATEGORIES.length) % SUPPORT_CATEGORIES.length)
+  }
+
+  return <div className="support-category-picker" ref={rootRef} onBlur={(event) => { if (!event.currentTarget.contains(event.relatedTarget as Node)) setOpen(false) }}>
+    <button
+      ref={triggerRef}
+      className="support-category-trigger"
+      type="button"
+      aria-label={value ? `What can we help with? Selected: ${value}` : 'What can we help with?'}
+      aria-haspopup="listbox"
+      aria-expanded={open}
+      aria-controls={listboxId}
+      onClick={toggle}
+      onKeyDown={(event) => {
+        if (event.key === 'ArrowDown') { event.preventDefault(); setActiveIndex(0); setOpen(true) }
+      }}
+    >
+      <span className={value ? 'has-value' : ''}>{value || 'What can we help with?'}</span><span className="support-category-chevron" aria-hidden="true" />
+    </button>
+    {open && <div className="support-category-listbox" role="listbox" id={listboxId} aria-label="What can we help with?">
+      {SUPPORT_CATEGORIES.map((option, index) => <button
+        key={option}
+        ref={(node) => { optionRefs.current[index] = node }}
+        type="button"
+        role="option"
+        aria-selected={value === option}
+        tabIndex={activeIndex === index ? 0 : -1}
+        onClick={() => { onChange(option); setOpen(false); triggerRef.current?.focus() }}
+        onKeyDown={(event) => {
+          if (event.key === 'ArrowDown') { event.preventDefault(); moveActive(index + 1) }
+          else if (event.key === 'ArrowUp') { event.preventDefault(); moveActive(index - 1) }
+          else if (event.key === 'Home') { event.preventDefault(); setActiveIndex(0) }
+          else if (event.key === 'End') { event.preventDefault(); setActiveIndex(SUPPORT_CATEGORIES.length - 1) }
+          else if (event.key === 'Escape') { event.preventDefault(); setOpen(false); triggerRef.current?.focus() }
+        }}
+      >{option}<span aria-hidden="true">{value === option ? '✓' : ''}</span></button>)}
+    </div>}
+  </div>
+}
+
 export function SupportPage() {
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [message, setMessage] = useState('')
+  const [category, setCategory] = useState('')
   const [website, setWebsite] = useState('') // honeypot — real users never fill this
   const [status, setStatus] = useState<SupportStatus>('idle')
   const [statusMessage, setStatusMessage] = useState('')
@@ -725,6 +795,11 @@ export function SupportPage() {
       setStatusMessage('Please enter a valid email address.')
       return
     }
+    if (!['Account', 'Report a bug', 'Other'].includes(category)) {
+      setStatus('error')
+      setStatusMessage('Please choose what you need help with.')
+      return
+    }
     if (trimmedMessage.length < SUPPORT_MESSAGE_MIN || trimmedMessage.length > SUPPORT_MESSAGE_MAX) {
       setStatus('error')
       setStatusMessage(`Please write a message between ${SUPPORT_MESSAGE_MIN} and ${SUPPORT_MESSAGE_MAX} characters.`)
@@ -736,7 +811,7 @@ export function SupportPage() {
       const response = await fetch('/api/support', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name: trimmedName, email: trimmedEmail, message: trimmedMessage, website }),
+        body: JSON.stringify({ name: trimmedName, email: trimmedEmail, message: trimmedMessage, category, website }),
       })
       if (!response.ok) throw new Error('Request failed')
 
@@ -745,6 +820,7 @@ export function SupportPage() {
       setName('')
       setEmail('')
       setMessage('')
+      setCategory('')
     } catch {
       setStatus('error')
       setStatusMessage('Something went wrong. You can also email us at hello@sted.ai.')
@@ -752,10 +828,11 @@ export function SupportPage() {
   }
 
   return <main className="simple-page support-page shell" aria-labelledby="support-title">
-    <p className="section-label">SUPPORT</p>
+    <div className="support-intro"><p className="section-label">SUPPORT</p>
     <h1 id="support-title">How can we help?</h1>
     <p className="simple-lede">Send us a message and we'll get back to you.</p>
-    <form className="support-form" onSubmit={handleSubmit} noValidate>
+    <a className="contact-email" href="mailto:hello@sted.ai">hello@sted.ai <span aria-hidden="true">↗</span></a></div>
+    <div className="support-form-wrap"><form className="support-form" onSubmit={handleSubmit} noValidate>
       <div className="support-field-hidden" aria-hidden="true">
         <label htmlFor="support-website">Website</label>
         <input id="support-website" name="website" type="text" tabIndex={-1} autoComplete="off" value={website} onChange={(event) => setWebsite(event.target.value)} />
@@ -764,12 +841,13 @@ export function SupportPage() {
       <input id="support-name" name="name" type="text" required maxLength={100} placeholder="Name" value={name} onChange={(event) => { setName(event.target.value); setStatus('idle') }} />
       <label className="sr-only" htmlFor="support-email">Email</label>
       <input id="support-email" name="email" type="email" required placeholder="Email" value={email} onChange={(event) => { setEmail(event.target.value); setStatus('idle') }} />
+      <SupportCategoryPicker value={category} onChange={(value) => { setCategory(value); setStatus('idle') }} />
       <label className="sr-only" htmlFor="support-message">Message</label>
       <textarea id="support-message" name="message" required minLength={SUPPORT_MESSAGE_MIN} maxLength={SUPPORT_MESSAGE_MAX} rows={6} placeholder="Message" value={message} onChange={(event) => { setMessage(event.target.value); setStatus('idle') }} />
       <button className="button button-amber" type="submit" disabled={status === 'sending'}>{status === 'sending' ? 'Sending…' : 'Send message'} <span aria-hidden="true">↗</span></button>
     </form>
     <p className="support-status" role="status" data-status={status}>{statusMessage}</p>
-    <a className="contact-email" href="mailto:hello@sted.ai">hello@sted.ai <span aria-hidden="true">↗</span></a>
+    </div>
   </main>
 }
 

@@ -15,7 +15,7 @@
 /* Header anchors scroll smoothly on this page only. */
 html:has(.l4c-page) { scroll-behavior: smooth; }
 @media (prefers-reduced-motion: reduce) { html:has(.l4c-page) { scroll-behavior: auto; } }
-.l4s-steds, .l4s-final { scroll-margin-top: 48px; }
+.l4s-steds, .l4s-final, .l4s-stage { scroll-margin-top: 32px; }
 
 /* ---------- Section 1: feature showcase ---------- */
 .l4s-showcase {
@@ -86,9 +86,9 @@ html:has(.l4c-page) { scroll-behavior: smooth; }
 
 /* ---------- Section 2: Steds in action ---------- */
 .l4s-steds { margin-top: 128px; display: flex; flex-direction: column; gap: 56px; }
-.l4s-steds-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+.l4s-steds-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 20px; }
 .l4s-sted-card { display: flex; flex-direction: column; gap: 18px; }
-.l4s-sted-portrait {
+.l4s-sted-illustration {
   height: 240px; border-radius: 24px;
   background: color-mix(in srgb, var(--l4s-tint) 32%, var(--sted-cream));
   display: flex; align-items: center; justify-content: center;
@@ -134,8 +134,9 @@ a.l4s-signin:hover { text-decoration: underline; text-underline-offset: 4px; }
   .l4s-stage { height: 520px; }
   .l4s-phone, .l4s-device { height: 480px; }
   .l4s-steds { margin-top: 96px; gap: 36px; }
-  .l4s-steds-grid { grid-template-columns: repeat(2, 1fr); gap: 16px; }
-  .l4s-sted-portrait { height: 200px; }
+  .l4s-steds-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+  .l4s-sted-card { gap: 18px; }
+  .l4s-sted-illustration { height: 200px; }
   .l4s-sted-action { font-size: var(--sted-text-body); }
   .l4s-final { margin-top: 96px; gap: 28px; }
   .l4s-final-badge { width: 132px; height: 132px; border-radius: 34px; }
@@ -155,8 +156,26 @@ a.l4s-signin:hover { text-decoration: underline; text-underline-offset: 4px; }
   .l4s-feature-title { font-size: 17px; }
   .l4s-feature-text { padding-top: 8px; }
   /* Steds in action: a horizontal strip instead of four stacked 240px tiles. */
-  .l4s-steds-grid { display: flex; gap: 12px; overflow-x: auto; scrollbar-width: none; margin: 0 -20px; padding: 0 20px 8px; scroll-snap-type: x proximity; }
-  .l4s-steds-grid::-webkit-scrollbar { display: none; }
-  .l4s-sted-card { flex: none; width: 240px; scroll-snap-align: start; }
-  .l4s-sted-portrait { height: 180px; }
+  .l4s-steds-grid { width: 100%; gap: 12px; }
+  .l4s-sted-card { grid-template-columns: 86px minmax(0, 1fr); gap: 14px; min-height: 112px; padding: 10px; border-radius: 20px; }
+  .l4s-sted-illustration { height: 90px; border-radius: 15px; }
+  .l4s-sted-figure { width: 58px; height: 74px; }
+  .l4s-sted-prop { width: 34px; height: 34px; right: -12px; bottom: -1px; }
+  .l4s-sted-action { padding: 4px 6px 4px 0; font-size: 15px; line-height: 1.4; }
+  .l4s-steds { margin-top: 80px; gap: 24px; }
+  .l4s-final { margin-top: 80px; }
+
+  /* Prioritize the product screen on mobile; keep the detailed selectors immediately after it. */
+  .l4s-showcase { display: flex; flex-direction: column; align-items: stretch; gap: 0; margin-top: 72px; padding-inline: 20px; }
+  .l4s-showcase-copy { display: contents; }
+  .l4s-showcase-copy > .l4s-section-eyebrow { order: 0; }
+  .l4s-showcase-copy > h2 { order: 1; }
+  .l4s-showcase-copy > .l4s-lede { order: 2; margin-top: 16px; }
+  .l4s-stage { order: 3; width: 100%; height: 420px; margin-top: 24px; }
+  .l4s-showcase-copy > .l4s-features { order: 4; margin-top: 24px; }
+  .l4s-showcase-copy > .l4s-section-eyebrow { display: none; }
+  .l4s-phone, .l4s-device { height: 384px; }
+  .l4s-steds-grid, .l4s-sted-card { min-width: 0; }
 }
+
+.l4s-section-eyebrow { margin: 0; color: var(--sted-text-muted); font-size: var(--sted-text-meta); font-weight: var(--sted-weight-semibold); letter-spacing: .12em; line-height: 1.2; text-transform: uppercase; }

@@ -121,8 +121,9 @@ export function FeatureShowcase({ initial = 'save', autoplay = true, id }: { ini
     return () => observer.disconnect()
   }, [])
 
-  return <section ref={sectionRef} className="l4s-section l4s-showcase" id={id} aria-labelledby={id ? `${id}-title` : undefined}>
+  return <section ref={sectionRef} className="l4s-section l4s-showcase" aria-labelledby={id ? `${id}-title` : undefined}>
     <div className="l4s-showcase-copy">
+      <p className="l4s-section-eyebrow">How it works</p>
       <h2 id={id ? `${id}-title` : undefined} className="l4s-h2">Save it.<br />Sted does the rest.</h2>
       <p className="l4s-lede">Send Sted whatever you find. It reads and understands every save, so you don’t have to go back and work through it all yourself.</p>
       <ol className="l4s-features" onMouseLeave={() => dispatch({ type: 'leave' })}>
@@ -155,7 +156,7 @@ export function FeatureShowcase({ initial = 'save', autoplay = true, id }: { ini
         })}
       </ol>
     </div>
-    <div className="l4s-stage">
+    <div className="l4s-stage" id={id}>
       {FEATURES.map((feature) => <PhoneShot key={feature.key} feature={feature} isActive={feature.key === state.active} reducedMotion={reducedMotion} />)}
       {/* Floating Steds (placeholder art until the variant SVGs land). */}
       <img src="/sted-mascot.svg" alt="" aria-hidden="true" className="l4s-floater l4s-floater-mascot" {...LAZY} />
@@ -174,7 +175,7 @@ export function Landing4CSections({ initial, autoplay }: { initial: FeatureKey; 
       <h2 id="l4s-steds-title" className="l4s-h2">Meanwhile,<br />Sted is working.</h2>
       <div className="l4s-steds-grid">
         {STEDS_IN_ACTION.map((sted) => <div key={sted.prop} className="l4s-sted-card">
-          <div className="l4s-sted-portrait" style={{ '--l4s-tint': sted.tint } as React.CSSProperties}>
+          <div className="l4s-sted-illustration" style={{ '--l4s-tint': sted.tint } as React.CSSProperties}>
             <div className="l4s-sted-figure" style={{ transform: `rotate(${sted.tilt}deg)` }}>
               <img src="/sted-mascot.svg" alt="" className="l4s-sted-mascot" {...LAZY} />
               <img src={`${ICONS}/${sted.prop}.webp`} alt="" className="l4s-sted-prop" width={192} height={192} {...LAZY} />

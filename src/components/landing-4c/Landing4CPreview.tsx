@@ -64,6 +64,9 @@ function SpotifyIcon({ size = 18 }: { size?: number }) {
 export function Landing4CPreview() {
   useEffect(() => {
     document.title = 'Sted — Everything you save. Finally useful.'
+    if (window.location.hash === '#how-it-works') {
+      requestAnimationFrame(() => document.getElementById('how-it-works')?.scrollIntoView())
+    }
   }, [])
 
   const featureParam = new URLSearchParams(window.location.search).get('feature')

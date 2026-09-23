@@ -6,6 +6,7 @@ import { RoutePage } from './pages'
 import { SHOW_BUILD_IN_PUBLIC } from './flags'
 import { guides } from './guides'
 import { SiteFooter } from './components/footer/SiteFooter'
+import { APP_STORE_URL } from './components/landing-4c/app-links'
 import './components/content-tunnel/portal-preview.css'
 
 const supabaseUrl = import.meta.env.VITE_SUPABASE_URL
@@ -42,6 +43,7 @@ export function SiteApp() {
     : pathname === '/support' ? 'support'
     : pathname === '/contact' || hash === '#contact' ? 'contact'
     : 'landing'
+  const isBrandInfoPage = route === 'support' || route === 'about' || route === 'contact'
 
   useEffect(() => {
     // Legacy #privacy / #terms links used to render legal content inline.
@@ -52,7 +54,19 @@ export function SiteApp() {
 
   useEffect(() => {
     const activeGuide = route === 'guide' ? guides.find((guide) => guide.slug === guideSlug) : null
-    document.title = legalDocument === 'delete-account' ? 'Delete your Sted account' : legalDocument === 'privacy' ? 'Privacy Policy | Sted' : legalDocument === 'terms' ? 'Terms of Use | Sted' : route === 'post' ? 'Build Log — STED' : route === 'support' ? 'Support | Sted' : activeGuide ? activeGuide.seoTitle ?? `${activeGuide.title} — STED` : route === 'guide' || route === 'guides' ? 'Guides — STED' : 'Sted — Save links, posts and more. Then chat with them.'
+    const metadata = route === 'about' ? ['About Sted | Save and organize what matters', 'Learn how Sted helps you understand, organize and find the links, screenshots, notes and ideas you save.']
+      : route === 'contact' ? ['Contact Sted | Get in touch', 'Questions, ideas or feedback about Sted? Contact the team at hello@sted.ai.']
+      : route === 'support' ? ['Sted Support | Get help with your account', 'Get help with your Sted account, report a bug or send another support request.']
+      : null
+    document.title = legalDocument === 'delete-account' ? 'Delete your Sted account' : legalDocument === 'privacy' ? 'Privacy Policy | Sted' : legalDocument === 'terms' ? 'Terms of Use | Sted' : route === 'post' ? 'Build Log — STED' : metadata?.[0] ?? (activeGuide ? activeGuide.seoTitle ?? `${activeGuide.title} — STED` : route === 'guide' || route === 'guides' ? 'Guides — STED' : 'Sted — Save links, posts and more. Then chat with them.')
+    if (metadata) {
+      let description = document.querySelector<HTMLMetaElement>('meta[name="description"]')
+      if (!description) { description = document.createElement('meta'); description.name = 'description'; document.head.append(description) }
+      description.content = metadata[1]
+      let canonical = document.querySelector<HTMLLinkElement>('link[rel="canonical"]')
+      if (!canonical) { canonical = document.createElement('link'); canonical.rel = 'canonical'; document.head.append(canonical) }
+      canonical.href = `https://www.sted.ai${pathname}`
+    }
   }, [pathname, legalDocument, route, guideSlug])
 
   useEffect(() => {
@@ -94,10 +108,13 @@ export function SiteApp() {
   }
 
   return (
-    <div id="top" className={`min-h-screen site-surface${tunnelPreview ? ' portal-preview' : ''}`}>
+    <div id="top" className={`min-h-screen site-surface${tunnelPreview ? ' portal-preview' : ''}${isBrandInfoPage ? ' site-surface--brand' : ''}`}>
       <header className="site-header shell">
         <StedMenu />
-        <button className="button button-amber header-cta" type="button" onClick={() => { setStatus(''); setIsWaitlistOpen(true) }}>Join the waitlist</button>
+        <div className="site-header-actions">
+          {!isBrandInfoPage && <button className="button button-amber header-cta" type="button" onClick={() => { setStatus(''); setIsWaitlistOpen(true) }}>Join the waitlist</button>}
+          {isBrandInfoPage && APP_STORE_URL && <a className="header-app-store" href={APP_STORE_URL} aria-label="Download Sted on the App Store"><img src="/brand/app-store-badge.svg" alt="Download on the App Store" width="120" height="40" /></a>}
+        </div>
       </header>
 
       <RoutePage tunnelPreview={tunnelPreview} route={route} postSlug={postSlug} guideSlug={guideSlug} onOpenWaitlist={() => { setStatus(''); setIsWaitlistOpen(true) }} email={email} status={status} isSubmitting={isSubmitting} onEmailChange={(value) => { setEmail(value); setStatus('') }} onSubmit={handleSubmit} />

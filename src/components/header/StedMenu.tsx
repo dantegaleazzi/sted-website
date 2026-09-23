@@ -28,7 +28,7 @@ export function StedMenu() {
     </button>
     </div>
     <nav id={panelId} className="sted-menu__panel" aria-label="Primary navigation" hidden={!open} onClick={() => setOpen(false)}>
-      <a href="/about#how-it-works">How it works</a>
+      <a href="/#how-it-works">How it works</a>
       <a href="/about">About</a>
       <a href="/contact">Contact</a>
     </nav>

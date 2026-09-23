@@ -19,7 +19,7 @@ function Root() {
     : import.meta.env.DEV && pathname === '/internal/source-card-qa' ? <InternalSourceCardQA />
     : import.meta.env.DEV && pathname === '/internal/landing-4c/states' ? <Landing4CShowcaseStates />
     : import.meta.env.DEV && pathname === '/tunnel' ? <StedContentTunnel />
-    : ['/support', '/privacy', '/terms', '/delete-account'].includes(pathname) ? <SiteApp />
+    : ['/support', '/about', '/contact', '/privacy', '/terms', '/delete-account'].includes(pathname) ? <SiteApp />
     : <Landing4CPreview />
   return <Suspense fallback={null}>{page}</Suspense>
 }

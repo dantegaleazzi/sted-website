@@ -173,7 +173,7 @@
 .l4c-arrow { flex: none; margin-top: -4px; }
 .l4c-arrow.is-flipped { transform: scaleX(-1); }
 .l4c-note-sted { left: 700px; top: 664px; width: 200px; justify-content: center; text-align: center; font-size: 12px; }
-.l4c-note-right { left: 1330px; top: 360px; text-align: right; align-items: flex-start; gap: 6px; }
+.l4c-note-right { left: 1330px; top: 420px; text-align: right; align-items: flex-start; gap: 6px; }
 
 /* ---------- Reflow below 1100px ----------
    Above 1100px the canvas scales with the viewport (hero title still ~48px effective there). Below it
@@ -230,4 +230,34 @@
 }
 @media (max-width: 480px) {
   .l4c-header-actions .l4s-signin { display: none; }
+}
+
+/* On phones the hero has one clear App Store action in the copy; avoid repeating
+   the same badge in the header. The badge component uses the shared App Store URL. */
+@media (max-width: 639px) {
+  .l4c-header-actions { display: none; }
+  .l4c-illustration { display: none; }
+
+  /* Output cards read better as a compact swipe row than three full-width panels. */
+  .l4c-results {
+    display: flex;
+    align-items: stretch;
+    gap: 12px;
+    width: calc(100vw - 40px);
+    max-width: none;
+    overflow-x: auto;
+    padding: 4px 4px 14px;
+    scrollbar-width: none;
+    scroll-snap-type: x proximity;
+    overscroll-behavior-inline: contain;
+  }
+  .l4c-results::-webkit-scrollbar { display: none; }
+  .l4c-results .l4c-output,
+  .l4c-results .l4c-output-lg,
+  .l4c-results .l4c-output-sm {
+    flex: 0 0 min(78vw, 260px);
+    width: min(78vw, 260px);
+    min-height: 184px;
+    scroll-snap-align: start;
+  }
 }

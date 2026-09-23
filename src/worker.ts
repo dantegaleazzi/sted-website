@@ -3,6 +3,8 @@ const SITEMAP = `<?xml version="1.0" encoding="UTF-8"?>
   <url><loc>https://www.sted.ai/</loc></url>
   <url><loc>https://www.sted.ai/privacy</loc></url>
   <url><loc>https://www.sted.ai/terms</loc></url>
+  <url><loc>https://www.sted.ai/about</loc></url>
+  <url><loc>https://www.sted.ai/contact</loc></url>
   <url><loc>https://www.sted.ai/support</loc></url>
 </urlset>
 `
@@ -29,7 +31,7 @@ function jsonResponse(body: unknown, status: number): Response {
 }
 
 async function handleSupportRequest(request: Request, env: Env): Promise<Response> {
-  let payload: { name?: unknown; email?: unknown; message?: unknown; website?: unknown }
+  let payload: { name?: unknown; email?: unknown; message?: unknown; category?: unknown; website?: unknown }
   try {
     payload = await request.json()
   } catch {
@@ -44,9 +46,11 @@ async function handleSupportRequest(request: Request, env: Env): Promise<Respons
   const name = typeof payload.name === 'string' ? payload.name.trim() : ''
   const email = typeof payload.email === 'string' ? payload.email.trim().toLowerCase() : ''
   const message = typeof payload.message === 'string' ? payload.message.trim() : ''
+  const category = typeof payload.category === 'string' ? payload.category.trim() : ''
 
   if (!name || name.length > 100) return jsonResponse({ ok: false, error: 'Invalid name' }, 400)
   if (!EMAIL_PATTERN.test(email) || email.length > 254) return jsonResponse({ ok: false, error: 'Invalid email' }, 400)
+  if (!['Account', 'Report a bug', 'Other'].includes(category)) return jsonResponse({ ok: false, error: 'Invalid support category' }, 400)
   if (message.length < MESSAGE_MIN || message.length > MESSAGE_MAX) return jsonResponse({ ok: false, error: 'Invalid message length' }, 400)
 
   if (!env.RESEND_API_KEY) return jsonResponse({ ok: false, error: 'Support email is not configured' }, 500)
@@ -58,8 +62,8 @@ async function handleSupportRequest(request: Request, env: Env): Promise<Respons
       from: 'Sted Support <support@sted.ai>',
       to: 'hello@sted.ai',
       reply_to: email,
-      subject: `Sted Support — ${email}`,
-      text: `Name: ${name}\nEmail: ${email}\n\n${message}`,
+      subject: `Sted Support — ${category} — ${email}`,
+      text: `Category: ${category}\nName: ${name}\nEmail: ${email}\n\n${message}`,
     }),
   })
 
