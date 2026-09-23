@@ -35,14 +35,14 @@ function OutputCard({ icon, tint, title, pills, points, list }: Output) {
     <span className="l4c-output-title">{title}</span>
     {points && <ul className="l4c-points">{points.map((point) => <li key={point}>{point}</li>)}</ul>}
     {pills && <span className="l4c-output-pills">{pills.map((pill) => <span key={pill} className="l4c-pill">{pill}</span>)}</span>}
-    {list && <ol className="l4c-list">{list.map((item, index) => <li key={item}><span className="l4c-list-index">{String(index + 1).padStart(2, '0')}</span>{item}</li>)}</ol>}
+    {list && <ul className="l4c-list">{list.map((item) => <li key={item}>{item}</li>)}</ul>}
   </div>
 }
 
 /** Hand-drawn-style curved arrow for the margin notes (2.5px ink, round caps, like the North Star canvas).
  *  Starts beside the note, swings out and comes down onto the thing it points at. `flip` mirrors it. */
 function CurvedArrow({ flip = false }: { flip?: boolean }) {
-  return <svg width="96" height="84" viewBox="0 0 96 84" fill="none" aria-hidden="true" className={flip ? 'l4c-arrow is-flipped' : 'l4c-arrow'}>
+  return <svg width="67" height="59" viewBox="0 0 96 84" fill="none" aria-hidden="true" className={flip ? 'l4c-arrow is-flipped' : 'l4c-arrow'}>
     <path d="M4 10C40 2 82 12 74 72" stroke="var(--sted-ink)" strokeWidth="2.5" strokeLinecap="round" />
     <path d="M62 60l12 14 13-12" stroke="var(--sted-ink)" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
   </svg>
@@ -96,13 +96,13 @@ export function Landing4CPreview() {
         <div className="l4c-illustration">
           <svg className="l4c-flows" viewBox="0 0 1600 820" fill="none" aria-hidden="true" preserveAspectRatio="none">
             {/* Three ribbons, same family of curves, threading the gaps between cards and meeting at Sted. */}
-            <path className="l4c-ribbon" d="M-40 292C150 262 250 330 340 420S560 470 738 560" strokeWidth="18" />
-            <path className="l4c-ribbon" d="M-40 486C120 470 200 566 330 582S600 588 738 586" strokeWidth="15" />
-            <path className="l4c-ribbon" d="M-40 740C150 760 300 756 470 740S660 680 744 616" strokeWidth="12" />
+            <path className="l4c-ribbon" d="M-40 292C150 262 250 330 340 420S560 482 738 572" strokeWidth="18" />
+            <path className="l4c-ribbon" d="M-40 486C120 470 200 566 330 582S600 600 738 598" strokeWidth="15" />
+            <path className="l4c-ribbon" d="M-40 740C150 760 300 756 470 740S660 692 744 628" strokeWidth="12" />
             {/* Sted → outputs */}
-            <path className="l4c-inkline" d="M874 586H930" />
-            <path className="l4c-inkline" d="M874 578C902 578 902 540 930 540" />
-            <path className="l4c-inkline" d="M874 594C902 594 902 632 930 632" />
+            <path className="l4c-inkline" d="M874 598H936" />
+            <path className="l4c-inkline" d="M874 590C905 590 905 548 936 548" />
+            <path className="l4c-inkline" d="M874 606C905 606 905 648 936 648" />
           </svg>
 
           <div className="l4c-saves">
@@ -174,9 +174,9 @@ export function Landing4CPreview() {
             {OUTPUTS.map((output) => <OutputCard key={output.title} {...output} />)}
           </div>
 
-          <p className="l4c-note l4c-note-left"><span>Messy input.</span><CurvedArrow /></p>
+          <p className="l4c-note l4c-note-left"><span>What you save</span><CurvedArrow /></p>
           <p className="l4c-note l4c-note-sted"><span>Sted understands it.</span></p>
-          <p className="l4c-note l4c-note-right"><CurvedArrow flip /><span>Useful output.</span></p>
+          <p className="l4c-note l4c-note-right"><CurvedArrow flip /><span>Useful output</span></p>
         </div>
       </div>
     </div>
