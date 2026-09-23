@@ -7,14 +7,14 @@ import './Landing4CPreview.css'
 /** What Sted makes out of the saves: the automatic outcomes the iOS app ships today.
  *  Chat stays out until it ships in iOS; Projects stays out because it isn't automatic. */
 type OutputIcon = 'article' | 'list-checks' | 'tag' | 'newspaper'
-type Output = { icon: OutputIcon; tint: string; title: string; pills?: string[]; points?: string[]; list?: string[] }
+type Output = { icon: OutputIcon; tint: string; title: string; size: 'lg' | 'sm'; pills?: string[]; summary?: true; list?: string[] }
 
-/** Key points are derived from the saves on the left (pour-over video, Dan Koe's post, the repo), so the
- *  output visibly comes from the input. The recap shows the app's real section names as an editorial list. */
+/** Summary is the primary output (wider card, placeholder lines so the visitor projects their own content);
+ *  the recap shows the app's real section names as an editorial list. */
 const OUTPUTS: Output[] = [
-  { icon: 'article', tint: 'var(--sted-supportive-blue)', title: 'Summary & Key Points', points: ['Pour-over technique', 'Building better systems', 'Creator business / $155K story'] },
-  { icon: 'tag', tint: 'var(--sted-supportive-pink)', title: 'Topics & Tags', pills: ['AI', 'Design', 'Coffee', 'Japan'] },
-  { icon: 'newspaper', tint: 'var(--sted-supportive-purple)', title: 'Your Daily Recap', list: ['Sted’s Picks', 'The Recap', 'Your Saves'] },
+  { icon: 'article', tint: 'var(--sted-supportive-blue)', title: 'Summary & Key Points', size: 'lg', summary: true },
+  { icon: 'tag', tint: 'var(--sted-supportive-pink)', title: 'Topics & Tags', size: 'sm', pills: ['AI', 'Design', 'Coffee', 'Japan'] },
+  { icon: 'newspaper', tint: 'var(--sted-supportive-purple)', title: 'Your Daily Recap', size: 'sm', list: ['Sted’s Picks', 'The Recap', 'Your Saves'] },
 ]
 
 /** Phosphor Icons (regular), MIT. Ink on a supportive tile, per design-system.md §6. */
@@ -29,11 +29,14 @@ function Phosphor({ name }: { name: OutputIcon }) {
   return <svg width="18" height="18" viewBox="0 0 256 256" aria-hidden="true"><path fill="var(--sted-ink)" d={PHOSPHOR[name]} /></svg>
 }
 
-function OutputCard({ icon, tint, title, pills, points, list }: Output) {
-  return <div className="l4c-output">
+function OutputCard({ icon, tint, title, size, pills, summary, list }: Output) {
+  return <div className={`l4c-output l4c-output-${size}`}>
     <span className="l4c-output-icon" style={{ background: tint }}><Phosphor name={icon} /></span>
     <span className="l4c-output-title">{title}</span>
-    {points && <ul className="l4c-points">{points.map((point) => <li key={point}>{point}</li>)}</ul>}
+    {summary && <>
+      <span className="l4c-lines"><i /><i /><i /></span>
+      <span className="l4c-bullets"><i /><i /><i /></span>
+    </>}
     {pills && <span className="l4c-output-pills">{pills.map((pill) => <span key={pill} className="l4c-pill">{pill}</span>)}</span>}
     {list && <ul className="l4c-list">{list.map((item) => <li key={item}>{item}</li>)}</ul>}
   </div>
@@ -96,13 +99,13 @@ export function Landing4CPreview() {
         <div className="l4c-illustration">
           <svg className="l4c-flows" viewBox="0 0 1600 820" fill="none" aria-hidden="true" preserveAspectRatio="none">
             {/* Three ribbons, same family of curves, threading the gaps between cards and meeting at Sted. */}
-            <path className="l4c-ribbon" d="M-40 292C150 262 250 330 340 420S560 482 738 572" strokeWidth="18" />
-            <path className="l4c-ribbon" d="M-40 486C120 470 200 566 330 582S600 600 738 598" strokeWidth="15" />
-            <path className="l4c-ribbon" d="M-40 740C150 760 300 756 470 740S660 692 744 628" strokeWidth="12" />
+            <path className="l4c-ribbon" d="M-40 292C150 262 250 330 340 420S560 460 738 548" strokeWidth="18" />
+            <path className="l4c-ribbon" d="M-40 486C120 470 200 566 330 582S600 578 738 574" strokeWidth="15" />
+            <path className="l4c-ribbon" d="M-40 740C150 760 300 756 470 740S660 670 744 604" strokeWidth="12" />
             {/* Sted → outputs */}
-            <path className="l4c-inkline" d="M874 598H936" />
-            <path className="l4c-inkline" d="M874 590C905 590 905 548 936 548" />
-            <path className="l4c-inkline" d="M874 606C905 606 905 648 936 648" />
+            <path className="l4c-inkline" d="M874 574H936" />
+            <path className="l4c-inkline" d="M874 566C905 566 905 524 936 524" />
+            <path className="l4c-inkline" d="M874 582C905 582 905 624 936 624" />
           </svg>
 
           <div className="l4c-saves">
