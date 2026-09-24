@@ -1,0 +1,129 @@
+.cf-preview { color-scheme: light; }
+.cf-review-bar { display: flex; align-items: center; justify-content: space-between; padding: 10px 24px; background: var(--sted-cream); border-bottom: 1px solid var(--sted-ink-hairline); font-size: 12px; color: var(--sted-text-secondary); }
+.cf-review-bar button { border: 0; background: transparent; color: var(--sted-ink); font: inherit; cursor: pointer; padding: 8px; }
+.cf-dialog { width: min(720px, calc(100vw - 48px)); height: min(820px, calc(100dvh - 40px)); max-width: none; max-height: none; padding: 0; border: 1px solid var(--sted-ink-hairline); border-radius: 28px; background: var(--sted-white); color: var(--sted-ink); box-shadow: 0 24px 100px #14131326; overflow: hidden; }
+.cf-dialog[open] { display: flex; flex-direction: column; }
+.cf-dialog::backdrop { background: #14131355; backdrop-filter: blur(5px); }
+.cf-dialog * { box-sizing: border-box; }
+.cf-dialog button, .cf-dialog a { -webkit-tap-highlight-color: transparent; }
+.cf-dialog button { font: inherit; color: inherit; cursor: pointer; }
+.cf-dialog :focus-visible { outline: 2px solid var(--sted-ink); outline-offset: 3px; }
+.cf-dialog h2:focus { outline: none; }
+.cf-top { flex: none; display: flex; align-items: center; justify-content: space-between; gap: 30px; padding: 16px 24px; }
+.cf-top button { display: grid; place-items: center; height: 44px; width: 44px; border: 0; background: transparent; font-size: 25px; border-radius: 50%; }
+.cf-top button:hover { background: var(--sted-cream); }
+.cf-progress { display: flex; gap: 6px; max-width: 270px; flex: 1; }
+.cf-progress span { height: 4px; flex: 1; background: var(--sted-ink-hairline); border-radius: 99px; }
+.cf-progress .is-complete { background: var(--sted-yellow); }
+.cf-scroll { overflow-y: auto; overscroll-behavior: contain; scrollbar-width: thin; flex: 1; min-height: 0; }
+.cf-content { width: min(100%, 524px); margin: auto; padding: 12px 24px 24px; }
+.cf-greeting { display: flex; align-items: center; gap: 18px; min-height: 78px; margin: 0 0 30px; }
+.cf-greeting > img { width: 45px; height: 62px; object-fit: contain; flex: none; }
+.cf-greeting p { position: relative; margin: 0; padding: 13px 17px; background: var(--sted-cream); border-radius: 17px 17px 17px 4px; font-size: 14px; line-height: 1.5; }
+.cf-greeting strong { display: block; font-size: 16px; font-weight: 600; }
+.cf-greeting p span { display: block; margin-top: 3px; color: var(--sted-text-secondary); font-size: 12px; }
+.cf-dialog h2 { font-size: clamp(29px, 3vw, 36px); line-height: 1.14; letter-spacing: -.04em; font-weight: 600; max-width: 460px; margin: 0 0 12px; }
+.cf-description { font-size: 15px; line-height: 1.6; color: var(--sted-text-secondary); margin: 0 0 24px; }
+.cf-sources { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+.cf-sources button { display: flex; align-items: center; gap: 10px; padding: 14px; min-height: 60px; border: 1px solid var(--sted-ink-hairline); border-radius: 13px; background: var(--sted-white); text-align: left; font-size: 14px; }
+.cf-sources img, .cf-letter { width: 25px; height: 25px; flex: none; object-fit: contain; }
+.cf-letter { display: grid; place-items: center; border-radius: 6px; background: color-mix(in srgb, var(--sted-yellow) 24%, white); font-size: 14px; }
+.cf-letter-messages { background: color-mix(in srgb, var(--sted-supportive-green) 35%, white); }
+.cf-selection { display: grid; place-items: center; width: 18px; height: 18px; flex: none; margin-left: auto; border: 1px solid var(--sted-ink-faint); border-radius: 50%; font-size: 11px; }
+.cf-selection.is-selected { background: var(--sted-yellow); border-color: var(--sted-yellow); }
+.cf-dialog [aria-pressed=true]:is(.cf-sources button, .cf-choices button, .cf-plans button) { border-color: var(--sted-ink); background: color-mix(in srgb, var(--sted-yellow) 7%, white); }
+.cf-source-shortcuts { display: flex; justify-content: space-between; gap: 10px; }
+.cf-source-shortcuts .cf-text-button { margin: 10px 0 0; padding-inline: 0; }
+.cf-source-shortcuts [aria-pressed=true] { color: var(--sted-ink) !important; font-weight: 600; }
+.cf-text-button { display: block; margin: 14px auto 0; padding: 10px 12px; min-height: 40px; border: 0; background: transparent; color: var(--sted-text-secondary) !important; font-size: 12px !important; text-decoration: underline; text-underline-offset: 3px; }
+.cf-choices { display: grid; gap: 12px; }
+.cf-choices button { display: flex; align-items: center; gap: 18px; min-height: 64px; text-align: left; border: 1px solid var(--sted-ink-hairline); background: white; border-radius: 13px; padding: 17px 18px; font-size: 15px; }
+.cf-choices small { display: block; margin-top: 5px; font-size: 12px; color: var(--sted-text-secondary); }
+.cf-solution-copy { max-width: 430px; }
+.cf-example { border: 1px solid var(--sted-ink-hairline); border-radius: 16px; overflow: hidden; margin-top: 28px; }
+.cf-example-source { display: flex; align-items: center; gap: 9px; padding: 15px 18px; border-bottom: 1px solid var(--sted-ink-hairline); font-size: 12px; }
+.cf-example-source img { width: 21px; height: 21px; }
+.cf-example-source small { margin-left: auto; font-size: 10px; color: var(--sted-text-secondary); }
+.cf-example-result { padding: 19px 22px; background: var(--sted-cream); }
+.cf-example-label { font-size: 9px; letter-spacing: .09em; color: var(--sted-text-secondary); }
+.cf-example-result p { font-size: 16px; line-height: 1.6; margin: 8px 0 16px; }
+.cf-tags { display: flex; gap: 6px; }
+.cf-tags span { padding: 5px 10px; border-radius: 6px; background: white; font-size: 11px; }
+.cf-caption { font-size: 11px; line-height: 1.6; color: var(--sted-text-secondary); margin: 14px 0 0; text-align: center; }
+.cf-chat, .cf-details { margin-top: 21px; color: var(--sted-text-secondary); font-size: 12px; line-height: 1.6; }
+.cf-dialog summary { cursor: pointer; padding-block: 8px; }
+.cf-dialog details p { margin: 8px 0 0; }
+.cf-bottom { width: min(100%, 524px); margin: 0 auto; padding: 14px 24px 23px; flex: none; background: white; }
+.cf-primary { display: flex; width: 100%; align-items: center; justify-content: space-between; min-height: 52px; border: 0; border-radius: 999px; padding: 14px 24px; background: var(--sted-yellow); color: var(--sted-ink); font-size: 15px !important; font-weight: 600 !important; text-decoration: none; }
+.cf-primary:hover { background: color-mix(in srgb, var(--sted-yellow) 94%, var(--sted-ink)); }
+.cf-primary:disabled { background: var(--sted-ink-hairline); color: var(--sted-text-secondary); cursor: not-allowed; }
+.cf-primary > span { font-size: 20px; font-weight: 400; }
+.cf-free-link { display: block; text-align: center; font-size: 12px; margin-top: 13px; color: var(--sted-text-secondary); text-decoration: underline; text-underline-offset: 3px; padding: 5px; }
+.cf-proposal { font-size: 11px; color: var(--sted-text-secondary); margin: 0 0 9px; }
+.cf-plans { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.cf-plans > button { display: flex; flex-direction: column; gap: 17px; border: 1px solid var(--sted-ink-hairline); background: white; border-radius: 16px; text-align: left; padding: 20px; }
+.cf-plan-head { display: flex; width: 100%; align-items: center; gap: 6px; }
+.cf-plan-head strong { font-size: 15px; font-weight: 500; }
+.cf-plan-price { font-size: 28px; line-height: 1; font-weight: 600; letter-spacing: -.04em; white-space: nowrap; }
+.cf-plan-price small { font-size: 11px; font-weight: 400; letter-spacing: 0; color: var(--sted-text-secondary); }
+.cf-allowance { font-size: 12px; color: var(--sted-text-secondary); }
+.cf-allowance b { color: var(--sted-ink); font-weight: 500; }
+.cf-periods, .cf-device { display: flex; padding: 4px; border: 1px solid var(--sted-ink-hairline); border-radius: 13px; gap: 4px; margin-top: 17px; }
+.cf-periods button, .cf-device button { display: flex; flex: 1; gap: 6px; justify-content: center; align-items: center; border: 0; border-radius: 9px; padding: 12px 6px; background: white; font-size: 12px; }
+.cf-periods button[aria-pressed=true], .cf-device button[aria-pressed=true] { background: var(--sted-cream); box-shadow: inset 0 0 0 1px var(--sted-ink-hairline); }
+.cf-periods span { color: var(--sted-text-secondary); font-size: 11px; }
+.cf-period-note { font-size: 11px; color: var(--sted-text-secondary); line-height: 1.5; text-align: center; margin: 10px 0 0; }
+.cf-renewal { margin: 10px 0 0; font-size: 11px; line-height: 1.6; text-align: center; color: var(--sted-text-secondary); }
+.cf-legal { display: flex; justify-content: center; gap: 18px; margin-top: 6px; }
+.cf-legal a { font-size: 10px; padding: 6px 0; color: var(--sted-text-secondary); text-decoration: underline; text-underline-offset: 3px; }
+.cf-next-steps { display: grid; gap: 30px; list-style: none; padding: 0; margin: 34px 0; }
+.cf-next-steps li { display: flex; gap: 15px; }
+.cf-next-steps li > span { flex: none; display: grid; place-items: center; width: 28px; height: 28px; border-radius: 50%; background: var(--sted-cream); font-size: 12px; }
+.cf-next-steps strong { font-size: 15px; font-weight: 500; }
+.cf-next-steps p { margin: 7px 0 0; font-size: 13px; color: var(--sted-text-secondary); line-height: 1.5; }
+.cf-device { margin-bottom: 24px; }
+.cf-download { display: flex; justify-content: center; margin-top: 28px; }
+.cf-download img { height: 42px; width: auto; }
+@media (min-height: 850px) and (min-width: 601px) { .cf-content { padding-top: 35px; } .cf-greeting { margin-bottom: 38px; } }
+@media (max-height: 750px) and (min-width: 601px) {
+  .cf-top { padding-block: 10px; }
+  .cf-content { padding-top: 6px; padding-bottom: 12px; }
+  .cf-greeting { min-height: 62px; margin-bottom: 20px; }
+  .cf-greeting > img { height: 54px; }
+  .cf-dialog h2 { font-size: 30px; }
+  .cf-description { margin-bottom: 18px; }
+  .cf-sources button { min-height: 54px; padding: 12px 10px; gap: 7px; font-size: 12px; }
+  .cf-sources img, .cf-letter { width: 22px; height: 22px; }
+  .cf-bottom { padding-top: 10px; padding-bottom: 16px; }
+  .cf-plans > button { padding: 13px; gap: 11px; }
+  .cf-step-4 .cf-greeting { min-height: 44px; margin-bottom: 12px; }
+  .cf-step-4 .cf-greeting img { height: 38px; width: 30px; }
+  .cf-step-4 .cf-greeting p { padding: 9px 14px; font-size: 12px; }
+  .cf-step-4 .cf-description { margin-bottom: 12px; }
+  .cf-step-4 .cf-periods { margin-top: 12px; }
+  .cf-step-4 .cf-details { margin-top: 9px; }
+}
+@media (max-width: 600px) {
+  .cf-dialog { width: 100%; height: 100dvh; margin: 0; border: 0; border-radius: 0; }
+  .cf-top { padding: max(8px, env(safe-area-inset-top)) 12px 8px; gap: 24px; }
+  .cf-content { padding: 13px 24px 22px; }
+  .cf-greeting { gap: 13px; margin-bottom: 26px; }
+  .cf-greeting > img { width: 36px; height: 51px; }
+  .cf-greeting p { font-size: 13px; padding: 12px 14px; }
+  .cf-greeting strong { font-size: 15px; }
+  .cf-dialog h2 { font-size: 30px; }
+  .cf-description { font-size: 14px; margin-bottom: 22px; }
+  .cf-sources button { padding: 12px; gap: 8px; min-height: 60px; font-size: 13px; }
+  .cf-sources { grid-template-columns: repeat(2, 1fr); }
+  .cf-sources img, .cf-letter { width: 22px; height: 22px; }
+  .cf-selection { width: 16px; height: 16px; }
+  .cf-choices button { font-size: 14px; padding: 16px 14px; }
+  .cf-bottom { padding: 12px 24px max(17px, env(safe-area-inset-bottom)); }
+  .cf-plans { gap: 9px; }
+  .cf-plans > button { padding: 17px 12px; }
+  .cf-plan-price { font-size: 24px; }
+  .cf-plan-price small { display: block; margin-top: 7px; }
+  .cf-periods button { flex-direction: column; gap: 4px; }
+  .cf-step-4 .cf-greeting { margin-bottom: 20px; }
+  .cf-step-4 h2 { font-size: 28px; }
+}

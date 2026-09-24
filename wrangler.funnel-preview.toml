@@ -1,0 +1,9 @@
+# Standalone static preview. No production routes, secrets, APIs or billing bindings.
+name = "sted-web-funnel-preview"
+compatibility_date = "2026-08-18"
+workers_dev = true
+preview_urls = false
+
+[assets]
+directory = "./dist-funnel-preview"
+not_found_handling = "single-page-application"

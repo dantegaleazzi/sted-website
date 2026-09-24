@@ -1,5 +1,7 @@
 node_modules
 dist
+dist-funnel-preview
+.wrangler
 .env
 .DS_Store
 *.swp

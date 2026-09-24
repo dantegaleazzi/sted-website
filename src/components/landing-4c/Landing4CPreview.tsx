@@ -61,12 +61,11 @@ function SpotifyIcon({ size = 18 }: { size?: number }) {
  * The "4c" landing: header + hero + sections + footer.
  * Hero story: real saves → Sted → three outcomes. ?feature=save|summary|feed pins the showcase below.
  */
-export function Landing4CPreview() {
+export function Landing4CPreview({ onHowItWorks }: { onHowItWorks?: () => void } = {}) {
   useEffect(() => {
     document.title = 'Sted — Everything you save. Finally useful.'
-    if (window.location.hash === '#how-it-works') {
-      requestAnimationFrame(() => document.getElementById('how-it-works')?.scrollIntoView())
-    }
+    const anchor = window.location.hash.slice(1)
+    if (anchor) requestAnimationFrame(() => document.getElementById(anchor)?.scrollIntoView())
   }, [])
 
   const featureParam = new URLSearchParams(window.location.search).get('feature')
@@ -91,7 +90,7 @@ export function Landing4CPreview() {
           <div className="l4c-cta">
             <div className="l4c-cta-row">
               <AppStoreBadge height={42} />
-              <a href="#how-it-works" className="l4c-secondary-cta">
+              <a href="#how-it-works" className="l4c-secondary-cta" onClick={onHowItWorks ? (event) => { event.preventDefault(); onHowItWorks() } : undefined}>
                 <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10.4" fill="none" stroke="currentColor" strokeWidth="1.6" /><path fill="currentColor" d="M9.6 7.8v8.4l6.4-4.2z" /></svg>
                 See how it works
               </a>

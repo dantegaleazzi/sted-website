@@ -237,6 +237,8 @@
 @media (max-width: 639px) {
   .l4c-header-actions { display: none; }
   .l4c-illustration { display: none; }
+  .l4c-page .site-footer .footer-meta { width: 100%; min-width: 0; flex-wrap: wrap; gap: 12px 18px; }
+  .l4c-page .site-footer .legal { min-width: 0; flex-wrap: wrap; gap: 10px 14px; }
 
   /* Output cards read better as a compact swipe row than three full-width panels. */
   .l4c-results {

@@ -1,6 +1,7 @@
 import { useEffect, useReducer, useRef, useState } from 'react'
 import { ROTATE_MS, isRotating, rotationReducer } from './showcase-rotation'
 import { APP_STORE_URL, SIGN_IN_URL } from './app-links'
+import { LandingPricing } from './LandingPricing'
 import './landing-4c-tokens.css'
 import './Landing4CSections.css'
 
@@ -185,6 +186,8 @@ export function Landing4CSections({ initial, autoplay }: { initial: FeatureKey; 
         </div>)}
       </div>
     </section>
+
+    <LandingPricing />
 
     <section className="l4s-section l4s-final" id="download" aria-labelledby="l4s-final-title">
       <div className="l4s-final-badge"><Mascot size={112} /></div>
