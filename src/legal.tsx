@@ -45,6 +45,9 @@ function PrivacyPolicy() {
     <h3>Technical and operational information</h3>
     <p>When you use Sted, we and our infrastructure providers may process technical and operational information necessary to provide, secure, maintain, and troubleshoot the Service.</p>
     <p>This may include information such as IP address, timestamps, authentication events, request information, network information, and error or diagnostic information made available through ordinary use of our systems.</p>
+    <h3>Purchases and subscriptions</h3>
+    <p>When purchases or subscriptions are offered through the Service, we and the applicable payment, subscription, and entitlement providers may process information such as your product or plan, subscription status, entitlement state, transaction or purchase identifiers, and purchase history or status.</p>
+    <p>For web purchases, Stripe or another payment provider handles payment-card information through the checkout flow. Sted does not receive or store your full payment-card number through that process. Apple or Google may handle payment and provide related purchase or entitlement information when you buy through their stores.</p>
 
     <h2>3. How saved links are processed</h2>
     <p>When you save a link, Sted sends the URL to our backend.</p>
@@ -88,9 +91,8 @@ function PrivacyPolicy() {
       <li>relevant Sted project names and descriptions.</li>
     </ul>
     <h3>Current AI routing</h3>
-    <p>Sted currently uses <strong>OpenRouter</strong> as an AI routing provider. OpenRouter receives the information included in an AI request and forwards the request to an eligible downstream provider that can serve the AI model selected by Sted.</p>
-    <p>For the model Sted currently selects through OpenRouter, OpenRouter currently identifies <strong>OpenAI, Microsoft Azure, and Amazon Web Services (Amazon Bedrock)</strong> as available hosting providers. The downstream provider that processes a particular request may vary according to Sted’s routing configuration, provider availability, and the configuration of the OpenRouter service.</p>
-    <p>OpenRouter and downstream providers may process technical and operational information associated with AI requests. Their retention and data-handling practices may differ by provider and configuration. Sted does not represent that AI requests are subject to zero retention or that no technical or operational data is retained.</p>
+    <p>Current production paths have used <strong>Google AI services, including Gemini</strong>, and Sted may use other model or routing providers as the Service develops. The provider that processes a particular request may vary according to Sted’s configuration, provider availability, and the feature being used.</p>
+    <p>AI providers may process the information included in an AI request and technical or operational information associated with that request. Their retention and data-handling practices may differ by provider and configuration. Sted does not represent that AI requests are subject to zero retention or that no technical or operational data is retained.</p>
     <p>We may change the AI model, routing configuration, or service providers used by Sted as the Service develops. If a change materially changes what information is shared, why it is shared, or otherwise requires additional notice or permission under applicable law or Apple requirements, we will update our disclosures or obtain additional permission as required.</p>
     <p>When AI Processing is disabled, Sted may still retrieve and process information from a saved link using non-AI systems as necessary to save, identify, display, search, or organize the link. This processing is separate from optional AI Processing.</p>
     <p>While AI Processing is disabled, Sted does not send newly processed saved-content information to its third-party AI provider for AI analysis. Features that depend on AI processing may not be available for those items.</p>
@@ -100,9 +102,11 @@ function PrivacyPolicy() {
     <p>We use service providers and other third parties to operate Sted. Current material providers include:</p>
     <p><strong>Supabase</strong> — authentication and database infrastructure. Supabase processes information needed to establish and maintain Sted guest sessions and accounts, and information stored in users’ Sted accounts or guest sessions. It is also currently used to store Sted website waitlist submissions where applicable.</p>
     <p><strong>Google Cloud</strong> — backend infrastructure used to operate and process Sted requests, including backend computing and asynchronous processing.</p>
-    <p><strong>OpenRouter</strong> — AI request routing and access to third-party AI models when AI processing is enabled. As described above, OpenRouter may forward an AI request to an eligible downstream model-hosting provider.</p>
+    <p><strong>Google AI/Gemini and other AI providers</strong> — processing of saved-content information to provide AI-powered features when AI processing is enabled. The provider or model may change as the Service develops.</p>
+    <p><strong>RevenueCat</strong> — subscription and entitlement management when web or other paid purchases are offered. RevenueCat may process purchase, subscription, transaction, and entitlement information needed to associate access with a Sted customer.</p>
+    <p><strong>Stripe</strong> — payment processing and billing for web purchases when Stripe is selected for checkout. Stripe handles payment information under its own terms and privacy policy.</p>
     <p><strong>Apple</strong> — distribution of the iOS application through the App Store and related Apple platform services used by Sted where applicable.</p>
-    <p><strong>Google</strong> — distribution of the Android application through Google Play.</p>
+    <p><strong>Google</strong> — Google OAuth for Dashboard authentication where applicable, and distribution of the Android application through Google Play.</p>
     <p><strong>Cloudflare</strong> — infrastructure used to host and deliver the Sted website.</p>
     <p>Some providers process information on our behalf, while others process information under their own applicable terms and legal obligations.</p>
     <p>We may replace or add service providers as Sted develops. If a change materially affects how personal information is processed, we will update this Privacy Policy or provide additional notice or permission where required.</p>
@@ -125,6 +129,7 @@ function PrivacyPolicy() {
     <h2>9. Advertising</h2>
     <p>Sted does <strong>not currently use saved content to serve personalized advertising</strong>.</p>
     <p>We do not currently sell personal information or share personal information for cross-context behavioral advertising.</p>
+    <p>Our current website source does not include Google Analytics, Meta Pixel, TikTok Pixel, or another product-analytics SDK, and sted.ai does not currently use non-essential cookies for behavioral advertising. Cloudflare may process request and device metadata as part of website delivery, security, and its infrastructure analytics. If our use of cookies or analytics changes in a way that requires additional notice or consent, we will update this Privacy Policy and obtain consent where required.</p>
     <p>If Sted introduces advertising, sponsorships, or materially different uses of information for advertising in the future, we will update this Privacy Policy and obtain additional permission where required.</p>
 
     <h2>10. Data retention</h2>
@@ -158,8 +163,8 @@ function PrivacyPolicy() {
     <p>California residents may have additional rights where applicable. Sted does not currently sell personal information or share personal information for cross-context behavioral advertising.</p>
 
     <h2>15. Age eligibility</h2>
-    <p>Sted is not directed to children under <strong>16 years old</strong>, and users under 16 may not use Sted.</p>
-    <p>Users who are 16 or 17 may use Sted only with the permission of a parent or legal guardian and where permitted by applicable law.</p>
+    <p>Sted is not directed to children under <strong>13 years old</strong>. If you are under 18, use Sted only with the permission of a parent or legal guardian where applicable law requires it.</p>
+    <p>If applicable law sets a different minimum age or requires additional authorization, that law controls your use of the Service.</p>
     <p>If we learn that an account is being used by someone who is not eligible to use Sted under these requirements, we may take appropriate steps to restrict the account or delete information as appropriate.</p>
 
     <h2>16. Third-party links and content</h2>
@@ -185,8 +190,8 @@ function TermsOfUse() {
     <p>By accessing or using the Service, including through a guest session or registered account, you agree to these Terms. If you do not agree, do not use Sted.</p>
 
     <h2>1. Eligibility</h2>
-    <p>You must be at least <strong>16 years old</strong> to use Sted.</p>
-    <p>If you are under 18, you may use Sted only with the permission of a parent or legal guardian and only where your use of the Service is permitted by applicable law.</p>
+    <p>Sted is not directed to children under <strong>13 years old</strong>. If you are under 18, you may use Sted only with the permission of a parent or legal guardian where applicable law requires it.</p>
+    <p>If applicable law sets a different minimum age or requires additional authorization, that law controls your use of the Service.</p>
     <p>You may not use the Service if applicable law prohibits you from doing so.</p>
 
     <h2>2. Accounts and access</h2>
@@ -253,6 +258,9 @@ function TermsOfUse() {
     <h2>11. Paid features</h2>
     <p>Sted may offer paid features or subscriptions.</p>
     <p>If a purchase is offered through Apple’s App Store or Google Play, the pricing, billing, renewal, cancellation, and other purchase information shown at the time of purchase will apply together with the applicable app store’s payment terms.</p>
+    <p>If a subscription is offered on the web, checkout may be provided through RevenueCat using Stripe or another billing configuration identified at checkout. The price, currency, billing frequency, taxes, renewal terms, and cancellation terms shown before purchase apply to that subscription. Web purchases are separate from Apple in-app purchases unless the checkout expressly states otherwise.</p>
+    <p>Subscriptions may automatically renew until cancelled. Cancelling generally stops future renewals, while access may continue through the paid billing period where applicable. Refunds are handled under applicable law and the rules of the payment provider or app store; these Terms do not create a refund right beyond those requirements.</p>
+    <p>Free and paid tiers may have usage limits and feature differences. We may change plans or features with reasonable notice where required by applicable law. We will not treat a roadmap item or prototype as a paid feature unless it is actually offered at the time of purchase.</p>
     <p>Nothing in these Terms represents that any particular paid feature or subscription is currently available unless it is actually offered in the version of Sted you are using.</p>
 
     <h2>12. Changes to the Service</h2>
@@ -330,7 +338,7 @@ export function LegalPage({ document }: { document: LegalDocument }) {
     <main className="legal-content shell">
       <p className="section-label">FINIKS LABS LLC</p>
       <h1>{isDeletion ? 'Delete your Sted account' : isPrivacy ? 'Privacy Policy' : 'Terms of Use'}</h1>
-      {!isDeletion && <p className="legal-date"><strong>Last updated: September 17, 2026</strong></p>}
+      {!isDeletion && <p className="legal-date"><strong>Last updated: September 24, 2026</strong></p>}
 
       {isDeletion ? <DeleteAccountContent /> : isPrivacy ? <PrivacyPolicy /> : <TermsOfUse />}
 
