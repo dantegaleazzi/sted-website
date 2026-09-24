@@ -3,12 +3,12 @@
    swapped for the shared tokens.css once the site adopts it globally. Only the tokens the
    landing uses are declared here. */
 
-.l4c-page {
+.l4c-page, .funnel-tokens {
   /* core */
   --sted-ink: #141313;
   --sted-yellow: #FFD400;
   --sted-white: #FFFFFF;
-  --sted-cream: #FCF3EB;
+  --sted-cream: #FFF7EB;
   --sted-text-secondary: #6F6D69;
 
   /* supportive (labels and tints only, never primary identity) */

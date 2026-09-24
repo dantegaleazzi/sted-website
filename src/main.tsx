@@ -13,11 +13,15 @@ const Landing4CPreview = lazy(() => import('./components/landing-4c/Landing4CPre
 const Landing4CShowcaseStates = lazy(() => import('./components/landing-4c/Landing4CPreview').then((m) => ({ default: m.Landing4CShowcaseStates })))
 const FunnelPrototype = lazy(() => import('./components/growth-funnel/FunnelPrototype').then((m) => ({ default: m.FunnelPrototype })))
 const ConversationalFunnel = lazy(() => import('./components/growth-funnel/ConversationalFunnel').then((m) => ({ default: m.ConversationalFunnel })))
+const FunnelPage = lazy(() => import('./components/growth-funnel/ConversationalFunnel').then((m) => ({ default: m.FunnelPage })))
 
 function Root() {
   const pathname = window.location.pathname.replace(/\/$/, '') || '/'
   const funnelPreviewBuild = import.meta.env.MODE === 'funnel-preview'
-  const page = (import.meta.env.DEV || funnelPreviewBuild) && (['/internal/funnel', '/internal/funnel/c'].includes(pathname) || (funnelPreviewBuild && pathname === '/')) ? <ConversationalFunnel />
+  // /start stays out of production until REVENUECAT_FUNNEL_URL is set and the route is approved.
+  const funnelSurfaces = import.meta.env.DEV || funnelPreviewBuild
+  const page = funnelSurfaces && pathname === '/start' ? <FunnelPage />
+    : funnelSurfaces && (['/internal/funnel', '/internal/funnel/c'].includes(pathname) || (funnelPreviewBuild && pathname === '/')) ? <ConversationalFunnel />
     : import.meta.env.DEV && ['/internal/funnel/a', '/internal/funnel/b'].includes(pathname) ? <FunnelPrototype />
     : pathname === '/' || pathname === '/internal/landing-4c' ? <Landing4CPreview />
     : import.meta.env.DEV && pathname === '/internal/product-design-system' ? <RealContentQA />

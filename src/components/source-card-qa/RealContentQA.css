@@ -1,4 +1,4 @@
-.real-content-qa { min-height: 100vh; padding: 32px max(24px, calc((100% - 1120px) / 2)); background: #FCF3EB; color: #141313; }
+.real-content-qa { min-height: 100vh; padding: 32px max(24px, calc((100% - 1120px) / 2)); background: #FFF7EB; color: #141313; }
 .real-content-qa > header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 48px; }
 .real-content-qa h1 { font-size: 40px; letter-spacing: -.04em; margin-bottom: 12px; }
 .real-content-qa h2 { font-size: 22px; margin: 40px 0 20px; }
