@@ -1,21 +1,37 @@
-import { APP_STORE_URL } from './app-links'
-import { PLAN_CAPACITY, annualComparison } from '../growth-funnel/funnel-pricing'
+import { useState } from 'react'
+import { APP_STORE_URL, REVENUECAT_FUNNEL_URL } from './app-links'
+import { PLAN_CAPACITY, annualComparison, getPeriod } from '../growth-funnel/funnel-pricing'
+import { buildPlanUrl, loadFunnelSession } from '../growth-funnel/funnel-session'
 import './LandingPricing.css'
 
 const ICONS = '/content/landing-4c/icons'
 const n = (value: number) => value.toLocaleString('en-US')
+type Billing = 'annual' | 'monthly'
 
-/** Sted Pro as the hero of the section; Free as a quiet, permanent fallback underneath. */
+/**
+ * Pro is bought in the RevenueCat web-to-app funnel, which ends in a redemption link that opens the
+ * app. Until its URL is set, the button falls back to our own funnel (/start), which hands off there.
+ */
+function proCheckoutUrl(billing: Billing, session: ReturnType<typeof loadFunnelSession>) {
+  if (!REVENUECAT_FUNNEL_URL) return '/start'
+  const url = new URL(buildPlanUrl(REVENUECAT_FUNNEL_URL, session, { persona: null, sources: [], storage: [], purposes: [], need: null, example: null }))
+  url.searchParams.set('period', billing)
+  return url.toString()
+}
+
+/** Sted Pro as the full Sted; Free is mentioned once, at the end, as the safety net. */
 export function LandingPricing() {
+  const [billing, setBilling] = useState<Billing>('annual')
+  const [session] = useState(loadFunnelSession)
   const pro = PLAN_CAPACITY.pro
   const free = PLAN_CAPACITY.free
   const annual = annualComparison()
+  const price = getPeriod(billing)
 
-  const capabilities = [
+  const benefits = [
+    { icon: 'summary-card', value: n(pro.aiSavesPerMonth), label: 'saves Sted reads for you a month', body: 'Each one comes back with a summary, key points and topics.' },
     { icon: 'projects', value: 'Unlimited', label: 'saves', body: 'Keep everything you find. No cap, no cleanup.' },
-    { icon: 'summary-card', value: n(pro.aiSavesPerMonth), label: 'AI saves a month', body: 'Sted reads them for you: summary, key ideas and topics.' },
-    { icon: 'chat', value: n(pro.chatMessagesPerMonth), label: 'chat messages a month', body: 'Ask your saves anything. On the web now, iOS soon.' },
-    { icon: 'topics', value: 'Everything', label: 'in Free', body: 'Library, Projects, search and your daily Magazine.' },
+    { icon: 'chat', value: n(pro.chatMessagesPerMonth), label: 'chat messages a month', body: 'Ask your saves anything and get answers from what you kept.' },
   ]
 
   return <section className="l4p-section l4s-section" id="pricing" aria-labelledby="l4p-title">
@@ -26,36 +42,47 @@ export function LandingPricing() {
 
     <article className="l4p-pro" aria-labelledby="l4p-pro-title">
       <div className="l4p-pro-intro">
-        <span className="l4p-launch">Launch offer</span>
         <h3 id="l4p-pro-title">Sted <span>Pro</span></h3>
         <p className="l4p-pro-pitch">For people who save a lot and want all of it working for them.</p>
-        <p className="l4p-price">From <strong>{annual.monthlyEquivalent}</strong>/month, billed yearly</p>
-        <a className="l4p-cta" href="/start">Get Sted Pro <span aria-hidden="true">→</span></a>
-        <p className="l4p-fine">Cancel anytime.</p>
-        <span className="l4p-mascot" aria-hidden="true"><img src="/sted-mascot.svg" alt="" width={72} height={88} /></span>
+
+        <div className="l4p-billing" role="group" aria-label="Billing period">
+          <button type="button" aria-pressed={billing === 'monthly'} onClick={() => setBilling('monthly')}>Monthly</button>
+          <button type="button" aria-pressed={billing === 'annual'} onClick={() => setBilling('annual')}>
+            Yearly <span className="l4p-save">Save {Math.round(annual.savingsPercent)}%</span>
+          </button>
+        </div>
+
+        <p className="l4p-price" aria-live="polite">
+          <strong>{price.price}</strong> / {billing === 'annual' ? 'year' : 'month'}
+          <span>{billing === 'annual' ? `${annual.monthlyEquivalent} a month` : 'Billed every month'}</span>
+        </p>
+
+        <div className="l4p-cta-row">
+          <div>
+            <a className="l4p-cta" href={proCheckoutUrl(billing, session)}>Get Sted Pro <span aria-hidden="true">→</span></a>
+            <p className="l4p-fine">Cancel anytime.</p>
+          </div>
+          <img className="l4p-mascot" src="/sted-mascot.svg" alt="" width={64} height={79} />
+        </div>
       </div>
 
-      <ul className="l4p-capabilities">
-        {capabilities.map(item => <li key={item.icon}>
-          <img src={`${ICONS}/${item.icon}.webp`} alt="" width={56} height={56} />
-          <p className="l4p-value"><strong>{item.value}</strong> {item.label}</p>
-          <p className="l4p-body">{item.body}</p>
-        </li>)}
-      </ul>
+      <div className="l4p-benefits">
+        <ul>
+          {benefits.map(item => <li key={item.icon}>
+            <img src={`${ICONS}/${item.icon}.webp`} alt="" width={52} height={52} />
+            <p className="l4p-value"><strong>{item.value}</strong>{item.label}</p>
+            <p className="l4p-body">{item.body}</p>
+          </li>)}
+        </ul>
+        <p className="l4p-plus">Plus everything in Free.</p>
+      </div>
     </article>
 
-    <aside className="l4p-free" aria-labelledby="l4p-free-title">
-      <div className="l4p-free-copy">
-        <h3 id="l4p-free-title">Sted is free, forever.</h3>
-        <p>Not ready for Pro? You still get:</p>
-      </div>
-      <ul className="l4p-free-list">
-        <li>{n(free.saves)} saves</li>
-        <li>{n(free.aiSavesPerMonth)} AI saves a month</li>
-        <li>{n(free.chatMessagesPerMonth)} chat messages a month</li>
-        <li>Library, Projects and search</li>
-      </ul>
+    <footer className="l4p-free">
+      <p><strong>Sted is free, forever.</strong> Not ready for Pro? You still get a lot.</p>
+      <p className="l4p-free-limits">Free includes {n(free.saves)} saves, {n(free.aiSavesPerMonth)} saves Sted reads for you and {n(free.chatMessagesPerMonth)} chat messages a month.</p>
       <a className="l4p-free-link" href={APP_STORE_URL ?? '#'}>Get Sted free <span aria-hidden="true">→</span></a>
-    </aside>
+      <p className="l4p-note">Chat is available in the Sted web app and launching soon on iOS.</p>
+    </footer>
   </section>
 }
