@@ -1,4 +1,5 @@
-// Preview commercial configuration only. No billing products or quota enforcement.
+// Web copy of the RevenueCat prices (production Offering `default`). Keep in sync with RevenueCat.
+// No billing products or quota enforcement here.
 export const PRICING_CONFIG_STATUS = 'PRICING_CONFIG_PROPOSED' as const
 export type Period = 'weekly' | 'monthly' | 'annual'
 export type Plan = 'free' | 'pro'
@@ -19,9 +20,9 @@ export const PACKAGE_EXPECTED: Record<Period, string> = {
 export const PERIODS: ReadonlyArray<{
   id: Period; label: string; cents: number; unit: string; framing: string
 }> = [
-  { id: 'weekly', label: 'Weekly', cents: 1000, unit: 'week', framing: 'A week at a time' },
+  { id: 'weekly', label: 'Weekly', cents: 999, unit: 'week', framing: 'A week at a time' },
   { id: 'monthly', label: 'Monthly', cents: 1299, unit: 'month', framing: 'Stay flexible' },
-  { id: 'annual', label: 'Annual', cents: 7900, unit: 'year', framing: 'Best value' },
+  { id: 'annual', label: 'Annual', cents: 7999, unit: 'year', framing: 'Best value' },
 ]
 
 export function formatPrice(cents: number) {

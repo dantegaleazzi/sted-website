@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { Landing4CPreview } from '../landing-4c/Landing4CPreview'
 import { APP_STORE_URL } from '../landing-4c/app-links'
+import { annualComparison, getPeriod } from './funnel-pricing'
 import './FunnelPrototype.css'
 
 type Variant = 'a' | 'b'
@@ -23,11 +24,12 @@ const pains = [
   { value: 'scattered', title: 'It’s all over the place.', icon: 'projects' },
   { value: 'use', title: 'I rarely get around to using it.', icon: 'summary-note' },
 ]
-const periods: { id: Period; label: string; price: string; unit: string; detail: string; renewal: string }[] = [
-  { id: 'weekly', label: 'Weekly', price: '$10', unit: '/ week', detail: 'Billed every week', renewal: '$10 today, then $10 every week.' },
-  { id: 'monthly', label: 'Monthly', price: '$12.99', unit: '/ month', detail: 'Billed every month', renewal: '$12.99 today, then $12.99 every month.' },
-  { id: 'annual', label: 'Annual', price: '$79', unit: '/ year', detail: '$6.58 / month, billed yearly', renewal: '$79 today, then $79 every year.' },
-]
+const annual = annualComparison()
+const periods = ([
+  { id: 'weekly', label: 'Weekly', unit: '/ week', detail: 'Billed every week' },
+  { id: 'monthly', label: 'Monthly', unit: '/ month', detail: 'Billed every month' },
+  { id: 'annual', label: 'Annual', unit: '/ year', detail: `${annual.monthlyEquivalent} / month, billed yearly` },
+] as const).map(item => ({ ...item, price: getPeriod(item.id).price, renewal: getPeriod(item.id).renewal }))
 
 function Arrow() { return <span aria-hidden="true">↗</span> }
 function Check() { return <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m5 12 4 4L19 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /></svg> }
@@ -164,7 +166,7 @@ export function FunnelPrototype() {
                 <div className="gf-free-card"><div><strong>Sted Free <span>$0</span></strong><p>Start your library. Find your rhythm.</p></div><a href={STORE}>Get Free <Arrow /></a></div>
                 <div className="gf-pro-heading"><div><span className="gf-pro-pill">STED PRO</span><h3>For a bigger saving habit.</h3></div><Icon name="projects" /></div>
                 <p className="gf-pro-benefits"><Check /> More saves <span>·</span> More AI processing</p>
-                <div className="gf-periods" role="group" aria-label="Pro billing period">{periods.map(option => <button type="button" key={option.id} aria-pressed={period === option.id} onClick={() => setPeriod(option.id)}><span className="gf-radio">{period === option.id && <span />}</span><span className="gf-period-name"><strong>{option.label}{option.id === 'annual' && <span className="gf-save-badge">Save 49%</span>}</strong><small>{option.detail}</small></span><span className="gf-price">{option.price}<small>{option.unit}</small></span></button>)}</div>
+                <div className="gf-periods" role="group" aria-label="Pro billing period">{periods.map(option => <button type="button" key={option.id} aria-pressed={period === option.id} onClick={() => setPeriod(option.id)}><span className="gf-radio">{period === option.id && <span />}</span><span className="gf-period-name"><strong>{option.label}{option.id === 'annual' && <span className="gf-save-badge">Save {Math.round(annual.savingsPercent)}%</span>}</strong><small>{option.detail}</small></span><span className="gf-price">{option.price}<small>{option.unit}</small></span></button>)}</div>
                 <p className="gf-pricing-note">USD. Annual savings compared with 12 monthly payments.<br />Preview offer: Free and Pro save limits still to be confirmed.</p>
               </>}
 

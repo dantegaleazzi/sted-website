@@ -1,7 +1,7 @@
-import { useState } from 'react'
-import { APP_STORE_URL, REVENUECAT_FUNNEL_URL } from './app-links'
+import { useEffect, useState } from 'react'
+import { APP_STORE_URL } from './app-links'
 import { PLAN_CAPACITY, annualComparison, getPeriod } from '../growth-funnel/funnel-pricing'
-import { buildPlanUrl, loadFunnelSession } from '../growth-funnel/funnel-session'
+import { loadFunnelSession } from '../growth-funnel/funnel-session'
 import './LandingPricing.css'
 
 const ICONS = '/content/landing-4c/icons'
@@ -9,20 +9,18 @@ const n = (value: number) => value.toLocaleString('en-US')
 type Billing = 'annual' | 'monthly'
 
 /**
- * Pro is bought in the RevenueCat web-to-app funnel, which ends in a redemption link that opens the
- * app. Until its URL is set, the button falls back to our own funnel (/start), which hands off there.
+ * Pro goes through our funnel first (/start: questions → demo → "See my plan"), which hands off to
+ * the RevenueCat web-to-app funnel with the chosen period. UTMs stay in the tab's funnel session.
  */
-function proCheckoutUrl(billing: Billing, session: ReturnType<typeof loadFunnelSession>) {
-  if (!REVENUECAT_FUNNEL_URL) return '/start'
-  const url = new URL(buildPlanUrl(REVENUECAT_FUNNEL_URL, session, { persona: null, sources: [], storage: [], purposes: [], need: null, example: null }))
-  url.searchParams.set('period', billing)
-  return url.toString()
+export function proStartUrl(billing: Billing) {
+  return `/start?period=${billing}`
 }
 
 /** Sted Pro as the full Sted; Free is mentioned once, at the end, as the safety net. */
 export function LandingPricing() {
   const [billing, setBilling] = useState<Billing>('annual')
-  const [session] = useState(loadFunnelSession)
+  // Keep the landing's UTMs in this tab's funnel session, so /start (and RevenueCat) still get them.
+  useEffect(() => { loadFunnelSession() }, [])
   const pro = PLAN_CAPACITY.pro
   const free = PLAN_CAPACITY.free
   const annual = annualComparison()
@@ -59,7 +57,7 @@ export function LandingPricing() {
 
         <div className="l4p-cta-row">
           <div>
-            <a className="l4p-cta" href={proCheckoutUrl(billing, session)}>Get Sted Pro <span aria-hidden="true">→</span></a>
+            <a className="l4p-cta" href={proStartUrl(billing)}>Get Sted Pro <span aria-hidden="true">→</span></a>
             <p className="l4p-fine">Cancel anytime.</p>
           </div>
           <img className="l4p-mascot" src="/sted-mascot.svg" alt="" width={64} height={79} />

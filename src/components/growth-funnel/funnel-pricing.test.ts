@@ -5,14 +5,14 @@ describe('funnel commercial preview', () => {
   it('compares the annual charge against twelve full monthly charges', () => {
     expect(getPeriod('monthly').cents * 12).toBe(15588)
     expect(annualComparison()).toEqual({
-      savingsCents: 7688, savingsPercent: 49.3, monthlyEquivalent: '$6.58', isBestValue: true,
+      savingsCents: 7589, savingsPercent: 48.7, monthlyEquivalent: '$6.67', isBestValue: true,
     })
   })
 
   it.each([
-    ['weekly', 1000, 'PACKAGE_WEEKLY', '$10 today, then $10 every week.'],
+    ['weekly', 999, 'PACKAGE_WEEKLY', '$9.99 today, then $9.99 every week.'],
     ['monthly', 1299, 'PACKAGE_MONTHLY', '$12.99 today, then $12.99 every month.'],
-    ['annual', 7900, 'PACKAGE_ANNUAL', '$79 today, then $79 every year.'],
+    ['annual', 7999, 'PACKAGE_ANNUAL', '$79.99 today, then $79.99 every year.'],
   ] as const)('carries %s into the matching preview package and renewal copy', (period, amount, packageExpected, renewal) => {
     expect(previewCheckoutIntent(period)).toEqual({
       mode: 'preview', currency: 'USD', amountCents: amount, period,

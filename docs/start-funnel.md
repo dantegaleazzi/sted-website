@@ -1,6 +1,6 @@
 # Sted conversational funnel (v2)
 
-Branch `sted-funnel-v2`, from `290ec4d`. Funnel C's design (Sted talks to you in a bubble on every screen) with new questions and a real result. Code: `src/components/growth-funnel/ConversationalFunnel.tsx`. A and B stay in DEV for comparison.
+Branch `sted-pricing-pro` (started as `sted-funnel-v2`, from `290ec4d`). Funnel C's design (Sted talks to you in a bubble on every screen) with new questions and a real result. Code: `src/components/growth-funnel/ConversationalFunnel.tsx`. A and B stay in DEV for comparison.
 
 ## Flow
 
@@ -34,9 +34,10 @@ The drawn placeholders use short summaries written from each link's title and de
 
 ## RevenueCat handoff: the only injection point
 
-- `REVENUECAT_FUNNEL_URL` in `src/components/landing-4c/app-links.ts` (currently `null`).
-- `buildPlanUrl()` in `funnel-session.ts` adds the visitor's UTMs plus `sted_session_id`, `persona`, `sources`, `storage`, `purpose`, `need`, `example`. RevenueCat reads UTMs automatically; the others must be registered as custom URL parameters in the RevenueCat funnel. No `app_user_id`.
-- While the URL is `null`, "See my plan" shows a notice (in DEV, with the URL it would open).
+- `REVENUECAT_FUNNEL_URL` in `src/components/landing-4c/app-links.ts`: the production Web-to-App funnel `https://signup.cat/ZfSBmYBUIHRKvlzo/` (Offering `default`: paywall → Stripe checkout → "Redeem Now" redemption link that opens the app).
+- `buildPlanUrl()` in `funnel-session.ts` adds the visitor's UTMs plus `sted_session_id`, `persona`, `sources`, `storage`, `purpose`, `need`, `example`, and `period` when the visitor came from the landing Pricing (`/start?period=annual|monthly`). No `app_user_id`, email or other personal data: RevenueCat creates an anonymous user.
+- RevenueCat reads UTMs automatically. The other parameters only reach RevenueCat's analytics and branching once they're registered in the Funnel Editor → Settings → Parameters (strings; `sources`, `storage`, `purpose` are comma-separated lists).
+- If the URL were ever missing, "See my plan" says plans aren't available and logs a console error; it never builds a checkout URL by hand.
 
 ## Session and events
 
@@ -45,13 +46,12 @@ Random per-tab `sted_session_id`, UTMs kept for the session. Events: `funnel_sta
 ## Routes
 
 - `/internal/funnel` and `/internal/funnel/c`: landing + modal (`?open=1` opens it, `?review=result` jumps to the result). Also `/` in the funnel-preview build.
-- `/start`: the same funnel as a full page (for social links). DEV and preview only, not in production yet.
+- `/start`: the same funnel as a full page (for social links, ads and the landing's "Get Sted Pro"). Live in every build.
 - `/internal/funnel/a`, `/b`: the older prototypes, DEV only.
 
 ## Open before launch
 
-1. RevenueCat Funnel URL + custom params (prompt sent to the CTO).
+1. Register the custom parameters in the RevenueCat funnel (see above).
 2. The 11 remaining iPhone screenshots.
-3. Enable `/start` in production (one line in `src/main.tsx`).
-4. Apply `docs/funnel-events.sql`, set `VITE_FUNNEL_EVENTS_TABLE`, and mention anonymous funnel answers in the privacy policy.
-5. The landing pricing section (redesigned: Sted Pro in a yellow block + "Sted is free, forever" strip) reads capacities and the "From $6.58/month" teaser from `funnel-pricing.ts`; keep it in sync with RevenueCat. Its CTA goes to `/start`, which needs item 3 before production.
+3. Apply `docs/funnel-events.sql`, set `VITE_FUNNEL_EVENTS_TABLE`, and mention anonymous funnel answers in the privacy policy.
+4. The landing Pricing (white Sted Pro card + "Sted is free, forever" footer) reads prices ($9.99 / $12.99 / $79.99) and capacities from `funnel-pricing.ts`; keep it in sync with RevenueCat. Its "Get Sted Pro" goes to `/start?period=…`.

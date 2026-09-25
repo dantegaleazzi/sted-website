@@ -7,7 +7,7 @@ import {
   togglePurpose, toggleSource, toggleStorage, type ExampleSave, type Need, type Persona, type Purpose, type Storage,
 } from './funnel-content'
 import { toEventRow, trackFunnelEvent, type FunnelEventName } from './funnel-events'
-import { buildPlanUrl, loadFunnelSession, type FunnelAnswers } from './funnel-session'
+import { buildPlanUrl, loadFunnelSession, readPeriod, type FunnelAnswers } from './funnel-session'
 import './ConversationalFunnel.css'
 
 const STEPS = ['intro', 'persona', 'sources', 'storage', 'purpose', 'need', 'pick', 'result'] as const
@@ -92,6 +92,7 @@ function reviewState(): Review | null {
 export function FunnelFlow({ onClose, heading }: { onClose?: () => void; heading: RefObject<HTMLHeadingElement | null> }) {
   const [review] = useState(reviewState)
   const [session] = useState(loadFunnelSession)
+  const [period] = useState(() => readPeriod(window.location.search))
   const [step, setStep] = useState(review?.step ?? 0)
   const [persona, setPersona] = useState<Persona | null>(review?.persona ?? null)
   const [sources, setSources] = useState<string[]>([])
@@ -111,7 +112,7 @@ export function FunnelFlow({ onClose, heading }: { onClose?: () => void; heading
   const id = STEPS[step]
   const example = findExample(persona, exampleId)
   const needCopy = NEED_COPY[need ?? 'keypoints']
-  const planUrl = REVENUECAT_FUNNEL_URL ? buildPlanUrl(REVENUECAT_FUNNEL_URL, session, answers) : null
+  const planUrl = REVENUECAT_FUNNEL_URL ? buildPlanUrl(REVENUECAT_FUNNEL_URL, session, answers, period) : null
 
   function track(event: FunnelEventName, override: Partial<FunnelAnswers> = {}) {
     const { step: atStep, answers: current } = latest.current
@@ -169,11 +170,10 @@ export function FunnelFlow({ onClose, heading }: { onClose?: () => void; heading
   function onPlanClick(event: MouseEvent) {
     track('plan_clicked')
     if (planUrl) return
+    // Misconfiguration only (REVENUECAT_FUNNEL_URL missing): never build a checkout URL by hand.
     event.preventDefault()
-    const preview = buildPlanUrl('https://revenuecat.example/funnel', session, answers)
-    setPlanNotice(import.meta.env.DEV
-      ? `REVENUECAT_FUNNEL_URL isn’t set yet. This button would open: ${preview}`
-      : 'Plans are almost ready. Check back in a moment.')
+    console.error('[sted funnel] REVENUECAT_FUNNEL_URL is not set; "See my plan" has nowhere to go.')
+    setPlanNotice('Plans aren’t available right now. Please try again later.')
   }
 
   const greeting: ReactNode = id === 'intro' ? <><strong>Hi, I’m Sted.</strong><span>I turn what you save into something useful.</span></>

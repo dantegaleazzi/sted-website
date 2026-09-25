@@ -1,4 +1,5 @@
 import type { Need, Persona, Purpose, Storage } from './funnel-content'
+import type { Period } from './funnel-pricing'
 
 export const UTM_KEYS = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term'] as const
 export type UtmKey = (typeof UTM_KEYS)[number]
@@ -27,13 +28,21 @@ export function readUtm(search: string): Utm {
   return utm
 }
 
+const PERIODS: readonly Period[] = ['weekly', 'monthly', 'annual']
+
+/** The billing period picked in the landing Pricing, carried to /start as ?period=. */
+export function readPeriod(search: string): Period | null {
+  const value = new URLSearchParams(search).get('period')
+  return PERIODS.find(period => period === value) ?? null
+}
+
 /**
  * The only place the RevenueCat Funnel URL gets its query string. UTMs are read by RevenueCat
  * automatically; the sted_* answers are custom URL parameters, which RevenueCat only uses once
  * they're registered in the funnel settings. No app_user_id is sent, so RevenueCat creates an
  * anonymous user.
  */
-export function buildPlanUrl(base: string, session: FunnelSession, answers: FunnelAnswers): string {
+export function buildPlanUrl(base: string, session: FunnelSession, answers: FunnelAnswers, period: Period | null = null): string {
   const url = new URL(base)
   for (const key of UTM_KEYS) {
     const value = session.utm[key]
@@ -46,6 +55,7 @@ export function buildPlanUrl(base: string, session: FunnelSession, answers: Funn
   if (answers.purposes.length) url.searchParams.set('purpose', answers.purposes.join(','))
   if (answers.need) url.searchParams.set('need', answers.need)
   if (answers.example) url.searchParams.set('example', answers.example)
+  if (period) url.searchParams.set('period', period)
   return url.toString()
 }
 

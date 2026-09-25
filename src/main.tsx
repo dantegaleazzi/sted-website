@@ -1,6 +1,7 @@
-import { StrictMode, Suspense, lazy } from 'react'
+import { StrictMode, Suspense, lazy, type ReactElement } from 'react'
 import { createRoot } from 'react-dom/client'
 import './index.css'
+import { resolveRoute, type Route } from './routes'
 
 // Entry-level code splitting. Each surface is its own chunk, so the 4c landing loads
 // React + its own code only (not framer-motion, the content tunnel or the QA fixtures),
@@ -15,22 +16,21 @@ const FunnelPrototype = lazy(() => import('./components/growth-funnel/FunnelProt
 const ConversationalFunnel = lazy(() => import('./components/growth-funnel/ConversationalFunnel').then((m) => ({ default: m.ConversationalFunnel })))
 const FunnelPage = lazy(() => import('./components/growth-funnel/ConversationalFunnel').then((m) => ({ default: m.FunnelPage })))
 
+const PAGES: Record<Route, () => ReactElement> = {
+  start: () => <FunnelPage />,
+  'funnel-review': () => <ConversationalFunnel />,
+  'funnel-prototype': () => <FunnelPrototype />,
+  landing: () => <Landing4CPreview />,
+  'product-design-system': () => <RealContentQA />,
+  'source-card-qa': () => <InternalSourceCardQA />,
+  'landing-states': () => <Landing4CShowcaseStates />,
+  tunnel: () => <StedContentTunnel />,
+  site: () => <SiteApp />,
+}
+
 function Root() {
-  const pathname = window.location.pathname.replace(/\/$/, '') || '/'
-  const funnelPreviewBuild = import.meta.env.MODE === 'funnel-preview'
-  // /start stays out of production until REVENUECAT_FUNNEL_URL is set and the route is approved.
-  const funnelSurfaces = import.meta.env.DEV || funnelPreviewBuild
-  const page = funnelSurfaces && pathname === '/start' ? <FunnelPage />
-    : funnelSurfaces && (['/internal/funnel', '/internal/funnel/c'].includes(pathname) || (funnelPreviewBuild && pathname === '/')) ? <ConversationalFunnel />
-    : import.meta.env.DEV && ['/internal/funnel/a', '/internal/funnel/b'].includes(pathname) ? <FunnelPrototype />
-    : pathname === '/' || pathname === '/internal/landing-4c' ? <Landing4CPreview />
-    : import.meta.env.DEV && pathname === '/internal/product-design-system' ? <RealContentQA />
-    : import.meta.env.DEV && pathname === '/internal/source-card-qa' ? <InternalSourceCardQA />
-    : import.meta.env.DEV && pathname === '/internal/landing-4c/states' ? <Landing4CShowcaseStates />
-    : import.meta.env.DEV && pathname === '/tunnel' ? <StedContentTunnel />
-    : ['/support', '/about', '/contact', '/privacy', '/terms', '/delete-account'].includes(pathname) ? <SiteApp />
-    : <Landing4CPreview />
-  return <Suspense fallback={null}>{page}</Suspense>
+  const route = resolveRoute(window.location.pathname, { dev: import.meta.env.DEV, funnelPreview: import.meta.env.MODE === 'funnel-preview' })
+  return <Suspense fallback={null}>{PAGES[route]()}</Suspense>
 }
 
 createRoot(document.getElementById('root')!).render(<StrictMode><Root /></StrictMode>)
