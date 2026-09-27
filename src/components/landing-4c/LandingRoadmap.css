@@ -1,42 +1,67 @@
-/* Roadmap: four white cards with a status pill, then one link to suggest a feature. */
+/* Roadmap, editorial. One feature with the real product screen, then a numbered list on hairlines.
+   No cards-in-a-row, no pills: type, whitespace and one Sted Yellow highlight do the work. */
 
-.l4r-section { margin-top: 128px; scroll-margin-top: 40px; display: flex; flex-direction: column; gap: 40px; }
-.l4r-heading { display: flex; flex-direction: column; gap: 20px; }
-.l4r-lede { margin: 0; font-size: var(--sted-text-body-lg); line-height: 1.5; color: var(--sted-text-muted); }
+.l4r-section { margin-top: 160px; scroll-margin-top: 40px; display: flex; flex-direction: column; }
 
-.l4r-list { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; margin: 0; padding: 0; list-style: none; }
-.l4r-list li {
-  display: flex; flex-direction: column; align-items: flex-start; padding: 28px; border: 1px solid var(--sted-ink-hairline);
-  border-radius: var(--sted-radius-2xl); background: var(--sted-white); box-shadow: var(--sted-shadow-subtle);
+.l4r-heading { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); align-items: end; gap: 48px; }
+.l4r-heading .l4s-h2 { margin-top: 20px; }
+.l4r-mark { padding: 0 .14em .02em; border-radius: .16em; background: var(--sted-yellow); -webkit-box-decoration-break: clone; box-decoration-break: clone; }
+.l4r-lede { max-width: 440px; margin: 0 0 .35em; font-size: var(--sted-text-body-lg); line-height: 1.5; color: var(--sted-text-muted); }
+
+/* Shared bits: tabular numbers and a quiet status line with a yellow "in progress" dot */
+.l4r-num { font-size: var(--sted-text-label); font-weight: var(--sted-weight-medium); font-variant-numeric: tabular-nums; color: var(--sted-text-muted); }
+.l4r-status { display: inline-flex; align-items: center; gap: 10px; margin: 0; font-size: var(--sted-text-label); font-weight: var(--sted-weight-semibold); color: var(--sted-ink); }
+.l4r-status::before { content: ''; width: 7px; height: 7px; border-radius: 50%; background: var(--sted-yellow); box-shadow: 0 0 0 4px color-mix(in srgb, var(--sted-yellow) 28%, transparent); }
+
+/* Feature: copy on white, the Ask Sted screen rising from a warm Sted Yellow tint */
+.l4r-feature {
+  display: grid; grid-template-columns: minmax(0, 11fr) minmax(0, 9fr); min-height: 540px; margin-top: 64px;
+  border: 1px solid var(--sted-ink-hairline); border-radius: var(--sted-radius-3xl); background: var(--sted-white);
+  box-shadow: var(--sted-shadow-subtle); overflow: hidden;
 }
-.l4r-status {
-  display: inline-flex; align-items: center; gap: 8px; padding: 5px 11px; border-radius: var(--sted-radius-pill);
-  background: var(--sted-cream); font-size: var(--sted-text-meta); font-weight: var(--sted-weight-semibold);
-}
-.l4r-status::before { content: ''; width: 7px; height: 7px; border-radius: 50%; background: var(--sted-yellow); }
-.l4r-list h3 { margin: 22px 0 0; font-size: 22px; line-height: 1.2; font-weight: var(--sted-weight-semibold); letter-spacing: -.02em; }
-.l4r-list p { margin: 10px 0 0; font-size: 15px; line-height: 1.5; color: var(--sted-text-muted); }
+.l4r-feature-copy { display: flex; flex-direction: column; justify-content: space-between; gap: 40px; padding: 56px; }
+.l4r-meta { display: flex; align-items: baseline; gap: 14px; margin: 0; font-size: var(--sted-text-label); font-weight: var(--sted-weight-semibold); }
+.l4r-feature h3 { max-width: 520px; margin: 0; font-size: clamp(38px, 1.6vw + 26px, 56px); line-height: 1.02; font-weight: var(--sted-weight-semibold); letter-spacing: -.045em; }
+.l4r-feature-body { max-width: 460px; margin: 22px 0 0; font-size: var(--sted-text-body-lg); line-height: 1.5; color: var(--sted-text-muted); }
+.l4r-feature-visual { position: relative; display: flex; justify-content: center; align-items: flex-start; padding-top: 56px; background: color-mix(in srgb, var(--sted-supportive-yellow) 38%, var(--sted-cream)); }
+.l4r-feature-visual img { width: min(320px, 78%); height: auto; margin-bottom: -38%; filter: drop-shadow(0 24px 40px rgba(20, 19, 19, .16)); }
 
+/* The rest: a numbered list on hairlines, status on the right */
+.l4r-list { margin: 40px 0 0; padding: 0; list-style: none; border-top: 1px solid var(--sted-ink-hairline); }
+.l4r-list li { display: grid; grid-template-columns: 64px minmax(0, 1fr) minmax(0, 260px); align-items: baseline; gap: 24px; padding: 32px 0; border-bottom: 1px solid var(--sted-ink-hairline); }
+.l4r-list h3 { margin: 0; font-size: clamp(24px, .6vw + 20px, 30px); line-height: 1.15; font-weight: var(--sted-weight-semibold); letter-spacing: -.03em; }
+.l4r-list li p:not(.l4r-status) { margin: 8px 0 0; font-size: var(--sted-text-body); line-height: 1.5; color: var(--sted-text-muted); }
+.l4r-list .l4r-status { justify-self: end; }
+.l4r-idea h3 { color: var(--sted-text-muted); }
 .l4r-suggest {
-  align-self: flex-start; display: inline-flex; align-items: center; gap: 12px; min-height: 52px; padding: 0 24px;
-  border: 1px solid var(--sted-ink); border-radius: var(--sted-radius-pill); color: var(--sted-ink);
-  font-size: 16px; font-weight: var(--sted-weight-semibold); text-decoration: none;
-  transition: background-color var(--sted-duration-base) var(--sted-ease-standard);
+  justify-self: end; display: inline-flex; align-items: center; gap: 10px; font-size: 16px; font-weight: var(--sted-weight-semibold);
+  color: var(--sted-ink); text-decoration: underline; text-decoration-color: var(--sted-yellow); text-decoration-thickness: 3px; text-underline-offset: 6px;
+  transition: text-decoration-color var(--sted-duration-base) var(--sted-ease-standard);
 }
-.l4r-suggest:hover { background: var(--sted-white); }
-.l4r-suggest:focus-visible { outline: 2px solid var(--sted-focus); outline-offset: 3px; }
+.l4r-suggest:hover { text-decoration-color: var(--sted-ink); }
+.l4r-suggest:focus-visible { outline: 2px solid var(--sted-focus); outline-offset: 4px; border-radius: 4px; }
 .l4r-suggest > span { font-size: 19px; font-weight: var(--sted-weight-regular); }
 
 @media (max-width: 1100px) {
-  .l4r-section { margin-top: 96px; gap: 32px; }
-  .l4r-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .l4r-section { margin-top: 112px; }
+  .l4r-heading { grid-template-columns: minmax(0, 1fr); gap: 20px; }
+  .l4r-feature { grid-template-columns: minmax(0, 1fr); min-height: 0; margin-top: 44px; }
+  .l4r-feature-copy { padding: 40px; }
+  .l4r-feature-visual { height: 420px; padding-top: 44px; }
+  .l4r-feature-visual img { width: 280px; margin-bottom: 0; }
 }
 
 @media (max-width: 600px) {
-  .l4r-section { margin-top: 80px; gap: 24px; }
+  .l4r-section { margin-top: 88px; }
   .l4r-lede { font-size: 17px; }
-  .l4r-list { grid-template-columns: minmax(0, 1fr); gap: 10px; }
-  .l4r-list li { padding: 20px; }
-  .l4r-list h3 { margin-top: 14px; font-size: 19px; }
-  .l4r-suggest { align-self: stretch; justify-content: space-between; font-size: 15px; }
+  .l4r-feature { margin-top: 32px; border-radius: var(--sted-radius-2xl); }
+  .l4r-feature-copy { gap: 28px; padding: 28px 22px 30px; }
+  .l4r-feature h3 { font-size: 34px; }
+  .l4r-feature-body { margin-top: 14px; font-size: 16px; }
+  .l4r-feature-visual { height: 340px; padding-top: 32px; }
+  .l4r-feature-visual img { width: 230px; }
+  .l4r-list { margin-top: 24px; }
+  .l4r-list li { grid-template-columns: 36px minmax(0, 1fr); row-gap: 14px; column-gap: 12px; padding: 24px 0; }
+  .l4r-list h3 { font-size: 22px; }
+  .l4r-list :is(.l4r-status, .l4r-suggest) { grid-column: 2; justify-self: start; }
 }

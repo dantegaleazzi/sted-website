@@ -44,6 +44,6 @@ describe('what the landing promises', () => {
   })
 
   it('lists the roadmap Dante approved', () => {
-    expect(ROADMAP.map(item => item.name)).toEqual(['Chat on iOS', 'Chrome and Safari extensions', 'Sted for Android', 'More cool features'])
+    expect(ROADMAP.map(item => item.name)).toEqual(['Chat on iOS', 'Chrome and Safari extensions', 'Sted for Android'])
   })
 })
