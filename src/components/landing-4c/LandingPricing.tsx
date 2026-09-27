@@ -1,36 +1,48 @@
 import { useEffect, useState } from 'react'
 import { APP_STORE_URL } from './app-links'
+import { CheckoutLink } from './CheckoutLink'
+import { foundingTerms, isFoundingLive } from '../growth-funnel/founding-offer'
 import { PLAN_CAPACITY, annualComparison, getPeriod } from '../growth-funnel/funnel-pricing'
 import { loadFunnelSession } from '../growth-funnel/funnel-session'
 import './LandingPricing.css'
 
-const ICONS = '/content/landing-4c/icons'
 const n = (value: number) => value.toLocaleString('en-US')
 type Billing = 'annual' | 'monthly'
 
-/**
- * Pro goes through our funnel first (/start: questions → demo → "See my plan"), which hands off to
- * the RevenueCat web-to-app funnel with the chosen period. UTMs stay in the tab's funnel session.
- */
-export function proStartUrl(billing: Billing) {
-  return `/start?period=${billing}`
+export const REDEEM_NOTE = 'After checkout, open the confirmation email on your iPhone, download Sted and tap Redeem to unlock Pro.'
+
+const free = PLAN_CAPACITY.free
+const pro = PLAN_CAPACITY.pro
+
+/** Free vs Pro, row by row. "Soon" marks a feature that isn't live yet. */
+export const COMPARISON: { feature: string; detail?: string; soon?: boolean; free: string; pro: string }[] = [
+  { feature: 'Saves', free: n(free.saves), pro: 'Unlimited' },
+  { feature: 'Saves Sted reads for you', detail: 'Summary, key ideas and topics', free: `${n(free.aiSavesPerMonth)} a month`, pro: `${n(pro.aiSavesPerMonth)} a month` },
+  { feature: 'Search your whole library', free: '✓', pro: '✓' },
+  { feature: 'Chat with your saved items', soon: true, free: `${n(free.chatMessagesPerMonth)} messages a month`, pro: `${n(pro.chatMessagesPerMonth)} messages a month` },
+]
+
+export function ComparisonTable({ className = '' }: { className?: string }) {
+  return <table className={`l4p-compare ${className}`}>
+    <thead><tr><th scope="col"><span className="l4p-sr">Feature</span></th><th scope="col">Free</th><th scope="col">Pro</th></tr></thead>
+    <tbody>
+      {COMPARISON.map(row => <tr key={row.feature}>
+        <th scope="row">{row.feature}{row.soon && <span className="l4p-soon">Soon</span>}{row.detail && <small>{row.detail}</small>}</th>
+        <td>{row.free}</td>
+        <td>{row.pro}</td>
+      </tr>)}
+    </tbody>
+  </table>
 }
 
-/** Sted Pro as the full Sted; Free is mentioned once, at the end, as the safety net. */
-export function LandingPricing() {
+/** Sted Pro as the full Sted: the founding offer while it runs, Free vs Pro, and Free once at the end. */
+export function LandingPricing({ founding = isFoundingLive() }: { founding?: boolean }) {
   const [billing, setBilling] = useState<Billing>('annual')
-  // Keep the landing's UTMs in this tab's funnel session, so /start (and RevenueCat) still get them.
+  // Keep the landing's UTMs in this tab's funnel session, so the checkout still gets them.
   useEffect(() => { loadFunnelSession() }, [])
-  const pro = PLAN_CAPACITY.pro
-  const free = PLAN_CAPACITY.free
   const annual = annualComparison()
   const price = getPeriod(billing)
-
-  const benefits = [
-    { icon: 'summary-card', value: n(pro.aiSavesPerMonth), label: 'saves Sted reads for you a month', body: 'Each one comes back with a summary, key points and topics.' },
-    { icon: 'projects', value: 'Unlimited', label: 'saves', body: 'Keep everything you find. No cap, no cleanup.' },
-    { icon: 'chat', value: n(pro.chatMessagesPerMonth), label: 'chat messages a month', body: 'Ask your saves anything and get answers from what you kept.' },
-  ]
+  const offer = foundingTerms()
 
   return <section className="l4p-section l4s-section" id="pricing" aria-labelledby="l4p-title">
     <header className="l4p-heading">
@@ -40,47 +52,50 @@ export function LandingPricing() {
 
     <article className="l4p-pro" aria-labelledby="l4p-pro-title">
       <div className="l4p-pro-intro">
+        {founding && <p className="l4p-offer-tag">Founding offer · First {offer.spots} members</p>}
         <h3 id="l4p-pro-title">Sted <span>Pro</span></h3>
         <p className="l4p-pro-pitch">For people who save a lot and want all of it working for them.</p>
 
-        <div className="l4p-billing" role="group" aria-label="Billing period">
-          <button type="button" aria-pressed={billing === 'monthly'} onClick={() => setBilling('monthly')}>Monthly</button>
-          <button type="button" aria-pressed={billing === 'annual'} onClick={() => setBilling('annual')}>
-            Yearly <span className="l4p-save">Save {Math.round(annual.savingsPercent)}%</span>
-          </button>
-        </div>
-
-        <p className="l4p-price" aria-live="polite">
-          <strong>{price.price}</strong> / {billing === 'annual' ? 'year' : 'month'}
-          <span>{billing === 'annual' ? `${annual.monthlyEquivalent} a month` : 'Billed every month'}</span>
-        </p>
+        {founding
+          ? <p className="l4p-price">
+            <s aria-label={`Regular price ${offer.regular} a year`}>{offer.regular}</s>
+            <strong>{offer.price}</strong> for your first year
+            <span>{offer.renewal}</span>
+          </p>
+          : <>
+            <div className="l4p-billing" role="group" aria-label="Billing period">
+              <button type="button" aria-pressed={billing === 'monthly'} onClick={() => setBilling('monthly')}>Monthly</button>
+              <button type="button" aria-pressed={billing === 'annual'} onClick={() => setBilling('annual')}>
+                Yearly <span className="l4p-save">Save {Math.round(annual.savingsPercent)}%</span>
+              </button>
+            </div>
+            <p className="l4p-price" aria-live="polite">
+              <strong>{price.price}</strong> / {billing === 'annual' ? 'year' : 'month'}
+              <span>{billing === 'annual' ? `${annual.monthlyEquivalent} a month · Cancel anytime.` : 'Billed every month · Cancel anytime.'}</span>
+            </p>
+          </>}
 
         <div className="l4p-cta-row">
-          <div>
-            <a className="l4p-cta" href={proStartUrl(billing)}>Get Sted Pro <span aria-hidden="true">→</span></a>
-            <p className="l4p-fine">Cancel anytime.</p>
-          </div>
+          <CheckoutLink plan={founding ? 'founding' : billing} source="pricing" className="l4p-cta" noticeClassName="l4p-notice">
+            {founding ? `Get Sted Pro · ${offer.price}` : 'Get Sted Pro'} <span aria-hidden="true">→</span>
+          </CheckoutLink>
           <img className="l4p-mascot" src="/sted-mascot.svg" alt="" width={64} height={79} />
         </div>
+        <p className="l4p-fine">{REDEEM_NOTE}</p>
       </div>
 
-      <div className="l4p-benefits">
-        <ul>
-          {benefits.map(item => <li key={item.icon}>
-            <img src={`${ICONS}/${item.icon}.webp`} alt="" width={52} height={52} />
-            <p className="l4p-value"><strong>{item.value}</strong>{item.label}</p>
-            <p className="l4p-body">{item.body}</p>
-          </li>)}
-        </ul>
-        <p className="l4p-plus">Plus everything in Free.</p>
+      <div className="l4p-side">
+        <ComparisonTable />
+        <p className="l4p-build">
+          <strong>{founding ? 'As a founding member, you’re helping build Sted.' : 'Every plan helps build what’s next.'}</strong>
+          {' '}Chat on iOS, browser extensions and Android are on the way. <a href="#roadmap">Check the roadmap →</a>
+        </p>
       </div>
     </article>
 
     <footer className="l4p-free">
       <p><strong>Sted is free, forever.</strong> Not ready for Pro? You still get a lot.</p>
-      <p className="l4p-free-limits">Free includes {n(free.saves)} saves, {n(free.aiSavesPerMonth)} saves Sted reads for you and {n(free.chatMessagesPerMonth)} chat messages a month.</p>
       <a className="l4p-free-link" href={APP_STORE_URL ?? '#'}>Get Sted free <span aria-hidden="true">→</span></a>
-      <p className="l4p-note">Chat is available in the Sted web app and launching soon on iOS.</p>
     </footer>
   </section>
 }

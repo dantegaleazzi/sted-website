@@ -2,13 +2,13 @@ import { createElement } from 'react'
 import { renderToStaticMarkup } from 'react-dom/server'
 import { describe, expect, it } from 'vitest'
 import { APP_STORE_URL, REVENUECAT_FUNNEL_URL } from '../landing-4c/app-links'
-import { LandingPricing, proStartUrl } from '../landing-4c/LandingPricing'
+import { LandingPricing, REDEEM_NOTE } from '../landing-4c/LandingPricing'
 import { annualComparison, getPeriod } from './funnel-pricing'
 import { buildPlanUrl, readPeriod, type FunnelAnswers } from './funnel-session'
 
 const session = { id: '00000000-0000-4000-8000-000000000002', utm: { utm_source: 'tiktok', utm_medium: 'social', utm_campaign: 'launch', utm_content: 'reel-1', utm_term: 'bookmarks' } }
 const answers: FunnelAnswers = { persona: 'student', sources: ['YouTube', 'Websites'], storage: ['tabs'], purposes: ['learning', 'work'], need: 'find', example: 'starship' }
-const ALLOWED = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term', 'sted_session_id', 'persona', 'sources', 'storage', 'purpose', 'need', 'example', 'period']
+const ALLOWED = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term', 'sted_session_id', 'persona', 'sources', 'storage', 'purpose', 'need', 'example', 'period', 'source_page']
 
 describe('production RevenueCat funnel', () => {
   it('points at the production Web-to-App funnel', () => {
@@ -51,24 +51,36 @@ describe('final web prices', () => {
 })
 
 describe('landing pricing', () => {
-  const html = renderToStaticMarkup(createElement(LandingPricing))
+  const regular = renderToStaticMarkup(createElement(LandingPricing, { founding: false }))
+  const founding = renderToStaticMarkup(createElement(LandingPricing, { founding: true }))
 
-  it('shows the annual price and never the old ones', () => {
-    expect(html).toContain('$79.99')
-    expect(html).toContain('$6.67 a month')
-    expect(html).toContain('Save 49%')
-    expect(html).not.toMatch(/\$10\b|\$79(?!\.99)|\$6\.58/)
+  it('shows the regular annual price and never the old ones', () => {
+    expect(regular).toContain('$79.99')
+    expect(regular).toContain('$6.67 a month')
+    expect(regular).toContain('Save 49%')
+    for (const html of [regular, founding]) expect(html).not.toMatch(/\$10\b|\$79(?!\.99)|\$6\.58/)
   })
 
-  it('sends Get Sted Pro through /start with the chosen period', () => {
-    expect(proStartUrl('annual')).toBe('/start?period=annual')
-    expect(proStartUrl('monthly')).toBe('/start?period=monthly')
-    expect(html).toContain('href="/start?period=annual"')
-    expect(html).not.toContain('signup.cat')
+  it('shows the founding offer against the regular price, with its renewal', () => {
+    expect(founding).toContain('Founding offer · First 100 members')
+    expect(founding).toMatch(/<s[^>]*>\$79\.99<\/s><strong>\$19\.99<\/strong> for your first year/)
+    expect(founding).toContain('Then $79.99/year. Cancel anytime.')
+    expect(founding).toContain('Get Sted Pro · $19.99')
+    expect(regular).not.toContain('$19.99')
+  })
+
+  it('compares Free and Pro, marks chat as not live yet and points to the roadmap', () => {
+    for (const html of [regular, founding]) {
+      expect(html).toContain('<th scope="col">Free</th><th scope="col">Pro</th>')
+      expect(html).toContain('Chat with your saved items<span class="l4p-soon">Soon</span>')
+      expect(html).toContain('href="#roadmap"')
+      expect(html).toContain(REDEEM_NOTE)
+    }
+    expect(founding).toContain('As a founding member, you’re helping build Sted.')
   })
 
   it('keeps Get Sted free on the App Store', () => {
     expect(APP_STORE_URL).toBe('https://apps.apple.com/es/app/sted-ai/id6805940694')
-    expect(html).toContain(`href="${APP_STORE_URL}"`)
+    expect(founding).toContain(`href="${APP_STORE_URL}"`)
   })
 })

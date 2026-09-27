@@ -1,7 +1,10 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { SourceIcon } from '../source-cards/source-icons'
 import { SiteFooter } from '../footer/SiteFooter'
 import { AppStoreBadge, FEATURE_KEYS, FeatureShowcase, Landing4CSections, SignInLink, type FeatureKey } from './Landing4CSections'
+import { FoundingBar } from './FoundingBar'
+import { HowItWorksDialog } from './HowItWorks'
+import { isFoundingLive } from '../growth-funnel/founding-offer'
 import './Landing4CPreview.css'
 
 /** What Sted makes out of the saves: the automatic outcomes the iOS app ships today.
@@ -72,8 +75,11 @@ export function Landing4CPreview({ onHowItWorks }: { onHowItWorks?: () => void }
   const pinnedFeature: FeatureKey | undefined = FEATURE_KEYS.find((key) => key === featureParam)
   const isPublicHome = window.location.pathname === '/'
   const initialFeature = pinnedFeature ?? (isPublicHome ? 'summary' : 'save')
+  const [howOpen, setHowOpen] = useState(false)
+  const openHowItWorks = onHowItWorks ?? (() => setHowOpen(true))
 
   return <div className="l4c-page">
+    {isFoundingLive() && <FoundingBar />}
     <div className="l4c-scene-outer">
       <div className="l4c-scene">
         <header className="l4c-header">
@@ -90,7 +96,7 @@ export function Landing4CPreview({ onHowItWorks }: { onHowItWorks?: () => void }
           <div className="l4c-cta">
             <div className="l4c-cta-row">
               <AppStoreBadge height={42} />
-              <a href="#how-it-works" className="l4c-secondary-cta" onClick={onHowItWorks ? (event) => { event.preventDefault(); onHowItWorks() } : undefined}>
+              <a href="#how-it-works" className="l4c-secondary-cta" onClick={(event) => { event.preventDefault(); openHowItWorks() }}>
                 <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10.4" fill="none" stroke="currentColor" strokeWidth="1.6" /><path fill="currentColor" d="M9.6 7.8v8.4l6.4-4.2z" /></svg>
                 See how it works
               </a>
@@ -191,6 +197,7 @@ export function Landing4CPreview({ onHowItWorks }: { onHowItWorks?: () => void }
     <Landing4CSections initial={initialFeature} autoplay={!pinnedFeature && !isPublicHome} />
 
     <SiteFooter />
+    {howOpen && <HowItWorksDialog onClose={() => setHowOpen(false)} />}
   </div>
 }
 

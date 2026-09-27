@@ -2,6 +2,15 @@
 // Every example is a real public link. `screen` points to a real iPhone screenshot of that link
 // saved in Sted; until it's supplied, the funnel draws the app's item screen from this data.
 
+/** Real saves fanned out under the opening statement (funnel intro, How it works). */
+export const INTRO_SAVES = [
+  '/content/landing-4c/pour-over-method.webp',
+  '/content/landing-4c/x-post-falling-into-hole.webp',
+  '/content/landing-4c/fushimi-inari-kyoto.webp',
+  '/content/real/spotify-lennys-podcast-ian-silber.jpg',
+  '/content/real/karakeep.png',
+]
+
 export const PERSONAS = [
   { id: 'developer', label: 'Developer', reply: 'A developer. I bet half your saves are repos and threads.' },
   { id: 'creator', label: 'Content creator', reply: 'A creator. Saving ideas for later is basically your job.' },

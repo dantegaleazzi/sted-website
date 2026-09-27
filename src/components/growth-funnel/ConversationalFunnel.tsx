@@ -1,13 +1,14 @@
 import { useEffect, useRef, useState, type MouseEvent, type ReactNode, type RefObject } from 'react'
 import { Landing4CPreview } from '../landing-4c/Landing4CPreview'
-import { REVENUECAT_FUNNEL_URL } from '../landing-4c/app-links'
 import '../landing-4c/landing-4c-tokens.css'
 import {
-  EVERYWHERE, NEED_COPY, NEEDS, PERSONAS, PURPOSES, SOURCES, STORAGE, examplesFor, findExample, sourceReply, storageReply,
-  togglePurpose, toggleSource, toggleStorage, type ExampleSave, type Need, type Persona, type Purpose, type Storage,
+  EVERYWHERE, INTRO_SAVES, NEED_COPY, NEEDS, PERSONAS, PURPOSES, SOURCES, STORAGE, examplesFor, findExample, sourceReply, storageReply,
+  togglePurpose, toggleSource, toggleStorage, type Need, type Persona, type Purpose, type Storage,
 } from './funnel-content'
 import { toEventRow, trackFunnelEvent, type FunnelEventName } from './funnel-events'
+import { planFunnelUrl } from './founding-offer'
 import { buildPlanUrl, loadFunnelSession, readPeriod, type FunnelAnswers } from './funnel-session'
+import { AppScreen, SourceTile } from './AppScreen'
 import './ConversationalFunnel.css'
 
 const STEPS = ['intro', 'persona', 'sources', 'storage', 'purpose', 'need', 'pick', 'result'] as const
@@ -36,48 +37,8 @@ const DESCRIPTIONS: Partial<Record<Step, string>> = {
   pick: 'Real links. This is what they look like in Sted.',
 }
 
-/** Real saves fanned out under the opening statement. */
-const INTRO_SAVES = [
-  '/content/landing-4c/pour-over-method.webp',
-  '/content/landing-4c/x-post-falling-into-hole.webp',
-  '/content/landing-4c/fushimi-inari-kyoto.webp',
-  '/content/real/spotify-lennys-podcast-ian-silber.jpg',
-  '/content/real/karakeep.png',
-]
-
 function Selection({ selected }: { selected: boolean }) {
   return <span className={`cf-selection${selected ? ' is-selected' : ''}`} aria-hidden="true">{selected ? '✓' : ''}</span>
-}
-
-function SourceTile({ source }: { source: ExampleSave['source'] }) {
-  const icon = source === 'web' ? 'web' : source
-  return <img className="cf-tile" src={`/brand/source-icons/${icon}-tile.svg`} alt="" width={20} height={20} />
-}
-
-/**
- * The app's item screen. Uses the real iPhone screenshot when there is one; until then it draws
- * the same layout (thumbnail, title, link, Summary, Key ideas, Topics) from the example data.
- */
-function AppScreen({ example }: { example: ExampleSave }) {
-  return <div className="cf-phone" role="img" aria-label={`“${example.title}” saved in the Sted app, with its summary and key ideas`}>
-    {example.screen
-      ? <img className="cf-phone-shot" src={example.screen} alt="" />
-      : <div className="cf-app" aria-hidden="true">
-        <div className="cf-app-status"><span>9:41</span><i /></div>
-        <span className="cf-app-back">‹</span>
-        <img className="cf-app-thumb" src={example.thumb} alt="" />
-        <p className="cf-app-title">{example.title}</p>
-        <p className="cf-app-link"><SourceTile source={example.source} /><span>{example.displayUrl}</span></p>
-        <p className="cf-app-meta">Today · <span>+ Topic</span> · <span>+ Project</span></p>
-        <p className="cf-app-heading">Summary</p>
-        <p className="cf-app-summary">{example.summary}</p>
-        <p className="cf-app-heading">Key ideas</p>
-        <ul className="cf-app-ideas">{example.keyIdeas.map(idea => <li key={idea}>{idea}</li>)}</ul>
-        <p className="cf-app-heading">Topics</p>
-        <p className="cf-app-topics">{example.topics.map(topic => <span key={topic}>{topic}</span>)}</p>
-        <div className="cf-app-tabs"><span>Magazine</span><span>Sted</span><span className="is-active">Library</span></div>
-      </div>}
-  </div>
 }
 
 type Review = { persona: Persona; need: Need; example: string; step: number }
@@ -112,7 +73,8 @@ export function FunnelFlow({ onClose, heading }: { onClose?: () => void; heading
   const id = STEPS[step]
   const example = findExample(persona, exampleId)
   const needCopy = NEED_COPY[need ?? 'keypoints']
-  const planUrl = REVENUECAT_FUNNEL_URL ? buildPlanUrl(REVENUECAT_FUNNEL_URL, session, answers, period) : null
+  const funnelUrl = planFunnelUrl()
+  const planUrl = funnelUrl ? buildPlanUrl(funnelUrl, session, answers, period) : null
 
   function track(event: FunnelEventName, override: Partial<FunnelAnswers> = {}) {
     const { step: atStep, answers: current } = latest.current
@@ -172,7 +134,7 @@ export function FunnelFlow({ onClose, heading }: { onClose?: () => void; heading
     if (planUrl) return
     // Misconfiguration only (REVENUECAT_FUNNEL_URL missing): never build a checkout URL by hand.
     event.preventDefault()
-    console.error('[sted funnel] REVENUECAT_FUNNEL_URL is not set; "See my plan" has nowhere to go.')
+    console.error('[sted funnel] No RevenueCat funnel URL is set; "See my plan" has nowhere to go.')
     setPlanNotice('Plans aren’t available right now. Please try again later.')
   }
 
