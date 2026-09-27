@@ -5,7 +5,8 @@
 
 .l4r-heading { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); align-items: end; gap: 48px; }
 .l4r-heading .l4s-h2 { margin-top: 20px; }
-.l4r-mark { padding: 0 .14em .02em; border-radius: .16em; background: var(--sted-yellow); -webkit-box-decoration-break: clone; box-decoration-break: clone; }
+/* Readwise-style highlighter: Sted Yellow at 60%, square-ish, behind the word */
+.l4r-mark { padding: 0 .08em; border-radius: 2px; background: color-mix(in srgb, var(--sted-yellow) 60%, transparent); -webkit-box-decoration-break: clone; box-decoration-break: clone; }
 .l4r-lede { max-width: 440px; margin: 0 0 .35em; font-size: var(--sted-text-body-lg); line-height: 1.5; color: var(--sted-text-muted); }
 
 /* Shared bits: tabular numbers and a quiet status line with a yellow "in progress" dot */

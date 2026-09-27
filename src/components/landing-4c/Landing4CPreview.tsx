@@ -2,9 +2,8 @@ import { useEffect, useState } from 'react'
 import { SourceIcon } from '../source-cards/source-icons'
 import { SiteFooter } from '../footer/SiteFooter'
 import { AppStoreBadge, FEATURE_KEYS, FeatureShowcase, Landing4CSections, SignInLink, type FeatureKey } from './Landing4CSections'
-import { FoundingBar } from './FoundingBar'
+import { HeroCta } from './HeroCta'
 import { HowItWorksDialog } from './HowItWorks'
-import { isFoundingLive } from '../growth-funnel/founding-offer'
 import './Landing4CPreview.css'
 
 /** What Sted makes out of the saves: the automatic outcomes the iOS app ships today.
@@ -79,7 +78,6 @@ export function Landing4CPreview({ onHowItWorks }: { onHowItWorks?: () => void }
   const openHowItWorks = onHowItWorks ?? (() => setHowOpen(true))
 
   return <div className="l4c-page">
-    {isFoundingLive() && <FoundingBar />}
     <div className="l4c-scene-outer">
       <div className="l4c-scene">
         <header className="l4c-header">
@@ -93,15 +91,7 @@ export function Landing4CPreview({ onHowItWorks }: { onHowItWorks?: () => void }
             <p className="l4c-formats">Save links, posts, videos, podcasts and notes.</p>
             <p className="l4c-subcopy">Sted reads and organizes what you save, so it’s actually useful.</p>
           </div>
-          <div className="l4c-cta">
-            <div className="l4c-cta-row">
-              <AppStoreBadge height={42} />
-              <a href="#how-it-works" className="l4c-secondary-cta" onClick={(event) => { event.preventDefault(); openHowItWorks() }}>
-                <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10.4" fill="none" stroke="currentColor" strokeWidth="1.6" /><path fill="currentColor" d="M9.6 7.8v8.4l6.4-4.2z" /></svg>
-                See how it works
-              </a>
-            </div>
-          </div>
+          <HeroCta onHowItWorks={openHowItWorks} />
         </div>
 
         {/* Illustration: messy input (left) flows into Sted (centre) and comes out as clear output (right).

@@ -57,7 +57,11 @@ describe('landing pricing', () => {
   it('shows the regular annual price and never the old ones', () => {
     expect(regular).toContain('$79.99')
     expect(regular).toContain('$6.67 a month')
-    expect(regular).toContain('Save 49%')
+    expect(regular).toContain('Save 49% with yearly')
+    for (const html of [regular, founding]) {
+      expect(html).toContain('>Pay monthly</button>')
+      expect(html).toContain('aria-pressed="true">Pay yearly</button>')
+    }
     for (const html of [regular, founding]) expect(html).not.toMatch(/\$10\b|\$79(?!\.99)|\$6\.58/)
   })
 
@@ -67,6 +71,8 @@ describe('landing pricing', () => {
     expect(founding).toContain('Founding price, yours for as long as you stay subscribed. Cancel anytime.')
     expect(founding).not.toContain('first year')
     expect(founding).toContain('Get Sted Pro · $19.99')
+    expect(founding).toContain('$1.67 a month')
+    expect(founding).toContain('Save up to 87% with yearly')
     expect(regular).not.toContain('$19.99')
   })
 

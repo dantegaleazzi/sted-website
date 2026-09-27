@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { APP_STORE_URL } from './app-links'
 import { CheckoutLink } from './CheckoutLink'
-import { foundingTerms, isFoundingLive } from '../growth-funnel/founding-offer'
+import { FOUNDING, foundingTerms, isFoundingLive } from '../growth-funnel/founding-offer'
 import { PLAN_CAPACITY, annualComparison, getPeriod } from '../growth-funnel/funnel-pricing'
 import { loadFunnelSession } from '../growth-funnel/funnel-session'
 import './LandingPricing.css'
@@ -41,8 +41,11 @@ export function LandingPricing({ founding = isFoundingLive() }: { founding?: boo
   // Keep the landing's UTMs in this tab's funnel session, so the checkout still gets them.
   useEffect(() => { loadFunnelSession() }, [])
   const annual = annualComparison()
-  const price = getPeriod(billing)
   const offer = foundingTerms()
+  // Monthly checks out at the regular monthly price; yearly is the founding price while it runs.
+  const plan = billing === 'monthly' ? 'monthly' : founding ? 'founding' : 'annual'
+  const twelveMonths = getPeriod('monthly').cents * 12
+  const yearlySavings = founding ? Math.round((1 - FOUNDING.cents / twelveMonths) * 100) : Math.round(annual.savingsPercent)
 
   return <section className="l4p-section l4s-section" id="pricing" aria-labelledby="l4p-title">
     <header className="l4p-heading">
@@ -52,32 +55,37 @@ export function LandingPricing({ founding = isFoundingLive() }: { founding?: boo
 
     <article className="l4p-pro" aria-labelledby="l4p-pro-title">
       <div className="l4p-pro-intro">
-        {founding && <p className="l4p-offer-tag">Founding offer · First {offer.spots} members</p>}
         <h3 id="l4p-pro-title">Sted <span>Pro</span></h3>
         <p className="l4p-pro-pitch">For people who save a lot and want all of it working for them.</p>
 
-        {founding
-          ? <p className="l4p-price">
-            <s aria-label={`Regular price ${offer.regular} a year`}>{offer.regular}</s>
-            <strong>{offer.price}</strong> / year
-            <span>{offer.renewal}</span>
-          </p>
-          : <>
-            <div className="l4p-billing" role="group" aria-label="Billing period">
-              <button type="button" aria-pressed={billing === 'monthly'} onClick={() => setBilling('monthly')}>Monthly</button>
-              <button type="button" aria-pressed={billing === 'annual'} onClick={() => setBilling('annual')}>
-                Yearly <span className="l4p-save">Save {Math.round(annual.savingsPercent)}%</span>
-              </button>
-            </div>
-            <p className="l4p-price" aria-live="polite">
-              <strong>{price.price}</strong> / {billing === 'annual' ? 'year' : 'month'}
-              <span>{billing === 'annual' ? `${annual.monthlyEquivalent} a month · Cancel anytime.` : 'Billed every month · Cancel anytime.'}</span>
-            </p>
-          </>}
+        <div className="l4p-billing-row">
+          <div className="l4p-billing" role="group" aria-label="Billing period">
+            <button type="button" aria-pressed={billing === 'monthly'} onClick={() => setBilling('monthly')}>Pay monthly</button>
+            <button type="button" aria-pressed={billing === 'annual'} onClick={() => setBilling('annual')}>Pay yearly</button>
+          </div>
+          <button type="button" className="l4p-save" onClick={() => setBilling('annual')}>
+            {founding ? `Save up to ${yearlySavings}% with yearly` : `Save ${yearlySavings}% with yearly`}
+          </button>
+        </div>
+
+        <div className="l4p-price-block" aria-live="polite">
+          {billing === 'monthly'
+            ? <p className="l4p-price"><strong>{getPeriod('monthly').price}</strong> / month<span>Billed every month · Cancel anytime.</span></p>
+            : founding
+              ? <>
+                <p className="l4p-offer-label">Founding offer · First {offer.spots} members</p>
+                <p className="l4p-price">
+                  <s aria-label={`Regular price ${offer.regular} a year`}>{offer.regular}</s>
+                  <strong>{offer.price}</strong> / year
+                  <span>{offer.monthly} a month. {offer.renewal}</span>
+                </p>
+              </>
+              : <p className="l4p-price"><strong>{getPeriod('annual').price}</strong> / year<span>{annual.monthlyEquivalent} a month · Cancel anytime.</span></p>}
+        </div>
 
         <div className="l4p-cta-row">
-          <CheckoutLink plan={founding ? 'founding' : billing} source="pricing" className="l4p-cta" noticeClassName="l4p-notice">
-            {founding ? `Get Sted Pro · ${offer.price}` : 'Get Sted Pro'} <span aria-hidden="true">→</span>
+          <CheckoutLink plan={plan} source="pricing" className="l4p-cta" noticeClassName="l4p-notice">
+            {plan === 'founding' ? `Get Sted Pro · ${offer.price}` : 'Get Sted Pro'} <span aria-hidden="true">→</span>
           </CheckoutLink>
           <img className="l4p-mascot" src="/sted-mascot.svg" alt="" width={64} height={79} />
         </div>

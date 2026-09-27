@@ -16,7 +16,8 @@
 .l4p-pro h3 span { padding: .08em .22em .1em; border-radius: .2em; background: var(--sted-yellow); font-size: .62em; letter-spacing: -.02em; }
 .l4p-pro-pitch { max-width: 380px; margin: 18px 0 0; font-size: var(--sted-text-body-lg); line-height: 1.5; color: var(--sted-text-muted); }
 
-.l4p-billing { display: inline-flex; gap: 4px; margin-top: 32px; padding: 4px; border-radius: var(--sted-radius-pill); background: var(--sted-cream); }
+.l4p-billing-row { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 18px; margin-top: 32px; }
+.l4p-billing { display: inline-flex; gap: 4px; margin-top: 0; padding: 4px; border-radius: var(--sted-radius-pill); background: var(--sted-cream); }
 .l4p-billing button {
   display: inline-flex; align-items: center; gap: 8px; min-height: 36px; padding: 0 16px; border: 0; border-radius: var(--sted-radius-pill);
   background: transparent; color: var(--sted-text-muted); font: inherit; font-size: var(--sted-text-label); font-weight: var(--sted-weight-medium); cursor: pointer;
@@ -24,8 +25,12 @@
 }
 .l4p-billing button[aria-pressed=true] { background: var(--sted-white); color: var(--sted-ink); box-shadow: var(--sted-shadow-subtle); }
 .l4p-billing button:focus-visible { outline: 2px solid var(--sted-focus); outline-offset: 2px; }
-.l4p-save { font-size: var(--sted-text-meta); color: var(--sted-ink); }
-.l4p-save::before { content: ''; display: inline-block; width: 6px; height: 6px; margin: 0 6px 1px 0; border-radius: 50%; background: var(--sted-yellow); }
+.l4p-save { padding: 6px 0; border: 0; background: none; font: inherit; font-size: var(--sted-text-label); font-weight: var(--sted-weight-semibold); color: var(--sted-ink); cursor: pointer; text-decoration: underline; text-decoration-color: var(--sted-yellow); text-decoration-thickness: 2px; text-underline-offset: 4px; }
+.l4p-save:focus-visible { outline: 2px solid var(--sted-focus); outline-offset: 2px; border-radius: 4px; }
+.l4p-price-block { min-height: 112px; margin-top: 22px; }
+.l4p-price-block .l4p-price { margin-top: 0; }
+.l4p-offer-label { display: flex; align-items: center; gap: 8px; margin: 0 0 10px; font-size: var(--sted-text-label); font-weight: var(--sted-weight-semibold); }
+.l4p-offer-label::before { content: ''; width: 7px; height: 7px; border-radius: 50%; background: var(--sted-yellow); box-shadow: 0 0 0 3px color-mix(in srgb, var(--sted-yellow) 30%, transparent); }
 
 .l4p-price { display: flex; flex-wrap: wrap; align-items: baseline; column-gap: 6px; margin: 20px 0 0; font-size: var(--sted-text-body); color: var(--sted-text-muted); }
 .l4p-price strong { font-size: 48px; line-height: 1; font-weight: var(--sted-weight-semibold); letter-spacing: -.04em; color: var(--sted-ink); }
@@ -44,8 +49,6 @@
 .l4p-mascot { width: 64px; height: auto; margin-bottom: 4px; transform: rotate(-4deg); }
 
 /* Founding offer: a small tag above the name and the regular price struck through next to it */
-.l4p-offer-tag { display: inline-flex; align-items: center; gap: 8px; margin: 0 0 18px; padding: 6px 12px; border-radius: var(--sted-radius-pill); background: var(--sted-ink); color: var(--sted-white); font-size: var(--sted-text-meta); font-weight: var(--sted-weight-semibold); }
-.l4p-offer-tag::before { content: ''; width: 7px; height: 7px; border-radius: 50%; background: var(--sted-yellow); }
 .l4p-price s { font-size: 24px; color: var(--sted-text-muted); text-decoration-thickness: 2px; margin-right: 4px; }
 .l4p-notice { margin: 12px 0 0; max-width: 380px; font-size: var(--sted-text-meta); line-height: 1.5; color: var(--sted-text-muted); }
 .l4p-fine { max-width: 400px; line-height: 1.5; }
@@ -85,7 +88,7 @@
   .l4p-pro { padding: 28px 20px; gap: 32px; border-radius: var(--sted-radius-2xl); }
   .l4p-pro h3 { font-size: 52px; }
   .l4p-pro-pitch { font-size: 17px; }
-  .l4p-billing { margin-top: 24px; }
+  .l4p-billing-row { margin-top: 24px; }
   .l4p-price strong { font-size: 40px; }
   .l4p-cta-row { margin-top: 22px; gap: 12px; }
   .l4p-cta { padding: 0 20px; gap: 10px; font-size: 16px; white-space: nowrap; }

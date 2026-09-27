@@ -13,7 +13,8 @@ export const FOUNDING = { cents: 1999, spots: 100 } as const
 export function foundingTerms() {
   const regular = getPeriod('annual').price
   const price = formatPrice(FOUNDING.cents)
-  return { price, regular, spots: FOUNDING.spots, renewal: 'Founding price, yours for as long as you stay subscribed. Cancel anytime.' }
+  const monthly = formatPrice(Math.round(FOUNDING.cents / 12))
+  return { price, regular, monthly, spots: FOUNDING.spots, renewal: 'Founding price, yours for as long as you stay subscribed. Cancel anytime.' }
 }
 
 type OfferEnv = { funnelUrl: string | null; review: boolean }

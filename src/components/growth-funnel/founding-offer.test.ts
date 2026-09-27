@@ -8,7 +8,7 @@ const session = { id: '00000000-0000-4000-8000-000000000003', utm: { utm_source:
 
 describe('founding offer', () => {
   it('is $19.99 a year, locked in, against the regular $79.99', () => {
-    expect(foundingTerms()).toEqual({ price: '$19.99', regular: '$79.99', spots: 100, renewal: 'Founding price, yours for as long as you stay subscribed. Cancel anytime.' })
+    expect(foundingTerms()).toEqual({ price: '$19.99', regular: '$79.99', monthly: '$1.67', spots: 100, renewal: 'Founding price, yours for as long as you stay subscribed. Cancel anytime.' })
   })
 
   it('only goes live in production once its RevenueCat funnel exists', () => {
