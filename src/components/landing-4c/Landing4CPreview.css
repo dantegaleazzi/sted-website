@@ -77,7 +77,8 @@
 }
 /* Title: two sentences, black type, "save" and "useful" on a yellow highlight (54px = 72px minus a quarter). */
 .l4c-copy h1 { margin: 0; font-size: 54px; font-weight: var(--sted-weight-semibold); letter-spacing: var(--sted-tracking-heading); line-height: 1.08; color: var(--sted-ink); }
-.l4c-hl { padding: 0 .1em; margin: 0 -.02em; border-radius: 6px; background: color-mix(in srgb, var(--sted-yellow) 70%, transparent); color: inherit; -webkit-box-decoration-break: clone; box-decoration-break: clone; }
+/* Marker highlight: a tight box from just under the baseline to the cap height, not the whole line box. */
+.l4c-hl { display: inline-block; line-height: .78; padding: .05em .1em .09em; margin: 0 -.02em; border-radius: .16em; background: color-mix(in srgb, var(--sted-yellow) 70%, transparent); color: inherit; }
 .l4c-subcopy { margin: 0; max-width: 600px; font-size: 18px; font-weight: var(--sted-weight-regular); line-height: 1.5; color: var(--sted-text-muted); }
 /* The kind of save rotates in place; the sentence reflows by a few px, which reads as intended. */
 .l4c-rotate { display: inline-block; font-weight: var(--sted-weight-semibold); color: var(--sted-ink); }
@@ -130,7 +131,7 @@
 .l4c-card-coffee { left: 36px; top: 300px; width: 180px; transform: rotate(-3deg); }
 .l4c-card-post { left: 270px; top: 262px; width: 180px; transform: rotate(2deg); --l4c-tilt: 2deg; z-index: 4; }
 .l4c-card-kyoto { left: 64px; top: 528px; width: 180px; transform: rotate(-2deg); z-index: 4; }
-.l4c-card-podcast { left: 300px; top: 452px; width: 232px; transform: rotate(3deg); --l4c-tilt: 3deg; }
+.l4c-card-podcast { left: 306px; top: 482px; width: 232px; transform: rotate(3deg); --l4c-tilt: 3deg; }
 .l4c-story-head { display: flex; align-items: flex-start; gap: 12px; }
 .l4c-story-cover { width: 46px; height: 46px; border-radius: 10px; display: block; flex: none; }
 .l4c-story-text { flex: 1; display: flex; flex-direction: column; gap: 3px; min-width: 0; }

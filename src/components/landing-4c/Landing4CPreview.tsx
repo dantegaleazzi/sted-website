@@ -50,7 +50,7 @@ export function Landing4CPreview({ onHowItWorks }: { onHowItWorks?: () => void }
         </header>
 
         <div className="l4c-copy">
-          <h1>Everything you <mark className="l4c-hl">save</mark>.{' '}<br />Finally <mark className="l4c-hl">useful</mark>.</h1>
+          <h1>Everything you <mark className="l4c-hl">save</mark>{' '}<br />Finally <mark className="l4c-hl">useful</mark></h1>
           <p className="l4c-subcopy">Sted reads every <RotatingWord /> you save and turns it into something useful.</p>
           <HeroCta onHowItWorks={openHowItWorks} />
         </div>
