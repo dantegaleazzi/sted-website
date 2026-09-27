@@ -1,7 +1,7 @@
 import { APP_STORE_URL } from './app-links'
 import { CheckoutLink } from './CheckoutLink'
 import { AppStoreBadge } from './Landing4CSections'
-import { isSoldOut, spotsLeft, useFoundingSpots } from './useFoundingSpots'
+import { foundingSpotsLabel, isSoldOut, useFoundingSpots } from './useFoundingSpots'
 import { foundingTerms, isFoundingLive } from '../growth-funnel/founding-offer'
 
 function HowItWorksLink({ onClick }: { onClick: () => void }) {
@@ -12,9 +12,9 @@ function HowItWorksLink({ onClick }: { onClick: () => void }) {
 }
 
 /**
- * Hero CTAs, Vitals-style: while the founding offer runs (and spots are left), the price is the
- * primary button and the real spot count sits under it, with free one tap away. Otherwise, the
- * App Store badge.
+ * Hero CTAs: while the founding offer runs (and spots are left), the price is the primary button
+ * and one quiet line under it says how many founding spots there are, with free one tap away.
+ * Otherwise, the App Store badge.
  */
 export function HeroCta({ onHowItWorks, founding = isFoundingLive() }: { onHowItWorks: () => void; founding?: boolean }) {
   const spots = useFoundingSpots()
@@ -26,16 +26,14 @@ export function HeroCta({ onHowItWorks, founding = isFoundingLive() }: { onHowIt
   return <div className="l4c-cta">
     <div className="l4c-cta-row">
       <CheckoutLink plan="founding" source="hero" className="l4c-primary-cta" noticeClassName="l4c-cta-notice">
-        <span className="l4c-cta-label">Get Sted Pro · <s aria-label={`Regular price ${offer.regular}`}>{offer.regular}</s> {offer.price}</span>
+        <span className="l4c-cta-label">Sted Pro · {offer.price}/year</span>
         <span className="l4c-cta-arrow" aria-hidden="true">→</span>
       </CheckoutLink>
       <HowItWorksLink onClick={onHowItWorks} />
     </div>
     <p className="l4c-offer-line">
       <span className="l4c-offer-dot" aria-hidden="true" />
-      <strong>{spotsLeft(spots)}</strong> at the founding price
-      <span className="l4c-offer-sep" aria-hidden="true">·</span>
-      Cancel anytime
+      <strong>{foundingSpotsLabel(spots)}</strong>
       <span className="l4c-offer-sep" aria-hidden="true">·</span>
       <a href={APP_STORE_URL ?? '#'}>or get Sted free</a>
     </p>

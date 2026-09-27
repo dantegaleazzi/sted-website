@@ -10,8 +10,10 @@ describe('hero CTAs', () => {
   it('leads with the founding price while the offer runs, with free one tap away', () => {
     const html = render(true)
     expect(html).toContain('class="l4c-primary-cta"')
-    expect(html).toMatch(/Get Sted Pro · <s[^>]*>\$79\.99<\/s> \$19\.99/)
-    expect(html).toMatch(/<strong>(\d+ of 100 left|First 100 members)<\/strong> at the founding price/)
+    expect(html).toContain('Sted Pro · $19.99/year')
+    expect(html).not.toContain('$79.99')
+    expect(html).toMatch(/<strong>(100 founding spots|\d+ founding spots left)<\/strong>/)
+    expect(html).not.toContain('Cancel anytime')
     expect(html).toContain(`href="${APP_STORE_URL}">or get Sted free</a>`)
     expect(html).toContain('See how it works')
   })

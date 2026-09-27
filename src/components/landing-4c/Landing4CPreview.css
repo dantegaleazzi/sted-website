@@ -75,13 +75,15 @@
   text-align: center;
   gap: 20px;
 }
-.l4c-copy h1 { margin: 0; font-size: 72px; font-weight: var(--sted-weight-semibold); letter-spacing: var(--sted-tracking-heading); line-height: 1.02; }
-.l4c-yellow { color: var(--sted-yellow); }
-.l4c-copy-text { display: flex; flex-direction: column; gap: 4px; max-width: 600px; }
-.l4c-formats { color: var(--sted-ink); }
-.l4c-formats { margin: 0; font-size: 18px; font-weight: var(--sted-weight-semibold); letter-spacing: -0.01em; line-height: 1.4; color: var(--sted-ink); }
-.l4c-mark { padding: 0 .1em; border-radius: 2px; background: color-mix(in srgb, var(--sted-yellow) 60%, transparent); color: var(--sted-ink); }
-.l4c-subcopy { margin: 0; font-size: 16px; font-weight: var(--sted-weight-regular); line-height: 1.55; color: var(--sted-text-muted); }
+/* Title: two sentences, black type, "save" and "useful" on a yellow highlight (54px = 72px minus a quarter). */
+.l4c-copy h1 { margin: 0; font-size: 54px; font-weight: var(--sted-weight-semibold); letter-spacing: var(--sted-tracking-heading); line-height: 1.08; color: var(--sted-ink); }
+.l4c-hl { padding: 0 .1em; margin: 0 -.02em; border-radius: 6px; background: color-mix(in srgb, var(--sted-yellow) 70%, transparent); color: inherit; -webkit-box-decoration-break: clone; box-decoration-break: clone; }
+.l4c-subcopy { margin: 0; max-width: 600px; font-size: 18px; font-weight: var(--sted-weight-regular); line-height: 1.5; color: var(--sted-text-muted); }
+/* The kind of save rotates in place; the sentence reflows by a few px, which reads as intended. */
+.l4c-rotate { display: inline-block; font-weight: var(--sted-weight-semibold); color: var(--sted-ink); }
+.l4c-rotate-word { display: inline-block; animation: l4c-word-in .38s var(--sted-ease-standard) both; }
+@keyframes l4c-word-in { from { opacity: 0; transform: translateY(.4em); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) { .l4c-rotate-word { animation: none; } }
 .l4c-cta { display: flex; flex-direction: column; align-items: center; gap: 10px; margin-top: 2px; }
 .l4c-cta-row { display: flex; align-items: center; gap: 20px; }
 .l4c-secondary-cta { font-size: 14px; font-weight: var(--sted-weight-medium); color: var(--sted-text-muted); display: flex; align-items: center; gap: 8px; white-space: nowrap; }
@@ -181,10 +183,8 @@
   .l4c-copy { padding: 28px 20px 0; gap: 24px; max-width: 560px; align-items: flex-start; text-align: left; }
   .l4c-copy h1 br { display: none; }
   .l4c-cta { align-items: flex-start; }
-  .l4c-copy h1 { font-size: var(--sted-text-display); line-height: var(--sted-leading-heading); }
-  .l4c-formats { font-size: 18px; }
-  .l4c-subcopy { font-size: var(--sted-text-body-lg); line-height: 1.6; }
-  .l4c-copy-text { max-width: none; }
+  .l4c-copy h1 { font-size: clamp(34px, 1.8vw + 28px, 54px); line-height: var(--sted-leading-heading); }
+  .l4c-subcopy { max-width: none; font-size: var(--sted-text-body-lg); line-height: 1.6; }
   .l4c-cta-row { flex-wrap: wrap; gap: 16px 22px; }
   .l4c-cta-row .l4s-appstore img { height: 56px !important; }
   .l4c-cta-row { justify-content: flex-start; }

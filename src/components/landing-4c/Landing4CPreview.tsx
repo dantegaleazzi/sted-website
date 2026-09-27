@@ -3,6 +3,7 @@ import { SourceIcon } from '../source-cards/source-icons'
 import { SiteFooter } from '../footer/SiteFooter'
 import { AppStoreBadge, FEATURE_KEYS, FeatureShowcase, Landing4CSections, SignInLink, type FeatureKey } from './Landing4CSections'
 import { HeroCta } from './HeroCta'
+import { RotatingWord } from './RotatingWord'
 import { OutputDemo } from './OutputDemo'
 import { HowItWorksDialog } from './HowItWorks'
 import './Landing4CPreview.css'
@@ -49,11 +50,8 @@ export function Landing4CPreview({ onHowItWorks }: { onHowItWorks?: () => void }
         </header>
 
         <div className="l4c-copy">
-          <h1>Everything you save.<br /><span className="l4c-yellow">Finally useful.</span></h1>
-          <div className="l4c-copy-text">
-            <p className="l4c-formats">Save links, posts, videos, podcasts and notes.</p>
-            <p className="l4c-subcopy">Sted <mark className="l4c-mark">reads and organizes</mark> what you save, so it’s actually useful.</p>
-          </div>
+          <h1>Everything you <mark className="l4c-hl">save</mark>.{' '}<br />Finally <mark className="l4c-hl">useful</mark>.</h1>
+          <p className="l4c-subcopy">Sted reads every <RotatingWord /> you save and turns it into something useful.</p>
           <HeroCta onHowItWorks={openHowItWorks} />
         </div>
 
