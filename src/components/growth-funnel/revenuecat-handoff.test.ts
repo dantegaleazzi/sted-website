@@ -66,7 +66,7 @@ describe('landing pricing', () => {
   })
 
   it('shows the founding offer against the regular price, with its renewal', () => {
-    expect(founding).toContain('Founding offer · First 100 members')
+    expect(founding).toMatch(/Founding offer · (\d+ of 100 left|First 100 members)/)
     expect(founding).toMatch(/<s[^>]*>\$79\.99<\/s><strong>\$19\.99<\/strong> \/ year/)
     expect(founding).toContain('Founding price, yours for as long as you stay subscribed. Cancel anytime.')
     expect(founding).not.toContain('first year')
@@ -78,7 +78,8 @@ describe('landing pricing', () => {
 
   it('compares Free and Pro, marks chat as not live yet and points to the roadmap', () => {
     for (const html of [regular, founding]) {
-      expect(html).toContain('<th scope="col">Free</th><th scope="col">Pro</th>')
+      expect(html).toContain('Free <span class="l4p-period">(yearly)</span>')
+      expect(html).toContain('Pro <span class="l4p-period">(yearly)</span><span class="l4p-multiplier">20× more usage</span>')
       expect(html).toContain('Chat with your saved items<span class="l4p-soon">Soon</span>')
       expect(html).toContain('href="#roadmap"')
       expect(html).toContain(REDEEM_NOTE)

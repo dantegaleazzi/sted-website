@@ -7,8 +7,8 @@ export type Volume = 'light' | 'daily' | 'heavy' | 'unsure'
 export type Habit = 'forget' | 'find' | 'organized' | 'new'
 
 export const PLAN_CAPACITY = {
-  free: { saves: 1000, aiSavesPerMonth: 100, chatMessagesPerMonth: 25 },
-  pro: { saves: null, aiSavesPerMonth: 1000, chatMessagesPerMonth: 500 },
+  free: { saves: 1000, aiSavesPerMonth: 30, chatCreditsPerMonth: 25 },
+  pro: { saves: null, aiSavesPerMonth: 1000, chatCreditsPerMonth: 500 },
 } as const
 
 export const PACKAGE_EXPECTED: Record<Period, string> = {

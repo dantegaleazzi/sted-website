@@ -1,6 +1,7 @@
 import { APP_STORE_URL } from './app-links'
 import { CheckoutLink } from './CheckoutLink'
 import { AppStoreBadge } from './Landing4CSections'
+import { isSoldOut, spotsLeft, useFoundingSpots } from './useFoundingSpots'
 import { foundingTerms, isFoundingLive } from '../growth-funnel/founding-offer'
 
 function HowItWorksLink({ onClick }: { onClick: () => void }) {
@@ -11,11 +12,13 @@ function HowItWorksLink({ onClick }: { onClick: () => void }) {
 }
 
 /**
- * Hero CTAs, Vitals-style: while the founding offer runs, the price is the primary button and the
- * offer is one quiet line under it (free stays one tap away). Otherwise, the App Store badge.
+ * Hero CTAs, Vitals-style: while the founding offer runs (and spots are left), the price is the
+ * primary button and the real spot count sits under it, with free one tap away. Otherwise, the
+ * App Store badge.
  */
 export function HeroCta({ onHowItWorks, founding = isFoundingLive() }: { onHowItWorks: () => void; founding?: boolean }) {
-  if (!founding) return <div className="l4c-cta">
+  const spots = useFoundingSpots()
+  if (!founding || isSoldOut(spots)) return <div className="l4c-cta">
     <div className="l4c-cta-row"><AppStoreBadge height={42} /><HowItWorksLink onClick={onHowItWorks} /></div>
   </div>
 
@@ -23,13 +26,16 @@ export function HeroCta({ onHowItWorks, founding = isFoundingLive() }: { onHowIt
   return <div className="l4c-cta">
     <div className="l4c-cta-row">
       <CheckoutLink plan="founding" source="hero" className="l4c-primary-cta" noticeClassName="l4c-cta-notice">
-        Get Sted Pro · {offer.price}<span aria-hidden="true">→</span>
+        <span className="l4c-cta-label">Get Sted Pro · <s aria-label={`Regular price ${offer.regular}`}>{offer.regular}</s> {offer.price}</span>
+        <span className="l4c-cta-arrow" aria-hidden="true">→</span>
       </CheckoutLink>
       <HowItWorksLink onClick={onHowItWorks} />
     </div>
     <p className="l4c-offer-line">
       <span className="l4c-offer-dot" aria-hidden="true" />
-      Founding offer: <s aria-label={`Regular price ${offer.regular} a year`}>{offer.regular}</s> <strong>{offer.price}/year</strong> for the first {offer.spots} members
+      <strong>{spotsLeft(spots)}</strong> at the founding price
+      <span className="l4c-offer-sep" aria-hidden="true">·</span>
+      Cancel anytime
       <span className="l4c-offer-sep" aria-hidden="true">·</span>
       <a href={APP_STORE_URL ?? '#'}>or get Sted free</a>
     </p>

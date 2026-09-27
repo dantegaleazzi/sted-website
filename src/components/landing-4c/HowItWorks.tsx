@@ -155,7 +155,7 @@ export function HowItWorksDialog({ onClose, founding = isFoundingLive() }: { onC
               ? <><s aria-label={`Regular price ${offer.regular} a year`}>{offer.regular}</s> <strong>{offer.price}</strong> a year. {offer.renewal} First {offer.spots} members only, and you’re helping build what’s next.</>
               : <><strong>{getPeriod('annual').price}</strong> a year, or {getPeriod('monthly').price} a month. Cancel anytime.</>}
           </p>
-          <ComparisonTable className="hw-compare" />
+          <ComparisonTable billing="annual" className="hw-compare" />
         </>}
       </div>
     </div>

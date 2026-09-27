@@ -59,6 +59,9 @@
 .l4p-compare th, .l4p-compare td { padding: 16px 12px; border-bottom: 1px solid var(--sted-ink-hairline); text-align: left; vertical-align: top; }
 .l4p-compare thead th { padding-top: 0; font-size: var(--sted-text-label); font-weight: var(--sted-weight-semibold); color: var(--sted-text-muted); }
 .l4p-compare thead th:last-child { color: var(--sted-ink); }
+.l4p-period { font-weight: var(--sted-weight-regular); color: var(--sted-text-muted); }
+.l4p-multiplier { display: table; margin-top: 6px; padding: 3px 9px; border-radius: var(--sted-radius-pill); background: var(--sted-yellow); color: var(--sted-ink); font-size: 11px; font-weight: var(--sted-weight-semibold); letter-spacing: .01em; }
+.l4p-compare td small { display: block; margin-top: 4px; font-size: var(--sted-text-meta); font-weight: var(--sted-weight-regular); color: var(--sted-text-muted); }
 .l4p-compare tbody th { padding-left: 0; font-weight: var(--sted-weight-medium); }
 .l4p-compare tbody th small { display: block; margin-top: 4px; font-size: var(--sted-text-meta); font-weight: var(--sted-weight-regular); color: var(--sted-text-muted); }
 .l4p-compare td { color: var(--sted-text-muted); white-space: nowrap; }

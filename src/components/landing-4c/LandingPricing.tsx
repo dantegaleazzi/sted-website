@@ -1,43 +1,68 @@
 import { useEffect, useState } from 'react'
 import { APP_STORE_URL } from './app-links'
 import { CheckoutLink } from './CheckoutLink'
+import { isSoldOut, spotsLeft, useFoundingSpots } from './useFoundingSpots'
 import { FOUNDING, foundingTerms, isFoundingLive } from '../growth-funnel/founding-offer'
 import { PLAN_CAPACITY, annualComparison, getPeriod } from '../growth-funnel/funnel-pricing'
 import { loadFunnelSession } from '../growth-funnel/funnel-session'
 import './LandingPricing.css'
 
 const n = (value: number) => value.toLocaleString('en-US')
-type Billing = 'annual' | 'monthly'
+export type Billing = 'annual' | 'monthly'
 
 export const REDEEM_NOTE = 'After checkout, open the confirmation email on your iPhone, download Sted and tap Redeem to unlock Pro.'
 
 const free = PLAN_CAPACITY.free
 const pro = PLAN_CAPACITY.pro
 
-/** Free vs Pro, row by row. "Soon" marks a feature that isn't live yet. */
-export const COMPARISON: { feature: string; detail?: string; soon?: boolean; free: string; pro: string }[] = [
-  { feature: 'Saves', free: n(free.saves), pro: 'Unlimited' },
-  { feature: 'Saves Sted reads for you', detail: 'Summary, key ideas and topics', free: `${n(free.aiSavesPerMonth)} a month`, pro: `${n(pro.aiSavesPerMonth)} a month` },
-  { feature: 'Search your whole library', free: '✓', pro: '✓' },
-  { feature: 'Chat with your saved items', soon: true, free: `${n(free.chatMessagesPerMonth)} messages a month`, pro: `${n(pro.chatMessagesPerMonth)} messages a month` },
-]
+/** How much more Pro gives than Free on its tightest limit, rounded down to a multiple of ten. */
+export const PRO_MULTIPLIER = Math.floor(Math.min(pro.aiSavesPerMonth / free.aiSavesPerMonth, pro.chatCreditsPerMonth / free.chatCreditsPerMonth) / 10) * 10
 
-export function ComparisonTable({ className = '' }: { className?: string }) {
+type Row = { feature: string; detail?: string; soon?: boolean; free: string; pro: string; freeNote?: string; proNote?: string }
+
+/** A monthly limit, shown per month or, for yearly, as the year's total with the monthly figure under it. */
+function usage(perMonth: number, billing: Billing, unit = '') {
+  const label = unit ? ` ${unit}` : ''
+  return billing === 'monthly'
+    ? { value: `${n(perMonth)}${label} a month` }
+    : { value: `${n(perMonth * 12)}${label} a year`, note: `${n(perMonth)} a month` }
+}
+
+/** Free vs Pro, row by row, for the billing period picked above. "Soon" marks a feature that isn't live yet. */
+export function comparison(billing: Billing): Row[] {
+  const reads = [usage(free.aiSavesPerMonth, billing), usage(pro.aiSavesPerMonth, billing)]
+  const chat = [usage(free.chatCreditsPerMonth, billing, 'credits'), usage(pro.chatCreditsPerMonth, billing, 'credits')]
+  return [
+    { feature: 'Saves', free: `Up to ${n(free.saves)}`, pro: 'Unlimited' },
+    { feature: 'Saves Sted reads for you', detail: 'Summary, key ideas and topics', free: reads[0].value, freeNote: reads[0].note, pro: reads[1].value, proNote: reads[1].note },
+    { feature: 'Search your whole library', free: '✓', pro: '✓' },
+    { feature: 'Chat with your saved items', soon: true, free: chat[0].value, freeNote: chat[0].note, pro: chat[1].value, proNote: chat[1].note },
+  ]
+}
+
+export function ComparisonTable({ billing, className = '' }: { billing: Billing; className?: string }) {
+  const period = billing === 'monthly' ? 'monthly' : 'yearly'
   return <table className={`l4p-compare ${className}`}>
-    <thead><tr><th scope="col"><span className="l4p-sr">Feature</span></th><th scope="col">Free</th><th scope="col">Pro</th></tr></thead>
+    <thead><tr>
+      <th scope="col"><span className="l4p-sr">Feature</span></th>
+      <th scope="col">Free <span className="l4p-period">({period})</span></th>
+      <th scope="col">Pro <span className="l4p-period">({period})</span><span className="l4p-multiplier">{PRO_MULTIPLIER}× more usage</span></th>
+    </tr></thead>
     <tbody>
-      {COMPARISON.map(row => <tr key={row.feature}>
+      {comparison(billing).map(row => <tr key={row.feature}>
         <th scope="row">{row.feature}{row.soon && <span className="l4p-soon">Soon</span>}{row.detail && <small>{row.detail}</small>}</th>
-        <td>{row.free}</td>
-        <td>{row.pro}</td>
+        <td>{row.free}{row.freeNote && <small>{row.freeNote}</small>}</td>
+        <td>{row.pro}{row.proNote && <small>{row.proNote}</small>}</td>
       </tr>)}
     </tbody>
   </table>
 }
 
 /** Sted Pro as the full Sted: the founding offer while it runs, Free vs Pro, and Free once at the end. */
-export function LandingPricing({ founding = isFoundingLive() }: { founding?: boolean }) {
+export function LandingPricing({ founding: offered = isFoundingLive() }: { founding?: boolean }) {
   const [billing, setBilling] = useState<Billing>('annual')
+  const spots = useFoundingSpots()
+  const founding = offered && !isSoldOut(spots)
   // Keep the landing's UTMs in this tab's funnel session, so the checkout still gets them.
   useEffect(() => { loadFunnelSession() }, [])
   const annual = annualComparison()
@@ -73,7 +98,7 @@ export function LandingPricing({ founding = isFoundingLive() }: { founding?: boo
             ? <p className="l4p-price"><strong>{getPeriod('monthly').price}</strong> / month<span>Billed every month · Cancel anytime.</span></p>
             : founding
               ? <>
-                <p className="l4p-offer-label">Founding offer · First {offer.spots} members</p>
+                <p className="l4p-offer-label">Founding offer · {spotsLeft(spots)}</p>
                 <p className="l4p-price">
                   <s aria-label={`Regular price ${offer.regular} a year`}>{offer.regular}</s>
                   <strong>{offer.price}</strong> / year
@@ -93,7 +118,7 @@ export function LandingPricing({ founding = isFoundingLive() }: { founding?: boo
       </div>
 
       <div className="l4p-side">
-        <ComparisonTable />
+        <ComparisonTable billing={billing} />
         <p className="l4p-build">
           <strong>{founding ? 'As a founding member, you’re helping build Sted.' : 'Every plan helps build what’s next.'}</strong>
           {' '}Chat on iOS, browser extensions and Android are on the way. <a href="#roadmap">Check the roadmap →</a>

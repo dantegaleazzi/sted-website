@@ -34,3 +34,25 @@ describe('SEO routes before redirects and SPA fallback', () => {
     expect(bindings.ASSETS.fetch).toHaveBeenCalledOnce()
   })
 })
+
+describe('founding spots', () => {
+  it('is off (503) until the Stripe key and price are configured', async () => {
+    const response = await worker.fetch(new Request('https://www.sted.ai/api/founding-spots'), env())
+    expect(response.status).toBe(503)
+  })
+
+  it('counts founding subscriptions that went through, never above 100', async () => {
+    const stripe = vi.fn(async () => new Response(JSON.stringify({ has_more: false, data: [{ status: 'active' }, { status: 'canceled' }, { status: 'incomplete' }, { status: 'incomplete_expired' }, { status: 'past_due' }] })))
+    vi.stubGlobal('fetch', stripe)
+    try {
+      const response = await worker.fetch(new Request('https://www.sted.ai/api/founding-spots'), { ...env(), STRIPE_FOUNDING_KEY: 'rk_test', FOUNDING_PRICE_ID: 'price_founding' })
+      expect(await response.json()).toEqual({ ok: true, total: 100, claimed: 3 })
+      expect(stripe).toHaveBeenCalledWith('https://api.stripe.com/v1/subscriptions?price=price_founding&status=all&limit=100', { headers: { Authorization: 'Bearer rk_test' } })
+      stripe.mockResolvedValueOnce(new Response(JSON.stringify({ has_more: true, data: [] })))
+      const full = await worker.fetch(new Request('https://www.sted.ai/api/founding-spots'), { ...env(), STRIPE_FOUNDING_KEY: 'rk_test', FOUNDING_PRICE_ID: 'price_founding' })
+      expect(await full.json()).toEqual({ ok: true, total: 100, claimed: 100 })
+    } finally {
+      vi.unstubAllGlobals()
+    }
+  })
+})

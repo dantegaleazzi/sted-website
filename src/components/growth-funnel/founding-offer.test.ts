@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import { FOUNDING_FUNNEL_URL, REVENUECAT_FUNNEL_URL } from '../landing-4c/app-links'
-import { COMPARISON } from '../landing-4c/LandingPricing'
+import { PRO_MULTIPLIER, comparison } from '../landing-4c/LandingPricing'
 import { ROADMAP } from '../landing-4c/roadmap'
 import { checkoutUrl, foundingTerms, isFoundingLive, planFunnelUrl } from './founding-offer'
 
@@ -40,7 +40,22 @@ describe('direct checkout from the landing', () => {
 
 describe('what the landing promises', () => {
   it('marks chat as not live yet in Free vs Pro', () => {
-    expect(COMPARISON.find(row => row.feature === 'Chat with your saved items')?.soon).toBe(true)
+    expect(comparison('monthly').find(row => row.feature === 'Chat with your saved items')?.soon).toBe(true)
+  })
+
+  it('shows Free vs Pro per month, or per year with the monthly figure under it', () => {
+    const pick = (rows: ReturnType<typeof comparison>, feature: string) => rows.find(row => row.feature === feature)!
+    const monthly = comparison('monthly')
+    expect(pick(monthly, 'Saves Sted reads for you')).toMatchObject({ free: '30 a month', pro: '1,000 a month' })
+    expect(pick(monthly, 'Chat with your saved items')).toMatchObject({ free: '25 credits a month', pro: '500 credits a month' })
+    const yearly = comparison('annual')
+    expect(pick(yearly, 'Saves Sted reads for you')).toMatchObject({ free: '360 a year', freeNote: '30 a month', pro: '12,000 a year', proNote: '1,000 a month' })
+    expect(pick(yearly, 'Chat with your saved items')).toMatchObject({ free: '300 credits a year', pro: '6,000 credits a year' })
+    expect(pick(yearly, 'Saves')).toMatchObject({ free: 'Up to 1,000', pro: 'Unlimited' })
+  })
+
+  it('claims Pro usage from the tightest limit (chat 500 vs 25 = 20×)', () => {
+    expect(PRO_MULTIPLIER).toBe(20)
   })
 
   it('lists the roadmap Dante approved', () => {

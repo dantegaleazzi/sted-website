@@ -20,6 +20,10 @@ interface Env {
     fetch(request: Request): Promise<Response>
   }
   RESEND_API_KEY: string
+  /** Restricted Stripe key, Subscriptions: Read only. Secret. */
+  STRIPE_FOUNDING_KEY?: string
+  /** Stripe price ID of the founding offer ($19.99/year). */
+  FOUNDING_PRICE_ID?: string
 }
 
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
@@ -72,6 +76,34 @@ async function handleSupportRequest(request: Request, env: Env): Promise<Respons
   return jsonResponse({ ok: true }, 200)
 }
 
+export const FOUNDING_SPOTS = 100
+const FOUNDING_CACHE_KEY = 'https://www.sted.ai/api/founding-spots'
+
+/**
+ * How many founding spots are taken: Stripe subscriptions on the founding price that went through
+ * (everything except incomplete checkouts). Cached for 30s at the edge so launch traffic doesn't
+ * hit Stripe on every page view. Without the key or price ID it answers 503 and the site hides the count.
+ */
+async function handleFoundingSpots(env: Env): Promise<Response> {
+  if (!env.STRIPE_FOUNDING_KEY || !env.FOUNDING_PRICE_ID) return jsonResponse({ ok: false }, 503)
+  const cache = (globalThis as { caches?: { default?: Cache } }).caches?.default
+  const cached = await cache?.match(FOUNDING_CACHE_KEY)
+  if (cached) return cached
+
+  const stripe = await fetch(`https://api.stripe.com/v1/subscriptions?price=${encodeURIComponent(env.FOUNDING_PRICE_ID)}&status=all&limit=100`, {
+    headers: { Authorization: `Bearer ${env.STRIPE_FOUNDING_KEY}` },
+  })
+  if (!stripe.ok) return jsonResponse({ ok: false }, 502)
+  const { data, has_more: hasMore } = await stripe.json() as { data: { status: string }[]; has_more: boolean }
+  const taken = hasMore ? FOUNDING_SPOTS : data.filter(sub => sub.status !== 'incomplete' && sub.status !== 'incomplete_expired').length
+
+  const response = new Response(JSON.stringify({ ok: true, total: FOUNDING_SPOTS, claimed: Math.min(taken, FOUNDING_SPOTS) }), {
+    headers: { 'Content-Type': 'application/json', 'Cache-Control': 'public, max-age=30' },
+  })
+  await cache?.put(FOUNDING_CACHE_KEY, response.clone())
+  return response
+}
+
 export default {
   async fetch(request: Request, env: Env): Promise<Response> {
     const url = new URL(request.url)
@@ -91,6 +123,10 @@ export default {
     if (url.hostname === 'sted.ai') {
       url.hostname = 'www.sted.ai'
       return Response.redirect(url.toString(), 301)
+    }
+
+    if (url.pathname === '/api/founding-spots' && request.method === 'GET') {
+      return handleFoundingSpots(env)
     }
 
     if (url.pathname === '/api/support' && request.method === 'POST') {
