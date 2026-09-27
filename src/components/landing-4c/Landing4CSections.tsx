@@ -27,14 +27,61 @@ const FEATURES: { key: FeatureKey; icon: string; title: string; body: string }[]
   { key: 'feed', icon: 'media', title: 'A daily magazine from your saves', body: 'Every day Sted builds a Magazine from what you saved: The Recap, Sted’s Picks and Your Saves.' },
 ]
 
-// Placeholder art: the base mascot plus an existing pastel prop icon. Swap for the
-// dedicated Sted variant SVGs (glasses, headphones, magnifier…) once they exist.
-const STEDS_IN_ACTION: { prop: string; tint: string; tilt: number; action: string }[] = [
-  { prop: 'summary-card', tint: 'var(--sted-supportive-purple)', tilt: -4, action: 'read the 40-minute video you saved, so you don’t have to.' },
-  { prop: 'media', tint: 'var(--sted-supportive-blue)', tilt: 3, action: 'put this morning’s Magazine together before you woke up.' },
-  { prop: 'topics', tint: 'var(--sted-supportive-pink)', tilt: -3, action: 'sorted this week’s saves into Travel, Coffee and AI.' },
-  { prop: 'summary-note', tint: 'var(--sted-supportive-green)', tilt: 4, action: 'picked three saves worth your next five minutes.' },
+// "Meanwhile, Sted is working": each tile shows real app output for its line. Three are CSS crops of
+// the app screenshots (no new assets); the topics tile is drawn in the app's Recap style so its chips
+// can say exactly what the line says. Crop boxes are in source pixels: [x, y, width, height].
+type AppCrop = { src: string; alt: string; size: [number, number]; box: [number, number, number, number]; fade?: boolean }
+type StedAtWork = { key: string; tint: string; action: string; crop?: AppCrop }
+
+const SUMMARY_SHOT = { src: '/content/landing-4c/app/summary.webp', size: [715, 1426] as [number, number] }
+const FEED_SHOT = { src: '/content/landing-4c/app/feed.webp', size: [715, 1427] as [number, number] }
+
+const STEDS_AT_WORK: StedAtWork[] = [
+  {
+    key: 'summary', tint: 'var(--sted-supportive-purple)', action: 'read that long post you saved, so you don’t have to.',
+    crop: { ...SUMMARY_SHOT, alt: 'Sted’s summary and key ideas for a saved post', box: [62, 768, 590, 492] },
+  },
+  {
+    key: 'magazine', tint: 'var(--sted-supportive-blue)', action: 'put this morning’s Magazine together before you woke up.',
+    crop: { ...FEED_SHOT, alt: 'The Sted Magazine: today’s edition opening on Sted’s Picks', box: [62, 112, 590, 492], fade: true },
+  },
+  { key: 'topics', tint: 'var(--sted-supportive-pink)', action: 'sorted this week’s saves into Travel, Coffee and AI.' },
+  {
+    key: 'picks', tint: 'var(--sted-supportive-green)', action: 'picked three saves worth your next five minutes.',
+    crop: { ...FEED_SHOT, alt: 'Your Saved Steds in the Magazine: three saves, each with its source and date', box: [62, 880, 590, 372] },
+  },
 ]
+
+const RECAP_TOPICS = ['Travel', 'Coffee', 'AI']
+const RECAP_SAVES = [
+  { thumb: '/content/landing-4c/fushimi-inari-kyoto.webp', title: 'Kyoto, Japan', meta: 'Instagram · Travel' },
+  { thumb: '/content/landing-4c/pour-over-method.webp', title: 'The pour over method, start to finish', meta: 'YouTube · Coffee' },
+  { thumb: '/content/landing-4c/x-post-falling-into-hole.webp', title: 'How to fix your entire life in 1 day', meta: 'X · AI' },
+]
+
+/** A window onto one region of an app screenshot. The image is scaled so the box fills the window width. */
+function AppCropWindow({ crop }: { crop: AppCrop }) {
+  const [imgW, imgH] = crop.size
+  const [x, y, w, h] = crop.box
+  const vars = { '--img-w': imgW, '--img-h': imgH, '--crop-x': x, '--crop-y': y, '--crop-w': w, '--crop-h': h } as React.CSSProperties
+  return <div className={crop.fade ? 'l4s-app-window is-fading' : 'l4s-app-window'} style={vars}>
+    <img src={crop.src} alt={crop.alt} className="l4s-app-crop" width={imgW} height={imgH} />
+  </div>
+}
+
+/** The Magazine's Recap block, drawn in the app's style with this line's three topics. */
+function RecapWindow() {
+  return <div className="l4s-app-window l4s-recap" role="img" aria-label="The Recap: this week’s saves sorted into Travel, Coffee and AI">
+    <div className="l4s-recap-inner">
+      <p className="l4s-recap-label">The Recap</p>
+      <p className="l4s-recap-sub">You saved 14 items around these topics:</p>
+      <p className="l4s-recap-chips">{RECAP_TOPICS.map(topic => <span key={topic}>{topic}</span>)}</p>
+      <ul className="l4s-recap-rows">
+        {RECAP_SAVES.map(save => <li key={save.title}><img src={save.thumb} alt="" /><span><strong>{save.title}</strong><small>{save.meta}</small></span></li>)}
+      </ul>
+    </div>
+  </div>
+}
 
 /** Official Apple badge (tools.applemediaservices.com). Keep it unmodified and at least 40px tall.
  *  Until APP_STORE_URL exists it renders as a non-interactive element rather than a dead "#" link,
@@ -176,12 +223,9 @@ export function Landing4CSections({ initial, autoplay }: { initial: FeatureKey; 
     <section className="l4s-section l4s-steds" id="why-sted" aria-labelledby="l4s-steds-title">
       <h2 id="l4s-steds-title" className="l4s-h2">Meanwhile,<br />Sted is working.</h2>
       <div className="l4s-steds-grid">
-        {STEDS_IN_ACTION.map((sted) => <div key={sted.prop} className="l4s-sted-card">
+        {STEDS_AT_WORK.map((sted) => <div key={sted.key} className="l4s-sted-card">
           <div className="l4s-sted-illustration" style={{ '--l4s-tint': sted.tint } as React.CSSProperties}>
-            <div className="l4s-sted-figure" style={{ transform: `rotate(${sted.tilt}deg)` }}>
-              <img src="/sted-mascot.svg" alt="" className="l4s-sted-mascot" {...LAZY} />
-              <img src={`${ICONS}/${sted.prop}.webp`} alt="" className="l4s-sted-prop" width={192} height={192} {...LAZY} />
-            </div>
+            {sted.crop ? <AppCropWindow crop={sted.crop} /> : <RecapWindow />}
           </div>
           <p className="l4s-sted-action"><strong>Sted</strong> {sted.action}</p>
         </div>)}

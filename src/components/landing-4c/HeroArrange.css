@@ -1,0 +1,13 @@
+/* DEV-only ?arrange=1 tool for the hero cards. Never shipped: HeroArrange is only imported in DEV. */
+.l4c-arranging .l4c-saves .l4c-card { cursor: grab; transition: none; touch-action: none; user-select: none; outline: 1px dashed color-mix(in srgb, var(--sted-ink) 35%, transparent); }
+.l4c-arranging .l4c-saves .l4c-card:active { cursor: grabbing; }
+.l4c-arranging .l4c-saves .l4c-card img { pointer-events: none; }
+.l4c-arrange-panel {
+  position: fixed; left: 16px; right: 16px; bottom: 16px; z-index: 1000; max-width: 980px; margin: 0 auto;
+  padding: 12px 14px; border-radius: 12px; background: var(--sted-ink); color: var(--sted-white);
+  font: 12px/1.5 ui-monospace, SFMono-Regular, Menlo, monospace; box-shadow: var(--sted-shadow-floating);
+}
+.l4c-arrange-panel header { display: flex; align-items: center; gap: 12px; margin-bottom: 8px; font-family: Inter, system-ui, sans-serif; }
+.l4c-arrange-panel header span { flex: 1; opacity: .7; }
+.l4c-arrange-panel button { padding: 6px 12px; border: 0; border-radius: 999px; background: var(--sted-yellow); color: var(--sted-ink); font: inherit; font-weight: 600; cursor: pointer; }
+.l4c-arrange-panel pre { margin: 0; white-space: pre; overflow-x: auto; }

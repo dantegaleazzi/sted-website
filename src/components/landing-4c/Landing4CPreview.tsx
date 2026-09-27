@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { lazy, Suspense, useEffect, useState } from 'react'
 import { SourceIcon } from '../source-cards/source-icons'
 import { SiteFooter } from '../footer/SiteFooter'
 import { AppStoreBadge, FEATURE_KEYS, FeatureShowcase, Landing4CSections, SignInLink, type FeatureKey } from './Landing4CSections'
@@ -8,14 +8,8 @@ import { OutputDemo } from './OutputDemo'
 import { HowItWorksDialog } from './HowItWorks'
 import './Landing4CPreview.css'
 
-/** Hand-drawn-style curved arrow for the margin notes (2.5px ink, round caps, like the North Star canvas).
- *  Starts beside the note, swings out and comes down onto the thing it points at. `flip` mirrors it. */
-function CurvedArrow({ flip = false }: { flip?: boolean }) {
-  return <svg width="67" height="59" viewBox="0 0 96 84" fill="none" aria-hidden="true" className={flip ? 'l4c-arrow is-flipped' : 'l4c-arrow'}>
-    <path d="M4 10C40 2 82 12 74 72" stroke="var(--sted-ink)" strokeWidth="2.5" strokeLinecap="round" />
-    <path d="M62 60l12 14 13-12" stroke="var(--sted-ink)" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
-  </svg>
-}
+/** DEV only: ?arrange=1 lets you drag the hero cards and copy their CSS. Not in the production bundle. */
+const HeroArrange = import.meta.env.DEV ? lazy(() => import('./HeroArrange')) : null
 
 const SPOTIFY_BAR_HEIGHTS = [26, 52, 78, 40, 64, 34, 88, 46, 70, 30, 58, 42, 80, 36, 62, 28, 74, 48, 66, 32, 54, 38]
 
@@ -40,6 +34,7 @@ export function Landing4CPreview({ onHowItWorks }: { onHowItWorks?: () => void }
   const initialFeature = pinnedFeature ?? (isPublicHome ? 'summary' : 'save')
   const [howOpen, setHowOpen] = useState(false)
   const openHowItWorks = onHowItWorks ?? (() => setHowOpen(true))
+  const arranging = HeroArrange && new URLSearchParams(window.location.search).get('arrange') === '1'
 
   return <div className="l4c-page">
     <div className="l4c-scene-outer">
@@ -66,11 +61,21 @@ export function Landing4CPreview({ onHowItWorks }: { onHowItWorks?: () => void }
           </svg>
 
           <div className="l4c-saves">
-            <a className="l4c-card l4c-card-coffee" href="https://www.youtube.com/watch?v=UdvPCv4DJfg&t=1s" target="_blank" rel="noopener noreferrer">
-              <img src="/content/landing-4c/pour-over-method.webp" alt="V60 pour over" className="l4c-card-image l4c-card-image-video" width={400} height={224} />
+            <a className="l4c-card l4c-card-podcast" href="https://open.spotify.com/episode/29zRQB9zJcmmcIEXlsnRdH" target="_blank" rel="noopener noreferrer">
               <div className="l4c-card-pad">
-                <span className="l4c-card-title">The pour over method, start to finish</span>
-                <div className="l4c-domain-row"><SourceIcon type="youtube" /><span className="l4c-domain">YouTube</span></div>
+                <div className="l4c-story-head">
+                  <img src="/content/landing-4c/starter-story-podcast-cover.webp" alt="Starter Story" className="l4c-story-cover" width={184} height={184} />
+                  <div className="l4c-story-text">
+                    <span className="l4c-card-title">Starter Story</span>
+                    <span className="l4c-domain l4c-story-line">This app replaced<br />my 9-5 ($155K/year)</span>
+                  </div>
+                </div>
+                <div className="l4c-story-player">
+                  <SpotifyIcon />
+                  <div className="l4c-story-bars">
+                    {SPOTIFY_BAR_HEIGHTS.map((height, index) => <span key={index} style={{ height: `${height}%` }} />)}
+                  </div>
+                </div>
               </div>
             </a>
 
@@ -90,40 +95,25 @@ export function Landing4CPreview({ onHowItWorks }: { onHowItWorks?: () => void }
               </div>
             </a>
 
-            <a className="l4c-card l4c-card-podcast" href="https://open.spotify.com/episode/29zRQB9zJcmmcIEXlsnRdH" target="_blank" rel="noopener noreferrer">
-              <div className="l4c-card-pad">
-                <div className="l4c-story-head">
-                  <img src="/content/landing-4c/starter-story-podcast-cover.webp" alt="Starter Story" className="l4c-story-cover" width={184} height={184} />
-                  <div className="l4c-story-text">
-                    <span className="l4c-card-title">Starter Story</span>
-                    <span className="l4c-domain l4c-story-line">This app replaced<br />my 9-5 ($155K/year)</span>
-                  </div>
+            {/* A website and a repo: the same dense row (tile, title, one line of metadata). On desktop the
+                wrapper is display: contents; in the tablet strip it stacks the two rows in one slot. */}
+            <div className="l4c-rows">
+              <a className="l4c-card l4c-card-row l4c-card-web" href="https://www.shipaton.com" target="_blank" rel="noopener noreferrer">
+                <img src="/content/landing-4c/shipaton-favicon.webp" alt="" className="l4c-row-tile" width={128} height={128} />
+                <div className="l4c-row-text">
+                  <span className="l4c-card-title">www.shipaton.com</span>
+                  <span className="l4c-domain">RevenueCat hackathon</span>
                 </div>
-                <div className="l4c-story-player">
-                  <SpotifyIcon />
-                  <div className="l4c-story-bars">
-                    {SPOTIFY_BAR_HEIGHTS.map((height, index) => <span key={index} style={{ height: `${height}%` }} />)}
-                  </div>
+              </a>
+
+              <a className="l4c-card l4c-card-row l4c-card-repo" href="https://github.com/mvanhorn/last30days-skill" target="_blank" rel="noopener noreferrer">
+                <SourceIcon type="github" />
+                <div className="l4c-row-text">
+                  <span className="l4c-card-title">last30days-skill</span>
+                  <span className="l4c-domain">mvanhorn · Sep 14</span>
                 </div>
-              </div>
-            </a>
-
-            {/* A website and a repo: the same dense row (tile, title, one line of metadata). */}
-            <a className="l4c-card l4c-card-row l4c-card-web" href="https://www.shipaton.com" target="_blank" rel="noopener noreferrer">
-              <img src="/content/landing-4c/shipaton-favicon.webp" alt="" className="l4c-row-tile" width={128} height={128} />
-              <div className="l4c-row-text">
-                <span className="l4c-card-title">www.shipaton.com</span>
-                <span className="l4c-domain">RevenueCat hackathon</span>
-              </div>
-            </a>
-
-            <a className="l4c-card l4c-card-row l4c-card-repo" href="https://github.com/mvanhorn/last30days-skill" target="_blank" rel="noopener noreferrer">
-              <SourceIcon type="github" />
-              <div className="l4c-row-text">
-                <span className="l4c-card-title">last30days-skill</span>
-                <span className="l4c-domain">mvanhorn · Sep 14, 2026</span>
-              </div>
-            </a>
+              </a>
+            </div>
           </div>
 
           <div className="l4c-mascot-badge">
@@ -132,9 +122,7 @@ export function Landing4CPreview({ onHowItWorks }: { onHowItWorks?: () => void }
 
           <OutputDemo />
 
-          <p className="l4c-note l4c-note-left"><span>What you save</span><CurvedArrow /></p>
           <p className="l4c-note l4c-note-sted"><span>Sted understands it.</span></p>
-          <p className="l4c-note l4c-note-right"><CurvedArrow flip /><span>Useful output</span></p>
         </div>
       </div>
     </div>
@@ -143,6 +131,7 @@ export function Landing4CPreview({ onHowItWorks }: { onHowItWorks?: () => void }
 
     <SiteFooter />
     {howOpen && <HowItWorksDialog onClose={() => setHowOpen(false)} />}
+    {arranging && <Suspense fallback={null}><HeroArrange /></Suspense>}
   </div>
 }
 

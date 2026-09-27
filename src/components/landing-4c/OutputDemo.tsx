@@ -78,11 +78,14 @@ export function OutputDemo() {
   const [active, setActive] = useState<TabId>('summary')
   const [pinned, setPinned] = useState(false)
   const [hovered, setHovered] = useState(false)
+  // The first screen is painted as-is; only later switches play the entrance motion.
+  const [switched, setSwitched] = useState(false)
   const [still] = useState(() => typeof window !== 'undefined' && (window.matchMedia?.('(prefers-reduced-motion: reduce)').matches ?? false))
 
   useEffect(() => {
     if (pinned || hovered || still) return
     const timer = window.setInterval(() => {
+      setSwitched(true)
       setActive(current => OUTPUT_TABS[(OUTPUT_TABS.findIndex(tab => tab.id === current) + 1) % OUTPUT_TABS.length].id)
     }, ROTATE_MS)
     return () => window.clearInterval(timer)
@@ -96,12 +99,12 @@ export function OutputDemo() {
     </svg>
 
     <div className="l4o-pills" role="group" aria-label="What Sted makes from your saves">
-      {OUTPUT_TABS.map(tab => <button key={tab.id} type="button" aria-pressed={active === tab.id} onClick={() => { setActive(tab.id); setPinned(true) }}>
+      {OUTPUT_TABS.map(tab => <button key={tab.id} type="button" aria-pressed={active === tab.id} onClick={() => { setActive(tab.id); setPinned(true); setSwitched(true) }}>
         {tab.label}
       </button>)}
     </div>
 
-    <div className="l4o-stage" key={active} aria-live="polite">
+    <div className={switched ? 'l4o-stage is-switching' : 'l4o-stage'} key={active} aria-live="polite">
       {active === 'summary' && <AppScreen example={SUMMARY_EXAMPLE} className="l4o-screen" />}
       {active === 'topics' && <TopicsScreen />}
       {active === 'recap' && <RecapScreen />}

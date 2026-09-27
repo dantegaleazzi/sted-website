@@ -15,13 +15,13 @@ describe('hero CTAs', () => {
     expect(html).toMatch(/<strong>(100 founding spots|\d+ founding spots left)<\/strong>/)
     expect(html).not.toContain('Cancel anytime')
     expect(html).toContain(`href="${APP_STORE_URL}">or get Sted free</a>`)
-    expect(html).toContain('See how it works')
+    expect(html).not.toContain('See how it works')
   })
 
   it('falls back to the App Store badge when the offer is off', () => {
     const html = render(false)
     expect(html).toContain('app-store-badge.svg')
     expect(html).not.toContain('$19.99')
-    expect(html).toContain('See how it works')
+    expect(html).not.toContain('See how it works')
   })
 })

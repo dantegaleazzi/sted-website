@@ -84,20 +84,54 @@ html:has(.l4c-page) { scroll-behavior: smooth; }
   .l4s-shot, .l4s-phone, .l4s-device { transition: none; }
 }
 
-/* ---------- Section 2: Steds in action ---------- */
+/* ---------- Section 2: Meanwhile, Sted is working (real app output per tile) ---------- */
 .l4s-steds { margin-top: 128px; display: flex; flex-direction: column; gap: 56px; }
-.l4s-steds-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 20px; }
-.l4s-sted-card { display: flex; flex-direction: column; gap: 18px; }
+.l4s-steds-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 24px; }
+.l4s-sted-card { display: flex; flex-direction: column; gap: 18px; min-width: 0; }
 .l4s-sted-illustration {
-  height: 240px; border-radius: 24px;
+  aspect-ratio: 10 / 9; padding: 22px; box-sizing: border-box; border-radius: 24px; overflow: hidden;
   background: color-mix(in srgb, var(--l4s-tint) 32%, var(--sted-cream));
-  display: flex; align-items: center; justify-content: center;
+  display: grid; place-items: center;
 }
-.l4s-sted-figure { position: relative; width: 110px; height: 140px; }
-.l4s-sted-mascot { width: 100%; height: 100%; object-fit: contain; display: block; filter: drop-shadow(0 10px 18px rgba(20,19,19,0.12)); }
-.l4s-sted-prop { position: absolute; right: -34px; bottom: -8px; width: 64px; height: 64px; display: block; transform: rotate(8deg); }
 .l4s-sted-action { margin: 0; padding: 0 6px; font-size: 18px; line-height: 1.45; color: var(--sted-text-muted); }
 .l4s-sted-action strong { color: var(--sted-ink); font-weight: var(--sted-weight-semibold); }
+
+/* The app, no device frame: a rounded screen with a soft white rim, like the hero's output demo.
+   The window takes the crop box's shape; the screenshot is scaled so the box fills its width. */
+.l4s-app-window {
+  position: relative; width: 100%; aspect-ratio: var(--crop-w) / var(--crop-h); overflow: hidden;
+  border-radius: 16px; background: #FFFDFC;
+  box-shadow: 0 0 0 6px rgba(255, 255, 255, .6), var(--sted-shadow-card);
+}
+.l4s-app-crop {
+  position: absolute; left: 0; top: 0; display: block; max-width: none; height: auto;
+  width: calc(var(--img-w) / var(--crop-w) * 100%);
+  transform: translate(calc(var(--crop-x) / var(--img-w) * -100%), calc(var(--crop-y) / var(--img-h) * -100%));
+}
+/* A crop that stops mid-card fades into the Magazine's own cream instead of cutting hard. */
+.l4s-app-window.is-fading::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 34%; background: linear-gradient(to bottom, rgba(255, 249, 235, 0), #FFF9EB 88%); }
+
+/* The Recap, drawn in the app's type and spacing. Sizes are cqw of the window (source px / 5.9),
+   so it scales exactly like the screenshot crops beside it. */
+.l4s-recap {
+  --crop-w: 590; --crop-h: 492;
+  container-type: inline-size;
+  background: #FFF9EB; color: #141313; text-align: left;
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Inter Variable", system-ui, sans-serif;
+}
+.l4s-recap-inner { padding: 3.8cqw 3cqw 0; }
+.l4s-recap p { margin: 0; }
+.l4s-recap-label { font-size: 4.6cqw; font-weight: 700; line-height: 1.2; letter-spacing: .01em; text-transform: uppercase; }
+.l4s-recap-sub { margin-top: 1.2cqw !important; font-size: 3.7cqw; line-height: 1.3; color: #7A756D; }
+.l4s-recap-chips { display: flex; gap: 2cqw; margin-top: 2.6cqw !important; }
+.l4s-recap-chips span { display: inline-flex; align-items: center; height: 7.6cqw; padding: 0 3.4cqw; border: 1px solid #E9E1CE; border-radius: 99px; background: #FFFCF5; font-size: 3.4cqw; font-weight: 500; }
+.l4s-recap-rows { list-style: none; margin: 4.4cqw 0 0; padding: .6cqw 2.6cqw; border-radius: 4cqw; background: #FFFFFF; box-shadow: 0 .6cqw 3cqw rgba(20, 19, 19, .06); }
+.l4s-recap-rows li { display: flex; align-items: center; gap: 3cqw; padding: 2.1cqw 0; }
+.l4s-recap-rows li + li { border-top: 1px solid #EFECE6; }
+.l4s-recap-rows img { width: 11cqw; height: 11cqw; flex: none; border-radius: 2.4cqw; object-fit: cover; display: block; }
+.l4s-recap-rows span { display: flex; flex-direction: column; gap: .6cqw; min-width: 0; }
+.l4s-recap-rows strong { font-size: 3.7cqw; font-weight: 500; line-height: 1.25; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.l4s-recap-rows small { font-size: 2.9cqw; color: #9A958D; }
 
 /* ---------- Section 4: final CTA ---------- */
 .l4s-final { margin-top: 128px; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 36px; }
@@ -134,9 +168,7 @@ a.l4s-signin:hover { text-decoration: underline; text-underline-offset: 4px; }
   .l4s-stage { height: 520px; }
   .l4s-phone, .l4s-device { height: 480px; }
   .l4s-steds { margin-top: 96px; gap: 36px; }
-  .l4s-steds-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
-  .l4s-sted-card { gap: 18px; }
-  .l4s-sted-illustration { height: 200px; }
+  .l4s-steds-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
   .l4s-sted-action { font-size: var(--sted-text-body); }
   .l4s-final { margin-top: 96px; gap: 28px; }
   .l4s-final-badge { width: 132px; height: 132px; border-radius: 34px; }
@@ -155,13 +187,15 @@ a.l4s-signin:hover { text-decoration: underline; text-underline-offset: 4px; }
   .l4s-feature-icon { width: 40px; height: 40px; }
   .l4s-feature-title { font-size: 17px; }
   .l4s-feature-text { padding-top: 8px; }
-  /* Steds in action: a horizontal strip instead of four stacked 240px tiles. */
-  .l4s-steds-grid { width: 100%; gap: 12px; }
-  .l4s-sted-card { grid-template-columns: 86px minmax(0, 1fr); gap: 14px; min-height: 112px; padding: 10px; border-radius: 20px; }
-  .l4s-sted-illustration { height: 90px; border-radius: 15px; }
-  .l4s-sted-figure { width: 58px; height: 74px; }
-  .l4s-sted-prop { width: 34px; height: 34px; right: -12px; bottom: -1px; }
-  .l4s-sted-action { padding: 4px 6px 4px 0; font-size: 15px; line-height: 1.4; }
+  /* Meanwhile: a horizontal snap strip instead of four stacked tiles; the next tile peeks in. */
+  .l4s-steds-grid {
+    grid-template-columns: none; grid-auto-flow: column; grid-auto-columns: 80%; gap: 12px;
+    margin: 0 -20px; padding: 0 20px 4px; overflow-x: auto; scroll-snap-type: x mandatory; scroll-padding: 0 20px; scrollbar-width: none;
+  }
+  .l4s-steds-grid::-webkit-scrollbar { display: none; }
+  .l4s-sted-card { gap: 14px; scroll-snap-align: start; }
+  .l4s-sted-illustration { padding: 18px; border-radius: 20px; }
+  .l4s-sted-action { padding: 0 4px; font-size: 15px; line-height: 1.4; }
   .l4s-steds { margin-top: 80px; gap: 24px; }
   .l4s-final { margin-top: 80px; }
 
@@ -175,7 +209,6 @@ a.l4s-signin:hover { text-decoration: underline; text-underline-offset: 4px; }
   .l4s-showcase-copy > .l4s-features { order: 4; margin-top: 24px; }
   .l4s-showcase-copy > .l4s-section-eyebrow { display: none; }
   .l4s-phone, .l4s-device { height: 384px; }
-  .l4s-steds-grid, .l4s-sted-card { min-width: 0; }
 }
 
 .l4s-section-eyebrow { margin: 0; color: var(--sted-text-muted); font-size: var(--sted-text-meta); font-weight: var(--sted-weight-semibold); letter-spacing: .12em; line-height: 1.2; text-transform: uppercase; }
