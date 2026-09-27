@@ -103,7 +103,7 @@ export function HowItWorksDialog({ onClose, founding = isFoundingLive() }: { onC
     : id === 'see' ? 'I read it for you, so you don’t have to.'
     : id === 'find' ? 'No more digging through screenshots.'
     : id === 'next' ? 'I’m just getting started.'
-    : founding ? `Founding members get Pro for ${offer.price} their first year.` : 'Start free. Go Pro when you save a lot.'
+    : founding ? `Founding members get Pro for ${offer.price} a year.` : 'Start free. Go Pro when you save a lot.'
 
   return <dialog
     ref={dialog}
@@ -152,7 +152,7 @@ export function HowItWorksDialog({ onClose, founding = isFoundingLive() }: { onC
         {id === 'plan' && <>
           <p className="hw-offer">
             {founding
-              ? <><s aria-label={`Regular price ${offer.regular} a year`}>{offer.regular}</s> <strong>{offer.price}</strong> for your first year. {offer.renewal} First {offer.spots} members only, and you’re helping build what’s next.</>
+              ? <><s aria-label={`Regular price ${offer.regular} a year`}>{offer.regular}</s> <strong>{offer.price}</strong> a year. {offer.renewal} First {offer.spots} members only, and you’re helping build what’s next.</>
               : <><strong>{getPeriod('annual').price}</strong> a year, or {getPeriod('monthly').price} a month. Cancel anytime.</>}
           </p>
           <ComparisonTable className="hw-compare" />

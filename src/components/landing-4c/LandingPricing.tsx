@@ -59,7 +59,7 @@ export function LandingPricing({ founding = isFoundingLive() }: { founding?: boo
         {founding
           ? <p className="l4p-price">
             <s aria-label={`Regular price ${offer.regular} a year`}>{offer.regular}</s>
-            <strong>{offer.price}</strong> for your first year
+            <strong>{offer.price}</strong> / year
             <span>{offer.renewal}</span>
           </p>
           : <>

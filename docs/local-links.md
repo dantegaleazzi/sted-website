@@ -23,6 +23,6 @@ Start the dev server with the `sted-dev` entry in `.claude/launch.json` (`npm ru
 
 - `FOUNDING_FUNNEL_URL` in `src/components/landing-4c/app-links.ts`. While it's `null`, the offer (bar, $79.99 → $19.99, "Get Sted Pro · $19.99") shows **only in DEV and the preview build**; production shows the regular prices and sends every CTA to the regular funnel.
 - Paste the RevenueCat founding funnel link there to turn it on. Set it back to `null` (and disable that funnel in RevenueCat) when the 100 spots are gone.
-- Terms live in `src/components/growth-funnel/founding-offer.ts` ($19.99 first year, 100 spots). The roadmap is `src/components/landing-4c/roadmap.ts`.
+- Terms live in `src/components/growth-funnel/founding-offer.ts` ($19.99/year founding price, 100 spots). The roadmap is `src/components/landing-4c/roadmap.ts`.
 
 The regular funnel is `https://signup.cat/ZfSBmYBUIHRKvlzo/`. Its checkout is live Stripe: don't pay unless you mean to.

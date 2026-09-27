@@ -3,16 +3,17 @@ import { formatPrice, getPeriod, type Period } from './funnel-pricing'
 import { buildPlanUrl, type FunnelAnswers, type FunnelSession } from './funnel-session'
 
 /**
- * Launch offer for Sted Pro: RevenueCat product `sted_pro_annual_founding`, $19.99 for the first
- * year, then the regular annual price. The 100-member cap is closed by hand in RevenueCat (there's
- * no live counter), so the site says "first 100 members" and never shows a count.
+ * Launch offer for Sted Pro: its own Stripe price, $19.99 a year (product `sted_pro_annual_launch`
+ * in the `Sted (Stripe)` config, entitlement `Sted Pro`). No coupon and no intro offer, so it renews
+ * at $19.99: the founding price stays while the subscription does. The 100-member cap is closed by
+ * hand in RevenueCat (there's no live counter), so the site says "first 100 members", never a count.
  */
 export const FOUNDING = { cents: 1999, spots: 100 } as const
 
 export function foundingTerms() {
   const regular = getPeriod('annual').price
   const price = formatPrice(FOUNDING.cents)
-  return { price, regular, spots: FOUNDING.spots, renewal: `Then ${regular}/year. Cancel anytime.` }
+  return { price, regular, spots: FOUNDING.spots, renewal: 'Founding price, yours for as long as you stay subscribed. Cancel anytime.' }
 }
 
 type OfferEnv = { funnelUrl: string | null; review: boolean }

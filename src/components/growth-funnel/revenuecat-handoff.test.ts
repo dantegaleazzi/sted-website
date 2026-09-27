@@ -63,8 +63,9 @@ describe('landing pricing', () => {
 
   it('shows the founding offer against the regular price, with its renewal', () => {
     expect(founding).toContain('Founding offer · First 100 members')
-    expect(founding).toMatch(/<s[^>]*>\$79\.99<\/s><strong>\$19\.99<\/strong> for your first year/)
-    expect(founding).toContain('Then $79.99/year. Cancel anytime.')
+    expect(founding).toMatch(/<s[^>]*>\$79\.99<\/s><strong>\$19\.99<\/strong> \/ year/)
+    expect(founding).toContain('Founding price, yours for as long as you stay subscribed. Cancel anytime.')
+    expect(founding).not.toContain('first year')
     expect(founding).toContain('Get Sted Pro · $19.99')
     expect(regular).not.toContain('$19.99')
   })

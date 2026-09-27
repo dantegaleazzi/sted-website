@@ -12,8 +12,8 @@ export const SIGN_IN_URL: string | null = 'https://dashboard.sted.ai/'
 export const REVENUECAT_FUNNEL_URL: string | null = 'https://signup.cat/ZfSBmYBUIHRKvlzo/'
 
 /**
- * Founding offer funnel (RevenueCat Offering `founding`: $19.99 for the first year, then the
- * regular annual price). null until it's published; while null the offer only shows in DEV and
+ * Founding offer funnel (RevenueCat Offering with the $19.99/year Stripe price
+ * `sted_pro_annual_launch`, same `Sted (Stripe)` config and redemption). null until it's published; while null the offer only shows in DEV and
  * the preview build, so production never advertises a price its checkout doesn't charge.
  */
 export const FOUNDING_FUNNEL_URL: string | null = null

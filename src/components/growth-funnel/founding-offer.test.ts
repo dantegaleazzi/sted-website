@@ -7,8 +7,8 @@ import { checkoutUrl, foundingTerms, isFoundingLive, planFunnelUrl } from './fou
 const session = { id: '00000000-0000-4000-8000-000000000003', utm: { utm_source: 'x', utm_campaign: 'pro-launch' } }
 
 describe('founding offer', () => {
-  it('is $19.99 for the first year, then the regular $79.99', () => {
-    expect(foundingTerms()).toEqual({ price: '$19.99', regular: '$79.99', spots: 100, renewal: 'Then $79.99/year. Cancel anytime.' })
+  it('is $19.99 a year, locked in, against the regular $79.99', () => {
+    expect(foundingTerms()).toEqual({ price: '$19.99', regular: '$79.99', spots: 100, renewal: 'Founding price, yours for as long as you stay subscribed. Cancel anytime.' })
   })
 
   it('only goes live in production once its RevenueCat funnel exists', () => {

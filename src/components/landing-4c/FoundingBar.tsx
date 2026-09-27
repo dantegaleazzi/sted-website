@@ -10,7 +10,7 @@ export function FoundingBar() {
     <span className="l4b-lead-short"><strong>Founding offer:</strong></span>
     <s aria-label={`Regular price ${offer.regular} a year`}>{offer.regular}</s>
     <strong>{offer.price}</strong>
-    <span>your first year</span>
+    <span>a year</span>
     <span className="l4b-go">Claim yours <span aria-hidden="true">→</span></span>
   </a>
 }
