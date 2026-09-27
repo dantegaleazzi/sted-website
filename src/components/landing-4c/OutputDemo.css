@@ -1,0 +1,74 @@
+/* Hero output demo. Hero-canvas pixels (1600×820): Sted's right edge is x=874, centre y=574. */
+
+.l4o-demo { position: absolute; inset: 0; pointer-events: none; }
+.l4o-demo :is(button, .l4o-stage) { pointer-events: auto; }
+
+/* The yellow flow keeps going through Sted: same ribbons as the left, the active one lit */
+.l4o-ribbons { position: absolute; left: 0; top: 0; width: 1600px; height: 820px; z-index: 1; }
+.l4o-ribbon { stroke: var(--sted-yellow); stroke-linecap: round; opacity: .3; transition: opacity var(--sted-duration-slow) var(--sted-ease-standard); }
+.l4o-ribbon.is-active { opacity: .95; }
+
+.l4o-pills { position: absolute; left: 968px; top: 478px; z-index: 4; display: flex; flex-direction: column; align-items: flex-start; gap: 34px; }
+.l4o-pills button {
+  height: 44px; padding: 0 18px; border: 1px solid var(--sted-ink-hairline); border-radius: var(--sted-radius-pill);
+  background: var(--sted-white); color: var(--sted-ink); box-shadow: var(--sted-shadow-subtle);
+  font: inherit; font-size: 15px; font-weight: var(--sted-weight-semibold); white-space: nowrap; cursor: pointer;
+  transition: background-color var(--sted-duration-base) var(--sted-ease-standard), transform var(--sted-duration-base) var(--sted-ease-standard);
+}
+.l4o-pills button:hover { transform: translateX(2px); }
+.l4o-pills button[aria-pressed=true] { background: var(--sted-yellow); border-color: transparent; }
+.l4o-pills button:focus-visible { outline: 2px solid var(--sted-focus); outline-offset: 3px; }
+
+/* The app, no device frame: a rounded screen with a soft white rim, bleeding off the bottom like Readwise */
+/* Padded so the rim and shadow aren't clipped; the canvas ends at y=820, so the screen fades out there */
+.l4o-stage {
+  position: absolute; left: 1110px; top: 298px; height: 522px; padding: 20px 40px 0; box-sizing: border-box; overflow: hidden; z-index: 4;
+  -webkit-mask-image: linear-gradient(to bottom, #000 76%, transparent); mask-image: linear-gradient(to bottom, #000 76%, transparent);
+}
+.l4o-screen.cf-phone {
+  width: 262px; margin: 0; border: 0; border-radius: 34px; background: #FFFDFC;
+  box-shadow: 0 0 0 8px rgba(255, 255, 255, .7), 0 30px 60px rgba(20, 19, 19, .14), 0 2px 6px rgba(20, 19, 19, .06);
+}
+.l4o-screen .cf-app-back { display: none; }
+
+/* Switching tabs plays like a short clip: the screen fades up, then its blocks arrive in order */
+.l4o-stage > * { animation: l4o-in .45s var(--sted-ease-standard) both; }
+.l4o-stage .cf-app > * { animation: l4o-rise .5s var(--sted-ease-standard) both; }
+.l4o-stage .cf-app > :nth-child(2) { animation-delay: .06s; }
+.l4o-stage .cf-app > :nth-child(3) { animation-delay: .12s; }
+.l4o-stage .cf-app > :nth-child(4) { animation-delay: .18s; }
+.l4o-stage .cf-app > :nth-child(5) { animation-delay: .24s; }
+.l4o-stage .cf-app > :nth-child(6) { animation-delay: .3s; }
+.l4o-stage .cf-app > :nth-child(n+7) { animation-delay: .36s; }
+@keyframes l4o-in { from { opacity: 0; transform: translateY(12px) scale(.985); } }
+@keyframes l4o-rise { from { opacity: 0; transform: translateY(6px); } }
+@media (prefers-reduced-motion: reduce) { .l4o-stage > *, .l4o-stage .cf-app > * { animation: none; } }
+
+/* Drawn screens (Topics, Magazine) in the app's item-screen scale (cqw of the screen width) */
+.l4o-app { padding-top: 0; }
+.l4o-title { margin: 6cqw 0 0; font-size: 7.6cqw; font-weight: 700; letter-spacing: -.02em; }
+.l4o-date { margin: 1cqw 0 0; font-size: 3.2cqw; color: #8A8580; }
+.l4o-chips { display: flex; flex-wrap: wrap; gap: 1.8cqw; margin: 4cqw 0 0; }
+.l4o-chips span { padding: 1.6cqw 3.4cqw; border: 1px solid #E8E7E4; border-radius: 99px; font-size: 3.2cqw; font-weight: 500; }
+.l4o-chips .is-active { background: #FFD400; border-color: #FFD400; }
+.l4o-label { margin: 5.6cqw 0 2cqw; font-size: 2.9cqw; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: #141313; }
+.l4o-rows { display: grid; gap: 2.4cqw; margin: 0; padding: 0; list-style: none; }
+.l4o-rows li { display: flex; align-items: center; gap: 3cqw; padding: 2.4cqw; border-radius: 3.2cqw; background: #fff; box-shadow: 0 .6cqw 3cqw #1413130f; }
+.l4o-rows img { width: 17cqw; height: 13cqw; flex: none; border-radius: 2cqw; object-fit: cover; }
+.l4o-rows span, .l4o-pick span { display: flex; flex-direction: column; gap: 1.2cqw; min-width: 0; }
+.l4o-rows strong, .l4o-pick strong { font-size: 3.4cqw; font-weight: 600; line-height: 1.25; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.l4o-rows small, .l4o-pick small { font-size: 2.8cqw; color: #8A8580; }
+.l4o-pick { display: flex; flex-direction: column; gap: 2.6cqw; padding: 2.4cqw 2.4cqw 3.2cqw; border-radius: 3.6cqw; background: #fff; box-shadow: 0 .6cqw 3cqw #1413130f; }
+.l4o-pick img { width: 100%; aspect-ratio: 16 / 9; border-radius: 2.4cqw; object-fit: cover; }
+.l4o-recap { margin: 0; font-size: 3.4cqw; line-height: 1.45; color: #4A4744; }
+.l4o-thumbs { display: flex; gap: 2cqw; margin: 0; }
+.l4o-thumbs img { flex: 1; min-width: 0; aspect-ratio: 1; border-radius: 2.4cqw; object-fit: cover; }
+
+/* Below 1100px the hero stacks: pills in a row, the screen under them, cut with a soft fade */
+@media (max-width: 1099px) {
+  .l4o-demo { position: static; display: flex; flex-direction: column; align-items: center; gap: 20px; pointer-events: auto; }
+  .l4o-ribbons { display: none; }
+  .l4o-pills { position: static; flex-direction: row; flex-wrap: wrap; justify-content: center; gap: 8px; }
+  .l4o-pills button:hover { transform: none; }
+  .l4o-stage { position: static; height: 480px; overflow: hidden; -webkit-mask-image: linear-gradient(to bottom, #000 80%, transparent); mask-image: linear-gradient(to bottom, #000 80%, transparent); padding: 8px 8px 0; }
+}

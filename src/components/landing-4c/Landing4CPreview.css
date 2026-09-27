@@ -80,6 +80,7 @@
 .l4c-copy-text { display: flex; flex-direction: column; gap: 4px; max-width: 600px; }
 .l4c-formats { color: var(--sted-ink); }
 .l4c-formats { margin: 0; font-size: 18px; font-weight: var(--sted-weight-semibold); letter-spacing: -0.01em; line-height: 1.4; color: var(--sted-ink); }
+.l4c-mark { padding: 0 .1em; border-radius: 2px; background: color-mix(in srgb, var(--sted-yellow) 60%, transparent); color: var(--sted-ink); }
 .l4c-subcopy { margin: 0; font-size: 16px; font-weight: var(--sted-weight-regular); line-height: 1.55; color: var(--sted-text-muted); }
 .l4c-cta { display: flex; flex-direction: column; align-items: center; gap: 10px; margin-top: 2px; }
 .l4c-cta-row { display: flex; align-items: center; gap: 20px; }
@@ -108,10 +109,9 @@
 .l4c-illustration a { pointer-events: auto; color: inherit; text-decoration: none; transition: transform var(--sted-duration-base) var(--sted-ease-standard); }
 .l4c-illustration a:hover { transform: translateY(-2px) rotate(var(--l4c-tilt, 0deg)); }
 .l4c-illustration a:focus-visible { outline: 2px solid var(--sted-focus); outline-offset: 3px; }
-.l4c-saves, .l4c-results { display: contents; }
+.l4c-saves { display: contents; }
 .l4c-flows { position: absolute; left: 0; top: 0; width: 1600px; height: 820px; z-index: 1; }
 .l4c-ribbon { stroke: var(--sted-yellow); stroke-linecap: round; opacity: 0.3; }
-.l4c-inkline { stroke: var(--sted-ink); stroke-width: 2.5; stroke-linecap: round; opacity: 0.7; }
 
 /* Saved content: real thumbnails, no labels or pills inside the card. Sizes from the North Star handoff (M: 180–210, radius 16). */
 .l4c-card { position: absolute; background: var(--sted-surface); border-radius: var(--sted-radius-lg); overflow: hidden; box-shadow: var(--sted-shadow-card); z-index: 3; }
@@ -121,13 +121,13 @@
 .l4c-domain { font-size: 12px; font-weight: var(--sted-weight-medium); color: var(--sted-text-muted); white-space: nowrap; }
 .l4c-card .source-icon { width: 18px; height: 18px; border-radius: 5px; }
 .l4c-card-image { width: 100%; object-fit: cover; display: block; }
-.l4c-card-image-kyoto { height: 202px; object-fit: cover; object-position: center; }
+.l4c-card-image-kyoto { height: 100px; object-fit: cover; object-position: center 60%; }
 .l4c-card-image-video { height: 100px; }
-.l4c-card-image-wide { height: 82px; }
+.l4c-card-image-wide { height: 100px; }
 
 .l4c-card-coffee { left: 36px; top: 300px; width: 180px; transform: rotate(-3deg); }
-.l4c-card-post { left: 270px; top: 262px; width: 176px; transform: rotate(2deg); --l4c-tilt: 2deg; z-index: 4; }
-.l4c-card-kyoto { left: 70px; top: 500px; width: 180px; transform: rotate(-2deg); z-index: 4; }
+.l4c-card-post { left: 270px; top: 262px; width: 180px; transform: rotate(2deg); --l4c-tilt: 2deg; z-index: 4; }
+.l4c-card-kyoto { left: 64px; top: 528px; width: 180px; transform: rotate(-2deg); z-index: 4; }
 .l4c-card-podcast { left: 300px; top: 452px; width: 232px; transform: rotate(3deg); --l4c-tilt: 3deg; }
 .l4c-story-head { display: flex; align-items: flex-start; gap: 12px; }
 .l4c-story-cover { width: 46px; height: 46px; border-radius: 10px; display: block; flex: none; }
@@ -147,11 +147,6 @@
 .l4c-card-web { left: 262px; top: 626px; width: 192px; transform: rotate(2deg); --l4c-tilt: 2deg; z-index: 5; }
 .l4c-card-repo { left: 430px; top: 700px; width: 192px; transform: rotate(-3deg); --l4c-tilt: -3deg; }
 
-.l4c-lines { display: flex; flex-direction: column; gap: 5px; }
-.l4c-lines i { display: block; height: 5px; border-radius: var(--sted-radius-pill); background: var(--sted-ink-hairline); }
-.l4c-lines i:nth-child(2) { width: 82%; }
-.l4c-lines i:nth-child(3) { width: 60%; }
-
 /* One Sted, in the middle of the flow. */
 .l4c-mascot-badge {
   position: absolute; left: 726px; top: 500px; width: 148px; height: 148px; z-index: 5;
@@ -160,37 +155,13 @@
 }
 .l4c-mascot-badge img { width: 73px; height: 95px; display: block; }
 
-/* Outputs: three tall, narrow cards (icon tile, title, content), like the reference row. */
-.l4c-results { position: absolute; left: 936px; top: 486px; display: flex; gap: 10px; z-index: 3; }
-.l4c-output {
-  min-height: 224px; padding: 16px 14px 18px; box-sizing: border-box;
-  background: var(--sted-surface); border-radius: var(--sted-radius-xl); box-shadow: var(--sted-shadow-subtle);
-  display: flex; flex-direction: column; gap: 12px;
-}
-.l4c-output-lg { width: 196px; }
-.l4c-output-sm { width: 150px; }
-.l4c-output-icon { width: 40px; height: 40px; border-radius: 12px; display: flex; align-items: center; justify-content: center; }
-.l4c-output-icon svg { width: 22px; height: 22px; }
-.l4c-output-title { font-size: 14px; font-weight: var(--sted-weight-semibold); line-height: 1.25; letter-spacing: -0.01em; }
-/* Summary: placeholder lines, then key ideas as yellow-dot lines. */
-.l4c-bullets { display: flex; flex-direction: column; gap: 7px; margin-top: 2px; }
-.l4c-bullets i { display: block; height: 5px; border-radius: var(--sted-radius-pill); background: var(--sted-ink-hairline); position: relative; margin-left: 12px; }
-.l4c-bullets i::before { content: ''; position: absolute; left: -12px; top: -1px; width: 7px; height: 7px; border-radius: 50%; background: var(--sted-yellow); }
-.l4c-bullets i:nth-child(2) { width: 74%; }
-.l4c-bullets i:nth-child(3) { width: 88%; }
-/* Recap: editorial list, small caps, no numbers, no pills. */
-.l4c-list { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 9px; }
-.l4c-list li { font-size: 10.5px; font-weight: var(--sted-weight-semibold); letter-spacing: 0.08em; text-transform: uppercase; color: var(--sted-ink); line-height: 1.3; }
-.l4c-output-pills { display: flex; flex-wrap: wrap; gap: 5px; }
-.l4c-pill { background: var(--sted-cream); border-radius: var(--sted-radius-pill); padding: 2px 8px; font-size: 11px; font-weight: var(--sted-weight-medium); line-height: 1.4; white-space: nowrap; }
-
 /* Margin notes: italic small caps in Inter, like the North Star annotations. */
 .l4c-note { position: absolute; margin: 0; z-index: 6; display: flex; align-items: flex-end; gap: 10px; font-size: 13px; font-style: italic; font-weight: var(--sted-weight-semibold); letter-spacing: 0.1em; text-transform: uppercase; line-height: 1.45; color: var(--sted-ink); }
 .l4c-note-left { left: 60px; top: 196px; align-items: flex-start; gap: 6px; }
 .l4c-arrow { flex: none; margin-top: -4px; }
 .l4c-arrow.is-flipped { transform: scaleX(-1); }
 .l4c-note-sted { left: 700px; top: 664px; width: 200px; justify-content: center; text-align: center; font-size: 12px; }
-.l4c-note-right { left: 1330px; top: 420px; text-align: right; align-items: flex-start; gap: 6px; }
+.l4c-note-right { left: 1180px; top: 244px; text-align: right; align-items: flex-start; gap: 6px; }
 
 /* ---------- Reflow below 1100px ----------
    Above 1100px the canvas scales with the viewport (hero title still ~48px effective there). Below it
@@ -236,10 +207,6 @@
   .l4c-mascot-badge { position: static; width: 104px; height: 104px; border-radius: 26px; }
   .l4c-mascot-badge img { width: 52px; height: 68px; }
 
-  /* Outputs: stacked on phones, three-up from 640px. */
-  .l4c-results { position: static; display: grid; grid-template-columns: 1fr; gap: 10px; width: 100%; max-width: 560px; }
-  .l4c-output, .l4c-output-lg, .l4c-output-sm { width: auto; min-height: 0; }
-
   .l4c-page .site-footer { margin-top: 96px; }
 }
 @media (min-width: 640px) and (max-width: 1099px) {
@@ -247,7 +214,6 @@
   .l4c-copy, .l4c-illustration { padding-left: 32px; padding-right: 32px; }
   .l4c-copy { max-width: 640px; }
   .l4c-saves { justify-content: center; overflow: visible; flex-wrap: wrap; }
-  .l4c-results { grid-template-columns: repeat(3, 1fr); max-width: 720px; }
 }
 @media (max-width: 480px) {
   .l4c-header-actions .l4s-signin { display: none; }
@@ -261,26 +227,4 @@
   .l4c-page .site-footer .footer-meta { width: 100%; min-width: 0; flex-wrap: wrap; gap: 12px 18px; }
   .l4c-page .site-footer .legal { min-width: 0; flex-wrap: wrap; gap: 10px 14px; }
 
-  /* Output cards read better as a compact swipe row than three full-width panels. */
-  .l4c-results {
-    display: flex;
-    align-items: stretch;
-    gap: 12px;
-    width: calc(100vw - 40px);
-    max-width: none;
-    overflow-x: auto;
-    padding: 4px 4px 14px;
-    scrollbar-width: none;
-    scroll-snap-type: x proximity;
-    overscroll-behavior-inline: contain;
-  }
-  .l4c-results::-webkit-scrollbar { display: none; }
-  .l4c-results .l4c-output,
-  .l4c-results .l4c-output-lg,
-  .l4c-results .l4c-output-sm {
-    flex: 0 0 min(78vw, 260px);
-    width: min(78vw, 260px);
-    min-height: 184px;
-    scroll-snap-align: start;
-  }
 }
