@@ -1,0 +1,16 @@
+/* /internal/pricing-new review page */
+.l4pn-page { min-height: 100vh; padding-bottom: 96px; background: var(--sted-cream); color: var(--sted-ink); font-family: Inter, system-ui, sans-serif; }
+.l4pn-label {
+  align-self: stretch; margin: 48px 0 -88px; padding: 10px 64px; background: var(--sted-ink); color: var(--sted-white);
+  font-size: 13px; font-weight: var(--sted-weight-semibold); letter-spacing: .06em; text-transform: uppercase;
+}
+.l4pn-label:first-child { margin-top: 0; }
+
+/* "for iPhone" right above the Pro button: a small phone outline and one line */
+.l4pn-platform { display: flex; align-items: center; gap: 8px; margin: 26px 0 0; font-size: var(--sted-text-label); font-weight: var(--sted-weight-semibold); color: var(--sted-ink); }
+.l4pn-platform::before { content: ''; width: 10px; height: 16px; border: 1.6px solid var(--sted-ink); border-radius: 3px; box-sizing: border-box; flex: none; }
+#pricing-new .l4p-price-block { margin-top: 30px; }
+#pricing-new .l4p-cta-row { margin-top: 12px; }
+
+@media (max-width: 1100px) { .l4pn-label { padding: 10px 32px; margin-bottom: -60px; } }
+@media (max-width: 600px) { .l4pn-label { padding: 10px 20px; margin-bottom: -44px; } }

@@ -1,6 +1,6 @@
 export type Route =
   | 'start' | 'funnel-review' | 'funnel-prototype' | 'landing'
-  | 'product-design-system' | 'source-card-qa' | 'landing-states' | 'tunnel' | 'site'
+  | 'product-design-system' | 'source-card-qa' | 'landing-states' | 'tunnel' | 'site' | 'pricing-preview'
 
 export type Build = { dev: boolean; funnelPreview: boolean }
 
@@ -14,6 +14,7 @@ export function resolveRoute(rawPathname: string, { dev, funnelPreview }: Build)
   if (pathname === '/start') return 'start'
   if (funnelReview && (['/internal/funnel', '/internal/funnel/c'].includes(pathname) || (funnelPreview && pathname === '/'))) return 'funnel-review'
   if (dev && ['/internal/funnel/a', '/internal/funnel/b'].includes(pathname)) return 'funnel-prototype'
+  if (funnelReview && pathname === '/internal/pricing-new') return 'pricing-preview'
   if (pathname === '/' || pathname === '/internal/landing-4c') return 'landing'
   if (dev && pathname === '/internal/product-design-system') return 'product-design-system'
   if (dev && pathname === '/internal/source-card-qa') return 'source-card-qa'

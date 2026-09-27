@@ -14,6 +14,7 @@ const Landing4CPreview = lazy(() => import('./components/landing-4c/Landing4CPre
 const Landing4CShowcaseStates = lazy(() => import('./components/landing-4c/Landing4CPreview').then((m) => ({ default: m.Landing4CShowcaseStates })))
 const FunnelPrototype = lazy(() => import('./components/growth-funnel/FunnelPrototype').then((m) => ({ default: m.FunnelPrototype })))
 const ConversationalFunnel = lazy(() => import('./components/growth-funnel/ConversationalFunnel').then((m) => ({ default: m.ConversationalFunnel })))
+const PricingPreviewPage = lazy(() => import('./components/landing-4c/PricingPreview').then((m) => ({ default: m.PricingPreviewPage })))
 const FunnelPage = lazy(() => import('./components/growth-funnel/ConversationalFunnel').then((m) => ({ default: m.FunnelPage })))
 
 const PAGES: Record<Route, () => ReactElement> = {
@@ -26,6 +27,7 @@ const PAGES: Record<Route, () => ReactElement> = {
   'landing-states': () => <Landing4CShowcaseStates />,
   tunnel: () => <StedContentTunnel />,
   site: () => <SiteApp />,
+  'pricing-preview': () => <PricingPreviewPage />,
 }
 
 function Root() {
