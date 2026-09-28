@@ -13,7 +13,7 @@ export const REVENUECAT_FUNNEL_URL: string | null = 'https://signup.cat/ZfSBmYBU
 
 /**
  * Founding offer funnel (RevenueCat Offering with the $19.99/year Stripe price
- * `sted_pro_annual_launch`, same `Sted (Stripe)` config and redemption). null until it's published; while null the offer only shows in DEV and
- * the preview build, so production never advertises a price its checkout doesn't charge.
+ * `sted_pro_annual_launch`, same `Sted (Stripe)` config and redemption). Set to null to take the offer down:
+ * it then only shows in DEV and the preview build, so production never advertises a price its checkout doesn't charge.
  */
-export const FOUNDING_FUNNEL_URL: string | null = null
+export const FOUNDING_FUNNEL_URL: string | null = 'https://signup.cat/esWgONiMSROdGsUc/'
