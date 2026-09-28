@@ -12,6 +12,7 @@ function PrivacyPolicy() {
     <h2>1. What Sted does</h2>
     <p>Sted helps you save and organize links and information associated with those links.</p>
     <p>When you save a link, Sted may retrieve information associated with the linked resource and, if AI processing is enabled for your session or account, use third-party artificial-intelligence services to generate information such as titles, summaries, key ideas, classifications, tags, topics, entities, and project organization or suggestions.</p>
+    <p>Sted also provides a Chat feature that lets you ask questions about, summarize, and work with information in your saved library. Sted may use automated retrieval and third-party artificial-intelligence services to identify relevant saved items and generate responses.</p>
     <p>Saved content and information generated from it are associated with your Sted account or guest session.</p>
     <p>The current Sted applications are designed primarily around links and information associated with those links. They do not currently provide general-purpose direct uploads of photographs, raw video files, microphone recordings, or arbitrary personal files for AI processing.</p>
 
@@ -39,6 +40,10 @@ function PrivacyPolicy() {
     <h3>Generated information</h3>
     <p>Sted may generate and store titles, summaries, key ideas, topics, tags, entities, classifications, project suggestions or assignments, and other metadata derived from content you save.</p>
     <p>Generated information may be incomplete or inaccurate.</p>
+    <h3>Chat conversations</h3>
+    <p>When you use Sted Chat, we process and store the messages you submit, responses generated for you, conversation titles and identifiers, timestamps, and references to saved items used as sources.</p>
+    <p>Chat history is associated with your Sted guest session or account so that conversations can appear in History across application sessions. Certain temporary interface and session information may also be stored locally on your device.</p>
+    <p>Messages may contain personal information or other information you choose to provide. You should avoid submitting sensitive information that is not necessary for your use of Sted.</p>
     <h3>Website, waitlist, and communications</h3>
     <p>If you join a Sted waitlist or provide your email address through sted.ai, we collect the email address you provide. We may also record limited information associated with the submission, such as a referral or source value where applicable.</p>
     <p>If you contact us, we receive the information you choose to include in your message, such as your email address and the contents of your communication.</p>
@@ -54,6 +59,13 @@ function PrivacyPolicy() {
     <p>Our systems may attempt to retrieve information associated with the linked resource. Depending on the resource and what is technically available, this may include text, metadata, transcripts, comments, or other information associated with that resource.</p>
     <p>Some extracted information is stored with the saved item so that Sted can display, search, summarize, classify, and organize it.</p>
     <p>The availability and quality of information depend on the linked website or service. Sted cannot access or fully process every link.</p>
+    <h3>How Chat is processed</h3>
+    <p>When you send a message through Sted Chat, the message is transmitted to Sted’s backend. Automated systems may identify saved items that appear relevant to your request and select limited portions of recent conversation context and saved-content information for use in generating a response.</p>
+    <p>Sted may send your message, limited recent conversation context, and relevant portions of saved content to third-party AI service providers. These providers process that information so Sted can generate an answer, summary, classification, or requested action.</p>
+    <p>Sted is designed to provide AI services with information reasonably necessary to fulfill the request rather than intentionally sending a user’s entire library with every message.</p>
+    <p>Generated responses, source references, and related conversation information may be stored in Sted’s systems so that Sted can provide conversation history, continuity, scheduled features, security, and service reliability.</p>
+    <h3>Human access</h3>
+    <p>Sted does not routinely have personnel read user conversations. Processing is ordinarily automated. A limited number of authorized personnel or service providers may access information only when reasonably necessary to provide support requested by a user, investigate security or abuse, diagnose a service failure, comply with law, or protect the rights and safety of Sted, its users, or others.</p>
 
     <h2>4. How we use information</h2>
     <p>We use information to:</p>
@@ -63,6 +75,9 @@ function PrivacyPolicy() {
       <li>retrieve information associated with saved links;</li>
       <li>provide search and organization features;</li>
       <li>generate titles, summaries, classifications, key ideas, topics, tags, entities, and project organization or suggestions when AI processing is enabled;</li>
+      <li>provide Sted Chat and generate responses based on relevant saved items;</li>
+      <li>store and display conversation history;</li>
+      <li>create requested or scheduled summaries and other Chat features;</li>
       <li>maintain, secure, troubleshoot, and improve the reliability of the Service;</li>
       <li>respond to support requests;</li>
       <li>prevent misuse, fraud, and security incidents; and</li>
@@ -90,19 +105,22 @@ function PrivacyPolicy() {
       <li>titles, descriptions, authors, and publication information; and</li>
       <li>relevant Sted project names and descriptions.</li>
     </ul>
-    <h3>Current AI routing</h3>
-    <p>Current production paths have used <strong>Google AI services, including Gemini</strong>, and Sted may use other model or routing providers as the Service develops. The provider that processes a particular request may vary according to Sted’s configuration, provider availability, and the feature being used.</p>
-    <p>AI providers may process the information included in an AI request and technical or operational information associated with that request. Their retention and data-handling practices may differ by provider and configuration. Sted does not represent that AI requests are subject to zero retention or that no technical or operational data is retained.</p>
-    <p>We may change the AI model, routing configuration, or service providers used by Sted as the Service develops. If a change materially changes what information is shared, why it is shared, or otherwise requires additional notice or permission under applicable law or Apple requirements, we will update our disclosures or obtain additional permission as required.</p>
+    <h3>AI service providers</h3>
+    <p>When AI Processing is enabled, Sted may use one or more third-party AI service providers to generate summaries, classifications, organization suggestions, Chat responses, and other AI-enabled features.</p>
+    <p>Depending on the feature, information sent for processing may include a message you submit, limited recent conversation context, URLs, extracted text or transcripts, project information, and portions of saved content selected as relevant to the request.</p>
+    <p>AI providers and infrastructure providers may process technical and operational information necessary to provide, secure, and troubleshoot their services. Their handling and retention practices may vary according to the provider, configuration, contractual terms, and applicable law. Sted does not represent that AI requests are subject to zero retention.</p>
+    <p>Sted may change AI models, routing configurations, or service providers as the Service develops. If a change materially affects what information is shared or why it is shared, Sted will update its disclosures or obtain additional permission where required.</p>
+    <p>Sted does not sell Chat content or saved-content information and does not use it for cross-context behavioral advertising. Sted does not use user conversations to train a general-purpose AI model owned by Sted.</p>
     <p>When AI Processing is disabled, Sted may still retrieve and process information from a saved link using non-AI systems as necessary to save, identify, display, search, or organize the link. This processing is separate from optional AI Processing.</p>
-    <p>While AI Processing is disabled, Sted does not send newly processed saved-content information to its third-party AI provider for AI analysis. Features that depend on AI processing may not be available for those items.</p>
+    <p>While AI Processing is disabled, Sted does not send newly processed saved-content information to third-party AI service providers for AI analysis. Features that depend on AI processing may not be available for those items.</p>
     <p>Turning AI processing off does not reverse processing that occurred before you changed the setting and does not automatically delete titles, summaries, classifications, tags, or other information already stored in your Sted session or account. You can separately delete saved items, your session data, or your account where applicable.</p>
 
     <h2>6. Service providers</h2>
-    <p>We use service providers and other third parties to operate Sted. Current material providers include:</p>
+    <p>Sted uses service providers for cloud hosting, database infrastructure, authentication, application delivery, subscriptions, customer support, security, and artificial-intelligence processing. These providers process information only to perform services for Sted or as otherwise permitted by their applicable terms and legal obligations.</p>
+    <p>Current material providers include:</p>
     <p><strong>Supabase</strong> — authentication and database infrastructure. Supabase processes information needed to establish and maintain Sted guest sessions and accounts, and information stored in users’ Sted accounts or guest sessions. It is also currently used to store Sted website waitlist submissions where applicable.</p>
-    <p><strong>Google Cloud</strong> — backend infrastructure used to operate and process Sted requests, including backend computing and asynchronous processing.</p>
-    <p><strong>Google AI/Gemini and other AI providers</strong> — processing of saved-content information to provide AI-powered features when AI processing is enabled. The provider or model may change as the Service develops.</p>
+    <p><strong>Cloud and infrastructure providers</strong> — backend computing, asynchronous processing, and storage used to operate and process Sted requests.</p>
+    <p><strong>Third-party AI service providers</strong> — processing of saved-content information, Chat messages, and limited conversation context to provide AI-enabled features when AI processing is enabled, as described in Section 5. Providers and models may change as the Service develops.</p>
     <p><strong>RevenueCat</strong> — subscription and entitlement management when web or other paid purchases are offered. RevenueCat may process purchase, subscription, transaction, and entitlement information needed to associate access with a Sted customer.</p>
     <p><strong>Stripe</strong> — payment processing and billing for web purchases when Stripe is selected for checkout. Stripe handles payment information under its own terms and privacy policy.</p>
     <p><strong>Apple</strong> — distribution of the iOS application through the App Store and related Apple platform services used by Sted where applicable.</p>
@@ -135,14 +153,16 @@ function PrivacyPolicy() {
     <h2>10. Data retention</h2>
     <p>Account and guest-session information is generally retained while the applicable Sted account or guest session remains active, subject to the deletion controls and retention practices described below.</p>
     <p>Saved links, stored extracted information, projects, notes, generated information, and related account or guest-session data are generally retained until you delete the applicable content, session data, or account where applicable.</p>
+    <p>Chat conversations and messages are retained while they remain associated with an active Sted guest session or account so that Sted can provide History and related features. They are deleted from Sted’s active application database when the associated Sted data or account is deleted, subject to limited retention in backups, logs, security systems, or records retained where permitted or required by law.</p>
+    <p>Uninstalling the Sted application or clearing local application data does not necessarily delete information already stored in Sted’s backend. Users should use Settings → Delete All Data or the applicable account-deletion control to request deletion of associated server-side data.</p>
     <p>Technical, security, diagnostic, AI-provider, and infrastructure information may be retained according to its operational purpose and the systems or service providers involved.</p>
     <p>After deletion, limited information may remain temporarily in backups, logs, security systems, or records retained where permitted or required by law.</p>
     <p>We do not promise that every copy disappears instantaneously from every infrastructure system.</p>
 
     <h2>11. Account and content deletion</h2>
     <p>On the current iOS version, users can delete their Sted data from within the application through <strong>Settings → Delete All Data</strong>.</p>
-    <p>Delete All Data removes the active Sted data associated with the current anonymous identity/session, including saved items, projects, stored extracted information, settings, user-created organization data, and generated information, and resets the anonymous identity/session, subject to the limited backup, log, security, and legal-retention practices described above.</p>
-    <p>On platforms or versions where a user-facing account exists, users may delete their account and associated data through the deletion controls provided in that version, where available. Deletion removes the account and associated saved items, projects, stored extracted information, user-created organization data, settings, and generated information from Sted’s active application database, subject to the limited retention described above.</p>
+    <p>Delete All Data removes active Sted data associated with the current anonymous identity or session, including saved items, projects, extracted and generated information, settings, Chat conversations, messages, generated responses, source references, and scheduled-summary settings, and resets the anonymous identity or session. Limited information may remain temporarily in backups, logs, security systems, or records retained where permitted or required by law.</p>
+    <p>On platforms or versions where a user-facing account exists, users may delete their account and associated data through the deletion controls provided in that version, where available. Deletion removes the account and associated saved items, projects, stored extracted information, user-created organization data, settings, generated information, Chat conversations and messages, generated responses, conversation metadata and source references, and scheduled-summary settings from Sted’s active application database, subject to the limited retention described above.</p>
     <p>You may also contact us regarding privacy or deletion requests at <a className="legal-email" href="mailto:hello@sted.ai">hello@sted.ai</a>.</p>
 
     <h2>12. Security</h2>
@@ -195,7 +215,7 @@ function TermsOfUse() {
     <p>You may not use the Service if applicable law prohibits you from doing so.</p>
 
     <h2>2. Accounts and access</h2>
-    <p>Authentication features may vary by platform and version. The current iOS version does not require or offer user-facing account registration or sign-in. Sted uses an automatically created anonymous technical identity/session to associate saved links, projects, settings, generated information, and other application data with your use of the Service.</p>
+    <p>Authentication features may vary by platform and version. The current iOS version does not require or offer user-facing account registration or sign-in. Sted uses an automatically created anonymous technical identity or session to associate saved links, projects, settings, generated information, Chat conversations, and related application data with the correct user context.</p>
     <p>Other platforms or versions, including Android where applicable, may offer account creation or authentication. The available options are shown in the applicable version of Sted.</p>
     <p>Where you choose or use an authenticated account, you are responsible for maintaining control of the account credentials and devices you use to access Sted and for activity occurring through your Sted account.</p>
     <p>On the current iOS version, you may delete your Sted data through Settings → Delete All Data. On platforms or versions with user-facing accounts, you may delete your account and associated data using the deletion controls provided in that version, where available, as further described in our Privacy Policy.</p>
@@ -203,12 +223,14 @@ function TermsOfUse() {
     <h2>3. What Sted does</h2>
     <p>Sted helps you save links and organize information associated with those links.</p>
     <p>When you save a link, Sted may retrieve information from the linked resource, store information associated with it, and use automated systems, including artificial intelligence, to provide features such as titles, summaries, classifications, tags, topics, key ideas, entity identification, search, and project organization or suggestions.</p>
+    <p>Sted may also provide a Chat feature that uses automated retrieval and artificial intelligence to answer questions, summarize information, and perform supported actions involving a user’s saved library. Not every question can be answered and not every action can be completed correctly.</p>
     <p>Not every link can be accessed or processed successfully. Websites and third-party services may change, restrict access, remove content, or make information unavailable.</p>
 
     <h2>4. Your content</h2>
-    <p>For purposes of these Terms, “User Content” includes links you save, notes or topics you add, project names and descriptions you create, and other information you intentionally provide through Sted.</p>
+    <p>For purposes of these Terms, “User Content” includes links you save, notes or topics you add, project names and descriptions you create, messages and instructions you submit through Sted Chat, and other information you intentionally provide through the Service.</p>
     <p>As between you and Finiks Labs, you retain any rights you have in your User Content.</p>
     <p>You give Finiks Labs a limited, non-exclusive license to host, copy, retrieve, process, transmit, transform, and display User Content, including through service providers acting on our behalf, only as reasonably necessary to operate, secure, maintain, and provide the Service to you.</p>
+    <p>This limited license allows Sted and service providers acting on its behalf to retrieve relevant saved content, process Chat messages, generate and store responses, maintain conversation history, and perform supported actions requested through the Service.</p>
     <p>This license ends when the relevant User Content is deleted from the Service, subject to reasonable technical retention in backups, logs, security systems, or as otherwise permitted or required by law.</p>
 
     <h2>5. Links, external websites, and third-party content</h2>
@@ -219,11 +241,11 @@ function TermsOfUse() {
     <p>Sted does not claim ownership of third-party material merely because you save, view, or process a link to it.</p>
 
     <h2>6. Artificial intelligence</h2>
-    <p>Sted may use third-party artificial intelligence services to process, analyze, summarize, classify, organize, and otherwise provide features related to content you save.</p>
-    <p>Depending on the features and settings you use, saved content and related information may be processed by third-party AI and infrastructure providers as described in the Sted Privacy Policy.</p>
-    <p>AI processing is enabled only after the applicable user permission is obtained. You may subsequently control AI processing through the settings available in the Service.</p>
-    <p>AI-generated output may be incomplete, inaccurate, outdated, or otherwise incorrect. You should review information before relying on it for important decisions.</p>
-    <p>Sted is a productivity tool and does not provide legal, medical, financial, or other professional advice.</p>
+    <p>Sted may use third-party artificial-intelligence and infrastructure providers to process saved-content information, Chat messages, limited conversation context, and portions of saved items selected as relevant to a request.</p>
+    <p>AI processing is enabled only after the applicable permission is obtained. Users may subsequently control new AI processing through the settings available in the Service.</p>
+    <p>AI-generated responses and other outputs may be incomplete, inaccurate, outdated, misleading, or otherwise incorrect. Users should evaluate outputs before relying on or sharing them, particularly for important decisions.</p>
+    <p>Sted does not provide legal, medical, financial, or other professional advice.</p>
+    <p>Sted may change its AI models and service providers without changing these Terms, provided that any materially different processing is disclosed or additional permission is obtained where required.</p>
     <p>Your use of AI-enabled features must also comply with any applicable usage restrictions or terms imposed by the AI or model providers used to provide those features.</p>
 
     <h2>7. Acceptable use</h2>
@@ -249,6 +271,7 @@ function TermsOfUse() {
     <h2>9. Privacy and data processing</h2>
     <p>Our Privacy Policy explains how Sted collects, uses, and shares information and the choices available to you.</p>
     <p>Certain processing, including sharing saved-content information with third-party AI service providers, depends on the permission and settings applicable to your guest session or account.</p>
+    <p>Sted Chat requires automated processing of messages and relevant saved-content information. Conversation history may be stored in Sted’s backend and associated with a guest session or account as described in the Privacy Policy.</p>
 
     <h2>10. Third-party services</h2>
     <p>Sted relies on third-party services for portions of the Service, including authentication, hosting, database infrastructure, website delivery, and artificial-intelligence processing.</p>
@@ -260,7 +283,7 @@ function TermsOfUse() {
     <p>If a purchase is offered through Apple’s App Store or Google Play, the pricing, billing, renewal, cancellation, and other purchase information shown at the time of purchase will apply together with the applicable app store’s payment terms.</p>
     <p>If a subscription is offered on the web, checkout may be provided through RevenueCat using Stripe or another billing configuration identified at checkout. The price, currency, billing frequency, taxes, renewal terms, and cancellation terms shown before purchase apply to that subscription. Web purchases are separate from Apple in-app purchases unless the checkout expressly states otherwise.</p>
     <p>Subscriptions may automatically renew until cancelled. Cancelling generally stops future renewals, while access may continue through the paid billing period where applicable. Refunds are handled under applicable law and the rules of the payment provider or app store; these Terms do not create a refund right beyond those requirements.</p>
-    <p>Free and paid tiers may have usage limits and feature differences. We may change plans or features with reasonable notice where required by applicable law. We will not treat a roadmap item or prototype as a paid feature unless it is actually offered at the time of purchase.</p>
+    <p>Free and paid versions of Sted may include different limits for saved items, AI processing, Chat usage, summaries, or other features. Current limits and benefits are those displayed in the applicable application, purchase screen, or offer at the time of use or purchase. Sted may update prospective limits or feature availability, subject to applicable law and existing subscription commitments. We will not treat a roadmap item or prototype as a paid feature unless it is actually offered at the time of purchase.</p>
     <p>Nothing in these Terms represents that any particular paid feature or subscription is currently available unless it is actually offered in the version of Sted you are using.</p>
 
     <h2>12. Changes to the Service</h2>
@@ -272,12 +295,13 @@ function TermsOfUse() {
     <p>You may stop using Sted at any time. On the current iOS version, you may delete your Sted data and reset the anonymous identity/session through Settings → Delete All Data. On platforms or versions with user-facing accounts, you may delete your account and associated data using the deletion controls provided in that version, where available.</p>
     <p>We may suspend or terminate access when reasonably necessary because of a material violation of these Terms, legal requirements, security concerns, abuse, or conduct that creates material risk to Sted or others.</p>
     <p>Guest-data and account deletion are handled as described in our Privacy Policy.</p>
+    <p>Deleting Sted data or an account through the available deletion control removes associated active Chat conversations and messages from Sted’s application database, subject to the limited backup, security, legal, and operational retention described in the Privacy Policy.</p>
     <p>Provisions that by their nature should survive termination, including intellectual-property provisions, disclaimers, limitations of liability, and dispute provisions, survive as applicable.</p>
 
     <h2>14. Disclaimers</h2>
     <p>To the fullest extent permitted by applicable law, the Service is provided on an “as is” and “as available” basis.</p>
     <p>We do not guarantee that Sted will always be uninterrupted, error-free, secure, or able to retrieve or process every link.</p>
-    <p>We do not guarantee that extracted information, AI-generated titles, summaries, classifications, tags, topics, project suggestions, or other outputs will be complete or accurate.</p>
+    <p>We do not guarantee that extracted information, Chat responses, summaries, classifications, tags, topics, project suggestions, citations, sources, or other generated outputs will be complete, accurate, available, or suitable for a particular purpose.</p>
     <p>Nothing in these Terms excludes warranties or consumer rights that cannot lawfully be excluded.</p>
 
     <h2>15. Limitation of liability</h2>
@@ -317,8 +341,8 @@ export function LegalPage({ document }: { document: LegalDocument }) {
     const canonical = existingCanonical ?? window.document.createElement('link')
     const previousCanonical = canonical.getAttribute('href')
     if (description) description.content = document === 'privacy'
-      ? 'Learn how Sted and Finiks Labs LLC collect, use, and protect information, including guest sessions, optional AI processing, retention, and privacy rights.'
-      : 'Read the Terms of Use for Sted, operated by Finiks Labs LLC, including account responsibilities, acceptable use, and service terms.'
+      ? 'Learn how Sted and Finiks Labs LLC process saved content, Chat conversations, optional AI features, retention, deletion, and privacy rights.'
+      : 'Read the Terms of Use for Sted, including saved content, Sted Chat, AI-enabled features, subscriptions, acceptable use, and user responsibilities.'
     canonical.rel = 'canonical'
     canonical.href = `https://www.sted.ai/${document}`
     if (!existingCanonical) window.document.head.appendChild(canonical)
@@ -338,7 +362,7 @@ export function LegalPage({ document }: { document: LegalDocument }) {
     <main className="legal-content shell">
       <p className="section-label">FINIKS LABS LLC</p>
       <h1>{isDeletion ? 'Delete your Sted account' : isPrivacy ? 'Privacy Policy' : 'Terms of Use'}</h1>
-      {!isDeletion && <p className="legal-date"><strong>Last updated: September 24, 2026</strong></p>}
+      {!isDeletion && <p className="legal-date"><strong>Last updated: September 28, 2026</strong></p>}
 
       {isDeletion ? <DeleteAccountContent /> : isPrivacy ? <PrivacyPolicy /> : <TermsOfUse />}
 
