@@ -183,8 +183,8 @@ function PrivacyPolicy() {
     <p>California residents may have additional rights where applicable. Sted does not currently sell personal information or share personal information for cross-context behavioral advertising.</p>
 
     <h2>15. Age eligibility</h2>
-    <p>Sted is not directed to children under <strong>13 years old</strong>. If you are under 18, use Sted only with the permission of a parent or legal guardian where applicable law requires it.</p>
-    <p>If applicable law sets a different minimum age or requires additional authorization, that law controls your use of the Service.</p>
+    <p>Sted is not directed to children under <strong>16 years old</strong>, and users under 16 may not use Sted.</p>
+    <p>Users who are 16 or 17 may use Sted only with the permission of a parent or legal guardian and where permitted by applicable law.</p>
     <p>If we learn that an account is being used by someone who is not eligible to use Sted under these requirements, we may take appropriate steps to restrict the account or delete information as appropriate.</p>
 
     <h2>16. Third-party links and content</h2>
@@ -210,8 +210,8 @@ function TermsOfUse() {
     <p>By accessing or using the Service, including through a guest session or registered account, you agree to these Terms. If you do not agree, do not use Sted.</p>
 
     <h2>1. Eligibility</h2>
-    <p>Sted is not directed to children under <strong>13 years old</strong>. If you are under 18, you may use Sted only with the permission of a parent or legal guardian where applicable law requires it.</p>
-    <p>If applicable law sets a different minimum age or requires additional authorization, that law controls your use of the Service.</p>
+    <p>You must be at least <strong>16 years old</strong> to use Sted.</p>
+    <p>If you are under 18, you may use Sted only with the permission of a parent or legal guardian and only where your use of the Service is permitted by applicable law.</p>
     <p>You may not use the Service if applicable law prohibits you from doing so.</p>
 
     <h2>2. Accounts and access</h2>
