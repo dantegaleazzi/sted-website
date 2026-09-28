@@ -1,11 +1,10 @@
-import { lazy, Suspense, useEffect, useState } from 'react'
+import { lazy, Suspense, useEffect } from 'react'
 import { SourceIcon } from '../source-cards/source-icons'
 import { SiteFooter } from '../footer/SiteFooter'
-import { AppStoreBadge, FEATURE_KEYS, FeatureShowcase, Landing4CSections, SignInLink, type FeatureKey } from './Landing4CSections'
+import { AppStoreBadge, FEATURE_KEYS, FeatureShowcase, Landing4CSections, PARKED_FEATURE_KEYS, StedsAtWork, type FeatureKey } from './Landing4CSections'
 import { HeroCta } from './HeroCta'
 import { RotatingWord } from './RotatingWord'
 import { OutputDemo } from './OutputDemo'
-import { HowItWorksDialog } from './HowItWorks'
 import './Landing4CPreview.css'
 
 /** DEV only: ?arrange=1 lets you drag the hero cards and copy their CSS. Not in the production bundle. */
@@ -21,7 +20,7 @@ function SpotifyIcon({ size = 18 }: { size?: number }) {
  * The "4c" landing: header + hero + sections + footer.
  * Hero story: real saves → Sted → three outcomes. ?feature=save|summary|feed pins the showcase below.
  */
-export function Landing4CPreview({ onHowItWorks }: { onHowItWorks?: () => void } = {}) {
+export function Landing4CPreview() {
   useEffect(() => {
     document.title = 'Sted — Everything you save. Finally useful.'
     const anchor = window.location.hash.slice(1)
@@ -32,8 +31,6 @@ export function Landing4CPreview({ onHowItWorks }: { onHowItWorks?: () => void }
   const pinnedFeature: FeatureKey | undefined = FEATURE_KEYS.find((key) => key === featureParam)
   const isPublicHome = window.location.pathname === '/'
   const initialFeature = pinnedFeature ?? (isPublicHome ? 'summary' : 'save')
-  const [howOpen, setHowOpen] = useState(false)
-  const openHowItWorks = onHowItWorks ?? (() => setHowOpen(true))
   const arranging = HeroArrange && new URLSearchParams(window.location.search).get('arrange') === '1'
 
   return <div className="l4c-page">
@@ -41,13 +38,14 @@ export function Landing4CPreview({ onHowItWorks }: { onHowItWorks?: () => void }
       <div className="l4c-scene">
         <header className="l4c-header">
           <img className="l4c-logo" src="/brand/sted-primary-horizontal.svg" alt="Sted" />
-          <div className="l4c-header-actions"><SignInLink /><AppStoreBadge height={40} /></div>
+          {/* Sign in is hidden while the web dashboard isn’t live; SignInLink brings it back. */}
+          <div className="l4c-header-actions"><AppStoreBadge height={40} /></div>
         </header>
 
         <div className="l4c-copy">
           <h1>Everything you <mark className="l4c-hl">save</mark>{' '}<br />Finally <mark className="l4c-hl">useful</mark></h1>
-          <p className="l4c-subcopy">Sted reads every <RotatingWord /> you save and turns it into something useful.</p>
-          <HeroCta onHowItWorks={openHowItWorks} />
+          <p className="l4c-subcopy">Sted reads every <RotatingWord /> you save and tells you what matters.</p>
+          <HeroCta />
         </div>
 
         {/* Illustration: messy input (left) flows into Sted (centre) and comes out as clear output (right).
@@ -106,11 +104,11 @@ export function Landing4CPreview({ onHowItWorks }: { onHowItWorks?: () => void }
                 </div>
               </a>
 
-              <a className="l4c-card l4c-card-row l4c-card-repo" href="https://github.com/mvanhorn/last30days-skill" target="_blank" rel="noopener noreferrer">
+              <a className="l4c-card l4c-card-row l4c-card-repo" href="https://github.com/mattpocock/skills" target="_blank" rel="noopener noreferrer">
                 <SourceIcon type="github" />
                 <div className="l4c-row-text">
-                  <span className="l4c-card-title">last30days-skill</span>
-                  <span className="l4c-domain">mvanhorn · Sep 14</span>
+                  <span className="l4c-card-title">skills</span>
+                  <span className="l4c-domain">mattpocock · Sep 14</span>
                 </div>
               </a>
             </div>
@@ -130,12 +128,11 @@ export function Landing4CPreview({ onHowItWorks }: { onHowItWorks?: () => void }
     <Landing4CSections initial={initialFeature} autoplay={!pinnedFeature && !isPublicHome} />
 
     <SiteFooter />
-    {howOpen && <HowItWorksDialog onClose={() => setHowOpen(false)} />}
     {arranging && <Suspense fallback={null}><HeroArrange /></Suspense>}
   </div>
 }
 
-/** Internal review page: the three showcase states stacked, at the same desktop width. */
+/** Internal review page: the showcase states stacked, then what's built but parked (not on the landing). */
 export function Landing4CShowcaseStates() {
   useEffect(() => {
     document.title = '4c showcase states — Sted'
@@ -146,5 +143,13 @@ export function Landing4CShowcaseStates() {
       <p className="l4c-state-label">State {index + 1} of 3 · {key}</p>
       <FeatureShowcase initial={key} autoplay={false} />
     </div>)}
+    {PARKED_FEATURE_KEYS.map(key => <div key={key} className="l4c-state-block">
+      <p className="l4c-state-label">Parked · not on the landing · How it works: {key}</p>
+      <FeatureShowcase initial={key} autoplay={false} keys={[...FEATURE_KEYS.slice(0, 2), key, ...FEATURE_KEYS.slice(2)]} />
+    </div>)}
+    <div className="l4c-state-block">
+      <p className="l4c-state-label">Parked · not on the landing · Meanwhile, Sted is working</p>
+      <StedsAtWork />
+    </div>
   </div>
 }

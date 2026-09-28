@@ -28,7 +28,9 @@ export function LandingRoadmap() {
         <p className="l4r-status">{feature.status}</p>
       </div>
       <div className="l4r-feature-visual">
-        <img src={ROADMAP_FEATURE.image} alt="The Ask Sted chat screen: “Talk to everything you’ve saved.”" width={715} height={1427} loading="lazy" decoding="async" />
+        <div className="cf-phone l4o-screen l4r-phone">
+          <img className="cf-phone-shot" src={ROADMAP_FEATURE.image} alt="The Ask Sted chat screen: “Turn everything you save into answers.”" width={920} height={2000} loading="lazy" decoding="async" />
+        </div>
       </div>
     </article>
 

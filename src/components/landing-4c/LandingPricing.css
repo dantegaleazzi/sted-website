@@ -10,24 +10,13 @@
   background: var(--sted-white); box-shadow: var(--sted-shadow-card); color: var(--sted-ink);
 }
 
-/* Left: name, pitch, billing, price, CTA. Compact and vertically centered. */
+/* Left: name, pitch, price, CTA. Compact and vertically centered. */
 .l4p-pro-intro { display: flex; flex-direction: column; align-items: flex-start; min-width: 0; }
 .l4p-pro h3 { display: flex; align-items: center; gap: 14px; margin: 0; font-size: clamp(56px, 2.5vw + 36px, 76px); line-height: 1; font-weight: var(--sted-weight-semibold); letter-spacing: -.045em; }
 .l4p-pro h3 span { padding: .08em .22em .1em; border-radius: .2em; background: var(--sted-yellow); font-size: .62em; letter-spacing: -.02em; }
 .l4p-pro-pitch { max-width: 380px; margin: 18px 0 0; font-size: var(--sted-text-body-lg); line-height: 1.5; color: var(--sted-text-muted); }
 
-.l4p-billing-row { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 18px; margin-top: 32px; }
-.l4p-billing { display: inline-flex; gap: 4px; margin-top: 0; padding: 4px; border-radius: var(--sted-radius-pill); background: var(--sted-cream); }
-.l4p-billing button {
-  display: inline-flex; align-items: center; gap: 8px; min-height: 36px; padding: 0 16px; border: 0; border-radius: var(--sted-radius-pill);
-  background: transparent; color: var(--sted-text-muted); font: inherit; font-size: var(--sted-text-label); font-weight: var(--sted-weight-medium); cursor: pointer;
-  transition: background-color var(--sted-duration-base) var(--sted-ease-standard), color var(--sted-duration-base) var(--sted-ease-standard);
-}
-.l4p-billing button[aria-pressed=true] { background: var(--sted-white); color: var(--sted-ink); box-shadow: var(--sted-shadow-subtle); }
-.l4p-billing button:focus-visible { outline: 2px solid var(--sted-focus); outline-offset: 2px; }
-.l4p-save { padding: 6px 0; border: 0; background: none; font: inherit; font-size: var(--sted-text-label); font-weight: var(--sted-weight-semibold); color: var(--sted-ink); cursor: pointer; text-decoration: underline; text-decoration-color: var(--sted-yellow); text-decoration-thickness: 2px; text-underline-offset: 4px; }
-.l4p-save:focus-visible { outline: 2px solid var(--sted-focus); outline-offset: 2px; border-radius: 4px; }
-.l4p-price-block { min-height: 112px; margin-top: 22px; }
+.l4p-price-block { margin-top: 30px; }
 .l4p-price-block .l4p-price { margin-top: 0; }
 .l4p-offer-label { display: flex; align-items: center; gap: 8px; margin: 0 0 10px; font-size: var(--sted-text-label); font-weight: var(--sted-weight-semibold); }
 .l4p-offer-label::before { content: ''; width: 7px; height: 7px; border-radius: 50%; background: var(--sted-yellow); box-shadow: 0 0 0 3px color-mix(in srgb, var(--sted-yellow) 30%, transparent); }
@@ -59,7 +48,6 @@
 .l4p-compare th, .l4p-compare td { padding: 16px 12px; border-bottom: 1px solid var(--sted-ink-hairline); text-align: left; vertical-align: top; }
 .l4p-compare thead th { padding-top: 0; font-size: var(--sted-text-label); font-weight: var(--sted-weight-semibold); color: var(--sted-text-muted); }
 .l4p-compare thead th:last-child { color: var(--sted-ink); }
-.l4p-period { font-weight: var(--sted-weight-regular); color: var(--sted-text-muted); }
 .l4p-multiplier { display: table; margin-top: 6px; padding: 3px 9px; border-radius: var(--sted-radius-pill); background: var(--sted-yellow); color: var(--sted-ink); font-size: 11px; font-weight: var(--sted-weight-semibold); letter-spacing: .01em; }
 .l4p-compare td small { display: block; margin-top: 4px; font-size: var(--sted-text-meta); font-weight: var(--sted-weight-regular); color: var(--sted-text-muted); }
 .l4p-compare tbody th { padding-left: 0; font-weight: var(--sted-weight-medium); }
@@ -91,7 +79,6 @@
   .l4p-pro { padding: 28px 20px; gap: 32px; border-radius: var(--sted-radius-2xl); }
   .l4p-pro h3 { font-size: 52px; }
   .l4p-pro-pitch { font-size: 17px; }
-  .l4p-billing-row { margin-top: 24px; }
   .l4p-price strong { font-size: 40px; }
   .l4p-cta-row { margin-top: 22px; gap: 12px; }
   .l4p-cta { padding: 0 20px; gap: 10px; font-size: 16px; white-space: nowrap; }

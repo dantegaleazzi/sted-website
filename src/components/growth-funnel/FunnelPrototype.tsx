@@ -127,7 +127,7 @@ export function FunnelPrototype() {
       <div className="gf-variant-switch" aria-label="Compare prototypes"><button type="button" aria-pressed={variant === 'a'} onClick={() => switchVariant('a')}>A <span>Show me</span></button><button type="button" aria-pressed={variant === 'b'} onClick={() => switchVariant('b')}>B <span>Try a save</span></button></div>
       <button type="button" className="gf-review-open" onClick={start}>Open flow <Arrow /></button>
     </aside>
-    <Landing4CPreview onHowItWorks={start} />
+    <Landing4CPreview />
     {open && <dialog ref={dialog} className={`gf-dialog gf-dialog--${variant} gf-stage--${stage}`} aria-labelledby="gf-title" onCancel={(event) => { event.preventDefault(); setOpen(false) }} onClick={event => { if (event.target === event.currentTarget) { const box = event.currentTarget.getBoundingClientRect(); if (event.clientX < box.left || event.clientX > box.right || event.clientY < box.top || event.clientY > box.bottom) setOpen(false) } }}>
       <div className="gf-layout">
         <aside className="gf-aside">

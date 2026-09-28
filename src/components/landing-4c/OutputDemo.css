@@ -20,10 +20,11 @@
 .l4o-pills button:focus-visible { outline: 2px solid var(--sted-focus); outline-offset: 3px; }
 
 /* The app, no device frame: a rounded screen with a soft white rim, bleeding off the bottom like Readwise */
-/* Padded so the rim and shadow aren't clipped; the canvas ends at y=820, so the screen fades out there */
+/* Padded so the rim and shadow aren't clipped. Clear of the pills on the left, and it fades out at y=766,
+   the bottom of the saves on the left (the shipaton card), so both sides of the hero end on one line. */
 .l4o-stage {
-  position: absolute; left: 1110px; top: 298px; height: 522px; padding: 20px 40px 0; box-sizing: border-box; overflow: hidden; z-index: 4;
-  -webkit-mask-image: linear-gradient(to bottom, #000 76%, transparent); mask-image: linear-gradient(to bottom, #000 76%, transparent);
+  position: absolute; left: 1166px; top: 250px; height: 516px; padding: 20px 40px 0; box-sizing: border-box; overflow: hidden; z-index: 4;
+  -webkit-mask-image: linear-gradient(to bottom, #000 86%, transparent); mask-image: linear-gradient(to bottom, #000 86%, transparent);
 }
 .l4o-screen.cf-phone {
   width: 262px; margin: 0; border: 0; border-radius: 34px; background: #FFFDFC;
@@ -46,7 +47,7 @@
 @keyframes l4o-rise { from { transform: translateY(6px); } }
 @media (prefers-reduced-motion: reduce) { .l4o-stage > *, .l4o-stage .cf-app > * { animation: none; } }
 
-/* Drawn screens (Topics, Magazine) in the app's item-screen scale (cqw of the screen width) */
+/* Drawn screens (Topics) in the app's item-screen scale (cqw of the screen width) */
 .l4o-app { padding-top: 0; }
 .l4o-title { margin: 6cqw 0 0; font-size: 7.6cqw; font-weight: 700; letter-spacing: -.02em; }
 .l4o-date { margin: 1cqw 0 0; font-size: 3.2cqw; color: #8A8580; }
@@ -57,14 +58,9 @@
 .l4o-rows { display: grid; gap: 2.4cqw; margin: 0; padding: 0; list-style: none; }
 .l4o-rows li { display: flex; align-items: center; gap: 3cqw; padding: 2.4cqw; border-radius: 3.2cqw; background: #fff; box-shadow: 0 .6cqw 3cqw #1413130f; }
 .l4o-rows img { width: 17cqw; height: 13cqw; flex: none; border-radius: 2cqw; object-fit: cover; }
-.l4o-rows span, .l4o-pick span { display: flex; flex-direction: column; gap: 1.2cqw; min-width: 0; }
-.l4o-rows strong, .l4o-pick strong { font-size: 3.4cqw; font-weight: 600; line-height: 1.25; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
-.l4o-rows small, .l4o-pick small { font-size: 2.8cqw; color: #8A8580; }
-.l4o-pick { display: flex; flex-direction: column; gap: 2.6cqw; padding: 2.4cqw 2.4cqw 3.2cqw; border-radius: 3.6cqw; background: #fff; box-shadow: 0 .6cqw 3cqw #1413130f; }
-.l4o-pick img { width: 100%; aspect-ratio: 16 / 9; border-radius: 2.4cqw; object-fit: cover; }
-.l4o-recap { margin: 0; font-size: 3.4cqw; line-height: 1.45; color: #4A4744; }
-.l4o-thumbs { display: flex; gap: 2cqw; margin: 0; }
-.l4o-thumbs img { flex: 1; min-width: 0; aspect-ratio: 1; border-radius: 2.4cqw; object-fit: cover; }
+.l4o-rows span { display: flex; flex-direction: column; gap: 1.2cqw; min-width: 0; }
+.l4o-rows strong { font-size: 3.4cqw; font-weight: 600; line-height: 1.25; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.l4o-rows small { font-size: 2.8cqw; color: #8A8580; }
 
 /* Below 1100px the hero stacks: pills in a row, the screen under them, cut with a soft fade */
 @media (max-width: 1099px) {

@@ -61,27 +61,15 @@ html:has(.l4c-page) { scroll-behavior: smooth; }
   opacity: 0; transition: opacity .45s ease; pointer-events: none;
 }
 .l4s-shot.is-active { opacity: 1; }
-.l4s-phone {
-  height: 596px; width: auto; display: block;
-  filter: drop-shadow(0 24px 40px rgba(20,19,19,0.18)) drop-shadow(0 2px 4px rgba(20,19,19,0.06));
-  transform: translateY(16px); transition: transform .5s ease;
-}
-.l4s-shot.is-active .l4s-phone { transform: translateY(0); }
 
-/* CSS device frame for the screen recording: same outer size as the baked-in frames of the shots. */
-.l4s-device {
-  position: relative; height: 596px; aspect-ratio: 715 / 1427; box-sizing: border-box;
-  padding: 8px; border-radius: 48px; background: #1F1F1F;
-  box-shadow: inset 0 0 0 2px #3A3A3A, 0 24px 40px rgba(20,19,19,0.18), 0 2px 4px rgba(20,19,19,0.06);
-  transform: translateY(16px); transition: transform .5s ease;
-}
-.l4s-shot.is-active .l4s-device { transform: translateY(0); }
-.l4s-device-screen { width: 100%; height: 100%; border-radius: 40px; overflow: hidden; background: #0D0D0D; }
-.l4s-device-screen video { width: 100%; height: 100%; object-fit: cover; display: block; }
-.l4s-device-island { position: absolute; top: 20px; left: 50%; width: 82px; height: 24px; transform: translateX(-50%); border-radius: var(--sted-radius-pill); background: #0D0D0D; }
+/* How it works screens use the hero's frame (.cf-phone.l4o-screen: white rim, island only), sized to the stage. */
+.l4s-frame.cf-phone { position: relative; width: 274px; transform: translateY(16px); transition: transform .5s ease; }
+.l4s-shot.is-active .l4s-frame { transform: translateY(0); }
+.l4s-frame video.cf-phone-shot { background: #FFFFFF; }
+.l4s-frame-island { position: absolute; top: 3.5cqw; left: 50%; width: 31cqw; height: 9.2cqw; transform: translateX(-50%); border-radius: 99px; background: #141313; }
 
 @media (prefers-reduced-motion: reduce) {
-  .l4s-shot, .l4s-phone, .l4s-device { transition: none; }
+  .l4s-shot, .l4s-frame { transition: none; }
 }
 
 /* ---------- Section 2: Meanwhile, Sted is working (real app output per tile) ---------- */
@@ -108,8 +96,8 @@ html:has(.l4c-page) { scroll-behavior: smooth; }
   width: calc(var(--img-w) / var(--crop-w) * 100%);
   transform: translate(calc(var(--crop-x) / var(--img-w) * -100%), calc(var(--crop-y) / var(--img-h) * -100%));
 }
-/* A crop that stops mid-card fades into the Magazine's own cream instead of cutting hard. */
-.l4s-app-window.is-fading::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 34%; background: linear-gradient(to bottom, rgba(255, 249, 235, 0), #FFF9EB 88%); }
+/* A crop that stops mid-card fades into The Recap's own cream instead of cutting hard. */
+.l4s-app-window.is-fading::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 34%; background: linear-gradient(to bottom, rgba(254, 247, 234, 0), #FEF7EA 88%); }
 
 /* The Recap, drawn in the app's type and spacing. Sizes are cqw of the window (source px / 5.9),
    so it scales exactly like the screenshot crops beside it. */
@@ -142,7 +130,17 @@ html:has(.l4c-page) { scroll-behavior: smooth; }
 }
 .l4s-final-title { font-size: clamp(40px, 2vw + 30px, 60px); }
 
-.l4s-reassurance { margin: -12px 0 0; font-size: 15px; font-weight: var(--sted-weight-medium); color: var(--sted-text-muted); }
+.l4s-final-cta { display: flex; flex-direction: column; align-items: center; gap: 14px; }
+.l4s-final-free {
+  display: inline-flex; align-items: center; gap: 14px; min-height: 56px; padding: 0 28px; border-radius: var(--sted-radius-pill);
+  background: var(--sted-ink); color: var(--sted-white); font-size: 17px; font-weight: var(--sted-weight-semibold); text-decoration: none;
+  transition: transform var(--sted-duration-base) var(--sted-ease-standard);
+}
+.l4s-final-free:hover { transform: translateY(-1px); }
+.l4s-final-free > span { font-size: 20px; font-weight: var(--sted-weight-regular); }
+.l4s-final-pro { font-size: 15px; font-weight: var(--sted-weight-medium); color: var(--sted-ink); text-decoration: underline; text-decoration-color: var(--sted-yellow); text-decoration-thickness: 2px; text-underline-offset: 4px; }
+.l4s-final-free:focus-visible, .l4s-final-pro:focus-visible { outline: 2px solid var(--sted-focus); outline-offset: 3px; }
+.l4s-final-notice { max-width: 420px; margin: 0; font-size: 13px; color: var(--sted-text-muted); }
 
 /* Hero additions */
 .l4s-appstore { display: inline-flex; flex: none; border-radius: 10px; }
@@ -166,7 +164,7 @@ a.l4s-signin:hover { text-decoration: underline; text-underline-offset: 4px; }
   .l4s-showcase-copy .l4s-lede { max-width: 560px; }
   .l4s-features { max-width: 560px; }
   .l4s-stage { height: 520px; }
-  .l4s-phone, .l4s-device { height: 480px; }
+  .l4s-frame.cf-phone { width: 221px; }
   .l4s-steds { margin-top: 96px; gap: 36px; }
   .l4s-steds-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
   .l4s-sted-action { font-size: var(--sted-text-body); }
@@ -178,10 +176,7 @@ a.l4s-signin:hover { text-decoration: underline; text-underline-offset: 4px; }
 @media (max-width: 639px) {
   .l4s-section { padding: 0 20px; }
   .l4s-stage { height: 440px; border-radius: 24px; }
-  .l4s-phone, .l4s-device { height: 400px; }
-  .l4s-device { padding: 6px; border-radius: 34px; }
-  .l4s-device-screen { border-radius: 28px; }
-  .l4s-device-island { top: 14px; width: 56px; height: 16px; }
+  .l4s-frame.cf-phone { width: 184px; border-radius: 26px; }
   .l4s-feature { padding: 12px 14px; gap: 12px; }
   .l4s-feature.is-active { padding: 16px 14px; }
   .l4s-feature-icon { width: 40px; height: 40px; }
@@ -208,7 +203,7 @@ a.l4s-signin:hover { text-decoration: underline; text-underline-offset: 4px; }
   .l4s-stage { order: 3; width: 100%; height: 420px; margin-top: 24px; }
   .l4s-showcase-copy > .l4s-features { order: 4; margin-top: 24px; }
   .l4s-showcase-copy > .l4s-section-eyebrow { display: none; }
-  .l4s-phone, .l4s-device { height: 384px; }
+  .l4s-frame.cf-phone { width: 177px; border-radius: 26px; }
 }
 
 .l4s-section-eyebrow { margin: 0; color: var(--sted-text-muted); font-size: var(--sted-text-meta); font-weight: var(--sted-weight-semibold); letter-spacing: .12em; line-height: 1.2; text-transform: uppercase; }

@@ -34,8 +34,3 @@ export const isSoldOut = (spots: FoundingSpots | null) => spots !== null && spot
 export function spotsLeft(spots: FoundingSpots | null) {
   return spots ? `${spots.total - spots.claimed} of ${spots.total} left` : `First ${FOUNDING.spots} members`
 }
-
-/** The hero's short form: "100 founding spots" until the count is known, then "63 founding spots left". */
-export function foundingSpotsLabel(spots: FoundingSpots | null) {
-  return spots ? `${spots.total - spots.claimed} founding spots left` : `${FOUNDING.spots} founding spots`
-}

@@ -14,7 +14,7 @@ export function AppScreen({ example, className = '' }: { example: ExampleSave; c
     {example.screen
       ? <img className="cf-phone-shot" src={example.screen} alt="" />
       : <div className="cf-app" aria-hidden="true">
-        <div className="cf-app-status"><span>9:41</span><i /></div>
+        <div className="cf-app-status"><i /></div>
         <span className="cf-app-back">‹</span>
         <img className="cf-app-thumb" src={example.thumb} alt="" />
         <p className="cf-app-title">{example.title}</p>
@@ -26,7 +26,7 @@ export function AppScreen({ example, className = '' }: { example: ExampleSave; c
         <ul className="cf-app-ideas">{example.keyIdeas.map(idea => <li key={idea}>{idea}</li>)}</ul>
         <p className="cf-app-heading">Topics</p>
         <p className="cf-app-topics">{example.topics.map(topic => <span key={topic}>{topic}</span>)}</p>
-        <div className="cf-app-tabs"><span>Magazine</span><span>Sted</span><span className="is-active">Library</span></div>
+        <div className="cf-app-tabs"><span>The Recap</span><span>Sted</span><span className="is-active">Library</span></div>
       </div>}
   </div>
 }

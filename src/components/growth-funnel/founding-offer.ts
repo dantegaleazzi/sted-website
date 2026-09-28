@@ -13,7 +13,7 @@ export const FOUNDING = { cents: 1999, spots: 100 } as const
 export function foundingTerms() {
   const regular = getPeriod('annual').price
   const price = formatPrice(FOUNDING.cents)
-  const monthly = formatPrice(Math.round(FOUNDING.cents / 12))
+  const monthly = formatPrice(Math.floor(FOUNDING.cents / 12)) // $1.66, as RevenueCat's paywall shows it
   return { price, regular, monthly, spots: FOUNDING.spots, renewal: 'Founding price, yours for as long as you stay subscribed. Cancel anytime.' }
 }
 

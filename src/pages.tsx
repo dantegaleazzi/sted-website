@@ -149,7 +149,7 @@ const stedLogs: BuildLog[] = [
     summary: 'The MVP direction locked in today — save-first capture, project-based organization, and a working extraction + understanding pipeline — while the iOS prototype and backend took shape in parallel.',
     items: [
       { label: 'MVP direction locked: save-first context layer', status: 'Done' },
-      { label: 'Gemini 3.5 Flash-Lite selected for content understanding', status: 'Done' },
+      { label: 'AI model selected for content understanding', status: 'Done' },
       { label: '≥0.90 confidence auto-assigns project; manual always wins', status: 'Done' },
       { label: 'URL extraction ladder shipped: HTTP + deterministic retry', status: 'Done' },
       { label: 'iOS prototype + Share Extension; backend schema, auth, search', status: 'Done' },
@@ -341,7 +341,7 @@ const danteLogs: BuildLog[] = [
       'Save first. Think later.',
       'When something is saved, Sted also tries to figure out which of your projects it belongs to. We only let it decide automatically when it’s confident — in our testing, high-confidence predictions were reliably correct, so anything below that threshold is left uncategorized instead of guessing. You can always correct it, and a manual correction always wins over whatever Sted predicts later.',
       '## The part that turned out to be hard',
-      'I expected calling Gemini to understand a saved item to be the hard part. It wasn’t, really — we tested Gemini 3.5 Flash-Lite as Sted’s understanding layer and it was good enough for the MVP. The more interesting problem turned out not to be the model at all.',
+      'I expected calling an AI model to understand a saved item to be the hard part. It wasn’t, really — the first model we tested as Sted’s understanding layer was good enough for the MVP. The more interesting problem turned out not to be the model at all.',
       'It was reliably extracting useful information from arbitrary URLs in the first place. Normal web pages are fine. Video and social platforms are not — YouTube gives you metadata but not a transcript, TikTok gives you almost nothing usable, Instagram gives you a caption but not the video itself.',
       'We ended up building an extraction ladder: a first pass with existing HTTP extraction, a second pass with more deterministic retries and better metadata/JSON-LD/OpenGraph parsing, and a third, heavier option using a real browser to render the page. Each item also tracks its own provenance — whether we got the full content, just metadata, or almost nothing — instead of quietly pretending every save is fully understood.',
       'The third tier only helped with one extra case in our sample, at the cost of roughly 12 seconds of latency and a lot of infrastructure complexity. So for today, we’re shipping the first two tiers and keeping the browser-based option experimental rather than forcing it into the MVP. And if all Sted actually saw was a title or a caption, it has to say so — it never gets to claim it watched or listened to something it didn’t.',

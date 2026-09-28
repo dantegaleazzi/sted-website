@@ -46,7 +46,7 @@ describe('final web prices', () => {
   it('matches RevenueCat: $9.99 / $12.99 / $79.99', () => {
     expect([getPeriod('weekly').cents, getPeriod('monthly').cents, getPeriod('annual').cents]).toEqual([999, 1299, 7999])
     expect([getPeriod('weekly').price, getPeriod('monthly').price, getPeriod('annual').price]).toEqual(['$9.99', '$12.99', '$79.99'])
-    expect(annualComparison().monthlyEquivalent).toBe('$6.67')
+    expect(annualComparison().monthlyEquivalent).toBe('$6.66')
   })
 })
 
@@ -54,13 +54,13 @@ describe('landing pricing', () => {
   const regular = renderToStaticMarkup(createElement(LandingPricing, { founding: false }))
   const founding = renderToStaticMarkup(createElement(LandingPricing, { founding: true }))
 
-  it('shows the regular annual price and never the old ones', () => {
+  it('shows one yearly price, no monthly plan, and never the old prices', () => {
     expect(regular).toContain('$79.99')
-    expect(regular).toContain('$6.67 a month')
-    expect(regular).toContain('Save 49% with yearly')
+    expect(regular).toContain('$6.66 a month')
     for (const html of [regular, founding]) {
-      expect(html).toContain('>Pay monthly</button>')
-      expect(html).toContain('aria-pressed="true">Pay yearly</button>')
+      expect(html).not.toContain('Pay monthly')
+      expect(html).not.toContain('$12.99')
+      expect(html).toContain('Make every save count.')
     }
     for (const html of [regular, founding]) expect(html).not.toMatch(/\$10\b|\$79(?!\.99)|\$6\.58/)
   })
@@ -71,15 +71,14 @@ describe('landing pricing', () => {
     expect(founding).toContain('Founding price, yours for as long as you stay subscribed. Cancel anytime.')
     expect(founding).not.toContain('first year')
     expect(founding).toContain('Get Sted Pro · $19.99')
-    expect(founding).toContain('$1.67 a month')
-    expect(founding).toContain('Save up to 87% with yearly')
+    expect(founding).toContain('$1.66 a month')
     expect(regular).not.toContain('$19.99')
   })
 
   it('compares Free and Pro, marks chat as not live yet and points to the roadmap', () => {
     for (const html of [regular, founding]) {
-      expect(html).toContain('Free <span class="l4p-period">(yearly)</span>')
-      expect(html).toContain('Pro <span class="l4p-period">(yearly)</span><span class="l4p-multiplier">20× more usage</span>')
+      expect(html).toContain('<th scope="col">Free</th>')
+      expect(html).toContain('Pro<span class="l4p-multiplier">10× more usage</span>')
       expect(html).toContain('Chat with your saved items<span class="l4p-soon">Soon</span>')
       expect(html).toContain('href="#roadmap"')
       expect(html).toContain(REDEEM_NOTE)

@@ -1,8 +1,12 @@
 import { useEffect, useReducer, useRef, useState } from 'react'
 import { ROTATE_MS, isRotating, rotationReducer } from './showcase-rotation'
 import { APP_STORE_URL, SIGN_IN_URL } from './app-links'
+import { CheckoutLink } from './CheckoutLink'
 import { LandingPricing } from './LandingPricing'
+import { isSoldOut, useFoundingSpots } from './useFoundingSpots'
+import { foundingTerms, isFoundingLive } from '../growth-funnel/founding-offer'
 import { LandingRoadmap } from './LandingRoadmap'
+import { SUMMARY_SCREEN, TopicsApp } from './OutputDemo'
 import './landing-4c-tokens.css'
 import './Landing4CSections.css'
 
@@ -12,10 +16,12 @@ import './Landing4CSections.css'
  * Feature showcase rotation rules live in showcase-rotation.ts.
  */
 
-export type FeatureKey = 'save' | 'summary' | 'feed'
+export type FeatureKey = 'save' | 'summary' | 'topics' | 'feed'
 
 /** Rotation order: how you save first (the number-one question), then what Sted makes of it. */
 export const FEATURE_KEYS: FeatureKey[] = ['save', 'summary', 'feed']
+/** Built but not on the landing yet: shown on /internal/landing-4c/states only. */
+export const PARKED_FEATURE_KEYS: FeatureKey[] = ['topics']
 
 const ICONS = '/content/landing-4c/icons'
 // Everything below the hero is off-screen on load; let the browser defer it.
@@ -23,8 +29,9 @@ const LAZY = { loading: 'lazy', decoding: 'async' } as const
 
 const FEATURES: { key: FeatureKey; icon: string; title: string; body: string }[] = [
   { key: 'save', icon: 'web-page', title: 'Save from anywhere', body: 'Share it from Instagram, YouTube, X, Safari or Spotify. Sted takes it from there.' },
-  { key: 'summary', icon: 'summary-note', title: 'Summary and key points', body: 'Sted reads every link and writes the summary and key points for you.' },
-  { key: 'feed', icon: 'media', title: 'A daily magazine from your saves', body: 'Every day Sted builds a Magazine from what you saved: The Recap, Sted’s Picks and Your Saves.' },
+  { key: 'summary', icon: 'summary-note', title: 'Summary & Key Ideas', body: 'Sted reads every link and writes the summary and key ideas for you.' },
+  { key: 'topics', icon: 'topics', title: 'Organized into topics, automatically', body: 'Sted sorts every save into topics like AI, Travel or Coffee. Your library organizes itself.' },
+  { key: 'feed', icon: 'media', title: 'The Recap, every morning', body: 'Every day Sted recaps what you saved: Sted’s Picks, the topics you saved around and your latest saves.' },
 ]
 
 // "Meanwhile, Sted is working": each tile shows real app output for its line. Three are CSS crops of
@@ -34,7 +41,7 @@ type AppCrop = { src: string; alt: string; size: [number, number]; box: [number,
 type StedAtWork = { key: string; tint: string; action: string; crop?: AppCrop }
 
 const SUMMARY_SHOT = { src: '/content/landing-4c/app/summary.webp', size: [715, 1426] as [number, number] }
-const FEED_SHOT = { src: '/content/landing-4c/app/feed.webp', size: [715, 1427] as [number, number] }
+const RECAP_SHOT = { src: '/content/landing-4c/app/recap.webp', size: [920, 2000] as [number, number] }
 
 const STEDS_AT_WORK: StedAtWork[] = [
   {
@@ -42,13 +49,13 @@ const STEDS_AT_WORK: StedAtWork[] = [
     crop: { ...SUMMARY_SHOT, alt: 'Sted’s summary and key ideas for a saved post', box: [62, 768, 590, 492] },
   },
   {
-    key: 'magazine', tint: 'var(--sted-supportive-blue)', action: 'put this morning’s Magazine together before you woke up.',
-    crop: { ...FEED_SHOT, alt: 'The Sted Magazine: today’s edition opening on Sted’s Picks', box: [62, 112, 590, 492], fade: true },
+    key: 'recap', tint: 'var(--sted-supportive-blue)', action: 'put this morning’s Recap together before you woke up.',
+    crop: { ...RECAP_SHOT, alt: 'The Recap in Sted: today’s edition opening on Sted’s Picks', box: [30, 150, 860, 452], fade: true },
   },
   { key: 'topics', tint: 'var(--sted-supportive-pink)', action: 'sorted this week’s saves into Travel, Coffee and AI.' },
   {
     key: 'picks', tint: 'var(--sted-supportive-green)', action: 'picked three saves worth your next five minutes.',
-    crop: { ...FEED_SHOT, alt: 'Your Saved Steds in the Magazine: three saves, each with its source and date', box: [62, 880, 590, 372] },
+    crop: { ...RECAP_SHOT, alt: 'Sted’s Picks in The Recap: “If you have 5 minutes, start with these.”', box: [30, 458, 860, 548] },
   },
 ]
 
@@ -69,7 +76,7 @@ function AppCropWindow({ crop }: { crop: AppCrop }) {
   </div>
 }
 
-/** The Magazine's Recap block, drawn in the app's style with this line's three topics. */
+/** The Recap's topics block, drawn in the app's style with this line's three topics. */
 function RecapWindow() {
   return <div className="l4s-app-window l4s-recap" role="img" aria-label="The Recap: this week’s saves sorted into Travel, Coffee and AI">
     <div className="l4s-recap-inner">
@@ -97,47 +104,55 @@ export function SignInLink() {
   return <a className="l4s-signin" href={SIGN_IN_URL}>Sign in</a>
 }
 
+/** Closing CTA: free on iPhone first, Pro one quiet link away (the founding price while it runs). */
+function ClosingCta() {
+  const spots = useFoundingSpots()
+  const founding = isFoundingLive() && !isSoldOut(spots)
+  return <div className="l4s-final-cta">
+    <a className="l4s-final-free" href={APP_STORE_URL ?? '#'}>Get Sted free on iPhone <span aria-hidden="true">→</span></a>
+    <CheckoutLink plan={founding ? 'founding' : 'annual'} source="closing" className="l4s-final-pro" noticeClassName="l4s-final-notice">
+      {founding ? `or go Pro for ${foundingTerms().price}/yr` : 'or go Pro'}
+    </CheckoutLink>
+  </div>
+}
+
 function Mascot({ size }: { size: number }) {
   return <img src="/sted-mascot.svg" alt="" aria-hidden="true" style={{ height: size, width: 'auto', display: 'block' }} {...LAZY} />
 }
 
-// Provisional app screenshots (device frame baked in, background cut to transparent).
-// Final shots will replace the files in public/content/landing-4c/app/.
-// The 'save' state is a real screen recording of the share sheet, played inside a CSS device frame.
-const SHOTS: Record<FeatureKey, { src: string; alt: string; tint: string; video?: { mp4: string; poster: string } }> = {
-  save: {
-    src: '/content/landing-4c/app/share-poster.webp', alt: 'Sharing a link to Sted from another app: “Saved to Sted”, with a project picker and tags', tint: 'var(--sted-supportive-blue)',
-    video: { mp4: '/content/landing-4c/app/share.mp4', poster: '/content/landing-4c/app/share-poster.webp' },
-  },
-  summary: { src: '/content/landing-4c/app/summary.webp', alt: 'A saved X post in Sted with its summary, key ideas and topics', tint: 'var(--sted-yellow)' },
-  feed: { src: '/content/landing-4c/app/feed.webp', alt: 'Sted Magazine with Sted’s picks, the recap and your saved Steds', tint: 'var(--sted-supportive-green)' },
+// How it works screens, all in the hero's frame (white rim, island only, no status bar): the share
+// sheet recording, real screenshots of the Dan Koe save and The Recap, and Topics drawn.
+const SHOTS: Record<FeatureKey, { alt: string; tint: string; kind: 'video' | 'topics' | 'shot'; src?: string; poster?: string }> = {
+  save: { kind: 'video', src: '/content/landing-4c/app/share.mp4', poster: '/content/landing-4c/app/share-poster.webp', alt: 'Sharing an X post to Sted from the iOS share sheet', tint: 'var(--sted-supportive-blue)' },
+  summary: { kind: 'shot', src: SUMMARY_SCREEN.src, alt: SUMMARY_SCREEN.alt, tint: 'var(--sted-yellow)' },
+  topics: { kind: 'topics', alt: 'The Sted library sorted into topics: AI, Design, Productivity, Coffee, Travel and Podcasts', tint: 'var(--sted-supportive-pink)' },
+  feed: { kind: 'shot', src: '/content/landing-4c/app/recap.webp', alt: 'The Recap in Sted with Sted’s Picks, the topics you saved around and your saved Steds', tint: 'var(--sted-supportive-green)' },
 }
 
-/** Screen recording in a device frame. Plays only while its state is active and motion is allowed;
- *  otherwise it sits on its poster frame. */
-function DeviceVideo({ video, alt, isActive, reducedMotion }: { video: NonNullable<(typeof SHOTS)[FeatureKey]['video']>; alt: string; isActive: boolean; reducedMotion: boolean }) {
+/** Screen recording: plays only while its state is active and motion is allowed; otherwise it sits on its poster. */
+function ShareVideo({ src, poster, alt, isActive, reducedMotion }: { src: string; poster: string; alt: string; isActive: boolean; reducedMotion: boolean }) {
   const ref = useRef<HTMLVideoElement>(null)
   useEffect(() => {
     const node = ref.current
     if (!node) return
     if (isActive && !reducedMotion) { node.play().catch(() => {}) } else { node.pause(); if (!isActive) node.currentTime = 0 }
   }, [isActive, reducedMotion])
-  return <div className="l4s-device">
-    <div className="l4s-device-screen">
-      <video ref={ref} muted loop playsInline preload="metadata" poster={video.poster} aria-label={alt}>
-        <source src={video.mp4} type="video/mp4" />
-      </video>
-    </div>
-    <span className="l4s-device-island" aria-hidden="true" />
-  </div>
+  return <>
+    <video ref={ref} className="cf-phone-shot" muted loop playsInline preload="metadata" poster={poster} aria-label={alt}>
+      <source src={src} type="video/mp4" />
+    </video>
+    <span className="l4s-frame-island" aria-hidden="true" />
+  </>
 }
 
 function PhoneShot({ feature, isActive, reducedMotion }: { feature: (typeof FEATURES)[number]; isActive: boolean; reducedMotion: boolean }) {
   const shot = SHOTS[feature.key]
   return <div className={isActive ? 'l4s-shot is-active' : 'l4s-shot'} style={{ '--l4s-tint': shot.tint } as React.CSSProperties} aria-hidden={!isActive}>
-    {shot.video
-      ? <DeviceVideo video={shot.video} alt={shot.alt} isActive={isActive} reducedMotion={reducedMotion} />
-      : <img src={shot.src} alt={shot.alt} className="l4s-phone" width={715} height={1427} {...LAZY} />}
+    <div className="cf-phone l4o-screen l4s-frame" role={shot.kind === 'topics' ? 'img' : undefined} aria-label={shot.kind === 'topics' ? shot.alt : undefined}>
+      {shot.kind === 'video' && <ShareVideo src={shot.src!} poster={shot.poster!} alt={shot.alt} isActive={isActive} reducedMotion={reducedMotion} />}
+      {shot.kind === 'topics' && <TopicsApp />}
+      {shot.kind === 'shot' && <img className="cf-phone-shot" src={shot.src} alt={shot.alt} width={920} height={2000} {...LAZY} />}
+    </div>
   </div>
 }
 
@@ -153,7 +168,8 @@ function usePrefersReducedMotion() {
   return reduced
 }
 
-export function FeatureShowcase({ initial = 'save', autoplay = true, id }: { initial?: FeatureKey; autoplay?: boolean; id?: string }) {
+export function FeatureShowcase({ initial = 'save', autoplay = true, id, keys = FEATURE_KEYS }: { initial?: FeatureKey; autoplay?: boolean; id?: string; keys?: FeatureKey[] }) {
+  const features = FEATURES.filter(feature => keys.includes(feature.key))
   const [state, dispatch] = useReducer(rotationReducer<FeatureKey>, { active: initial, hovering: false, pinned: !autoplay })
   const [inView, setInView] = useState(false)
   const reducedMotion = usePrefersReducedMotion()
@@ -176,7 +192,7 @@ export function FeatureShowcase({ initial = 'save', autoplay = true, id }: { ini
       <h2 id={id ? `${id}-title` : undefined} className="l4s-h2">Save it.<br />Sted does the rest.</h2>
       <p className="l4s-lede">Send Sted whatever you find. It reads and understands every save, so you don’t have to go back and work through it all yourself.</p>
       <ol className="l4s-features" onMouseLeave={() => dispatch({ type: 'leave' })}>
-        {FEATURES.map((feature) => {
+        {features.map((feature) => {
           const isActive = feature.key === state.active
           return <li key={feature.key}>
             <button
@@ -196,7 +212,7 @@ export function FeatureShowcase({ initial = 'save', autoplay = true, id }: { ini
                   <span
                     key={state.active}
                     style={{ animationDuration: `${ROTATE_MS}ms`, animationPlayState: rotating ? 'running' : 'paused' }}
-                    onAnimationEnd={() => dispatch({ type: 'advance', keys: FEATURE_KEYS })}
+                    onAnimationEnd={() => dispatch({ type: 'advance', keys })}
                   />
                 </span>}
               </span>
@@ -206,7 +222,7 @@ export function FeatureShowcase({ initial = 'save', autoplay = true, id }: { ini
       </ol>
     </div>
     <div className="l4s-stage" id={id}>
-      {FEATURES.map((feature) => <PhoneShot key={feature.key} feature={feature} isActive={feature.key === state.active} reducedMotion={reducedMotion} />)}
+      {features.map((feature) => <PhoneShot key={feature.key} feature={feature} isActive={feature.key === state.active} reducedMotion={reducedMotion} />)}
       {/* Floating Steds (placeholder art until the variant SVGs land). */}
       <img src="/sted-mascot.svg" alt="" aria-hidden="true" className="l4s-floater l4s-floater-mascot" {...LAZY} />
       <img src={`${ICONS}/video.webp`} alt="" aria-hidden="true" className="l4s-floater l4s-floater-a" {...LAZY} />
@@ -216,10 +232,9 @@ export function FeatureShowcase({ initial = 'save', autoplay = true, id }: { ini
   </section>
 }
 
-export function Landing4CSections({ initial, autoplay }: { initial: FeatureKey; autoplay: boolean }) {
+/** "Meanwhile, Sted is working": parked, not on the landing. Shown on /internal/landing-4c/states. */
+export function StedsAtWork() {
   return <>
-    <FeatureShowcase initial={initial} autoplay={autoplay} id="how-it-works" />
-
     <section className="l4s-section l4s-steds" id="why-sted" aria-labelledby="l4s-steds-title">
       <h2 id="l4s-steds-title" className="l4s-h2">Meanwhile,<br />Sted is working.</h2>
       <div className="l4s-steds-grid">
@@ -231,6 +246,12 @@ export function Landing4CSections({ initial, autoplay }: { initial: FeatureKey; 
         </div>)}
       </div>
     </section>
+  </>
+}
+
+export function Landing4CSections({ initial, autoplay }: { initial: FeatureKey; autoplay: boolean }) {
+  return <>
+    <FeatureShowcase initial={initial} autoplay={autoplay} id="how-it-works" />
 
     <LandingPricing />
 
@@ -239,8 +260,7 @@ export function Landing4CSections({ initial, autoplay }: { initial: FeatureKey; 
     <section className="l4s-section l4s-final" id="download" aria-labelledby="l4s-final-title">
       <div className="l4s-final-badge"><Mascot size={112} /></div>
       <h2 id="l4s-final-title" className="l4s-h2 l4s-final-title">You saved it for a reason.<br /><span className="l4s-yellow">Make it useful.</span></h2>
-      <AppStoreBadge height={60} />
-      <p className="l4s-reassurance">Free to start</p>
+      <ClosingCta />
     </section>
   </>
 }

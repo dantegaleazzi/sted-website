@@ -279,7 +279,7 @@ export function FunnelPage() {
   </main>
 }
 
-/** Review surface: the landing, with "See how it works" opening the funnel. ?open=1 opens it on load. */
+/** Review surface: the landing, with "Open flow" opening the funnel. ?open=1 opens it on load. */
 export function ConversationalFunnel() {
   const params = new URLSearchParams(window.location.search)
   const [open, setOpen] = useState(params.get('open') === '1' || params.get('review') === 'result')
@@ -288,7 +288,7 @@ export function ConversationalFunnel() {
       <span>Sted · conversation preview</span>
       <button type="button" onClick={() => setOpen(true)}>Open flow ↗</button>
     </div>
-    <Landing4CPreview onHowItWorks={() => setOpen(true)} />
+    <Landing4CPreview />
     {open && <FunnelDialog onClose={() => setOpen(false)} />}
   </div>
 }

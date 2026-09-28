@@ -8,7 +8,7 @@ const session = { id: '00000000-0000-4000-8000-000000000003', utm: { utm_source:
 
 describe('founding offer', () => {
   it('is $19.99 a year, locked in, against the regular $79.99', () => {
-    expect(foundingTerms()).toEqual({ price: '$19.99', regular: '$79.99', monthly: '$1.67', spots: 100, renewal: 'Founding price, yours for as long as you stay subscribed. Cancel anytime.' })
+    expect(foundingTerms()).toEqual({ price: '$19.99', regular: '$79.99', monthly: '$1.66', spots: 100, renewal: 'Founding price, yours for as long as you stay subscribed. Cancel anytime.' })
   })
 
   it('only goes live in production once its RevenueCat funnel exists', () => {
@@ -40,22 +40,18 @@ describe('direct checkout from the landing', () => {
 
 describe('what the landing promises', () => {
   it('marks chat as not live yet in Free vs Pro', () => {
-    expect(comparison('monthly').find(row => row.feature === 'Chat with your saved items')?.soon).toBe(true)
+    expect(comparison().find(row => row.feature === 'Chat with your saved items')?.soon).toBe(true)
   })
 
-  it('shows Free vs Pro per month, or per year with the monthly figure under it', () => {
-    const pick = (rows: ReturnType<typeof comparison>, feature: string) => rows.find(row => row.feature === feature)!
-    const monthly = comparison('monthly')
-    expect(pick(monthly, 'Saves Sted reads for you')).toMatchObject({ free: '30 a month', pro: '1,000 a month' })
-    expect(pick(monthly, 'Chat with your saved items')).toMatchObject({ free: '25 credits a month', pro: '500 credits a month' })
-    const yearly = comparison('annual')
-    expect(pick(yearly, 'Saves Sted reads for you')).toMatchObject({ free: '360 a year', freeNote: '30 a month', pro: '12,000 a year', proNote: '1,000 a month' })
-    expect(pick(yearly, 'Chat with your saved items')).toMatchObject({ free: '300 credits a year', pro: '6,000 credits a year' })
-    expect(pick(yearly, 'Saves')).toMatchObject({ free: 'Up to 1,000', pro: 'Unlimited' })
+  it('shows Free vs Pro as one number per month', () => {
+    const pick = (feature: string) => comparison().find(row => row.feature === feature)!
+    expect(pick('Saves Sted reads for you')).toMatchObject({ free: '50 a month', pro: '500 a month' })
+    expect(pick('Chat with your saved items')).toMatchObject({ free: 'Limited', pro: 'Extended' })
+    expect(pick('Saves')).toMatchObject({ free: 'Up to 1,000', pro: 'Unlimited' })
   })
 
-  it('claims Pro usage from the tightest limit (chat 500 vs 25 = 20×)', () => {
-    expect(PRO_MULTIPLIER).toBe(20)
+  it('claims Pro usage from the tightest limit (summaries 500 vs 50 = 10×)', () => {
+    expect(PRO_MULTIPLIER).toBe(10)
   })
 
   it('lists the roadmap Dante approved', () => {

@@ -7,8 +7,8 @@ export type Volume = 'light' | 'daily' | 'heavy' | 'unsure'
 export type Habit = 'forget' | 'find' | 'organized' | 'new'
 
 export const PLAN_CAPACITY = {
-  free: { saves: 1000, aiSavesPerMonth: 30, chatCreditsPerMonth: 25 },
-  pro: { saves: null, aiSavesPerMonth: 1000, chatCreditsPerMonth: 500 },
+  free: { saves: 1000, aiSavesPerMonth: 50, chatCreditsPerMonth: 25 },
+  pro: { saves: null, aiSavesPerMonth: 500, chatCreditsPerMonth: 500 },
 } as const
 
 export const PACKAGE_EXPECTED: Record<Period, string> = {
@@ -42,7 +42,8 @@ export function annualComparison() {
   return {
     savingsCents,
     savingsPercent: Math.round(savingsCents / twelveMonths * 1000) / 10,
-    monthlyEquivalent: formatPrice(Math.round(annual / 12)),
+    // Cut to the cent, not rounded: RevenueCat's paywall shows $6.66, so the site does too.
+    monthlyEquivalent: formatPrice(Math.floor(annual / 12)),
     isBestValue: annual < twelveMonths && annual < getPeriod('weekly').cents * 52,
   }
 }

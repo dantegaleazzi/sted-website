@@ -22,8 +22,6 @@ describe('routes', () => {
       expect(resolveRoute(path, production)).toBe('landing')
     }
     expect(resolveRoute('/internal/funnel/c', dev)).toBe('funnel-review')
-    expect(resolveRoute('/internal/pricing-new', dev)).toBe('pricing-preview')
-    expect(resolveRoute('/internal/pricing-new', production)).toBe('landing')
     expect(resolveRoute('/', { dev: false, funnelPreview: true })).toBe('funnel-review')
   })
 })

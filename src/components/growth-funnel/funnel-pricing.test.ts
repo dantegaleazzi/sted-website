@@ -5,7 +5,7 @@ describe('funnel commercial preview', () => {
   it('compares the annual charge against twelve full monthly charges', () => {
     expect(getPeriod('monthly').cents * 12).toBe(15588)
     expect(annualComparison()).toEqual({
-      savingsCents: 7589, savingsPercent: 48.7, monthlyEquivalent: '$6.67', isBestValue: true,
+      savingsCents: 7589, savingsPercent: 48.7, monthlyEquivalent: '$6.66', isBestValue: true,
     })
   })
 

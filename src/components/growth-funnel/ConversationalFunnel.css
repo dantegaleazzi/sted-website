@@ -84,8 +84,9 @@
 .cf-phone-shot { display: block; width: 100%; height: 100%; object-fit: cover; object-position: top; }
 .cf-phone { container-type: inline-size; }
 .cf-app { position: relative; height: 100%; padding: 0 5.9cqw; overflow: hidden; color: #141313; font-size: 3.35cqw; }
-.cf-app-status { display: flex; justify-content: space-between; align-items: center; height: 10cqw; padding: 0 6cqw; font-size: 3.6cqw; font-weight: 600; }
-.cf-app-status i { width: 30cqw; height: 5.6cqw; border-radius: 99px; background: #141313; position: absolute; left: 50%; top: 2.2cqw; transform: translateX(-50%); }
+/* Status bar: the island only (no time, signal or battery), at an iPhone's proportions. */
+.cf-app-status { display: flex; justify-content: space-between; align-items: center; height: 14cqw; padding: 0 6cqw; font-size: 3.6cqw; font-weight: 600; }
+.cf-app-status i { width: 31cqw; height: 9.2cqw; border-radius: 99px; background: #141313; position: absolute; left: 50%; top: 3.5cqw; transform: translateX(-50%); }
 .cf-app-back { display: grid; place-items: center; width: 10.8cqw; height: 10.8cqw; margin: 2cqw 0 0 -1cqw; border-radius: 50%; background: #fff; box-shadow: 0 1cqw 3cqw #1413131a; font-size: 7cqw; line-height: 1; }
 .cf-app-thumb { display: block; width: 100%; aspect-ratio: 552 / 282; margin-top: 3.4cqw; border-radius: 3.2cqw; object-fit: cover; }
 .cf-app-title { margin: 5.2cqw 0 0; font-size: 5.4cqw; font-weight: 600; line-height: 1.25; letter-spacing: -.01em; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
@@ -102,7 +103,7 @@
 .cf-app-topics { display: flex; flex-wrap: wrap; gap: 1.6cqw; margin: 0; }
 .cf-app-topics span { padding: 1.2cqw 3cqw; border: 1px solid #E8E7E4; border-radius: 99px; color: #8A8580; font-size: 3cqw; }
 .cf-app-tabs { position: absolute; left: 50%; bottom: 3cqw; transform: translateX(-50%); display: flex; gap: 1cqw; padding: 1.6cqw; border-radius: 99px; background: #FFFFFFEE; box-shadow: 0 1cqw 5cqw #14131320; font-size: 2.8cqw; font-weight: 500; }
-.cf-app-tabs span { padding: 2.6cqw 4.4cqw; border-radius: 99px; }
+.cf-app-tabs span { padding: 2.6cqw 4.4cqw; border-radius: 99px; white-space: nowrap; }
 .cf-app-tabs .is-active { background: #EFEEEC; }
 .cf-notice { margin: 10px 0 0; font-size: 12px; line-height: 1.5; color: var(--sted-text-secondary); text-align: center; overflow-wrap: anywhere; }
 @media (min-height: 850px) and (min-width: 601px) { .cf-content { padding-top: 35px; } .cf-greeting { margin-bottom: 38px; } }
