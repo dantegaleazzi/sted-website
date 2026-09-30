@@ -13,6 +13,7 @@ const Landing4CShowcaseStates = lazy(() => import('./components/landing-4c/Landi
 const FunnelPrototype = lazy(() => import('./components/growth-funnel/FunnelPrototype').then((m) => ({ default: m.FunnelPrototype })))
 const ConversationalFunnel = lazy(() => import('./components/growth-funnel/ConversationalFunnel').then((m) => ({ default: m.ConversationalFunnel })))
 const ContentPage = lazy(() => import('./components/content-pages/ContentPages').then((m) => ({ default: m.ContentPage })))
+const JudgesPage = lazy(() => import('./components/judges/JudgesPage').then((m) => ({ default: m.JudgesPage })))
 const FunnelPage = lazy(() => import('./components/growth-funnel/ConversationalFunnel').then((m) => ({ default: m.FunnelPage })))
 
 export const PAGES: Record<Route, (pathname: string) => ReactElement> = {
@@ -26,6 +27,7 @@ export const PAGES: Record<Route, (pathname: string) => ReactElement> = {
   tunnel: () => <StedContentTunnel />,
   site: pathname => <SiteApp pathname={pathname} />,
   content: pathname => <ContentPage pathname={pathname} />,
+  judges: () => <JudgesPage />,
 }
 
 /** The app for one pathname. The browser passes window.location.pathname; the build-time prerender passes the page it writes. */

@@ -1,13 +1,13 @@
 # Sted
 
-> Sted is an iPhone app for everything you save. Share a link from any app (a video, a post, a podcast, an article) and Sted reads it for you: it writes a summary and the key ideas, sorts it into topics and projects, and puts together The Recap, a daily digest of what you saved.
+> Sted is an iPhone app for everything you save. Share a link from any app (a video, a post, a podcast, an article) and Sted reads it for you: it writes a summary and the key ideas, sorts it into topics and projects, and every 10 saves puts together The Recap, with what's worth your time.
 
 ## What Sted does
 
 - Save from any app through the iOS share sheet: Instagram, YouTube, X, Safari, Spotify and more.
 - Summary and key ideas for every saved link, plus topics.
 - Projects to organize saves, and search across the whole library.
-- The Recap: every day, Sted's Picks, the topics you saved around and your latest saves.
+- The Recap: every 10 saves, Sted puts together Sted's Picks, the topics you've been saving around and your latest saves.
 - Ask Sted (chat, new in version 1.3): ask anything about what you saved, summarize today's saves, recap your week, save links from the chat and revisit past conversations. Answers point to the saves they're based on.
 
 ## Plans

@@ -33,7 +33,7 @@ const FEATURES: { key: FeatureKey; icon: string; title: string; body: string }[]
   { key: 'summary', icon: 'summary-note', title: 'Summary & Key Ideas', body: 'Sted reads every link and writes the summary and key ideas for you.' },
   { key: 'topics', icon: 'topics', title: 'Organized into topics, automatically', body: 'Sted sorts every save into topics like AI, Travel or Coffee. Your library organizes itself.' },
   { key: 'chat', icon: 'chat', title: 'Ask Sted', body: 'Chat with everything you saved: ask anything, summarize today or recap your week. Answers come with the saves they’re based on.' },
-  { key: 'feed', icon: 'media', title: 'The Recap, every morning', body: 'Every day Sted recaps what you saved: Sted’s Picks, the topics you saved around and your latest saves.' },
+  { key: 'feed', icon: 'media', title: 'The Recap, as you save', body: 'Every 10 saves, Sted puts together The Recap: Sted’s Picks, the topics you’ve been saving around and your latest saves.' },
 ]
 
 // "Meanwhile, Sted is working": each tile shows real app output for its line. Three are CSS crops of

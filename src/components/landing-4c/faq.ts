@@ -14,7 +14,7 @@ const offer = foundingTerms()
 export const FAQ: { question: string; answer: string }[] = [
   {
     question: 'What is Sted?',
-    answer: 'Sted is an app for everything you save online. Share a link from any app, like a video, a post, a podcast or an article, and Sted reads it for you: it writes a summary and the key ideas, sorts it into topics and projects, and puts together The Recap, a daily digest of what you saved.',
+    answer: 'Sted is an app for everything you save online. Share a link from any app, like a video, a post, a podcast or an article, and Sted reads it for you: it writes a summary and the key ideas, sorts it into topics and projects, and every 10 saves puts together The Recap, with what’s worth your time.',
   },
   {
     question: 'Is Sted free?',

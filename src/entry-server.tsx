@@ -3,6 +3,7 @@ import { prerender } from 'react-dom/static'
 import { Root } from './root'
 
 export { PAGE_META } from './page-meta'
+export { JUDGES_PATH } from './worker-policy'
 
 /** Build-time only (scripts/prerender.mjs): the HTML of one page, with every lazy chunk resolved. */
 export async function render(pathname: string): Promise<string> {

@@ -96,8 +96,8 @@ const STEPS: Step[] = [
     media: { kind: 'image', src: `${APP}/summary-dan-koe.webp`, alt: 'A saved X post in Sted with its summary and key ideas' },
   },
   {
-    title: 'Start your day with The Recap',
-    body: ['Every morning, The Recap brings your saves back to you: Sted’s Picks, the topics you’ve been saving around and your latest saves. It’s the easiest way to actually use what you saved instead of forgetting it.'],
+    title: 'See what matters in The Recap',
+    body: ['Every 10 saves, Sted puts together The Recap and brings your saves back to you: Sted’s Picks, the topics you’ve been saving around and your latest saves. It’s the easiest way to actually use what you saved instead of forgetting it.'],
     media: { kind: 'image', src: `${APP}/recap.webp`, alt: 'The Recap in Sted with Sted’s Picks, topics and recent saves' },
   },
   {
@@ -173,13 +173,13 @@ const COMPARISON: { feature: string; pocket: string; sted: string }[] = [
   { feature: 'What you can save', pocket: 'Links, best with articles', sted: 'Posts, videos, reels, podcasts, articles and repos' },
   { feature: 'Summary and key ideas for every save', pocket: 'No', sted: 'Yes' },
   { feature: 'Organizing', pocket: 'Tags', sted: 'Topics sorted for you, plus projects' },
-  { feature: 'Daily digest of your saves', pocket: 'No', sted: 'The Recap, every morning' },
+  { feature: 'A recap of what you saved', pocket: 'No', sted: 'The Recap, every 10 saves' },
   { feature: 'Chat with what you saved', pocket: 'No', sted: 'Ask Sted' },
   { feature: 'Price', pocket: 'No longer available', sted: `Free, or Pro for ${offer.price}/year (founding price)` },
 ]
 
 const POCKET_FAQ: { question: string; answer: string }[] = [
-  { question: 'Is Sted a good Pocket alternative?', answer: 'If you used Pocket to save things for later, yes: Sted keeps the same habit (share a link, it’s saved) and adds what Pocket never did. It reads every save and gives you the summary and key ideas, brings your saves back in The Recap every morning, and lets you ask questions about everything you saved.' },
+  { question: 'Is Sted a good Pocket alternative?', answer: 'If you used Pocket to save things for later, yes: Sted keeps the same habit (share a link, it’s saved) and adds what Pocket never did. It reads every save and gives you the summary and key ideas, brings the best of them back in The Recap every 10 saves, and lets you ask questions about everything you saved.' },
   { question: 'Can I import my Pocket list into Sted?', answer: 'Not yet. For now, keep your Pocket export and re-save the links you still care about by pasting them into Sted.' },
   { question: 'Is Sted free?', answer: `Yes. The free plan includes up to ${n(free.saves)} saves and ${n(free.aiSavesPerMonth)} AI summaries a month. Sted Pro adds unlimited saves, ${n(pro.aiSavesPerMonth)} AI summaries a month and extended chat.` },
   { question: 'Does Sted work on my computer or on Android?', answer: 'Sted is on iPhone today. Chrome and Safari extensions, a web app and Sted for Android are on the way.' },
@@ -223,7 +223,7 @@ export function PocketAlternativePage() {
       <section className="cp-section cp-split" aria-labelledby="cp-more-than">
         <div>
           <h2 className="cp-h2" id="cp-more-than">More than a read-later list</h2>
-          <p>Most read-later lists turn into a pile you never go back to. Sted turns each save into something you can use right away: the summary, the key ideas and its topics, then The Recap every morning and Ask Sted whenever you want to find or connect what you saved.</p>
+          <p>Most read-later lists turn into a pile you never go back to. Sted turns each save into something you can use right away: the summary, the key ideas and its topics, then The Recap every 10 saves and Ask Sted whenever you want to find or connect what you saved.</p>
           <p>And it isn’t only for articles. Save the Instagram post, the YouTube video, the X thread or the Spotify episode, and Sted reads those too.</p>
           <p><a className="cp-link" href="/how-to-use">See how Sted works, step by step <span aria-hidden="true">→</span></a></p>
         </div>

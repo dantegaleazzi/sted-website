@@ -638,7 +638,7 @@ export function AboutPage() {
     <p className="section-label">ABOUT STED</p>
     <h1 id="about-title">Keep the things<br />worth coming back to.</h1>
     <p className="simple-lede">Sted is an iPhone app for everything you save online. Share a link from any app and Sted reads it for you, so it’s useful when you need it.</p>
-    <div className="simple-page-grid"><div><p className="section-label">THE IDEA</p><h2>Saving isn’t the same as using.</h2></div><p>Most saves end up in a pile nobody goes back to. Sted reads each one, writes the summary and the key ideas, sorts it into topics and projects, and brings the best of it back in The Recap every morning.</p></div>
+    <div className="simple-page-grid"><div><p className="section-label">THE IDEA</p><h2>Saving isn’t the same as using.</h2></div><p>Most saves end up in a pile nobody goes back to. Sted reads each one, writes the summary and the key ideas, sorts it into topics and projects, and every 10 saves brings the best of it back in The Recap.</p></div>
     <section id="how-it-works" className="how-it-works" aria-labelledby="how-it-works-title">
       <h2 id="how-it-works-title" className="section-label">HOW IT WORKS</h2>
       <ol className="how-it-works-steps">

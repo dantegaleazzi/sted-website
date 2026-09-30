@@ -1,4 +1,4 @@
-import { PUBLIC_PAGES, SECURITY_HEADERS } from './worker-policy'
+import { JUDGES_PATH, PUBLIC_PAGES, SECURITY_HEADERS } from './worker-policy'
 
 const SITEMAP = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
@@ -162,6 +162,12 @@ async function route(request: Request, env: Env): Promise<Response> {
   const isPage = (asset.headers.get('Content-Type') ?? '').includes('text/html')
   // A missing file or unknown path comes back as the SPA shell: keep the page, say 404.
   if (isPage && !PUBLIC_PAGES.has(pathname)) return new Response(asset.body, { status: 404, headers: asset.headers })
+  // The judges' page is shared privately: keep it out of search results.
+  if (pathname === JUDGES_PATH) {
+    const response = new Response(asset.body, asset)
+    response.headers.set('X-Robots-Tag', 'noindex, nofollow')
+    return response
+  }
   const cache = cacheControl(url.pathname)
   if (!cache || !asset.ok) return asset
   const headers = new Headers(asset.headers)

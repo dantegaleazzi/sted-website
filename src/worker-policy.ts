@@ -2,7 +2,13 @@
 
 /** Paths the SPA renders in production. Anything else that falls back to index.html answers 404, so
  *  crawlers don't see endless copies of the home page (/llms.txt, /.env, typos). Keep in sync with routes.ts. */
-export const PUBLIC_PAGES = new Set(['/', '/start', '/privacy', '/terms', '/delete-account', '/support', '/about', '/contact', '/how-to-use', '/pocket-alternative', '/internal/landing-4c', '/index.html'])
+/**
+ * The Shipaton judges' page. A random path, linked from nowhere and noindex: only the private link in
+ * the Devpost judges' notes (with ?code=) leads there. Not in the sitemap, robots.txt or IndexNow.
+ */
+export const JUDGES_PATH = '/shipaton-iprvce34jzue'
+
+export const PUBLIC_PAGES = new Set(['/', '/start', '/privacy', '/terms', '/delete-account', '/support', '/about', '/contact', '/how-to-use', '/pocket-alternative', JUDGES_PATH, '/internal/landing-4c', '/index.html'])
 
 /** Baseline browser protections on every response. The CSP allows only what the site loads: its own
  *  files, Supabase (waitlist, funnel events) and Cloudflare Web Analytics. Checkout links are plain navigations. */
