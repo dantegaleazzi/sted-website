@@ -10,7 +10,6 @@
 
 .l4s-h2 { margin: 0; font-size: var(--sted-text-h2); font-weight: var(--sted-weight-semibold); letter-spacing: var(--sted-tracking-heading); line-height: var(--sted-leading-heading); }
 .l4s-lede { margin: 0; font-size: var(--sted-text-body-lg); line-height: 1.6; color: var(--sted-text-muted); }
-.l4s-yellow { color: var(--sted-yellow); }
 
 /* Header anchors scroll smoothly on this page only. */
 html:has(.l4c-page) { scroll-behavior: smooth; }

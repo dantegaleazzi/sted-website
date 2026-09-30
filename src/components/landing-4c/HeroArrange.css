@@ -1,5 +1,5 @@
 /* DEV-only ?arrange=1 tool for the hero cards. Never shipped: HeroArrange is only imported in DEV. */
-.l4c-arranging .l4c-saves .l4c-card { cursor: grab; transition: none; touch-action: none; user-select: none; outline: 1px dashed color-mix(in srgb, var(--sted-ink) 35%, transparent); }
+.l4c-arranging .l4c-saves .l4c-card { pointer-events: auto; cursor: grab; transition: none; touch-action: none; user-select: none; outline: 1px dashed color-mix(in srgb, var(--sted-ink) 35%, transparent); }
 .l4c-arranging .l4c-saves .l4c-card:active { cursor: grabbing; }
 .l4c-arranging .l4c-saves .l4c-card img { pointer-events: none; }
 .l4c-arrange-panel {

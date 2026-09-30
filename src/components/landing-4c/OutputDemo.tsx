@@ -5,7 +5,7 @@ import './OutputDemo.css'
 export const OUTPUT_TABS = [
   { id: 'summary', label: 'Summary & Topics', description: 'A save in Sted with its summary, key ideas and topics' },
   { id: 'recap', label: 'The Recap', description: 'The Recap in Sted: Sted’s Picks, the topics you saved around and your saved Steds' },
-  { id: 'projects', label: 'Projects', description: 'Projects in the Sted library: Learning, Content Research, Open source, Ideas, Important Reads and Design Refs' },
+  { id: 'chat', label: 'Ask Sted', description: 'Ask Sted: “Summarize what I saved this week.” Sted answers with two big ideas and the three saves they came from.' },
 ] as const
 type TabId = (typeof OUTPUT_TABS)[number]['id']
 
@@ -48,14 +48,14 @@ export function TopicsApp() {
 /** The Recap: a real screenshot of the app (status bar and tab bar included). */
 function RecapScreen() {
   return <div className="cf-phone l4o-screen">
-    <img className="cf-phone-shot" src="/content/landing-4c/app/recap.webp" alt={OUTPUT_TABS[1].description} width={920} height={2000} />
+    <img className="cf-phone-shot" src="/content/landing-4c/app/recap.webp" alt={OUTPUT_TABS[1].description} width={600} height={1304} />
   </div>
 }
 
-/** Projects: a real screenshot of the app's Library → Projects tab. */
-function ProjectsScreen() {
+/** Ask Sted: a real answer from the app (a frame of the chat recording): the question, the answer and its sources. */
+function ChatScreen() {
   return <div className="cf-phone l4o-screen">
-    <img className="cf-phone-shot" src="/content/landing-4c/app/projects.webp" alt={OUTPUT_TABS[2].description} width={920} height={2000} />
+    <img className="cf-phone-shot" src="/content/landing-4c/app/chat-answer.webp" alt={OUTPUT_TABS[2].description} width={600} height={1304} />
   </div>
 }
 
@@ -85,7 +85,7 @@ export function OutputDemo() {
     <svg className="l4o-ribbons" viewBox="0 0 1600 820" fill="none" aria-hidden="true" preserveAspectRatio="none">
       <path className={`l4o-ribbon${active === 'summary' ? ' is-active' : ''}`} d="M870 560C920 560 918 500 968 500" strokeWidth="16" />
       <path className={`l4o-ribbon${active === 'recap' ? ' is-active' : ''}`} d="M870 574C920 574 918 578 968 578" strokeWidth="13" />
-      <path className={`l4o-ribbon${active === 'projects' ? ' is-active' : ''}`} d="M870 588C920 588 918 656 968 656" strokeWidth="10" />
+      <path className={`l4o-ribbon${active === 'chat' ? ' is-active' : ''}`} d="M870 588C920 588 918 656 968 656" strokeWidth="10" />
     </svg>
 
     <div className="l4o-pills" role="group" aria-label="What Sted makes from your saves">
@@ -95,9 +95,9 @@ export function OutputDemo() {
     </div>
 
     <div className={switched ? 'l4o-stage is-switching' : 'l4o-stage'} key={active} aria-live="polite">
-      {active === 'summary' && <div className="cf-phone l4o-screen"><img className="cf-phone-shot" src={SUMMARY_SCREEN.src} alt={SUMMARY_SCREEN.alt} width={920} height={2000} /></div>}
+      {active === 'summary' && <div className="cf-phone l4o-screen"><img className="cf-phone-shot" src={SUMMARY_SCREEN.src} alt={SUMMARY_SCREEN.alt} width={600} height={1304} fetchPriority="high" /></div>}
       {active === 'recap' && <RecapScreen />}
-      {active === 'projects' && <ProjectsScreen />}
+      {active === 'chat' && <ChatScreen />}
     </div>
   </div>
 }

@@ -1,7 +1,7 @@
 import { defineConfig, type Plugin } from 'vite'
 import react from '@vitejs/plugin-react'
 
-export default defineConfig(({ mode }) => {
+export default defineConfig(({ mode, isSsrBuild }) => {
   const funnelPreview = mode === 'funnel-preview'
   const previewMetadata: Plugin = {
       name: 'funnel-preview-metadata',
@@ -13,6 +13,7 @@ export default defineConfig(({ mode }) => {
   }
   return {
     plugins: [react(), ...(funnelPreview ? [previewMetadata] : [])],
-    build: { outDir: funnelPreview ? 'dist-funnel-preview' : 'dist' },
+    // The client manifest tells scripts/prerender.mjs which CSS and chunks each prerendered page needs.
+    build: { outDir: funnelPreview ? 'dist-funnel-preview' : 'dist', manifest: !isSsrBuild && !funnelPreview },
   }
 })

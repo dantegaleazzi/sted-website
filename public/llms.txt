@@ -1,0 +1,38 @@
+# Sted
+
+> Sted is an iPhone app for everything you save. Share a link from any app (a video, a post, a podcast, an article) and Sted reads it for you: it writes a summary and the key ideas, sorts it into topics and projects, and puts together The Recap, a daily digest of what you saved.
+
+## What Sted does
+
+- Save from any app through the iOS share sheet: Instagram, YouTube, X, Safari, Spotify and more.
+- Summary and key ideas for every saved link, plus topics.
+- Projects to organize saves, and search across the whole library.
+- The Recap: every day, Sted's Picks, the topics you saved around and your latest saves.
+- Ask Sted (chat, new in version 1.3): ask anything about what you saved, summarize today's saves, recap your week, save links from the chat and revisit past conversations. Answers point to the saves they're based on.
+
+## Plans
+
+- Free: up to 1,000 saves, 50 AI summaries a month, search, limited chat.
+- Sted Pro: unlimited saves, 500 AI summaries a month, search, extended chat.
+- Founding offer: Sted Pro for $19.99 a year (regular price $79.99 a year) for the first 100 members, at that price for as long as the subscription stays active. Checkout is on the web; Pro unlocks in the iPhone app with the Redeem link from the confirmation email.
+
+## Coming next
+
+- Chrome and Safari extensions: launching soon.
+- Web dashboard: launching soon.
+- Sted for Android: submitted, in review.
+- Screenshots, PDFs, notes and docs: up next, with the same summary, key ideas and topics as links.
+
+## Links
+
+- [Home](https://www.sted.ai/)
+- [Sted on the App Store](https://apps.apple.com/es/app/sted-ai/id6805940694)
+- [Get started](https://www.sted.ai/start)
+- [Privacy Policy](https://www.sted.ai/privacy)
+- [Terms of Use](https://www.sted.ai/terms)
+- [Support](https://www.sted.ai/support)
+- [Delete your account](https://www.sted.ai/delete-account)
+
+## Company
+
+Sted is operated by Finiks Labs LLC, a Wyoming limited liability company. Contact: hello@sted.ai

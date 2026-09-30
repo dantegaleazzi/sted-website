@@ -1,3 +1,5 @@
+import { PUBLIC_PAGES, SECURITY_HEADERS } from './worker-policy'
+
 const SITEMAP = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url><loc>https://www.sted.ai/</loc></url>
@@ -24,6 +26,20 @@ interface Env {
   STRIPE_FOUNDING_KEY?: string
   /** Stripe price ID of the founding offer ($19.99/year). */
   FOUNDING_PRICE_ID?: string
+}
+
+/** Cache: hashed build files forever, app images and videos for a day (their names don't change when they do). */
+function cacheControl(pathname: string): string | null {
+  if (pathname.startsWith('/assets/')) return 'public, max-age=31536000, immutable'
+  if (pathname.startsWith('/fonts/')) return 'public, max-age=2592000'
+  if (/^\/(content|brand)\//.test(pathname) || /\.(png|svg|ico|webp|jpg|mp4)$/.test(pathname)) return 'public, max-age=86400'
+  return null
+}
+
+function withHeaders(response: Response, extra: Record<string, string> = {}, status = response.status): Response {
+  const headers = new Headers(response.headers)
+  for (const [name, value] of Object.entries({ ...SECURITY_HEADERS, ...extra })) headers.set(name, value)
+  return new Response(response.body, { status, statusText: status === 404 ? 'Not Found' : response.statusText, headers })
 }
 
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
@@ -76,7 +92,7 @@ async function handleSupportRequest(request: Request, env: Env): Promise<Respons
   return jsonResponse({ ok: true }, 200)
 }
 
-export const FOUNDING_SPOTS = 100
+const FOUNDING_SPOTS = 100
 const FOUNDING_CACHE_KEY = 'https://www.sted.ai/api/founding-spots'
 
 /**
@@ -106,33 +122,47 @@ async function handleFoundingSpots(env: Env): Promise<Response> {
 
 export default {
   async fetch(request: Request, env: Env): Promise<Response> {
-    const url = new URL(request.url)
-
-    // Serve crawl metadata before both the apex redirect and SPA asset fallback.
-    if (url.pathname === '/sitemap.xml' || url.pathname === '/robots.txt') {
-      const sitemap = url.pathname === '/sitemap.xml'
-      return new Response(request.method === 'HEAD' ? null : sitemap ? SITEMAP : ROBOTS, {
-        status: 200,
-        headers: {
-          'Content-Type': sitemap ? 'application/xml; charset=utf-8' : 'text/plain; charset=utf-8',
-          'Cache-Control': 'public, max-age=300',
-        },
-      })
-    }
-
-    if (url.hostname === 'sted.ai') {
-      url.hostname = 'www.sted.ai'
-      return Response.redirect(url.toString(), 301)
-    }
-
-    if (url.pathname === '/api/founding-spots' && request.method === 'GET') {
-      return handleFoundingSpots(env)
-    }
-
-    if (url.pathname === '/api/support' && request.method === 'POST') {
-      return handleSupportRequest(request, env)
-    }
-
-    return env.ASSETS.fetch(request)
+    const response = await route(request, env)
+    return response.status === 301 || response.status === 302 ? response : withHeaders(response)
   },
+}
+
+async function route(request: Request, env: Env): Promise<Response> {
+  const url = new URL(request.url)
+
+  // Serve crawl metadata before both the apex redirect and SPA asset fallback.
+  if (url.pathname === '/sitemap.xml' || url.pathname === '/robots.txt') {
+    const sitemap = url.pathname === '/sitemap.xml'
+    return new Response(request.method === 'HEAD' ? null : sitemap ? SITEMAP : ROBOTS, {
+      status: 200,
+      headers: {
+        'Content-Type': sitemap ? 'application/xml; charset=utf-8' : 'text/plain; charset=utf-8',
+        'Cache-Control': 'public, max-age=300',
+      },
+    })
+  }
+
+  if (url.hostname === 'sted.ai') {
+    url.hostname = 'www.sted.ai'
+    return Response.redirect(url.toString(), 301)
+  }
+
+  if (url.pathname === '/api/founding-spots' && request.method === 'GET') {
+    return handleFoundingSpots(env)
+  }
+
+  if (url.pathname === '/api/support' && request.method === 'POST') {
+    return handleSupportRequest(request, env)
+  }
+
+  const asset = await env.ASSETS.fetch(request)
+  const pathname = url.pathname.replace(/\/$/, '') || '/'
+  const isPage = (asset.headers.get('Content-Type') ?? '').includes('text/html')
+  // A missing file or unknown path comes back as the SPA shell: keep the page, say 404.
+  if (isPage && !PUBLIC_PAGES.has(pathname)) return new Response(asset.body, { status: 404, headers: asset.headers })
+  const cache = cacheControl(url.pathname)
+  if (!cache || !asset.ok) return asset
+  const headers = new Headers(asset.headers)
+  headers.set('Cache-Control', cache)
+  return new Response(asset.body, { status: asset.status, headers })
 }

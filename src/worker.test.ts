@@ -1,5 +1,6 @@
 import { describe, expect, it, vi } from 'vitest'
 import worker from './worker'
+import { SECURITY_HEADERS } from './worker-policy'
 
 const env = () => ({ ASSETS: { fetch: vi.fn(async () => new Response('<html>SPA</html>')) }, RESEND_API_KEY: '' })
 
@@ -54,5 +55,37 @@ describe('founding spots', () => {
     } finally {
       vi.unstubAllGlobals()
     }
+  })
+})
+
+describe('pages, 404s, security and caching', () => {
+  const html = () => ({ ASSETS: { fetch: vi.fn(async (request: Request) => new URL(request.url).pathname.startsWith('/assets/')
+    ? new Response('js', { headers: { 'Content-Type': 'text/javascript' } })
+    : new Response('<html>SPA</html>', { headers: { 'Content-Type': 'text/html' } })) }, RESEND_API_KEY: '' })
+
+  it('serves the real pages with 200 and every other path with 404 (the SPA shell still renders)', async () => {
+    for (const path of ['/', '/start', '/start/', '/privacy', '/terms', '/delete-account', '/support', '/about', '/contact']) {
+      expect((await worker.fetch(new Request(`https://www.sted.ai${path}`), html())).status, path).toBe(200)
+    }
+    for (const path of ['/llms-missing.txt', '/.env', '/.git/config', '/backup.zip', '/no-such-page', '/build']) {
+      const response = await worker.fetch(new Request(`https://www.sted.ai${path}`), html())
+      expect(response.status, path).toBe(404)
+      expect(await response.text()).toContain('SPA')
+    }
+  })
+
+  it('adds the security headers to pages, files, APIs and 404s, but not to redirects', async () => {
+    for (const path of ['/', '/assets/index.js', '/no-such-page', '/robots.txt', '/api/founding-spots']) {
+      const response = await worker.fetch(new Request(`https://www.sted.ai${path}`), html())
+      for (const [name, value] of Object.entries(SECURITY_HEADERS)) expect(response.headers.get(name), `${path} ${name}`).toBe(value)
+    }
+    expect(SECURITY_HEADERS['Content-Security-Policy']).toContain("default-src 'self'")
+    const redirect = await worker.fetch(new Request('https://sted.ai/'), html())
+    expect(redirect.status).toBe(301)
+  })
+
+  it('caches hashed build files for a year', async () => {
+    const response = await worker.fetch(new Request('https://www.sted.ai/assets/index-abc.js'), html())
+    expect(response.headers.get('Cache-Control')).toBe('public, max-age=31536000, immutable')
   })
 })

@@ -39,8 +39,8 @@ describe('direct checkout from the landing', () => {
 })
 
 describe('what the landing promises', () => {
-  it('marks chat as not live yet in Free vs Pro', () => {
-    expect(comparison().find(row => row.feature === 'Chat with your saved items')?.soon).toBe(true)
+  it('shows chat as live in Free vs Pro (no Soon tag)', () => {
+    expect(comparison().find(row => row.feature === 'Chat with your saved items')?.soon).toBeUndefined() // live since iOS 1.3
   })
 
   it('shows Free vs Pro as one number per month', () => {
@@ -55,6 +55,6 @@ describe('what the landing promises', () => {
   })
 
   it('lists the roadmap Dante approved', () => {
-    expect(ROADMAP.map(item => item.name)).toEqual(['Chat on iOS', 'Chrome and Safari extensions', 'Sted for Android'])
+    expect(ROADMAP.map(item => item.name)).toEqual(['Chrome and Safari extensions', 'Web dashboard', 'Sted for Android', 'Screenshots, PDFs, notes and docs'])
   })
 })

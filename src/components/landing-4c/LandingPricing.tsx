@@ -25,7 +25,7 @@ export function comparison(): Row[] {
     { feature: 'Saves', free: `Up to ${n(free.saves)}`, pro: 'Unlimited' },
     { feature: 'Saves Sted reads for you', detail: 'Summary, key ideas and topics', free: `${n(free.aiSavesPerMonth)} a month`, pro: `${n(pro.aiSavesPerMonth)} a month` },
     { feature: 'Search your whole library', free: '✓', pro: '✓' },
-    { feature: 'Chat with your saved items', soon: true, free: 'Limited', pro: 'Extended' },
+    { feature: 'Chat with your saved items', free: 'Limited', pro: 'Extended' },
   ]
 }
 
@@ -95,7 +95,7 @@ export function LandingPricing({ founding: offered = isFoundingLive() }: { found
         <ComparisonTable />
         <p className="l4p-build">
           <strong>{founding ? 'As a founding member, you’re helping build Sted.' : 'Every plan helps build what’s next.'}</strong>
-          {' '}Chat on iOS, browser extensions and Android are on the way. <a href="#roadmap">Check the roadmap →</a>
+          {' '}Browser extensions, a web dashboard and Android are on the way. <a href="#roadmap">Check the roadmap →</a>
         </p>
       </div>
     </article>

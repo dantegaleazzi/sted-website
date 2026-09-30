@@ -9,6 +9,14 @@ const socialIconPaths: Record<string, string> = {
   X: 'M18.24 2.75h3.29l-7.19 8.22 8.46 10.28h-6.62l-5.18-6.79-5.93 6.79H1.77l7.69-8.8L1.36 2.75h6.79l4.68 6.2 5.41-6.2Zm-1.15 16.6h1.82L7.02 4.6H5.06l12.03 14.75Z',
 }
 
+/** "Ask AI about Sted": opens each assistant with the question already typed, so people hear about Sted in its own words. */
+const ASK_PROMPT = 'What is Sted (sted.ai)? Explain what it does, how it works, its pricing and who it is for.'
+const ASK_AI = [
+  { name: 'ChatGPT', href: `https://chatgpt.com/?q=${encodeURIComponent(ASK_PROMPT)}` },
+  { name: 'Perplexity', href: `https://www.perplexity.ai/search?q=${encodeURIComponent(ASK_PROMPT)}` },
+  { name: 'Claude', href: `https://claude.ai/new?q=${encodeURIComponent(ASK_PROMPT)}` },
+]
+
 function SocialIcon({ href, label }: { href: string; label: string }) {
   return <a className="footer-social-link" href={href} target="_blank" rel="noopener noreferrer" aria-label={label}>
     <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d={socialIconPaths[label]} /></svg>
@@ -36,6 +44,7 @@ export function SiteFooter() {
       <SocialIcon href="https://linkedin.com/company/stedapp" label="LinkedIn" />
       <SocialIcon href="https://x.com/stedapp" label="X" />
     </nav>
+    <p className="footer-ask">Ask AI about Sted: {ASK_AI.map((ai, index) => <span key={ai.name}>{index > 0 && ' · '}<a href={ai.href} target="_blank" rel="noopener noreferrer">{ai.name}</a></span>)}</p>
     <div className="footer-meta"><span className="copyright">© 2026 Finiks Labs LLC</span><div className="legal"><a href="/about">About</a><a href="/contact">Contact</a><a href="/support">Support</a><a href="/privacy">Privacy</a><a href="/terms">Terms</a><a href="/delete-account">Delete Account</a></div></div>
   </footer>
 }

@@ -75,11 +75,12 @@ describe('landing pricing', () => {
     expect(regular).not.toContain('$19.99')
   })
 
-  it('compares Free and Pro, marks chat as not live yet and points to the roadmap', () => {
+  it('compares Free and Pro, shows chat as live and points to the roadmap', () => {
     for (const html of [regular, founding]) {
       expect(html).toContain('<th scope="col">Free</th>')
       expect(html).toContain('Pro<span class="l4p-multiplier">10× more usage</span>')
-      expect(html).toContain('Chat with your saved items<span class="l4p-soon">Soon</span>')
+      expect(html).toContain('Chat with your saved items')
+      expect(html).not.toContain('l4p-soon')
       expect(html).toContain('href="#roadmap"')
       expect(html).toContain(REDEEM_NOTE)
     }
