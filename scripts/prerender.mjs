@@ -10,14 +10,13 @@ import { pathToFileURL } from 'node:url'
 const DIST = 'dist'
 const manifest = JSON.parse(fs.readFileSync(path.join(DIST, '.vite/manifest.json'), 'utf8'))
 const template = fs.readFileSync(path.join(DIST, 'index.html'), 'utf8')
-const { render, PAGE_META, JUDGES_PATH } = await import(pathToFileURL(path.resolve('dist-ssr/entry-server.js')).href)
+const { render, PAGE_META } = await import(pathToFileURL(path.resolve('dist-ssr/entry-server.js')).href)
 
 // Page → [file written, the lazy module it renders, prerender it?]. Keep in sync with src/root.tsx and PUBLIC_PAGES.
 const LANDING = 'src/components/landing-4c/Landing4CPreview.tsx'
 const SITE = 'src/site.tsx'
 const FUNNEL = 'src/components/growth-funnel/ConversationalFunnel.tsx'
 const CONTENT = 'src/components/content-pages/ContentPages.tsx'
-const JUDGES = 'src/components/judges/JudgesPage.tsx'
 const PAGES = [
   ['/', 'index.html', LANDING, true],
   ['/start', 'start.html', FUNNEL, false], // session and funnel state live in the browser
@@ -29,7 +28,6 @@ const PAGES = [
   ['/contact', 'contact.html', SITE, true],
   ['/how-to-use', 'how-to-use.html', CONTENT, true],
   ['/pocket-alternative', 'pocket-alternative.html', CONTENT, true],
-  [JUDGES_PATH, `${JUDGES_PATH.slice(1)}.html`, JUDGES, false], // the code comes from the link, in the browser; noindex in worker.ts
 ]
 
 const escape = text => text.replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;')

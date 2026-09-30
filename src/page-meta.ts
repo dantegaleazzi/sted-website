@@ -1,5 +1,3 @@
-import { JUDGES_PATH } from './worker-policy'
-
 /**
  * Title and description of each page besides the landing (the landing's live in index.html). The
  * build-time prerender writes them into each page's HTML, so crawlers and link previews get the right
@@ -14,6 +12,5 @@ export const PAGE_META: Record<string, { title: string; description: string }> =
   '/delete-account': { title: 'Delete your Sted account', description: 'How to delete your Sted account and the data linked to it, from the app or by email.' },
   '/how-to-use': { title: 'How to use Sted | Guide', description: 'How to use Sted in seven steps: save from any app, read the summary and key ideas, see what matters in The Recap, ask Sted about anything you saved, and go Pro.' },
   '/pocket-alternative': { title: 'Pocket alternative: Sted, the app that reads what you save', description: 'Pocket shut down in 2025. Sted is a free iPhone app that saves links, posts, videos and podcasts from any app, then gives you the summary, the key ideas, The Recap and a chat with everything you saved.' },
-  [JUDGES_PATH]: { title: 'Sted Pro for Shipaton judges', description: 'How Shipaton judges unlock Sted Pro with their promotion code.' },
   '/start': { title: 'Sted — Get started', description: 'Tell Sted what you save and see what it does with it. Start free, or go Pro.' },
 }

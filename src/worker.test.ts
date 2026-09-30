@@ -1,6 +1,6 @@
 import { describe, expect, it, vi } from 'vitest'
 import worker from './worker'
-import { JUDGES_PATH, SECURITY_HEADERS } from './worker-policy'
+import { SECURITY_HEADERS } from './worker-policy'
 
 const env = () => ({ ASSETS: { fetch: vi.fn(async () => new Response('<html>SPA</html>')) }, RESEND_API_KEY: '' })
 
@@ -87,13 +87,5 @@ describe('pages, 404s, security and caching', () => {
   it('caches hashed build files for a year', async () => {
     const response = await worker.fetch(new Request('https://www.sted.ai/assets/index-abc.js'), html())
     expect(response.headers.get('Cache-Control')).toBe('public, max-age=31536000, immutable')
-  })
-})
-
-describe('judges page', () => {
-  it('is served from the SPA with a noindex header', async () => {
-    const response = await worker.fetch(new Request(`https://www.sted.ai${JUDGES_PATH}?code=X`), env())
-    expect(response.headers.get('X-Robots-Tag')).toBe('noindex, nofollow')
-    expect(await response.text()).toContain('SPA')
   })
 })

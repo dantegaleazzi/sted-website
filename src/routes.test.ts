@@ -1,5 +1,4 @@
 import { describe, expect, it } from 'vitest'
-import { JUDGES_PATH } from './worker-policy'
 import { resolveRoute } from './routes'
 
 const production = { dev: false, funnelPreview: false }
@@ -10,11 +9,6 @@ describe('routes', () => {
     expect(resolveRoute('/start', production)).toBe('start')
     expect(resolveRoute('/start/', production)).toBe('start')
     expect(resolveRoute('/start', dev)).toBe('start')
-  })
-
-  it('serves the unlinked judges page in production', () => {
-    expect(resolveRoute(JUDGES_PATH, production)).toBe('judges')
-    expect(resolveRoute('/judges', production)).toBe('landing')
   })
 
   it('keeps the landing at / and the site pages in production', () => {
