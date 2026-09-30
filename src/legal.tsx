@@ -1,6 +1,7 @@
 import { useEffect } from 'react'
 import { Logo } from './logo'
 import { DeleteAccountContent } from './delete-account'
+import { PAGE_META } from './page-meta'
 
 export type LegalDocument = 'privacy' | 'terms' | 'delete-account'
 
@@ -340,9 +341,7 @@ export function LegalPage({ document }: { document: LegalDocument }) {
     const existingCanonical = window.document.querySelector<HTMLLinkElement>('link[rel="canonical"]')
     const canonical = existingCanonical ?? window.document.createElement('link')
     const previousCanonical = canonical.getAttribute('href')
-    if (description) description.content = document === 'privacy'
-      ? 'Learn how Sted and Finiks Labs LLC process saved content, Chat conversations, optional AI features, retention, deletion, and privacy rights.'
-      : 'Read the Terms of Use for Sted, including saved content, Sted Chat, AI-enabled features, subscriptions, acceptable use, and user responsibilities.'
+    if (description) description.content = PAGE_META[`/${document}`].description
     canonical.rel = 'canonical'
     canonical.href = `https://www.sted.ai/${document}`
     if (!existingCanonical) window.document.head.appendChild(canonical)

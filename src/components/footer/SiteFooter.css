@@ -1,0 +1,53 @@
+/* Footer: a white card on the page (mymind-style). Brand and a "see how it works" tile on top, the
+   landing's sections in large type with three quiet columns beside them, then © / social / legal.
+   Colors come from the site tokens, so it follows the landing, the site pages and dark mode. */
+.site-footer.sf { display: block; padding: 0 0 32px; border: 0; }
+.sf-card { padding: 72px clamp(24px, 6vw, 88px) 40px; border-radius: 32px; background: var(--sted-white); box-shadow: 0 1px 2px rgba(20, 19, 19, .04), 0 24px 60px -32px rgba(20, 19, 19, .18); }
+
+.sf-head { display: grid; grid-template-columns: 1fr minmax(0, 1.15fr); gap: 48px; align-items: start; }
+.sf-brand { display: flex; align-items: center; flex-wrap: wrap; gap: 10px 12px; padding-top: 6px; }
+.sf-brand .logo { width: 30px; height: 38px; }
+.sf-name { margin: 0; font-size: 28px; font-weight: 700; letter-spacing: -.035em; color: var(--sted-ink); }
+.sf-tagline { margin: 0; font-size: 20px; font-weight: 500; letter-spacing: -.02em; color: var(--sted-secondary); }
+.sf-tagline span { margin-right: 4px; }
+.sf-tagline mark { padding: 0 .12em; border-radius: .18em; color: var(--sted-ink); background: color-mix(in srgb, var(--sted-yellow) 55%, transparent); }
+
+.sf-feature { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; min-height: 180px; padding: 32px; border-radius: 24px; text-align: center; background: color-mix(in srgb, var(--sted-yellow) 16%, var(--sted-white)); transition: background .2s ease, transform .2s ease; }
+.sf-feature:hover { background: color-mix(in srgb, var(--sted-yellow) 26%, var(--sted-white)); transform: translateY(-2px); }
+.sf-feature-title { font-size: clamp(32px, 2.4vw + 12px, 48px); font-weight: 700; line-height: 1.05; letter-spacing: -.045em; color: var(--sted-ink); }
+.sf-feature-sub { font-size: 17px; color: var(--sted-secondary); }
+
+.sf-body { display: grid; grid-template-columns: 1fr minmax(0, 1.15fr); gap: 48px; margin-top: 96px; }
+.sf ul { display: grid; margin: 0; padding: 0; list-style: none; }
+.sf-primary ul { gap: 14px; }
+.sf-primary-link { font-size: clamp(22px, .8vw + 16px, 28px); font-weight: 500; letter-spacing: -.025em; color: var(--sted-ink); transition: color .15s ease; }
+a.sf-primary-link:hover { color: var(--sted-secondary); }
+.sf-cols { display: grid; grid-template-columns: repeat(3, auto); justify-content: space-between; gap: 32px; }
+.sf-heading { margin: 4px 0 22px; font-size: 13px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--sted-ink); }
+.sf-col ul { gap: 14px; }
+.sf-item { white-space: nowrap; font-size: 17px; line-height: 1.3; color: var(--sted-secondary); transition: color .15s ease; }
+a.sf-item:hover { color: var(--sted-ink); }
+.sf-item.is-soon { display: inline-flex; align-items: center; gap: 8px; }
+.sf-soon { padding: 2px 8px; border-radius: 999px; font-size: 11px; font-weight: 600; letter-spacing: .02em; line-height: 1.4; color: var(--sted-ink); background: color-mix(in srgb, var(--sted-yellow) 40%, transparent); }
+
+.sf-bottom { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px 32px; margin-top: 88px; padding-top: 28px; border-top: 1px solid var(--sted-border); font-size: 15px; color: var(--sted-secondary); }
+.sf .footer-social { display: flex; align-items: center; gap: 20px; }
+.sf .footer-social-link { display: flex; color: var(--sted-secondary); transition: color .15s ease; }
+.sf .footer-social-link:hover, .sf-legal a:hover { color: var(--sted-ink); }
+.sf-legal { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 10px; }
+.sf a:focus-visible { outline: 2px solid var(--sted-ink); outline-offset: 3px; border-radius: 4px; }
+
+@media (max-width: 1100px) {
+  .sf-head, .sf-body { grid-template-columns: 1fr; }
+  .sf-body { margin-top: 64px; gap: 56px; }
+}
+@media (max-width: 640px) {
+  .sf-card { padding: 40px 22px 28px; border-radius: 24px; }
+  .sf-name { font-size: 24px; }
+  .sf-tagline { flex-basis: 100%; font-size: 17px; }
+  .sf-tagline span { display: none; }
+  .sf-feature { min-height: 140px; padding: 24px; }
+  .sf-cols { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 40px 16px; }
+  .sf-cols .sf-col:first-child { grid-column: 1 / -1; } /* "Browser extension  Soon" doesn't fit half a phone */
+  .sf-bottom { flex-direction: column; align-items: flex-start; margin-top: 56px; }
+}

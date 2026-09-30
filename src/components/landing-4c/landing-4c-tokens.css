@@ -1,9 +1,9 @@
-/* Sted design tokens for the 4c landing, scoped to .l4c-page.
+/* Sted design tokens for the 4c landing, scoped to .l4c-page (and the funnel and content pages).
    Names and values mirror sted-design-new/tokens/tokens.css (1.0.0-batch1) so this file can be
    swapped for the shared tokens.css once the site adopts it globally. Only the tokens the
    landing uses are declared here. */
 
-.l4c-page, .funnel-tokens {
+.l4c-page, .funnel-tokens, .cp-page {
   /* core */
   --sted-ink: #141313;
   --sted-yellow: #FFD400;

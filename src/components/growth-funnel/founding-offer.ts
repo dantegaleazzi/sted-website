@@ -6,9 +6,10 @@ import { buildPlanUrl, type FunnelAnswers, type FunnelSession } from './funnel-s
  * Launch offer for Sted Pro: its own Stripe price, $19.99 a year (product `sted_pro_annual_launch`
  * in the `Sted (Stripe)` config, entitlement `Sted Pro`). No coupon and no intro offer, so it renews
  * at $19.99: the founding price stays while the subscription does. The 100-member cap is closed by
- * hand in RevenueCat (there's no live counter), so the site says "first 100 members", never a count.
+ * hand in RevenueCat. `claimed` is the count Dante updates by hand (then deploy) until the Worker's
+ * live Stripe counter (/api/founding-spots) is configured; when it is, its number wins.
  */
-export const FOUNDING = { cents: 1999, spots: 100 } as const
+export const FOUNDING = { cents: 1999, spots: 100, claimed: 2 } as const
 
 export function foundingTerms() {
   const regular = getPeriod('annual').price

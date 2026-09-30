@@ -637,14 +637,14 @@ export function AboutPage() {
   return <main className="simple-page shell" aria-labelledby="about-title">
     <p className="section-label">ABOUT STED</p>
     <h1 id="about-title">Keep the things<br />worth coming back to.</h1>
-    <p className="simple-lede">Sted is being built for the links, screenshots, notes and ideas you save because they might matter later.</p>
-    <div className="simple-page-grid"><div><p className="section-label">THE IDEA</p><h2>A calmer place for what you keep.</h2></div><p>Sted helps you understand what you save, organize it around your projects, and find it when you need it.</p></div>
+    <p className="simple-lede">Sted is an iPhone app for everything you save online. Share a link from any app and Sted reads it for you, so it’s useful when you need it.</p>
+    <div className="simple-page-grid"><div><p className="section-label">THE IDEA</p><h2>Saving isn’t the same as using.</h2></div><p>Most saves end up in a pile nobody goes back to. Sted reads each one, writes the summary and the key ideas, sorts it into topics and projects, and brings the best of it back in The Recap every morning.</p></div>
     <section id="how-it-works" className="how-it-works" aria-labelledby="how-it-works-title">
       <h2 id="how-it-works-title" className="section-label">HOW IT WORKS</h2>
       <ol className="how-it-works-steps">
-        <li><span className="section-label" aria-hidden="true">01</span><h3>Save anything.</h3><p>From apps, websites, videos, posts and more.</p></li>
-        <li><span className="section-label" aria-hidden="true">02</span><h3>Sted understands it.</h3><p>It pulls out the useful context and organizes it around your projects.</p></li>
-        <li><span className="section-label" aria-hidden="true">03</span><h3>Find it when it matters.</h3><p>Search, browse, or ask Sted when you need it.</p></li>
+        <li><span className="section-label" aria-hidden="true">01</span><h3>Save it.</h3><p>Share a post, video, podcast or article from Instagram, YouTube, X, Spotify, Safari or any app. No tags, no folders.</p></li>
+        <li><span className="section-label" aria-hidden="true">02</span><h3>Sted reads it.</h3><p>Every save comes back with a summary, the key ideas and its topics.</p></li>
+        <li><span className="section-label" aria-hidden="true">03</span><h3>Ask Sted.</h3><p>Ask anything about what you saved, recap your week, or search your whole library.</p></li>
       </ol>
     </section>
   </main>

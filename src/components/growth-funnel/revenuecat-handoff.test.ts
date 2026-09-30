@@ -88,7 +88,7 @@ describe('landing pricing', () => {
   })
 
   it('keeps Get Sted free on the App Store', () => {
-    expect(APP_STORE_URL).toBe('https://apps.apple.com/es/app/sted-ai/id6805940694')
+    expect(APP_STORE_URL).toBe('https://apps.apple.com/app/sted-ai/id6805940694')
     expect(founding).toContain(`href="${APP_STORE_URL}"`)
   })
 })

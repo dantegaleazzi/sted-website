@@ -2,6 +2,8 @@ import { StrictMode } from 'react'
 import { prerender } from 'react-dom/static'
 import { Root } from './root'
 
+export { PAGE_META } from './page-meta'
+
 /** Build-time only (scripts/prerender.mjs): the HTML of one page, with every lazy chunk resolved. */
 export async function render(pathname: string): Promise<string> {
   const { prelude } = await prerender(<StrictMode><Root pathname={pathname} /></StrictMode>)

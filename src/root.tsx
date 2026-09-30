@@ -12,9 +12,10 @@ const Landing4CPreview = lazy(() => import('./components/landing-4c/Landing4CPre
 const Landing4CShowcaseStates = lazy(() => import('./components/landing-4c/Landing4CPreview').then((m) => ({ default: m.Landing4CShowcaseStates })))
 const FunnelPrototype = lazy(() => import('./components/growth-funnel/FunnelPrototype').then((m) => ({ default: m.FunnelPrototype })))
 const ConversationalFunnel = lazy(() => import('./components/growth-funnel/ConversationalFunnel').then((m) => ({ default: m.ConversationalFunnel })))
+const ContentPage = lazy(() => import('./components/content-pages/ContentPages').then((m) => ({ default: m.ContentPage })))
 const FunnelPage = lazy(() => import('./components/growth-funnel/ConversationalFunnel').then((m) => ({ default: m.FunnelPage })))
 
-export const PAGES: Record<Route, () => ReactElement> = {
+export const PAGES: Record<Route, (pathname: string) => ReactElement> = {
   start: () => <FunnelPage />,
   'funnel-review': () => <ConversationalFunnel />,
   'funnel-prototype': () => <FunnelPrototype />,
@@ -23,11 +24,12 @@ export const PAGES: Record<Route, () => ReactElement> = {
   'source-card-qa': () => <InternalSourceCardQA />,
   'landing-states': () => <Landing4CShowcaseStates />,
   tunnel: () => <StedContentTunnel />,
-  site: () => <SiteApp />,
+  site: pathname => <SiteApp pathname={pathname} />,
+  content: pathname => <ContentPage pathname={pathname} />,
 }
 
 /** The app for one pathname. The browser passes window.location.pathname; the build-time prerender passes the page it writes. */
 export function Root({ pathname }: { pathname: string }) {
   const route = resolveRoute(pathname, { dev: import.meta.env.DEV, funnelPreview: import.meta.env.MODE === 'funnel-preview' })
-  return <Suspense fallback={null}>{PAGES[route]()}</Suspense>
+  return <Suspense fallback={null}>{PAGES[route](pathname)}</Suspense>
 }

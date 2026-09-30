@@ -16,11 +16,11 @@ function fetchSpots() {
 }
 
 /**
- * Real founding spots, or null while unknown (then the site says "first 100 members" and shows no
- * count). The dev server has no Worker, so DEV previews the layout with nothing claimed yet.
+ * Founding spots: the hand-kept count (FOUNDING.claimed, also what the prerendered page says), replaced
+ * by the Worker's live Stripe count once that's configured.
  */
 export function useFoundingSpots(): FoundingSpots | null {
-  const [spots, setSpots] = useState<FoundingSpots | null>(import.meta.env.DEV ? { claimed: 0, total: FOUNDING.spots } : null)
+  const [spots, setSpots] = useState<FoundingSpots | null>({ claimed: FOUNDING.claimed, total: FOUNDING.spots })
   useEffect(() => {
     let live = true
     void fetchSpots().then(result => { if (live && result) setSpots(result) })

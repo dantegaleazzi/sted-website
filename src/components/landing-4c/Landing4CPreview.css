@@ -87,6 +87,7 @@
 .l4c-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 .l4c-rotate { display: inline-block; font-weight: var(--sted-weight-semibold); color: var(--sted-ink); }
 .l4c-rotate-word { display: inline-block; animation: l4c-word-in .38s var(--sted-ease-standard) both; }
+.l4c-rotate-word::after { content: attr(data-word); }
 @keyframes l4c-word-in { from { opacity: 0; transform: translateY(.4em); } to { opacity: 1; transform: none; } }
 @media (prefers-reduced-motion: reduce) { .l4c-rotate-word { animation: none; } }
 .l4c-cta { display: flex; flex-direction: column; align-items: center; gap: 10px; margin-top: 2px; }
@@ -237,7 +238,5 @@
   .l4c-offer-sep { display: none; }
   .l4c-offer-line a { flex-basis: 100%; padding-left: 15px; }
   .l4c-illustration { display: none; }
-  .l4c-page .site-footer .footer-meta { width: 100%; min-width: 0; flex-wrap: wrap; gap: 12px 18px; }
-  .l4c-page .site-footer .legal { min-width: 0; flex-wrap: wrap; gap: 10px 14px; }
 
 }

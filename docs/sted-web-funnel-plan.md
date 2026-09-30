@@ -28,7 +28,7 @@ Recomendación: **Find your plan después de How it works**. Download sigue dire
 | Footer | About, Contact, Support, Privacy, Terms, Delete Account y redes | Mantener |
 | Android | Ningún CTA Android encontrado en la home publicada | No agregar ni dirigir compradores a una app Android |
 
-Los tres badges apuntan a [Sted en App Store](https://apps.apple.com/es/app/sted-ai/id6805940694). En `89b7ed2`: header How it works → `/about#how-it-works`, About, Contact, Join the waitlist; hero con formulario; sin CTA de descarga. Portal solo en preview interna.
+Los tres badges apuntan a [Sted en App Store](https://apps.apple.com/app/sted-ai/id6805940694). En `89b7ed2`: header How it works → `/about#how-it-works`, About, Contact, Join the waitlist; hero con formulario; sin CTA de descarga. Portal solo en preview interna.
 
 El código 4c tiene `SignInLink` hacia Dashboard, ausente en la home observada; queda fuera. La landing menciona podcasts: **no incluirlos en Pro**.
 

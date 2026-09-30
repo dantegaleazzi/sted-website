@@ -2,7 +2,7 @@
 
 /** Paths the SPA renders in production. Anything else that falls back to index.html answers 404, so
  *  crawlers don't see endless copies of the home page (/llms.txt, /.env, typos). Keep in sync with routes.ts. */
-export const PUBLIC_PAGES = new Set(['/', '/start', '/privacy', '/terms', '/delete-account', '/support', '/about', '/contact', '/internal/landing-4c', '/index.html'])
+export const PUBLIC_PAGES = new Set(['/', '/start', '/privacy', '/terms', '/delete-account', '/support', '/about', '/contact', '/how-to-use', '/pocket-alternative', '/internal/landing-4c', '/index.html'])
 
 /** Baseline browser protections on every response. The CSP allows only what the site loads: its own
  *  files, Supabase (waitlist, funnel events) and Cloudflare Web Analytics. Checkout links are plain navigations. */

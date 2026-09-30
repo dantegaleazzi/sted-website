@@ -8,6 +8,8 @@ const SITEMAP = `<?xml version="1.0" encoding="UTF-8"?>
   <url><loc>https://www.sted.ai/about</loc></url>
   <url><loc>https://www.sted.ai/contact</loc></url>
   <url><loc>https://www.sted.ai/support</loc></url>
+  <url><loc>https://www.sted.ai/how-to-use</loc></url>
+  <url><loc>https://www.sted.ai/pocket-alternative</loc></url>
 </urlset>
 `
 

@@ -7,30 +7,35 @@ import { SHOW_BUILD_IN_PUBLIC } from './flags'
 import { guides } from './guides'
 import { SiteFooter } from './components/footer/SiteFooter'
 import { APP_STORE_URL } from './components/landing-4c/app-links'
+import { PAGE_META } from './page-meta'
 import './components/content-tunnel/portal-preview.css'
 
 const supabaseUrl = import.meta.env.VITE_SUPABASE_URL
 const supabasePublishableKey = import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY
 const supabase = supabaseUrl && supabasePublishableKey ? createClient(supabaseUrl, supabasePublishableKey) : null
 
-/** The current marketing site (home, legal, support, build log). Loaded as its own chunk from main.tsx. */
-export function SiteApp() {
+/**
+ * The current marketing site (home, legal, support, build log). Loaded as its own chunk from main.tsx.
+ * The build prerenders it for its pages, so the first render reads the pathname prop, not window.
+ */
+export function SiteApp({ pathname: initialPathname }: { pathname: string }) {
   const [email, setEmail] = useState('')
   const [status, setStatus] = useState('')
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isWaitlistOpen, setIsWaitlistOpen] = useState(false)
-  const [, setLocationKey] = useState(window.location.href)
-  const [hash, setHash] = useState(window.location.hash)
+  const [, setLocationKey] = useState('')
+  const [hash, setHash] = useState('')
   const modalInputRef = useRef<HTMLInputElement>(null)
 
   useEffect(() => {
     const updateLocation = () => { setHash(window.location.hash); setLocationKey(window.location.href) }
+    updateLocation()
     window.addEventListener('popstate', updateLocation)
     window.addEventListener('hashchange', updateLocation)
     return () => { window.removeEventListener('popstate', updateLocation); window.removeEventListener('hashchange', updateLocation) }
   }, [])
 
-  const pathname = window.location.pathname.replace(/\/$/, '') || '/'
+  const pathname = (typeof window === 'undefined' ? initialPathname : window.location.pathname).replace(/\/$/, '') || '/'
   const tunnelPreview = pathname === '/' || pathname === '/internal/content-tunnel-preview' || pathname === '/internal/hero-projects-map'
   const legalDocument: LegalDocument | null = pathname === '/privacy' ? 'privacy' : pathname === '/terms' ? 'terms' : pathname === '/delete-account' ? 'delete-account' : null
   const postSlug = pathname.startsWith('/build/') ? pathname.slice('/build/'.length) : null
@@ -54,11 +59,9 @@ export function SiteApp() {
 
   useEffect(() => {
     const activeGuide = route === 'guide' ? guides.find((guide) => guide.slug === guideSlug) : null
-    const metadata = route === 'about' ? ['About Sted | Save and organize what matters', 'Learn how Sted helps you understand, organize and find the links, screenshots, notes and ideas you save.']
-      : route === 'contact' ? ['Contact Sted | Get in touch', 'Questions, ideas or feedback about Sted? Contact the team at hello@sted.ai.']
-      : route === 'support' ? ['Sted Support | Get help with your account', 'Get help with your Sted account, report a bug or send another support request.']
-      : null
-    document.title = legalDocument === 'delete-account' ? 'Delete your Sted account' : legalDocument === 'privacy' ? 'Privacy Policy | Sted' : legalDocument === 'terms' ? 'Terms of Use | Sted' : route === 'post' ? 'Build Log — STED' : metadata?.[0] ?? (activeGuide ? activeGuide.seoTitle ?? `${activeGuide.title} — STED` : route === 'guide' || route === 'guides' ? 'Guides — STED' : 'Sted — Save links, posts and more. Then chat with them.')
+    const page = route === 'about' || route === 'contact' || route === 'support' ? PAGE_META[`/${route}`] : null
+    const metadata = page ? [page.title, page.description] : null
+    document.title = legalDocument ? PAGE_META[`/${legalDocument}`].title : route === 'post' ? 'Build Log — STED' : metadata?.[0] ?? (activeGuide ? activeGuide.seoTitle ?? `${activeGuide.title} — STED` : route === 'guide' || route === 'guides' ? 'Guides — STED' : 'Sted — Save links, posts and more. Then chat with them.')
     if (metadata) {
       let description = document.querySelector<HTMLMetaElement>('meta[name="description"]')
       if (!description) { description = document.createElement('meta'); description.name = 'description'; document.head.append(description) }

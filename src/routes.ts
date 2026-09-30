@@ -1,10 +1,12 @@
 export type Route =
   | 'start' | 'funnel-review' | 'funnel-prototype' | 'landing'
-  | 'product-design-system' | 'source-card-qa' | 'landing-states' | 'tunnel' | 'site'
+  | 'product-design-system' | 'source-card-qa' | 'landing-states' | 'tunnel' | 'site' | 'content'
 
 export type Build = { dev: boolean; funnelPreview: boolean }
 
 const SITE_PAGES = ['/support', '/about', '/contact', '/privacy', '/terms', '/delete-account']
+/** The guide and the comparison page (src/components/content-pages). */
+export const CONTENT_PAGES = ['/how-to-use', '/pocket-alternative']
 
 /** Which surface a pathname renders. Unknown paths fall back to the landing. */
 export function resolveRoute(rawPathname: string, { dev, funnelPreview }: Build): Route {
@@ -20,5 +22,6 @@ export function resolveRoute(rawPathname: string, { dev, funnelPreview }: Build)
   if (dev && pathname === '/internal/landing-4c/states') return 'landing-states'
   if (dev && pathname === '/tunnel') return 'tunnel'
   if (SITE_PAGES.includes(pathname)) return 'site'
+  if (CONTENT_PAGES.includes(pathname)) return 'content'
   return 'landing'
 }

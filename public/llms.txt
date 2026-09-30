@@ -26,8 +26,10 @@
 ## Links
 
 - [Home](https://www.sted.ai/)
-- [Sted on the App Store](https://apps.apple.com/es/app/sted-ai/id6805940694)
+- [Sted on the App Store](https://apps.apple.com/app/sted-ai/id6805940694)
 - [Get started](https://www.sted.ai/start)
+- [How to use Sted (guide)](https://www.sted.ai/how-to-use)
+- [Sted as a Pocket alternative](https://www.sted.ai/pocket-alternative)
 - [Privacy Policy](https://www.sted.ai/privacy)
 - [Terms of Use](https://www.sted.ai/terms)
 - [Support](https://www.sted.ai/support)

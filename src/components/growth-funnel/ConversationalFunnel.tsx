@@ -10,6 +10,7 @@ import { planFunnelUrl } from './founding-offer'
 import { buildPlanUrl, loadFunnelSession, readPeriod, type FunnelAnswers } from './funnel-session'
 import { AppScreen, SourceTile } from './AppScreen'
 import './ConversationalFunnel.css'
+import { PAGE_META } from '../../page-meta'
 
 const STEPS = ['intro', 'persona', 'sources', 'storage', 'purpose', 'need', 'pick', 'result'] as const
 type Step = (typeof STEPS)[number]
@@ -28,7 +29,7 @@ const TITLES: Record<Step, string> = {
 }
 
 const DESCRIPTIONS: Partial<Record<Step, string>> = {
-  intro: 'Links, posts, videos and notes. I read them, organize them and help you find them again.',
+  intro: 'Links, posts, videos and podcasts. I read them, organize them and help you find them again.',
   persona: 'So my examples look like the things you save.',
   sources: 'Pick all the places that sound familiar.',
   storage: 'Be honest. We’ve all been there.',
@@ -273,7 +274,7 @@ export function FunnelDialog({ onClose }: { onClose: () => void }) {
 /** /start: the same funnel as a standalone page, for social links and ads. */
 export function FunnelPage() {
   const heading = useRef<HTMLHeadingElement>(null)
-  useEffect(() => { document.title = 'Sted — Get started' }, [])
+  useEffect(() => { document.title = PAGE_META['/start'].title }, [])
   return <main className="cf-page funnel-tokens">
     <div className="cf-card"><FunnelFlow heading={heading} /></div>
   </main>

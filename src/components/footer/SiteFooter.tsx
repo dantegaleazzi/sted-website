@@ -1,5 +1,7 @@
 import { Logo } from '../../logo'
 import { SHOW_BUILD_IN_PUBLIC } from '../../flags'
+import { APP_STORE_URL } from '../landing-4c/app-links'
+import './SiteFooter.css'
 
 const socialIconPaths: Record<string, string> = {
   Instagram: 'M12 2c2.72 0 3.06.01 4.12.06 1.06.05 1.79.22 2.43.47.66.26 1.22.6 1.77 1.15.55.55.9 1.11 1.15 1.77.25.64.42 1.37.47 2.43.05 1.06.06 1.4.06 4.12s-.01 3.06-.06 4.12c-.05 1.06-.22 1.79-.47 2.43a4.9 4.9 0 0 1-1.15 1.77 4.9 4.9 0 0 1-1.77 1.15c-.64.25-1.37.42-2.43.47-1.06.05-1.4.06-4.12.06s-3.06-.01-4.12-.06c-1.06-.05-1.79-.22-2.43-.47a4.9 4.9 0 0 1-1.77-1.15 4.9 4.9 0 0 1-1.15-1.77c-.25-.64-.42-1.37-.47-2.43C2.01 15.06 2 14.72 2 12s.01-3.06.06-4.12c.05-1.06.22-1.79.47-2.43.26-.66.6-1.22 1.15-1.77A4.9 4.9 0 0 1 5.45 2.53c.64-.25 1.37-.42 2.43-.47C8.94 2.01 9.28 2 12 2Zm0 3.5A6.5 6.5 0 1 0 12 18.5 6.5 6.5 0 0 0 12 5.5Zm0 2A4.5 4.5 0 1 1 12 16.5 4.5 4.5 0 0 1 12 7.5Zm6.75-3.9a1.15 1.15 0 1 0 0 2.3 1.15 1.15 0 0 0 0-2.3Z',
@@ -11,10 +13,40 @@ const socialIconPaths: Record<string, string> = {
 
 /** "Ask AI about Sted": opens each assistant with the question already typed, so people hear about Sted in its own words. */
 const ASK_PROMPT = 'What is Sted (sted.ai)? Explain what it does, how it works, its pricing and who it is for.'
-const ASK_AI = [
-  { name: 'ChatGPT', href: `https://chatgpt.com/?q=${encodeURIComponent(ASK_PROMPT)}` },
-  { name: 'Perplexity', href: `https://www.perplexity.ai/search?q=${encodeURIComponent(ASK_PROMPT)}` },
-  { name: 'Claude', href: `https://claude.ai/new?q=${encodeURIComponent(ASK_PROMPT)}` },
+
+type FooterLink = { name: string; href: string | null; external?: boolean }
+
+/** The big links on the left: the landing's sections. Absolute, so they work from every page. */
+const PRIMARY: FooterLink[] = [
+  { name: 'How it works', href: '/#how-it-works' },
+  { name: 'Pricing', href: '/#pricing' },
+  { name: 'Roadmap', href: '/#roadmap' },
+  { name: 'FAQ', href: '/#faq' },
+]
+
+/**
+ * Footer columns. An app with no href yet shows "Soon": give it its link the day it ships (the web
+ * app will be the dashboard, dashboard.sted.ai).
+ */
+const COLUMNS: { title: string; links: FooterLink[] }[] = [
+  { title: 'Our apps', links: [
+    { name: 'iOS app', href: APP_STORE_URL },
+    { name: 'Web app', href: null },
+    { name: 'Android app', href: null },
+    { name: 'Browser extension', href: null },
+  ] },
+  { title: 'Resources', links: [
+    { name: 'How to use Sted', href: '/how-to-use' },
+    { name: 'Pocket alternative', href: '/pocket-alternative' },
+    { name: 'About Sted', href: '/about' },
+    { name: 'Contact', href: '/contact' },
+    { name: 'Support', href: '/support' },
+  ] },
+  { title: 'Ask AI about Sted', links: [
+    { name: 'ChatGPT', href: `https://chatgpt.com/?q=${encodeURIComponent(ASK_PROMPT)}`, external: true },
+    { name: 'Perplexity', href: `https://www.perplexity.ai/search?q=${encodeURIComponent(ASK_PROMPT)}`, external: true },
+    { name: 'Claude', href: `https://claude.ai/new?q=${encodeURIComponent(ASK_PROMPT)}`, external: true },
+  ] },
 ]
 
 function SocialIcon({ href, label }: { href: string; label: string }) {
@@ -23,28 +55,60 @@ function SocialIcon({ href, label }: { href: string; label: string }) {
   </a>
 }
 
-/** The site's real footer: brand identity, social links and legal navigation. Shared across the main app and internal previews so links stay identical and working everywhere. */
+function FooterItem({ link, className = 'sf-item' }: { link: FooterLink; className?: string }) {
+  if (!link.href) return <span className={`${className} is-soon`}>{link.name}<span className="sf-soon">Soon</span></span>
+  return <a className={className} href={link.href} {...link.external ? { target: '_blank', rel: 'noopener noreferrer' } : {}}>{link.name}</a>
+}
+
+/**
+ * The site's footer, a white card on the page: brand and a "see how it works" tile (the guide), the landing's
+ * sections in large type, three link columns, then © / social / legal. Shared by the landing and the site pages.
+ */
 export function SiteFooter() {
-  return <footer className="site-footer shell">
-    <div className="footer-identity">
-      <Logo />
-      <div><p className="footer-brand-name">Sted</p><p className="footer-tagline">Everything you save. Finally useful.</p></div>
+  return <footer className="site-footer sf shell">
+    <div className="sf-card">
+      <div className="sf-head">
+        <div className="sf-brand">
+          <Logo />
+          <p className="sf-name">Sted</p>
+          <p className="sf-tagline"><span aria-hidden="true">·</span> Everything you save. <mark>Finally useful.</mark></p>
+        </div>
+        <a className="sf-feature" href="/how-to-use">
+          <span className="sf-feature-title">See how it works</span>
+          <span className="sf-feature-sub">The Sted guide, step by step</span>
+        </a>
+      </div>
+
+      <div className="sf-body">
+        <nav className="sf-primary" aria-label="Sted">
+          <ul>{PRIMARY.map(link => <li key={link.name}><FooterItem link={link} className="sf-primary-link" /></li>)}</ul>
+        </nav>
+        <div className="sf-cols">
+          {COLUMNS.map(column => <nav key={column.title} className="sf-col" aria-label={column.title}>
+            <p className="sf-heading">{column.title}</p>
+            <ul>{column.links.map(link => <li key={link.name}><FooterItem link={link} /></li>)}</ul>
+          </nav>)}
+        </div>
+      </div>
+
+      <div className="sf-bottom">
+        <span className="sf-copy">© 2026 Finiks Labs LLC</span>
+        <nav className="footer-social" aria-label="Sted social links">
+          <SocialIcon href="https://instagram.com/stedapp" label="Instagram" />
+          <SocialIcon href="https://tiktok.com/@stedapp" label="TikTok" />
+          <SocialIcon href="https://youtube.com/@stedapp" label="YouTube" />
+          <SocialIcon href="https://linkedin.com/company/stedapp" label="LinkedIn" />
+          <SocialIcon href="https://x.com/stedapp" label="X" />
+        </nav>
+        {SHOW_BUILD_IN_PUBLIC && <nav className="footer-social" aria-label="Dante — building in public">
+          <SocialIcon href="https://youtube.com/@dante.galeazzi" label="YouTube" />
+          <SocialIcon href="https://x.com/dantegaleazzi" label="X" />
+          <SocialIcon href="https://tiktok.com/@dante.galeazzi" label="TikTok" />
+          <SocialIcon href="https://instagram.com/dantegaleazzi22" label="Instagram" />
+          <SocialIcon href="https://linkedin.com/in/dantegaleazzi" label="LinkedIn" />
+        </nav>}
+        <nav className="sf-legal" aria-label="Legal"><a href="/privacy">Privacy</a><span aria-hidden="true">·</span><a href="/terms">Terms</a><span aria-hidden="true">·</span><a href="/delete-account">Delete account</a></nav>
+      </div>
     </div>
-    {SHOW_BUILD_IN_PUBLIC && <nav className="footer-social" aria-label="Dante — building in public">
-      <SocialIcon href="https://youtube.com/@dante.galeazzi" label="YouTube" />
-      <SocialIcon href="https://x.com/dantegaleazzi" label="X" />
-      <SocialIcon href="https://tiktok.com/@dante.galeazzi" label="TikTok" />
-      <SocialIcon href="https://instagram.com/dantegaleazzi22" label="Instagram" />
-      <SocialIcon href="https://linkedin.com/in/dantegaleazzi" label="LinkedIn" />
-    </nav>}
-    <nav className="footer-social" aria-label="Sted social links">
-      <SocialIcon href="https://instagram.com/stedapp" label="Instagram" />
-      <SocialIcon href="https://tiktok.com/@stedapp" label="TikTok" />
-      <SocialIcon href="https://youtube.com/@stedapp" label="YouTube" />
-      <SocialIcon href="https://linkedin.com/company/stedapp" label="LinkedIn" />
-      <SocialIcon href="https://x.com/stedapp" label="X" />
-    </nav>
-    <p className="footer-ask">Ask AI about Sted: {ASK_AI.map((ai, index) => <span key={ai.name}>{index > 0 && ' · '}<a href={ai.href} target="_blank" rel="noopener noreferrer">{ai.name}</a></span>)}</p>
-    <div className="footer-meta"><span className="copyright">© 2026 Finiks Labs LLC</span><div className="legal"><a href="/about">About</a><a href="/contact">Contact</a><a href="/support">Support</a><a href="/privacy">Privacy</a><a href="/terms">Terms</a><a href="/delete-account">Delete Account</a></div></div>
   </footer>
 }

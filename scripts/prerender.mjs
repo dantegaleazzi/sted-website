@@ -1,7 +1,8 @@
 // Build-time prerender. Crawlers that don't run JavaScript (most AI search bots) and slow phones get the
 // landing's real text in the first response; the browser then hydrates it (src/main.tsx).
-// Every other public page gets its own HTML file with its CSS linked, so none of them opens on the
-// landing's markup. A page that can't render on the server falls back to the empty shell.
+// Every other public page gets its own HTML file with its CSS linked, its own title, description and
+// canonical (src/page-meta.ts), and its text too where it can render on the server. A page that can't
+// falls back to the empty shell.
 import fs from 'node:fs'
 import path from 'node:path'
 import { pathToFileURL } from 'node:url'
@@ -9,22 +10,49 @@ import { pathToFileURL } from 'node:url'
 const DIST = 'dist'
 const manifest = JSON.parse(fs.readFileSync(path.join(DIST, '.vite/manifest.json'), 'utf8'))
 const template = fs.readFileSync(path.join(DIST, 'index.html'), 'utf8')
-const { render } = await import(pathToFileURL(path.resolve('dist-ssr/entry-server.js')).href)
+const { render, PAGE_META } = await import(pathToFileURL(path.resolve('dist-ssr/entry-server.js')).href)
 
 // Page → [file written, the lazy module it renders, prerender it?]. Keep in sync with src/root.tsx and PUBLIC_PAGES.
 const LANDING = 'src/components/landing-4c/Landing4CPreview.tsx'
 const SITE = 'src/site.tsx'
 const FUNNEL = 'src/components/growth-funnel/ConversationalFunnel.tsx'
+const CONTENT = 'src/components/content-pages/ContentPages.tsx'
 const PAGES = [
   ['/', 'index.html', LANDING, true],
-  ['/start', 'start.html', FUNNEL, false],
-  ['/privacy', 'privacy.html', SITE, false],
-  ['/terms', 'terms.html', SITE, false],
-  ['/delete-account', 'delete-account.html', SITE, false],
-  ['/support', 'support.html', SITE, false],
-  ['/about', 'about.html', SITE, false],
-  ['/contact', 'contact.html', SITE, false],
+  ['/start', 'start.html', FUNNEL, false], // session and funnel state live in the browser
+  ['/privacy', 'privacy.html', SITE, true],
+  ['/terms', 'terms.html', SITE, true],
+  ['/delete-account', 'delete-account.html', SITE, true],
+  ['/support', 'support.html', SITE, true],
+  ['/about', 'about.html', SITE, true],
+  ['/contact', 'contact.html', SITE, true],
+  ['/how-to-use', 'how-to-use.html', CONTENT, true],
+  ['/pocket-alternative', 'pocket-alternative.html', CONTENT, true],
 ]
+
+const escape = text => text.replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;')
+
+/** The landing's head, with this page's title, description, canonical and share URL. */
+function headFor(pathname) {
+  const meta = PAGE_META[pathname]
+  if (!meta) return template
+  const url = `https://www.sted.ai${pathname}`
+  const title = escape(meta.title)
+  const description = escape(meta.description)
+  const set = (html, pattern, value) => {
+    if (!pattern.test(html)) throw new Error(`prerender: ${pattern} not found in index.html`)
+    return html.replace(pattern, value)
+  }
+  let html = template
+  html = set(html, /<title>[^<]*<\/title>/, `<title>${title}</title>`)
+  for (const key of ['name="description"', 'property="og:description"', 'name="twitter:description"'])
+    html = set(html, new RegExp(`(<meta ${key} content=")[^"]*"`), `$1${description}"`)
+  for (const key of ['property="og:title"', 'name="twitter:title"'])
+    html = set(html, new RegExp(`(<meta ${key} content=")[^"]*"`), `$1${title}"`)
+  html = set(html, /(<meta property="og:url" content=")[^"]*"/, `$1${url}"`)
+  html = set(html, /(<link rel="canonical" href=")[^"]*"/, `$1${url}"`)
+  return html
+}
 
 /** The CSS and JS a lazy module needs, following its static imports (shared chunks carry CSS too). */
 function assetsFor(key, seen = new Set()) {
@@ -50,7 +78,7 @@ for (const [pathname, file, module, prerender] of PAGES) {
   if (prerender) {
     try { body = await render(pathname) } catch (error) { console.warn(`prerender: ${pathname} falls back to the shell:`, error.message) }
   }
-  const html = template.replace('</head>', `  ${links}\n  </head>`).replace('<div id="root"></div>', `<div id="root">${body}</div>`)
+  const html = headFor(pathname).replace('</head>', `  ${links}\n  </head>`).replace('<div id="root"></div>', `<div id="root">${body}</div>`)
   fs.writeFileSync(path.join(DIST, file), html)
   console.log(`prerender: ${pathname} → dist/${file}${body ? ` (${Math.round(body.length / 1024)} KB of HTML)` : ' (shell)'}`)
 }
