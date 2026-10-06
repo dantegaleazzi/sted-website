@@ -1,15 +1,10 @@
-import { PUBLIC_PAGES, SECURITY_HEADERS } from './worker-policy'
+import { COMPARE_PATHS } from './components/compare/compare-paths'
+import { NOINDEX_PAGES, PUBLIC_PAGES, SECURITY_HEADERS } from './worker-policy'
 
+const SITEMAP_PATHS = ['/', '/privacy', '/terms', '/about', '/contact', '/support', '/how-to-use', '/pocket-alternative', ...COMPARE_PATHS]
 const SITEMAP = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://www.sted.ai/</loc></url>
-  <url><loc>https://www.sted.ai/privacy</loc></url>
-  <url><loc>https://www.sted.ai/terms</loc></url>
-  <url><loc>https://www.sted.ai/about</loc></url>
-  <url><loc>https://www.sted.ai/contact</loc></url>
-  <url><loc>https://www.sted.ai/support</loc></url>
-  <url><loc>https://www.sted.ai/how-to-use</loc></url>
-  <url><loc>https://www.sted.ai/pocket-alternative</loc></url>
+${SITEMAP_PATHS.map(path => `  <url><loc>https://www.sted.ai${path}</loc></url>`).join('\n')}
 </urlset>
 `
 
@@ -162,6 +157,12 @@ async function route(request: Request, env: Env): Promise<Response> {
   const isPage = (asset.headers.get('Content-Type') ?? '').includes('text/html')
   // A missing file or unknown path comes back as the SPA shell: keep the page, say 404.
   if (isPage && !PUBLIC_PAGES.has(pathname)) return new Response(asset.body, { status: 404, headers: asset.headers })
+  // The Shipaton archive is shared by link only: keep it out of search results.
+  if (isPage && NOINDEX_PAGES.has(pathname)) {
+    const response = new Response(asset.body, asset)
+    response.headers.set('X-Robots-Tag', 'noindex')
+    return response
+  }
   const cache = cacheControl(url.pathname)
   if (!cache || !asset.ok) return asset
   const headers = new Headers(asset.headers)

@@ -13,14 +13,14 @@ import './ContentPages.css'
  * the same modules as Pricing. Both are prerendered at build time (scripts/prerender.mjs).
  */
 
-const APP = '/content/landing-4c/app'
+export const APP = '/content/landing-4c/app'
 const n = (value: number) => value.toLocaleString('en-US')
 const free = PLAN_CAPACITY.free
 const pro = PLAN_CAPACITY.pro
 const offer = foundingTerms()
 const UPDATED = 'September 30, 2026'
 
-type Media = { kind: 'video'; src: string; poster: string; alt: string; island?: boolean } | { kind: 'image'; src: string; alt: string }
+export type Media = { kind: 'video'; src: string; poster: string; alt: string; island?: boolean } | { kind: 'image'; src: string; alt: string }
 
 /** A screen recording that plays only while on screen, and never with reduced motion. */
 function PhoneVideo({ src, poster, alt, island }: { src: string; poster: string; alt: string; island?: boolean }) {
@@ -39,7 +39,7 @@ function PhoneVideo({ src, poster, alt, island }: { src: string; poster: string;
   </>
 }
 
-function Phone({ media }: { media: Media }) {
+export function Phone({ media }: { media: Media }) {
   return <div className="cp-phone">
     {media.kind === 'video'
       ? <PhoneVideo src={media.src} poster={media.poster} alt={media.alt} island={media.island} />
@@ -48,7 +48,7 @@ function Phone({ media }: { media: Media }) {
 }
 
 /** Header, one article column, the site footer. */
-function ContentShell({ children }: { children: ReactNode }) {
+export function ContentShell({ children }: { children: ReactNode }) {
   return <div className="cp-page">
     <header className="cp-header">
       <a href="/" aria-label="Sted home"><img className="cp-logo" src="/brand/sted-primary-horizontal.svg" alt="Sted" /></a>
@@ -59,11 +59,11 @@ function ContentShell({ children }: { children: ReactNode }) {
   </div>
 }
 
-function JsonLd({ data }: { data: object }) {
+export function JsonLd({ data }: { data: object }) {
   return <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(data) }} />
 }
 
-function ClosingCta({ title }: { title: ReactNode }) {
+export function ClosingCta({ title }: { title: ReactNode }) {
   return <section className="cp-cta">
     <h2 className="cp-h2">{title}</h2>
     <p className="cp-lede">Free on iPhone, with up to {n(free.saves)} saves and {n(free.aiSavesPerMonth)} AI summaries a month. No card needed.</p>

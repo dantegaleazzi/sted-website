@@ -1,8 +1,13 @@
 /* Kept out of worker.ts: the Worker's main module may only export its handler. */
+import { ARCHIVE_PATHS } from './archive-paths'
+import { COMPARE_PATHS } from './components/compare/compare-paths'
 
 /** Paths the SPA renders in production. Anything else that falls back to index.html answers 404, so
  *  crawlers don't see endless copies of the home page (/llms.txt, /.env, typos). Keep in sync with routes.ts. */
-export const PUBLIC_PAGES = new Set(['/', '/start', '/privacy', '/terms', '/delete-account', '/support', '/about', '/contact', '/how-to-use', '/pocket-alternative', '/internal/landing-4c', '/index.html'])
+export const PUBLIC_PAGES = new Set(['/', '/start', '/privacy', '/terms', '/delete-account', '/support', '/about', '/contact', '/how-to-use', '/pocket-alternative', ...COMPARE_PATHS, ...ARCHIVE_PATHS, '/internal/landing-4c', '/index.html'])
+
+/** Public but kept out of search (the Shipaton archive): served with X-Robots-Tag: noindex. */
+export const NOINDEX_PAGES = new Set(ARCHIVE_PATHS)
 
 /** Baseline browser protections on every response. The CSP allows only what the site loads: its own
  *  files, Supabase (waitlist, funnel events) and Cloudflare Web Analytics. Checkout links are plain navigations. */

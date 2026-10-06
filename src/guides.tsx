@@ -1,5 +1,8 @@
 import { useEffect, useState, type ReactNode } from 'react'
 
+/** "Follow the build": Dante's Instagram (the /build log isn't public). */
+const FOLLOW_URL = 'https://instagram.com/dantegaleazzi22'
+
 type Guide = { slug: string; title: string; subtitle: string; seoTitle?: string; seoDescription?: string }
 
 export const guides: Guide[] = [
@@ -259,8 +262,8 @@ function BuildingSomethingCta({ onOpenWaitlist }: { onOpenWaitlist: () => void }
     <h2>Building something?</h2>
     <p className="simple-lede">I’m building Sted in public and sharing the frameworks, prompts, and lessons I learn along the way.</p>
     <div className="guide-cta">
-      <a className="button button-outline" href="/build" onClick={() => track('follow_build_click', { guide: 'how-to-choose-a-name' })}>Follow the build</a>
-      <button className="button button-amber" type="button" onClick={() => { track('join_sted_click', { guide: 'how-to-choose-a-name' }); onOpenWaitlist() }}>Join Sted <span aria-hidden="true">↗</span></button>
+      <a className="button button-outline" href={FOLLOW_URL} target="_blank" rel="noopener noreferrer" onClick={() => track('follow_build_click', { guide: 'how-to-choose-a-name' })}>Follow the build</a>
+      <button className="button button-amber" type="button" onClick={() => { track('join_sted_click', { guide: 'how-to-choose-a-name' }); onOpenWaitlist() }}>Get Sted <span aria-hidden="true">↗</span></button>
     </div>
   </div>
 }
@@ -568,7 +571,7 @@ function BuildAppIn24HoursPage() {
       <p className="simple-lede">Day 7: paper sketch. Next target: TestFlight.</p>
       <p>If it works, you’ll see it happen in public. If it breaks, I’ll show that too.</p>
       <div className="guide-cta">
-        <a className="button button-amber" href="/build" onClick={() => track('follow_build_click', { guide })}>Follow the build <span aria-hidden="true">→</span></a>
+        <a className="button button-amber" href={FOLLOW_URL} target="_blank" rel="noopener noreferrer" onClick={() => track('follow_build_click', { guide })}>Follow the build <span aria-hidden="true">→</span></a>
       </div>
     </div>
   </main>
@@ -746,8 +749,8 @@ function AppStoreReviewChecklistPage({ onOpenWaitlist }: { onOpenWaitlist: () =>
       <h2>I'm building Sted in public.</h2>
       <p className="simple-lede">Follow the journey →</p>
       <div className="guide-cta">
-        <a className="button button-amber" href="/build" onClick={() => track('follow_build_click', { guide })}>Follow the build <span aria-hidden="true">→</span></a>
-        <button className="button button-outline" type="button" onClick={() => { track('join_sted_click', { guide }); onOpenWaitlist() }}>Join Sted <span aria-hidden="true">↗</span></button>
+        <a className="button button-amber" href={FOLLOW_URL} target="_blank" rel="noopener noreferrer" onClick={() => track('follow_build_click', { guide })}>Follow the build <span aria-hidden="true">→</span></a>
+        <button className="button button-outline" type="button" onClick={() => { track('join_sted_click', { guide }); onOpenWaitlist() }}>Get Sted <span aria-hidden="true">↗</span></button>
       </div>
     </div>
   </main>

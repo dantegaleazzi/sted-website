@@ -3,6 +3,8 @@ import { prerender } from 'react-dom/static'
 import { Root } from './root'
 
 export { PAGE_META } from './page-meta'
+export { COMPARE_PATHS } from './components/compare/compare-paths'
+export { ARCHIVE_PATHS } from './archive-paths'
 
 /** Build-time only (scripts/prerender.mjs): the HTML of one page, with every lazy chunk resolved. */
 export async function render(pathname: string): Promise<string> {

@@ -1,5 +1,6 @@
 import { describe, expect, it, vi } from 'vitest'
 import worker from './worker'
+import { COMPARE_PATHS } from './components/compare/compare-paths'
 import { SECURITY_HEADERS } from './worker-policy'
 
 const env = () => ({ ASSETS: { fetch: vi.fn(async () => new Response('<html>SPA</html>')) }, RESEND_API_KEY: '' })
@@ -18,7 +19,7 @@ describe('SEO routes before redirects and SPA fallback', () => {
         expect(bindings.ASSETS.fetch).not.toHaveBeenCalled()
         if (path === '/sitemap.xml') {
           expect(body).toMatch(/^<\?xml/)
-          expect([...body.matchAll(/<loc>(.*?)<\/loc>/g)].map(match => match[1])).toEqual(['https://www.sted.ai/', 'https://www.sted.ai/privacy', 'https://www.sted.ai/terms', 'https://www.sted.ai/about', 'https://www.sted.ai/contact', 'https://www.sted.ai/support', 'https://www.sted.ai/how-to-use', 'https://www.sted.ai/pocket-alternative'])
+          expect([...body.matchAll(/<loc>(.*?)<\/loc>/g)].map(match => match[1])).toEqual(['https://www.sted.ai/', 'https://www.sted.ai/privacy', 'https://www.sted.ai/terms', 'https://www.sted.ai/about', 'https://www.sted.ai/contact', 'https://www.sted.ai/support', 'https://www.sted.ai/how-to-use', 'https://www.sted.ai/pocket-alternative', ...COMPARE_PATHS.map(path => `https://www.sted.ai${path}`)])
         } else expect(body).toContain('Sitemap: https://www.sted.ai/sitemap.xml')
         const head = await worker.fetch(new Request(`https://${host}${path}`, { method: 'HEAD' }), bindings)
         expect(head.status).toBe(200)
@@ -67,7 +68,7 @@ describe('pages, 404s, security and caching', () => {
     for (const path of ['/', '/start', '/start/', '/privacy', '/terms', '/delete-account', '/support', '/about', '/contact']) {
       expect((await worker.fetch(new Request(`https://www.sted.ai${path}`), html())).status, path).toBe(200)
     }
-    for (const path of ['/llms-missing.txt', '/.env', '/.git/config', '/backup.zip', '/no-such-page', '/build']) {
+    for (const path of ['/llms-missing.txt', '/.env', '/.git/config', '/backup.zip', '/no-such-page', '/build', '/build/day-7', '/guides/old-guide']) {
       const response = await worker.fetch(new Request(`https://www.sted.ai${path}`), html())
       expect(response.status, path).toBe(404)
       expect(await response.text()).toContain('SPA')
@@ -87,5 +88,16 @@ describe('pages, 404s, security and caching', () => {
   it('caches hashed build files for a year', async () => {
     const response = await worker.fetch(new Request('https://www.sted.ai/assets/index-abc.js'), html())
     expect(response.headers.get('Cache-Control')).toBe('public, max-age=31536000, immutable')
+  })
+})
+
+describe('Shipaton archive', () => {
+  it('is served but kept out of search: noindex header, not in the sitemap', async () => {
+    const page = await worker.fetch(new Request('https://www.sted.ai/guides/how-to-choose-a-name'), { ...env(), ASSETS: { fetch: vi.fn(async () => new Response('<html>guide</html>', { headers: { 'Content-Type': 'text/html' } })) } })
+    expect(page.status).toBe(200)
+    expect(page.headers.get('X-Robots-Tag')).toBe('noindex')
+    const sitemap = await (await worker.fetch(new Request('https://www.sted.ai/sitemap.xml'), env())).text()
+    expect(sitemap).not.toContain('/guides')
+    expect(sitemap).not.toContain('/build')
   })
 })

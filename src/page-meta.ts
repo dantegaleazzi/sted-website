@@ -1,9 +1,14 @@
+import { ARCHIVE_PAGES } from './archive-paths'
+import { COMPARE_PAGES } from './components/compare/compare-paths'
+
 /**
  * Title and description of each page besides the landing (the landing's live in index.html). The
  * build-time prerender writes them into each page's HTML, so crawlers and link previews get the right
  * ones; the pages set them again in the browser.
  */
 export const PAGE_META: Record<string, { title: string; description: string }> = {
+  ...Object.fromEntries(ARCHIVE_PAGES.map(page => [page.path, { title: page.title, description: page.description }])),
+  ...Object.fromEntries(COMPARE_PAGES.map(page => [page.path, { title: page.title, description: page.description }])),
   '/about': { title: 'About Sted | Everything you save, finally useful', description: 'Sted is an iPhone app that reads what you save, writes the summary and key ideas, sorts it into topics, and lets you ask about any of it.' },
   '/contact': { title: 'Contact Sted | Get in touch', description: 'Questions, ideas or feedback about Sted? Contact the team at hello@sted.ai.' },
   '/support': { title: 'Sted Support | Get help with your account', description: 'Get help with your Sted account, report a bug or send another support request.' },

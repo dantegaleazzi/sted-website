@@ -1,6 +1,9 @@
+import { ARCHIVE_PATHS } from './archive-paths'
+import { COMPARE_PATHS } from './components/compare/compare-paths'
+
 export type Route =
   | 'start' | 'funnel-review' | 'funnel-prototype' | 'landing'
-  | 'product-design-system' | 'source-card-qa' | 'landing-states' | 'tunnel' | 'site' | 'content'
+  | 'product-design-system' | 'source-card-qa' | 'landing-states' | 'tunnel' | 'site' | 'content' | 'compare'
 
 export type Build = { dev: boolean; funnelPreview: boolean }
 
@@ -21,7 +24,8 @@ export function resolveRoute(rawPathname: string, { dev, funnelPreview }: Build)
   if (dev && pathname === '/internal/source-card-qa') return 'source-card-qa'
   if (dev && pathname === '/internal/landing-4c/states') return 'landing-states'
   if (dev && pathname === '/tunnel') return 'tunnel'
-  if (SITE_PAGES.includes(pathname)) return 'site'
+  if (SITE_PAGES.includes(pathname) || ARCHIVE_PATHS.includes(pathname)) return 'site'
   if (CONTENT_PAGES.includes(pathname)) return 'content'
+  if (COMPARE_PATHS.includes(pathname)) return 'compare'
   return 'landing'
 }

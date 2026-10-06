@@ -1,0 +1,51 @@
+/* Comparison pages: the content pages' layout plus a TL;DR box, picks and a hub list. */
+.cmp-crumbs { display: flex; flex-wrap: wrap; gap: 8px; font-size: var(--sted-text-label); color: var(--sted-text-muted); }
+.cmp-crumbs a { color: var(--sted-ink); font-weight: var(--sted-weight-medium); }
+.cmp-crumbs + .cp-h1 { margin-top: 18px; }
+.cmp-year { color: var(--sted-text-muted); font-weight: var(--sted-weight-medium); }
+
+.cmp-tldr { margin-top: 48px; padding: 28px 32px; border-left: 4px solid var(--sted-yellow); border-radius: var(--sted-radius-2xl); background: var(--sted-white); box-shadow: 0 0 0 1px var(--sted-ink-hairline); }
+.cmp-tldr-label { margin: 0 !important; font-size: 22px !important; font-weight: var(--sted-weight-semibold); letter-spacing: -.02em; color: var(--sted-ink) !important; }
+.cmp-tldr p { margin-top: 12px; font-size: 17px; }
+.cmp-tldr-picks { display: grid; gap: 8px; margin: 16px 0 0; padding: 0; list-style: none; font-size: 16px; }
+.cmp-tldr-picks strong { font-weight: var(--sted-weight-semibold); }
+
+.cmp-caption { padding: 16px 24px 0; font-size: var(--sted-text-label); text-align: left; color: var(--sted-text-muted); caption-side: top; }
+.cp-table.cmp-picks-table td:last-child { font-weight: var(--sted-weight-regular); background: none; color: var(--sted-text-muted); }
+
+.cmp-bullets { display: grid; gap: 12px; margin: 20px 0 0; padding-left: 22px; font-size: var(--sted-text-body-lg); line-height: 1.6; }
+.cmp-picks { margin: 24px 0 0; padding: 0; list-style: none; border-top: 1px solid var(--sted-ink-hairline); }
+.cmp-pick { padding: 36px 0; border-bottom: 1px solid var(--sted-ink-hairline); }
+.cmp-pick h3 { margin: 0; font-size: clamp(22px, .6vw + 18px, 28px); font-weight: var(--sted-weight-semibold); letter-spacing: -.025em; }
+.cmp-mine { color: var(--sted-text-muted); font-weight: var(--sted-weight-medium); }
+.cmp-meta { display: grid; gap: 4px; margin: 14px 0 0; font-size: 15px; }
+.cmp-meta div { display: flex; gap: 8px; }
+.cmp-meta dt { min-width: 76px; font-weight: var(--sted-weight-semibold); }
+.cmp-meta dd { margin: 0; color: var(--sted-text-muted); }
+
+.cmp-sources { margin-top: 48px !important; font-size: 14px !important; color: var(--sted-text-muted) !important; }
+.cmp-sources a { color: inherit; text-decoration: underline; text-underline-offset: 3px; }
+
+.cmp-related { width: min(1040px, 100% - 32px); margin: 96px auto 0; padding-top: 32px; border-top: 1px solid var(--sted-ink-hairline); }
+.cmp-related-title { margin: 0; font-size: var(--sted-text-meta); font-weight: var(--sted-weight-semibold); letter-spacing: .12em; text-transform: uppercase; color: var(--sted-text-muted); }
+.cmp-related ul { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px 32px; margin: 18px 0 0; padding: 0; list-style: none; font-size: 16px; }
+.cmp-related a { color: var(--sted-ink); text-decoration: underline; text-decoration-color: var(--sted-ink-hairline); text-underline-offset: 4px; }
+.cmp-related a:hover { text-decoration-color: var(--sted-yellow); }
+
+.cmp-hub { margin: 24px 0 0; padding: 0; list-style: none; border-top: 1px solid var(--sted-ink-hairline); }
+.cmp-hub li { display: grid; gap: 6px; padding: 20px 0; border-bottom: 1px solid var(--sted-ink-hairline); }
+.cmp-hub a { font-size: clamp(20px, .5vw + 17px, 24px); font-weight: var(--sted-weight-semibold); letter-spacing: -.02em; color: var(--sted-ink); }
+.cmp-hub a:hover { text-decoration: underline; text-decoration-color: var(--sted-yellow); text-decoration-thickness: 2px; text-underline-offset: 4px; }
+.cmp-hub span { font-size: 16px; line-height: 1.55; color: var(--sted-text-muted); }
+
+@media (max-width: 640px) {
+  .cmp-tldr { padding: 22px 20px; }
+  .cmp-related ul { grid-template-columns: minmax(0, 1fr); }
+  .cmp-meta div { flex-direction: column; gap: 0; }
+}
+@media (max-width: 640px) {
+  .cp-table .cmp-caption { display: block; padding: 14px 18px 0; }
+  .cp-table.cmp-picks-table td { grid-template-columns: 84px 1fr; }
+  /* App names are too long for a side label: the label goes above the value. */
+  .cp-table.cmp-vs-table td { grid-template-columns: minmax(0, 1fr); gap: 0; padding: 4px 0; }
+}

@@ -3,7 +3,7 @@ import { createClient } from '@supabase/supabase-js'
 import { LegalPage, type LegalDocument } from './legal'
 import { StedMenu } from './components/header/StedMenu'
 import { RoutePage } from './pages'
-import { SHOW_BUILD_IN_PUBLIC } from './flags'
+import { SHOW_SHIPATON_ARCHIVE } from './flags'
 import { guides } from './guides'
 import { SiteFooter } from './components/footer/SiteFooter'
 import { APP_STORE_URL } from './components/landing-4c/app-links'
@@ -41,10 +41,10 @@ export function SiteApp({ pathname: initialPathname }: { pathname: string }) {
   const postSlug = pathname.startsWith('/build/') ? pathname.slice('/build/'.length) : null
   const guideSlug = pathname.startsWith('/guides/') ? pathname.slice('/guides/'.length) : null
   const route = pathname === '/about' || hash === '#about' ? 'about'
-    : SHOW_BUILD_IN_PUBLIC && postSlug ? 'post'
-    : SHOW_BUILD_IN_PUBLIC && (pathname === '/build' || hash === '#build-log') ? 'build'
-    : SHOW_BUILD_IN_PUBLIC && guideSlug ? 'guide'
-    : SHOW_BUILD_IN_PUBLIC && pathname === '/guides' ? 'guides'
+    : SHOW_SHIPATON_ARCHIVE && postSlug ? 'post'
+    : SHOW_SHIPATON_ARCHIVE && (pathname === '/build' || hash === '#build-log') ? 'build'
+    : SHOW_SHIPATON_ARCHIVE && guideSlug ? 'guide'
+    : SHOW_SHIPATON_ARCHIVE && pathname === '/guides' ? 'guides'
     : pathname === '/support' ? 'support'
     : pathname === '/contact' || hash === '#contact' ? 'contact'
     : 'landing'
@@ -61,7 +61,7 @@ export function SiteApp({ pathname: initialPathname }: { pathname: string }) {
     const activeGuide = route === 'guide' ? guides.find((guide) => guide.slug === guideSlug) : null
     const page = route === 'about' || route === 'contact' || route === 'support' ? PAGE_META[`/${route}`] : null
     const metadata = page ? [page.title, page.description] : null
-    document.title = legalDocument ? PAGE_META[`/${legalDocument}`].title : route === 'post' ? 'Build Log — STED' : metadata?.[0] ?? (activeGuide ? activeGuide.seoTitle ?? `${activeGuide.title} — STED` : route === 'guide' || route === 'guides' ? 'Guides — STED' : 'Sted — Save links, posts and more. Then chat with them.')
+    document.title = legalDocument ? PAGE_META[`/${legalDocument}`].title : route === 'post' ? PAGE_META[pathname]?.title ?? 'Build Log — STED' : metadata?.[0] ?? (activeGuide ? activeGuide.seoTitle ?? `${activeGuide.title} — STED` : route === 'guide' || route === 'guides' ? 'Guides — STED' : PAGE_META[pathname]?.title ?? 'Sted — Save links, posts and more. Then chat with them.')
     if (metadata) {
       let description = document.querySelector<HTMLMetaElement>('meta[name="description"]')
       if (!description) { description = document.createElement('meta'); description.name = 'description'; document.head.append(description) }
@@ -115,12 +115,12 @@ export function SiteApp({ pathname: initialPathname }: { pathname: string }) {
       <header className="site-header shell">
         <StedMenu />
         <div className="site-header-actions">
-          {!isBrandInfoPage && <button className="button button-amber header-cta" type="button" onClick={() => { setStatus(''); setIsWaitlistOpen(true) }}>Join the waitlist</button>}
-          {isBrandInfoPage && APP_STORE_URL && <a className="header-app-store" href={APP_STORE_URL} aria-label="Download Sted on the App Store"><img src="/brand/app-store-badge.svg" alt="Download on the App Store" width="120" height="40" /></a>}
+          {/* Sted is live: every page offers the App Store, not the old waitlist. */}
+          {APP_STORE_URL && <a className="header-app-store" href={APP_STORE_URL} aria-label="Download Sted on the App Store"><img src="/brand/app-store-badge.svg" alt="Download on the App Store" width="120" height="40" /></a>}
         </div>
       </header>
 
-      <RoutePage tunnelPreview={tunnelPreview} route={route} postSlug={postSlug} guideSlug={guideSlug} onOpenWaitlist={() => { setStatus(''); setIsWaitlistOpen(true) }} email={email} status={status} isSubmitting={isSubmitting} onEmailChange={(value) => { setEmail(value); setStatus('') }} onSubmit={handleSubmit} />
+      <RoutePage tunnelPreview={tunnelPreview} route={route} postSlug={postSlug} guideSlug={guideSlug} onOpenWaitlist={() => { if (APP_STORE_URL) window.location.href = APP_STORE_URL }} email={email} status={status} isSubmitting={isSubmitting} onEmailChange={(value) => { setEmail(value); setStatus('') }} onSubmit={handleSubmit} />
 
       {isWaitlistOpen && <div className="modal-backdrop" role="presentation" onMouseDown={(event) => { if (event.target === event.currentTarget) setIsWaitlistOpen(false) }}>
         <section className="waitlist-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">

@@ -1,5 +1,5 @@
 import { Logo } from '../../logo'
-import { SHOW_BUILD_IN_PUBLIC } from '../../flags'
+import { SHOW_BUILD_IN_PUBLIC, SHOW_COMPARE_PAGES } from '../../flags'
 import { APP_STORE_URL } from '../landing-4c/app-links'
 import './SiteFooter.css'
 
@@ -37,7 +37,7 @@ const COLUMNS: { title: string; links: FooterLink[] }[] = [
   ] },
   { title: 'Resources', links: [
     { name: 'How to use Sted', href: '/how-to-use' },
-    { name: 'Pocket alternative', href: '/pocket-alternative' },
+    SHOW_COMPARE_PAGES ? { name: 'Compare apps', href: '/compare' } : { name: 'Pocket alternative', href: '/pocket-alternative' },
     { name: 'About Sted', href: '/about' },
     { name: 'Contact', href: '/contact' },
     { name: 'Support', href: '/support' },
